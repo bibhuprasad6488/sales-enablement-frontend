@@ -16,7 +16,6 @@ button {
   transition: background 0.5s ease-in-out;
 }
 
-
 .bg-layer1 {
   background-color: #060b33bd;
   transition: background 0.5s ease-in-out;
@@ -29,8 +28,6 @@ button {
   border: 2px solid #ffffff;
 }
 
-
-
 .bg-gradient-2 {
   background: linear-gradient(to left, #db0032 0%, #fa6602 100%);
 }
@@ -38,7 +35,7 @@ button {
   position: relative;
   overflow: hidden;
 }
-
+/* 
 .case1::before {
   content: "";
   position: absolute;
@@ -46,12 +43,11 @@ button {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url("../assets/Case1.png");
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100%;
   background-position: center;
+  background-repeat: no-repeat;
   transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-  z-index: -2;
+  z-index: 0;
 }
 
 .case1::after {
@@ -61,22 +57,23 @@ button {
   left: 0;
   right: 0;
   bottom: 0;
-
-  transition: opacity 0.8s ease;
-  z-index: -1;
-}
-
-.case1:hover::before {
-  transform: scale(1.1);
-}
+  transition: background-color 0.8s ease;
+  z-index: 1;
+} */
 
 .case1:hover::after {
   background-color: rgba(0, 0, 0, 0.5);
 }
+.case1 {
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+    background-size 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
 
 .case1:hover {
+  transform: scale(1.06);
   background-size: 110%;
 }
+
 .case2 {
   position: relative;
   overflow: hidden;
@@ -207,4 +204,69 @@ button {
 }
 .btn-hero-slider {
   text-align: right;
+}
+#study_detail_head{
+  display: grid;
+  gap: 20px;
+}
+#study_detail_head>p{
+  font-size: 110%;
+}
+#second_part>b{
+  font-size: 18px;
+  text-transform: uppercase;
+  color: #000000ad;
+}
+.item_coarse{
+ display: grid;
+ gap: 20px;
+ padding-left: 10px;
+}
+.item_coarse>span{
+  display: flex;
+  gap: 5px;
+}
+
+.item_coarse>span>i{
+  display: flex;
+  color: #383f71;
+  place-self: center;
+  /* font-size: 30px; */
+}
+.objective>div{
+   padding-left: 10px;
+}
+.objective{
+  display: grid;
+  gap: 10px;
+}
+.texts,
+.objective>div{
+  display: grid;
+  gap: 10px;
+}
+
+#items,
+.texts>span,
+.objective>div>span{
+  
+  display: flex;gap: 10px;
+}
+#items>p,
+.texts>span>p,
+.objective>div>span>p{
+  color:black;
+  font-size: 100%;
+}
+#items>span>i,
+.texts>span>i,
+.objective>div>span>i{
+  display: flex;
+  place-self: center;
+  font-size: 20px;
+  color:rgb(219, 0, 50);
+}
+.texts{
+  padding-top: 20px;
+  
 }

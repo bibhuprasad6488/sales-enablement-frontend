@@ -25,6 +25,7 @@ import "react-toastify/dist/ReactToastify.css";
 import ChangePassword from "./auth/ChangePwd";
 import ContextProviders from "./context/ContextProviders";
 import ScrollToTop from "./components/ScrollToTop";
+import DetailsSlug from "./home-sections/DetailsSlug";
 function App() {
   const [isPopupOpen, setIsPopupOpen] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
@@ -40,8 +41,7 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-
+    <BrowserRouter basename="/thesalesenablement">
       {isLoading ? (
         <div
           style={{
@@ -64,47 +64,54 @@ function App() {
         </div>
       ) : (
         <div
-          className={`transition-opacity duration-1000 ${showContent ? "opacity-100" : "opacity-0"
-            }`}
-        > <ScrollToTop />
-           <ContextProviders>
-          <Header />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about-us" element={<About />} />
-            <Route path="/services" element={<ServicePage />} />
-            <Route path="/service/:slug" element={<ServiceDetails />} />
-            <Route path="/courses" element={<Course />} />
-            <Route path="/pwd" element={<ChangePassword />} />
-            <Route
-              path="/courses-details/:slug" element={<CourseDetails />} />
-            <Route path="/blogs" element={<BlogPage />} />
-            <Route path="/blog-details/:blogId" element={<BlogDetails />} />
-            <Route path="/contact-us" element={<ContactUsPage />} />
-            <Route path="/services/sales-candidate-assessments/sample-sales-candidate-assessments" element={<SampleRequestPage />} />
-            <Route
-              path="/service/sales-force-details/:slug"
-              element={<SalesForceEvaluation />}  />
-            <Route
-              path="/service/sales-candidate-details/:slug"
-              element={<CandidateAssessment />}
-            />
-            <Route
-              path="/privacy-policy"
-              element={<PrivacyPolicy />}
-            />
-            <Route
-              path="/terms-and-conditions"
-              element={<TermsAndConditions />}
-            />
-            <Route path="/login-signup" element={<LoginSignUp />} />
+          className={`transition-opacity duration-1000 ${
+            showContent ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          {" "}
+          <ScrollToTop />
+          <ContextProviders>
+            <Header />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about-us" element={<About />} />
+              <Route path="/services" element={<ServicePage />} />
+              <Route path="/service/:slug" element={<ServiceDetails />} />
+              <Route path="/courses" element={<Course />} />
+              <Route path="/pwd" element={<ChangePassword />} />
+              <Route
+                path="/courses-details/:slug"
+                element={<CourseDetails />}
+              />
+              <Route path="/blogs" element={<BlogPage />} />
+              <Route path="/blog-details/:blogId" element={<BlogDetails />} />
+              <Route path="/contact-us" element={<ContactUsPage />} />
+              <Route
+                path="/services/sales-candidate-assessments/sample-sales-candidate-assessments"
+                element={<SampleRequestPage />}
+              />
+              <Route
+                path="/service/sales-force-details/:slug"
+                element={<SalesForceEvaluation />}
+              />
+              <Route
+                path="/service/sales-candidate-details/:slug"
+                element={<CandidateAssessment />}
+              />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route
+                path="/terms-and-conditions"
+                element={<TermsAndConditions />}
+              />
+              <Route path="/login-signup" element={<LoginSignUp />} />
 
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          <ScrollToTopButton />
-          <Footer />
-    <ToastContainer />
-    </ContextProviders>
+              <Route path="*" element={<NotFound />} />
+              <Route path="/studydetails/:slug" element={<DetailsSlug />} />
+            </Routes>
+            <ScrollToTopButton />
+            <Footer />
+            <ToastContainer />
+          </ContextProviders>
           {/* {isPopupOpen && <ScreenResolutionPopup />} */}
         </div>
       )}

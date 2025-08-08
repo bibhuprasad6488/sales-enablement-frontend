@@ -42,6 +42,7 @@ function Home() {
     fetchData();
   }, []);
 
+
   const { consultation, page_banners, page_data, testimonials } = data || {};
 
   return (
