@@ -40,7 +40,7 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter basename="/thesalesenablement">
+    <BrowserRouter>
 
       {isLoading ? (
         <div
