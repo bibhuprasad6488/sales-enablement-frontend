@@ -1,0 +1,210 @@
+.banner {
+  background: linear-gradient(to right, #060b33 69%, #383f71 100%);
+}
+.banner-footer {
+  background: linear-gradient(to right, #060b33 0%, #383f71 100%);
+}
+.bg-cover {
+  background-size: cover;
+  background-position: center;
+}
+button {
+  cursor: pointer;
+}
+.bg-layer {
+  background-color: #060b33bd;
+  transition: background 0.5s ease-in-out;
+}
+
+
+.bg-layer1 {
+  background-color: #060b33bd;
+  transition: background 0.5s ease-in-out;
+}
+.bg-layer1:hover {
+  background: linear-gradient(to right, #db0032 0%, #fa6602 100%);
+}
+.bg-layer1:hover .bg-text {
+  color: #ffffff;
+  border: 2px solid #ffffff;
+}
+
+
+
+.bg-gradient-2 {
+  background: linear-gradient(to left, #db0032 0%, #fa6602 100%);
+}
+.case1 {
+  position: relative;
+  overflow: hidden;
+}
+
+.case1::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("../assets/Case1.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  z-index: -2;
+}
+
+.case1::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  transition: opacity 0.8s ease;
+  z-index: -1;
+}
+
+.case1:hover::before {
+  transform: scale(1.1);
+}
+
+.case1:hover::after {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.case1:hover {
+  background-size: 110%;
+}
+.case2 {
+  position: relative;
+  overflow: hidden;
+}
+.case2::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("../assets/case2.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  z-index: -2;
+}
+
+.case2::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: opacity 0.8s ease;
+  z-index: -1;
+}
+
+.case2:hover::before {
+  transform: scale(1.1);
+}
+.case2:hover::after {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.case2:hover {
+  background-size: 110%;
+}
+.case3 {
+  position: relative;
+  overflow: hidden;
+}
+.case3::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("../assets/case3.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  z-index: -1;
+}
+.case3::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: opacity 0.8s ease;
+  z-index: -1;
+}
+
+.case3:hover::before {
+  transform: scale(1.1);
+}
+.case3:hover::after {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.case3:hover {
+  background-size: 110%;
+}
+
+.case4 {
+  position: relative;
+  overflow: hidden;
+}
+.case4::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("../assets/case4.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  z-index: -1;
+}
+.case4::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  transition: opacity 0.8s ease;
+  z-index: -1;
+}
+.case4:hover::before {
+  transform: scale(1.1);
+}
+.case4:hover::after {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.case4:hover {
+  background-size: 110%;
+}
+
+.border-btn {
+  border: 2px solid #ffffff;
+}
+.border-btn2 {
+  border: 2px solid #000000;
+}
+.border-btn2:hover {
+  border: 2px solid transparent;
+  border-image: linear-gradient(to right, #db0032 0%, #fa6602 100%) 1;
+  animation: borderRunningAnimation 2s linear infinite;
+}
+.btn-hero-slider {
+  text-align: right;
+}
