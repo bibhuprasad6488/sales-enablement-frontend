@@ -3,50 +3,24 @@ import CaseRightArrow from "../assets/caser-arrow-right.png";
 import SampleLogo from "../assets/logo.png";
 import { motion } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
-
-const caseStudiesData = [
-  {
-    id: 1,
-    title: "Case Study",
-    subtitle: "Accelerating Growth for Innovate Company- Startup",
-    description:
-      "This case study highlights how we helped Innovate Company achieve remarkable growth in a competitive market.",
-    className: "case1",
-    logo: SampleLogo, 
-  },
-  {
-    id: 2,
-    title: "Case Study",
-    subtitle: "Boosting Sales Leadership at GlobalTech Pvt Ltd",
-    description:
-      "Learn how we boosted sales leadership at GlobalTech through our tailored strategies.",
-    className: "case2",
-    logo: SampleLogo,
-  },
-  {
-    id: 3,
-    title: "Case Study",
-    subtitle: "Accelerating Growth for Innovate Company- Startup",
-    description:
-      "Explore how our expertise drove rapid growth for a startup navigating new challenges.",
-    className: "case3",
-    logo: SampleLogo,
-  },
-  {
-    id: 4,
-    title: "Case Study",
-    subtitle: "Redefining Sales Effectiveness for Skyline Enterprises",
-    description:
-      "See how we helped Skyline Enterprises redefine their sales effectiveness with a customized approach.",
-    className: "case4",
-    logo: SampleLogo,
-  },
-];
+import axios from "../api/axios";
+import { useNavigate } from "react-router-dom";
 
 function CaseStudies() {
   const [inView, setInView] = useState(false);
   const elementRef = useRef(null);
 
+  const [caseStudiesData, setcaseStudiesData] = useState([]);
+
+  useEffect(() => {
+    const caseData = async () => {
+      const response = await axios.get("/get-case-study-data");
+      const result = await response.data;
+      console.log(result);
+      setcaseStudiesData(result);
+    };
+    caseData();
+  }, []);
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -69,7 +43,7 @@ function CaseStudies() {
       }
     };
   }, [inView]);
-
+  const navigate = useNavigate();
   return (
     <section className="case-study py-12 container mx-auto px-4">
       <div className="text-center md:text-left mb-auto">
@@ -106,26 +80,36 @@ function CaseStudies() {
             ease: "easeInOut",
           }}
         >
-          {caseStudiesData.map((caseStudy) => (
+          {caseStudiesData.map((caseStudy, index) => (
             <div
-              key={caseStudy.id}
-              className={`group cursor-pointer ${caseStudy.className} flex justify-center items-end w-full h-[350px]`}
+              key={index}
+              style={{
+                backgroundImage: `url(${caseStudy.image})`,
+                backgroundSize: "100% 100%",
+              }}
+              className={`group cursor-pointer case1 flex justify-center items-end w-full h-[350px] `}
             >
-              <div className="bg-white w-full sm:w-[426.59px] h-[140px] p-4 transition-all transform group-hover:scale-105 group-hover:h-[220px] duration-300 ease-in-out">
+              <div
+                className="bg-white w-full sm:w-[426.59px] h-[140px] p-4 transition-all transform group-hover:scale-105 group-hover:h-[220px] duration-300 ease-in-out"
+                id="bg"
+              >
                 <div className="flex justify-between gap-4">
                   <h3 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text">
-                    {caseStudy.title}
+                    Case study
                   </h3>
                   <img
-                    src={caseStudy.logo}
+                    src={SampleLogo}
                     alt="Company Logo"
                     className="w-10 h-10"
                   />
                 </div>
                 <p className=" uppercase font-bold mt-2 text-sm sm:text-base">
-                  {caseStudy.subtitle}
+                  {caseStudy.title}
                 </p>
-                <div className="flex items-end justify-end">
+                <div
+                  className="flex items-end justify-end"
+                  onClick={() => navigate(`/studydetails/${caseStudy.slug}`)}
+                >
                   <img
                     src={CaseRightArrow}
                     alt="Case Right Arrow"
@@ -133,7 +117,7 @@ function CaseStudies() {
                   />
                 </div>
                 <p className="absolute opacity-0 group-hover:opacity-100  mt-2 transition-opacity duration-300 ease-in-out text-sm sm:text-base bottom-[20px] left-[20px] right-[20px]">
-                  {caseStudy.description}
+                  {caseStudy.short_desc}
                 </p>
               </div>
             </div>

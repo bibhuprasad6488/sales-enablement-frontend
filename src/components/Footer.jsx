@@ -1,4 +1,4 @@
-import React, { useState, useEffect, } from "react";
+import React, { useState, useEffect } from "react";
 import RightArrow1 from "../assets/arrow-right1.png";
 import ArrowAdd from "../assets/Advance.png";
 import Location from "../assets/location.png";
@@ -16,11 +16,10 @@ import { useApi3 } from "../context/WebsiteDataContext";
 import { useApi2 } from "../context/CourseContextApi";
 import { Link } from "react-router-dom";
 function Footer() {
-
-  const { courseData, } = useApi2();
+  const { courseData } = useApi2();
   if (!courseData) return <p></p>;
   const { websiteData, loading } = useApi3();
-  if (!websiteData) return <p></p>
+  if (!websiteData) return <p></p>;
   const currentYear = new Date().getFullYear();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -45,7 +44,7 @@ function Footer() {
     { name: "Facebook", icon: Facebook, link: websiteData.facebook_link },
     { name: "Instagram", icon: Instagram, link: websiteData.instagram_link },
     { name: "Twitter", icon: Twitter, link: websiteData.twitter_link },
-    { name: "LinkedIn", icon: Linkedin, link: websiteData.linkedin_link }
+    { name: "LinkedIn", icon: Linkedin, link: websiteData.linkedin_link },
   ];
   return (
     <footer className="bg-gradient-2 text-white">
@@ -59,21 +58,25 @@ function Footer() {
             viewport={{ once: true }}
           >
             <div>
-              <p className="mb-4 bold-text1">
-                {websiteData.footer_text}
-              </p>
+              <p className="mb-4 bold-text1">{websiteData.footer_text}</p>
               <h5 className="mb-2 font-bold uppercase text-base sm:text-xl  md:text-xl lg:text-xl xl:text-2xl">
                 Schedule a Consultation
               </h5>
 
-              <button
+              <a
                 type="button"
-                onClick={openModal}
-                className="flex md:px-12 hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:from-[#FA6602] hover:to-[#DB0032] transition-all duration-500 ease-out transform md:py-3 md:w-auto uppercase items-center text-white font-bold text-sm md:text-sm lg:text-sm xl:text-xl 2xl:text-lg px-5 py-2  border-2 border-white"
+                target="_blank"
+                href={websiteData.footer_btn_link}
+                className="flex items-center whitespace-nowrap px-5 py-2 md:px-12 md:py-3 w-auto 
+             uppercase text-white font-bold text-sm
+             border-2 border-white justify-self-start
+             hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:from-[#FA6602] hover:to-[#DB0032]
+             transition-all duration-500 ease-out transform"
               >
                 {websiteData.footer_btn}
                 <img src={RightArrow1} alt="arrow" className="w-6 h-6 ml-2" />
-              </button>
+              </a>
+
               {isModalOpen && (
                 <div
                   className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 backdrop-blur-sm z-50 text-[#000]"
@@ -88,7 +91,6 @@ function Footer() {
                       onClick={closeModal}
                       className="absolute top-5 right-5 text-gray-600 hover:text-gray-800 text-xl sm:text-2xl md:text-3xl transition-all duration-300 ease-in-out bg-transparent  p-2 rounded-full"
                     >
-
                       <span className="text-black text-2xl hover:text-red-600 transition-all duration-300 ease-in-out  font-semibold">
                         <FaTimes />
                       </span>
@@ -112,19 +114,24 @@ function Footer() {
               <div>
                 <h5 className="font-bold text-lg md:text-2xl  mb-4">Courses</h5>
                 <img src={FooterLine} alt="Line" className="w-[110px] mb-4" />
-                {Array.isArray(courseData) ? courseData.slice(0, 5).map((course, index) => (
-  <div
-    key={index}
-    className="flex cursor-pointer hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] items-center mb-2"
-  >
-    <img src={ArrowAdd} alt="arrow" className="w-6 h-6 mr-2" />
+                {Array.isArray(courseData)
+                  ? courseData.slice(0, 5).map((course, index) => (
+                      <div
+                        key={index}
+                        className="flex cursor-pointer hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] items-center mb-2"
+                      >
+                        <img
+                          src={ArrowAdd}
+                          alt="arrow"
+                          className="w-6 h-6 mr-2"
+                        />
 
-    <Link to={`/courses-details/${course.slug}`}>
-      <p>{course.name}</p>
-    </Link>
-  </div>
-)) : null}
-
+                        <Link to={`/courses-details/${course.slug}`}>
+                          <p>{course.name}</p>
+                        </Link>
+                      </div>
+                    ))
+                  : null}
               </div>
 
               <div>
@@ -138,10 +145,10 @@ function Footer() {
                     <div
                       key={index}
                       onClick={() =>
-                      (window.location.href =
-                        link === "Home"
-                          ? "/"
-                          : `/${link.toLowerCase().replace(/\s+/g, "-")}`)
+                        (window.location.href =
+                          link === "Home"
+                            ? "/"
+                            : `/${link.toLowerCase().replace(/\s+/g, "-")}`)
                       }
                       className="flex hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] cursor-pointer items-center mb-2"
                     >
@@ -195,18 +202,20 @@ function Footer() {
         </div>
       </div>
 
-
       <div className="banner">
         <div className="container mx-auto flex bold-text1 flex-col md:flex-wrap lg:flex-row xl:flex-row justify-between items-center px-4 py-4 text-center md:text-left">
           <p>
             Copyright © {currentYear} All Rights Reserved By{" "}
-            <span className="uppercase font-bold">
-              {websiteData.title}
-            </span>
+            <span className="uppercase font-bold">{websiteData.title}</span>
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             {socialMedia.map((item, index) => (
-              <a key={index} href={item.link} target="_blank" rel="noopener noreferrer">
+              <a
+                key={index}
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <div className="relative">
                   <img
                     src={item.icon}
