@@ -4,9 +4,11 @@ import FilterImg from "../assets/filter.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useApi2 } from "../context/CourseContextApi";
 import { useState } from "react";
+import { useApi3 } from "../context/WebsiteDataContext";
 
 
 function OurCourses() {
+  const { websiteData, loading: websiteLoading } = useApi3();
   const { courseData, } = useApi2();
   if (!courseData) return <p></p>;
   const courses = Array.isArray(courseData) ? courseData : [];
@@ -28,7 +30,8 @@ function OurCourses() {
               <h2 className="text-3xl uppercase md:text-2xl font-bold bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text">
                 Our Courses
               </h2>
-            </div> <div className="w-full flex justify-center items-center">
+            </div>
+            <div className="w-full flex justify-center items-center">
               <div className="flex gap-4 2xl:gap-12 text-white mb-6">
                 {Array.isArray(courseData) && courseData.slice(0, 6).map((course, index) => (
                   <Link to={`/courses-details/${course.slug}`}>
@@ -45,23 +48,26 @@ function OurCourses() {
                       </p> </div>
                   </Link>
                 ))} </div>
-            </div> <div className="flex flex-col md:flex-wrap lg:flex-wrap xl:flex-row lg:m xl:mx-7  justify-between items-center gap-4">
-              <button
+            </div>
+            <div className="flex flex-col md:flex-wrap lg:flex-wrap xl:flex-row lg:m xl:mx-7  justify-between items-center gap-4">
+              <a
                 id="consultation"
                 type="button"
-                onClick={handlenavigate}
+                href={websiteData?.footer_btn_link}
+                // onClick={handlenavigate}
+                target="_blank"
                 className="relative font-medium overflow-hidden group text-white transition-all duration-300 ease-out transform uppercase bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:bg-gradient-to-bl focus:outline-none sm:text-sm text-xs md:text-[14px] lg:text-[14px] xl:text-[14px] px-5 py-2.5 w-full md:py-4 sm:w-[378px] lg:px-3 lg:py-3 xl:px-6 xl:py-3 md:w-[380px] xl:w-auto lg:w-[380px] flex items-center justify-center"
               >
                 <span className="absolute inset-0 w-0 h-full   bg-[#060b33] transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
                 <span className="relative text-white group-hover:text-white flex items-center">
-                  Schedule a Consultation
+                  {websiteData?.footer_btn}
                   <img
                     src={RightArrow1}
                     alt="Arrow Icon"
                     className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"
                   />
                 </span>
-              </button>
+              </a>
               <div className="relative">
                 <div className="flex justify-between items-center border-2 border-black p-1">
                   <img
@@ -104,7 +110,7 @@ function OurCourses() {
                             setDropdownOpen(false);
                           }}
                         >
-                  {course.name}
+                          {course.name}
                         </div>
                       ))
                     ) : (
