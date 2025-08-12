@@ -92,6 +92,7 @@ function CaseStudies() {
               <div
                 className="bg-white w-full sm:w-[426.59px] h-[140px] p-4 transition-all transform group-hover:scale-105 group-hover:h-[220px] duration-300 ease-in-out"
                 id="bg"
+                onClick={() => navigate(`/studydetails/${caseStudy.slug}`)}
               >
                 <div className="flex justify-between gap-4">
                   <h3 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text">
@@ -106,10 +107,7 @@ function CaseStudies() {
                 <p className=" uppercase font-bold mt-2 text-sm sm:text-base">
                   {caseStudy.title}
                 </p>
-                <div
-                  className="flex items-end justify-end"
-                  onClick={() => navigate(`/studydetails/${caseStudy.slug}`)}
-                >
+                <div className="flex items-end justify-end">
                   <img
                     src={CaseRightArrow}
                     alt="Case Right Arrow"

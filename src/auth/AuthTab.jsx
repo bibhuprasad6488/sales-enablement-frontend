@@ -38,8 +38,9 @@ const AuthTab = () => {
   };
 
   return (
-    <div className="py-12 flex flex-col items-center">
-      <div className={`w-full bg-white ${isVisible ? "fixed top-44 sm:top-24 md:top-28 lg:top-20 z-30 container px-4" : "relative"}`}>
+    <div className="py-12 flex flex-col content-center " >
+
+      <div className={`w-full bg-white  ${isVisible ? "fixed top-44 sm:top-24 md:top-28 lg:top-20 z-30 container px-4" : "relative"}`}>
         <div className="flex justify-center z-10 py-3 bg- overflow-hidden transition-all duration-500">
           {!isLoggedIn && (
             <>
