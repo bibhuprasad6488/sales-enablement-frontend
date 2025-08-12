@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import Breadcrumb from "../components/Breadcrumb";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import axios from "../api/axios";
 import {
   FaCheckCircle,
   FaFlask,
@@ -10,20 +11,27 @@ import {
   FaUsers,
   FaSeedling,
 } from "react-icons/fa";
-
 const WhoweAre = () => {
-  const containerRef = useRef(null);
-  const [path, setPath] = useState("");
-  const services = [
-    "Sales Development Representative (SDR) Department Setup",
-    "Sales Playbook Development",
-    "Sales Coaching & Training",
-    "Prospecting & Pipeline Generation",
-    "Sales Force Evaluations (powered by Objective Management Group)",
-    "Sales Leader Enablement",
-    "Partner Sourcing & Sales Process Optimization",
-  ];
+const [whoweAre, setwhoweAre] = useState([]);
+const containerRef = useRef(null);
+const [path, setPath] = useState("");
 
+useEffect(() => {
+  const test = async () => {
+    try {
+      const response = await axios.get("/who-we-are");
+      const result = response.data;
+      console.log("res", result);
+      setwhoweAre(result);
+    
+    } catch (error) {
+      console.error("Error fetching who-we-are:", error);
+    }
+  };
+  test();
+}, []);
+
+  
   useEffect(() => {
     const circles = containerRef.current.querySelectorAll(".circle");
     let pathStr = "";
@@ -42,36 +50,59 @@ const WhoweAre = () => {
       }
     });
     setPath(pathStr);
-  }, [services]);
+  }, [whoweAre?.wwd_keys]);
 
+  
   const values = [
     {
       icon: <FaCheckCircle />,
-      title: "Enablement First",
-      text: "We build capability, not just run workshops.",
-    },
-    {
-      icon: <FaFlask />,
-      title: "Science + Heart",
-      text: "We combine data-driven insights with human behavior.",
-    },
-    {
-      icon: <FaChartLine />,
-      title: "Accountability",
-      text: "We deliver results, not just activity.",
-    },
-    {
-      icon: <FaUsers />,
-      title: "Partnership",
-      text: "We work with you, not just for you.",
-    },
-    {
-      icon: <FaSeedling />,
-      title: "Growth Mindset",
-      text: "We believe in continuous learning and evolution.",
     },
   ];
 
+  // Variants for the container to stagger children
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  // Variants for each child item
+  const itemVariants = {
+    hidden: { opacity: 0, x: 50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  };
+
+  const rightVariants = {
+    hidden: { opacity: 0, x: 100 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  };
+  const leftVariants = {
+    hidden: { opacity: 0, x: -100 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  };
+  const topVariants = {
+    hidden: { opacity: 0, y: 100 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 1, ease: "easeOut" },
+    },
+  };
   return (
     <>
       {/* Header Section */}
@@ -89,6 +120,7 @@ const WhoweAre = () => {
                 breadcrumbs={[
                   { label: "Home", to: "/" },
                   { label: "Who We Are" },
+                  // { label: `${studyDetail?.title} ` },
                 ]}
               />
             </div>
@@ -98,50 +130,41 @@ const WhoweAre = () => {
 
       <div className="bg-white text-gray-800">
         <section className="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              We Help Sales Teams Close More Deals
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={leftVariants}
+          >
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              {whoweAre?.title_one}
             </h2>
-            <p className="text-lg text-gray-600">
-              We partner with your sales team to remove the roadblocks that stop
-              deals from closing and help create consistent growth.
-            </p>
-          </div>
+            <p className="text-lg text-gray-600">{whoweAre?.desc_one}</p>
+          </motion.div>
 
-          <div className="space-y-6">
-            {[
-              "You're tired of salespeople making excuses instead of closing deals",
-              "Your team struggles to reach decision-makers",
-              "You're not generating consistent qualified opportunities",
-              "You want salespeople to own the number and perform predictably",
-            ].map((item, idx) => (
-              <div key={idx} className="flex items-start gap-3">
-                <div className="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full bg-green-100">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={2}
-                    stroke="green"
-                    className="w-4 h-4"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                </div>
-                <p className="text-gray-700">{item}</p>
-              </div>
-            ))}
-          </div>
+          <motion.div
+            className="space-y-6"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={rightVariants}
+          >
+            <p className="text-gray-700">{whoweAre?.desc_two}</p>
+            <h3 className="text-3xl font-bold text-gray-900 mb-4">
+              {whoweAre?.title_two}
+            </h3>
+          </motion.div>
         </section>
 
         {/* What We Do */}
         <section className="bg-gray-50 py-20 relative overflow-hidden">
           <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-12">
-            <div>
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
+              variants={leftVariants}
+            >
               <h2 className="text-4xl font-extrabold text-gray-900 leading-tight">
                 What <br />{" "}
                 <b className=" text-6xl " style={{ color: "#ef4113" }}>
@@ -149,12 +172,18 @@ const WhoweAre = () => {
                 </b>
               </h2>
               <p className="mt-6 text-lg text-gray-700 max-w-md">
-                We deliver tailored, scientific, and high-impact sales
-                enablement solutions including:
+                {whoweAre?.wwd_subtitle}
               </p>
-            </div>
+            </motion.div>
 
-            <div className="relative" ref={containerRef}>
+            <motion.div
+              className="relative"
+              ref={containerRef}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
+              variants={rightVariants}
+            >
               <svg
                 className="absolute top-0 left-0 w-full h-full pointer-events-none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -169,7 +198,7 @@ const WhoweAre = () => {
               </svg>
 
               <div className="space-y-[15px] relative z-10">
-                {services.map((item, index) => (
+                {whoweAre?.wwd_keys?.map((item, index) => (
                   <div key={index} className="flex items-start">
                     <div className="circle flex items-center justify-center w-9 h-9 bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white font-bold rounded-full">
                       {index + 1}
@@ -183,7 +212,7 @@ const WhoweAre = () => {
                   </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
         {/* Mission & Vision */}
@@ -196,11 +225,7 @@ const WhoweAre = () => {
             <h3 className="text-3xl font-bold mb-4 text-[#DB0032]">
               Our Mission
             </h3>
-            <p>
-              To equip African sales teams with the tools, systems, skills, and
-              mindset needed to drive consistent performance in a modern,
-              complex selling environment.
-            </p>
+            <p>{whoweAre?.mission_text}</p>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -210,11 +235,7 @@ const WhoweAre = () => {
             <h3 className="text-3xl font-bold mb-4 text-[#FA6602]">
               Our Vision
             </h3>
-            <p>
-              To be Africa’s most trusted sales enablement partner, transforming
-              salespeople into confident, capable, and quota-crushing
-              professionals — one team at a time.
-            </p>
+            <p>{whoweAre?.vision_text}</p>
           </motion.div>
         </section>
 
@@ -223,60 +244,76 @@ const WhoweAre = () => {
           <div className="max-w-6xl mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-8">
               Our Core Values
+              <span className="block w-12 h-1 bg-gradient-to-r from-[#DB0032] to-[#FA6602] mx-auto mt-2"></span>
             </h2>
-            <div className="flex flex-wrap justify-center gap-6">
-              {values.map((value, idx) => (
-                <div
+            <motion.div
+              className="flex flex-wrap justify-center gap-6"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
+            >
+              {whoweAre?.core_values?.map((value, idx) => (
+                <motion.div
                   key={idx}
+                  variants={itemVariants}
                   className="flex flex-col items-center text-center bg-white shadow-md rounded-xl p-6 w-full sm:w-[300px] hover:shadow-lg transition"
                 >
-                  <div className="text-red-500 text-4xl mb-3">{value.icon}</div>
-                  <h3 className="font-semibold text-lg">{value.title}</h3>
-                  <p className="text-gray-600 mt-2">{value.text}</p>
-                </div>
+                  <div className="text-white text-xl mb-3 bg-gradient-to-r from-[#DB0032] to-[#FA6602] p-1 rounded-lg">
+                    <FaCheckCircle />
+                  </div>
+                  <h3 className="font-semibold text-xl">{value.title}</h3>
+                  <p className="text-gray-600 mt-2">{value.key_note}</p>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
 
         {/* Is This You? */}
-        <div className="bg-gradient-to-b from-white to-gray-50 py-10">
+        <motion.div
+          className="bg-gradient-to-b from-white to-gray-50 py-10"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          variants={topVariants} // Used leftVariants here to fix undefined Variants issue
+        >
           <h2 className="text-center text-3xl font-bold mb-8">
             Is This You?
             <span className="block w-12 h-1 bg-gradient-to-r from-[#DB0032] to-[#FA6602] mx-auto mt-2"></span>
           </h2>
           <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {[
-              "You’re tired of salespeople making excuses instead of closing deals",
-              "Your team struggles to reach decision-makers",
-              "You're not generating consistent qualified opportunities",
-              "You want salespeople to own the number and perform predictably",
-            ].map((text, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-3 bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition"
-              >
-                <span className="w-5 h-5 flex items-center justify-center text-green-500 flex-shrink-0">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-full h-full"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={3}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                </span>
-                <p className="text-gray-700">{text}</p>
-              </div>
-            ))}
+            {whoweAre?.this_you_points?.map((text, index) => {
+              return (
+                <div
+                  key={index}
+                  className="flex items-center gap-3 bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition"
+                >
+                  <span className="w-5 h-5 flex items-center justify-center text-green-500 flex-shrink-0">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-full h-full"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={3}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </span>
+                  <p className="text-gray-700">{text}</p>
+                </div>
+              );
+            })}
           </div>
-        </div>
+          <p className="text-2xl text-black flex justify-self-center self-center p-4 mt-4">
+            {whoweAre.title_three}
+          </p>
+        </motion.div>
       </div>
     </>
   );

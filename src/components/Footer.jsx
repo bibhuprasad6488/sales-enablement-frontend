@@ -49,7 +49,7 @@ function Footer() {
     { name: "Home", path: "/" },
     { name: "About Us", path: "/about-us" },
     { name: "Services", path: "/services" },
-    { name: "Blogs", path: "/courses" }, // Assuming "Blogs" means "Courses"
+    { name: "Blogs", path: "/blogs" }, // Assuming "Blogs" means "Courses"
     { name: "Contact Us", path: "/contact-us" }, // Replace with correct path
     { name: "Who We Are", path: "/who-we-are" },
   ];

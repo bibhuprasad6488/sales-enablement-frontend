@@ -10,6 +10,7 @@ import React, { useEffect, useState } from "react";
 import axios from "../api/axios";
 import { useParams } from "react-router-dom";
 import { TbBoomFilled } from "react-icons/tb";
+import { motion } from "framer-motion";
 export default function DetailsPage() {
   const { slug } = useParams();
   console.log(slug);
@@ -24,7 +25,32 @@ export default function DetailsPage() {
     test();
   }, []);
   console.log("hii", studyDetail);
+ 
+   const leftVariants = {
+     hidden: { opacity: 0, x: -100 },
+     visible: {
+       opacity: 1,
+       x: 0,
+       transition: { duration: 0.8, ease: "easeOut" },
+     },
+   };
+   const topVariants = {
+     hidden: { opacity: 0, y: 100 },
+     visible: {
+       opacity: 1,
+       y: 0,
+       transition: { duration: 0.8, ease: "easeOut" },
+     },
+   };
 
+   const rightVariants = {
+     hidden: { opacity: 0, x: 100 },
+     visible: {
+       opacity: 1,
+       x: 0,
+       transition: { duration: 0.8, ease: "easeOut" },
+     },
+   };
   return (
     <>
       <section>
@@ -49,16 +75,29 @@ export default function DetailsPage() {
         </div>
       </section>
       <div class="bg-white min-h-screen py-12 px-6 md:px-20">
-        <div class="text-baseline mb-12" id="study_detail_head">
+        <motion.div
+          class="text-baseline mb-12"
+          id="study_detail_head"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          variants={topVariants}
+        >
           <h2 class="text-xl md:text-2xl lg:text-4xl font-semibold ">
             Client Overview
           </h2>
           <p>{studyDetail?.client_overview}</p>
-        </div>
+        </motion.div>
 
         <div class="grid md:grid-cols-3 gap-8">
           <div class="md:col-span-2 space-y-10">
-            <section id="second_part">
+            <motion.div
+              id="second_part"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
+              variants={leftVariants}
+            >
               <h2 class="text-3xl font-semibold mb-4">
                 Background: The Challenge
               </h2>
@@ -73,10 +112,18 @@ export default function DetailsPage() {
                   </span>
                 ))}
               </div>
-              <p style={{fontSize:'18px', paddingTop:'10px'}}>{studyDetail?.challeng_title_two}</p>
-            </section>
+              <p style={{ fontSize: "18px", paddingTop: "10px" }}>
+                {studyDetail?.challeng_title_two}
+              </p>
+            </motion.div>
 
-            <section className="objective">
+            <motion.div
+              className="objective"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
+              variants={leftVariants}
+            >
               <h2 class="text-3xl font-semibold mb-4">Project Objectives</h2>
               <div>
                 {studyDetail?.project_objectives?.map((data, i) => (
@@ -88,10 +135,16 @@ export default function DetailsPage() {
                   </span>
                 ))}
               </div>
-            </section>
+            </motion.div>
             <section>
               <div class="relative border-l border-gray-200">
-                <div class="mb-10 ml-6">
+                <motion.div
+                  class="mb-10 ml-6"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.5 }}
+                  variants={leftVariants}
+                >
                   <div class="absolute w-4 h-4 bg-gradient-to-r from-[#DB0032] to-[#FA6602] rounded-full -left-2 border-2 border-white"></div>
                   <h3 class="text-2xl font-semibold">
                     Phase 1:{studyDetail?.p_one_title}
@@ -115,9 +168,15 @@ export default function DetailsPage() {
                   <h2 style={{ fontSize: "15px", paddingTop: "10px" }}>
                     ✅ Outcome: {studyDetail?.p_one_outcome_title}
                   </h2>
-                </div>
+                </motion.div>
 
-                <div class="mb-10 ml-6">
+                <motion.div
+                  class="mb-10 ml-6"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.5 }}
+                  variants={leftVariants}
+                >
                   <div class="absolute w-4 h-4 bg-gradient-to-r from-[#DB0032] to-[#FA6602] rounded-full -left-2 border-2 border-white"></div>
                   <h3 class="text-2xl font-semibold">
                     Phase 2: {studyDetail?.p_two_title}
@@ -142,9 +201,15 @@ export default function DetailsPage() {
                   <h2 style={{ fontSize: "15px", paddingTop: "10px" }}>
                     ✅ Outcome: {studyDetail?.p_two_outcome_title}
                   </h2>
-                </div>
+                </motion.div>
 
-                <div class="mb-10 ml-6">
+                <motion.div
+                  class="mb-10 ml-6"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.5 }}
+                  variants={leftVariants}
+                >
                   <div class="absolute w-4 h-4 bg-gradient-to-r from-[#DB0032] to-[#FA6602] rounded-full -left-2 border-2 border-white"></div>
                   <h3 class="text-2xl font-semibold">
                     Phase 3: {studyDetail?.p_three_title}
@@ -168,11 +233,16 @@ export default function DetailsPage() {
                   <h2 style={{ fontSize: "15px", paddingTop: "10px" }}>
                     ✅ Outcome: {studyDetail?.p_three_outcome_title}
                   </h2>
-                </div>
+                </motion.div>
               </div>
             </section>
 
-            <section>
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
+              variants={leftVariants}
+            >
               <h2 class="text-2xl font-semibold mb-4">
                 {studyDetail?.result_title}
               </h2>
@@ -184,33 +254,48 @@ export default function DetailsPage() {
                   <li key={index}>{data}</li>
                 ))}
               </ul>
-            </section>
+            </motion.div>
 
-            <section>
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
+              variants={leftVariants}
+            >
               <h2 class="text-3xl font-semibold mb-4">
                 {studyDetail?.diff_title}
               </h2>
               <p>{studyDetail?.diff_subtitle}</p>
-                {studyDetail?.diff_points?.map((data, i) => (
-                  <>
-              <div id="items">
+              {studyDetail?.diff_points?.map((data, i) => (
+                <>
+                  <div id="items">
                     <i style={{ display: "flex", placeSelf: "center" }}>
                       <IoArrowRedoOutline />
                     </i>
                     <p style={{ fontSize: "15px" }}>
                       <b> {data.title}</b> {data.subtitle}
                     </p>
-              </div>
-                  </>
-                ))}
-            </section>
-            <section class="bg-gray-50 p-6 rounded-lg shadow-sm">
+                  </div>
+                </>
+              ))}
+            </motion.div>
+            <motion.div
+              class="bg-gray-50 p-6 rounded-lg shadow-sm"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
+              variants={topVariants}
+            >
               <h2 class="text-3xl font-semibold mb-4">Conclusion</h2>
               <p class="italic text-gray-700">{studyDetail?.conclusion_desc}</p>
-            </section>
+            </motion.div>
           </div>
 
-          <div
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={rightVariants}
             class="bg-white shadow-lg rounded-lg p-6 border "
             style={{
               display: "grid",
@@ -244,7 +329,7 @@ export default function DetailsPage() {
                 Call Us
               </button>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </>
