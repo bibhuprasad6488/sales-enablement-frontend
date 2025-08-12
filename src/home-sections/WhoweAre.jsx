@@ -251,31 +251,53 @@ const WhoweAre = () => {
               "Your team struggles to reach decision-makers",
               "You're not generating consistent qualified opportunities",
               "You want salespeople to own the number and perform predictably",
-            ].map((text, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-3 bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition"
-              >
-                <span className="w-5 h-5 flex items-center justify-center text-green-500 flex-shrink-0">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-full h-full"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={3}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                </span>
-                <p className="text-gray-700">{text}</p>
-              </div>
-            ))}
+            ].map((text, index) => {
+              const highlightWords = [
+                "salespeople making excuses instead of closing deals",
+                "decision-makers",
+                "consistent qualified opportunities",
+                "own the number",
+              ];
+              let highlightedText = text;
+              highlightWords.forEach((word) => {
+                const regex = new RegExp(`(${word})`, "gi");
+                highlightedText = highlightedText.replace(
+                  regex,
+                  '<span class="bg-yellow-200 font-semibold">$1</span>'
+                );
+              });
+              return (
+                <div
+                  key={index}
+                  className="flex items-center gap-3 bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition"
+                >
+                  <span className="w-5 h-5 flex items-center justify-center text-green-500 flex-shrink-0">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-full h-full"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={3}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </span>
+                  <p
+                    className="text-gray-700"
+                    dangerouslySetInnerHTML={{ __html: highlightedText }}
+                  />
+                </div>
+              );
+            })}
           </div>
+          <p className="text-lg text-gray-600 flex justify-self-center self-center p-4">
+            Then it’s time for enablement, not just motivation
+          </p>
         </div>
       </div>
     </>
