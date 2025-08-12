@@ -26,6 +26,7 @@ import ChangePassword from "./auth/ChangePwd";
 import ContextProviders from "./context/ContextProviders";
 import ScrollToTop from "./components/ScrollToTop";
 import DetailsSlug from "./home-sections/DetailsSlug";
+import WhoweAre from "./home-sections/WhoweAre";
 function App() {
   const [isPopupOpen, setIsPopupOpen] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
@@ -107,6 +108,7 @@ function App() {
 
               <Route path="*" element={<NotFound />} />
               <Route path="/studydetails/:slug" element={<DetailsSlug />} />
+              <Route path="/who-we-are" element={<WhoweAre/>} />
             </Routes>
             <ScrollToTopButton />
             <Footer />

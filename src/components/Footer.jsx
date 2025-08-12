@@ -15,8 +15,10 @@ import { FaTimes } from "react-icons/fa";
 import { useApi3 } from "../context/WebsiteDataContext";
 import { useApi2 } from "../context/CourseContextApi";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 function Footer() {
   const { courseData } = useApi2();
+
   if (!courseData) return <p></p>;
   const { websiteData, loading } = useApi3();
   if (!websiteData) return <p></p>;
@@ -40,6 +42,18 @@ function Footer() {
       document.body.style.overflow = "";
     };
   }, [isModalOpen]);
+  const navigate = useNavigate();
+
+  // Map each link name to the real path in App.jsx
+  const links = [
+    { name: "Home", path: "/" },
+    { name: "About Us", path: "/about-us" },
+    { name: "Services", path: "/services" },
+    { name: "Blogs", path: "/courses" }, // Assuming "Blogs" means "Courses"
+    { name: "Contact Us", path: "/contact-us" }, // Replace with correct path
+    { name: "Who We Are", path: "/who-we-are" },
+  ];
+
   const socialMedia = [
     { name: "Facebook", icon: Facebook, link: websiteData.facebook_link },
     { name: "Instagram", icon: Instagram, link: websiteData.instagram_link },
@@ -140,27 +154,16 @@ function Footer() {
                 </h5>
                 <img src={FooterLine} alt="Line" className="w-[110px] mb-4" />
 
-                {["Home", "About Us", "Services", "Blogs", "Contact Us"].map(
-                  (link, index) => (
-                    <div
-                      key={index}
-                      onClick={() =>
-                        (window.location.href =
-                          link === "Home"
-                            ? "/"
-                            : `/${link.toLowerCase().replace(/\s+/g, "-")}`)
-                      }
-                      className="flex hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] cursor-pointer items-center mb-2"
-                    >
-                      <img
-                        src={ArrowAdd}
-                        alt="arrow"
-                        className="w-6 h-6 mr-2"
-                      />
-                      <p>{link}</p>
-                    </div>
-                  )
-                )}
+                {links.map((link, index) => (
+                  <div
+                    key={index}
+                    onClick={() => navigate(link.path)}
+                    className="flex hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] cursor-pointer items-center mb-2"
+                  >
+                    <img src={ArrowAdd} alt="arrow" className="w-6 h-6 mr-2" />
+                    <p>{link.name}</p>
+                  </div>
+                ))}
               </div>
 
               <div>

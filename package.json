@@ -16,7 +16,7 @@
     "axios": "^1.7.9",
     "date-fns": "^4.1.0",
     "font-awesome": "^4.7.0",
-    "framer-motion": "^11.16.4",
+    "framer-motion": "^11.18.2",
     "hero-slider": "^3.2.1",
     "react": "^18.3.1",
     "react-calendar": "^5.1.0",
