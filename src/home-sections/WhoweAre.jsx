@@ -174,7 +174,10 @@ const WhoweAre = () => {
                     <div className="circle flex items-center justify-center w-9 h-9 bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white font-bold rounded-full">
                       {index + 1}
                     </div>
-                    <p className="ml-[12px] text-gray-800 font-medium">
+                    <p
+                      className="ml-[13px] text-gray-800 font-medium"
+                      style={{ display: "flex", alignSelf: "center" }}
+                    >
                       {item}
                     </p>
                   </div>
@@ -240,7 +243,7 @@ const WhoweAre = () => {
         <div className="bg-gradient-to-b from-white to-gray-50 py-10">
           <h2 className="text-center text-3xl font-bold mb-8">
             Is This You?
-            <span className="block w-12 h-1 bg-orange-500 mx-auto mt-2"></span>
+            <span className="block w-12 h-1 bg-gradient-to-r from-[#DB0032] to-[#FA6602] mx-auto mt-2"></span>
           </h2>
           <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6">
             {[
