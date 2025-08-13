@@ -10,8 +10,8 @@ export const TabProvider = ({ children }) => {
 
     const handleSetActiveTab = (tabName) => {
         setActiveTab(tabName);
-        const newPath = `/${tabName.toLowerCase().replace(/\s+/g, "-")}`;
-        window.history.pushState(null, "", newPath);
+        // const newPath ="/"
+        // window.history.pushState(null, "", newPath);
     };
 
     useEffect(() => {

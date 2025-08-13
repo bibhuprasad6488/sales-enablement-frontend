@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import React from "react";
 import Navbar from "../components/Navbar";
 import Breadcrumb from "../components/Breadcrumb";
-function HeroCourseDetails() {
+function HeroCourseDetails({titleData}) {
   return (
     <>
       <section>
@@ -11,11 +11,18 @@ function HeroCourseDetails() {
             <Navbar />
 
             <div className="text-white flex items-center justify-center container mx-auto px-4 pt-6 sm:px-4 sm:pt-16  ">
-              <h1 className="text-2xl md:text-4xl lg:text-5xl uppercase font-bold ">Course Details</h1>
+              <h1 className="text-2xl md:text-4xl lg:text-5xl uppercase font-bold ">
+                {titleData?.name}
+              </h1>
             </div>
             <div className="text-white flex  items-center justify-center container mx-auto px-4 pt-4 pb-10 sm:px-4 sm:pt-10 sm:pb-20 ">
-            <Breadcrumb breadcrumbs={[{ label: 'Home', to: '/' }, { label: 'Courses', to: '/courses' }, { label: 'Course-Details' }]} />
-
+              <Breadcrumb
+                breadcrumbs={[
+                  { label: "Home", to: "/" },
+                  { label: "Courses", to: "/courses" },
+                  { label: `${titleData?.name}` },
+                ]}
+              />
             </div>
           </div>
         </div>
