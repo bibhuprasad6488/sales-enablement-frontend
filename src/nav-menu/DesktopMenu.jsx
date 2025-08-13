@@ -151,6 +151,7 @@ const DesktopMenu = ({
       });
     }
   };
+  
   const { setActiveTab } = useTab();
   if (!courses) return <p></p>;
   return (
@@ -339,6 +340,7 @@ const DesktopMenu = ({
               <NavLink
                 // onClick={handleLoginClick}
                 to="/login-signup"
+                state={{ activeTab: "login" }}
                 className="text-white group flex justify-center items-center transition-transform duration-500 ease-out transform uppercase text-[12px] bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:bg-gradient-to-bl font-bold text-sm px-10 py-3"
               >
                 <span className="absolute inset-0 w-0 h-full bg-white transition-all duration-300 ease-in-out group-hover:w-full"></span>
@@ -348,6 +350,7 @@ const DesktopMenu = ({
               </NavLink>
               <NavLink
                 to="/login-signup"
+                 state={{ activeTab: "signup" }}
                 type="button"
                 className="text-white group transition-transform duration-500 ease-out transform uppercase text-[12px] hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] font-bold text-sm px-10 py-3 border-btn border-white hover:border-[#ed3b15]"
               >

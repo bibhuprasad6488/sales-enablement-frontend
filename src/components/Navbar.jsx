@@ -69,7 +69,7 @@ function Navbar() {
             toggleDropdown={toggleDropdown}
           />
         </div>
-
+{/* on that code when i click on the login or signup then same section will show the login page but i want when i clicked on the login button then login section will active and when i click on the signup then signup componet will active */}
         <MobileMenu
           links={links}
           courses={courseData}
