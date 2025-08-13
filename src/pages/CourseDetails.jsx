@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CourseDetailSection from "../course-details-sections/CourseDetailSection";
 import HeroCourseDetails from "../course-details-sections/HeroCourseDetails";
-import axios from "../api/axios"
+import axios from "../api/axios";
 import { useParams } from "react-router-dom";
 function CourseDetails() {
   const { slug } = useParams();
@@ -25,7 +25,7 @@ function CourseDetails() {
 
   return (
     <div>
-      <HeroCourseDetails />
+      <HeroCourseDetails titleData={course} />
 
       <div className="container mx-auto px-4 py-12 ">
         <CourseDetailSection courseData={course} />
@@ -35,4 +35,3 @@ function CourseDetails() {
 }
 
 export default CourseDetails;
-

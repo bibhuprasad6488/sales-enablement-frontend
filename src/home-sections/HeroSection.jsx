@@ -90,7 +90,7 @@ function HeroSection({ heroData }) {
     <>
       <section>
         <div className="relative w-full h-full overflow-hidden">
-          <AnimatePresence >
+          <AnimatePresence>
             <motion.div
               key={currentSlide}
               className="absolute inset-0 bg-cover bg-center"
@@ -163,7 +163,9 @@ function HeroSection({ heroData }) {
                   >
                     <button
                       type="button"
-                      onClick={() => handleButtonClick(heroData[currentSlide].btn_one_link)}
+                      onClick={() =>
+                        handleButtonClick(heroData[currentSlide].btn_one_link)
+                      }
                       className="relative uppercase font-medium text-white transition-all duration-300 ease-in-out overflow-hidden group bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:bg-gradient-to-bl focus:outline-none shadow-lg flex items-center justify-center text-sm md:text-[14px] lg:text-[12px] xl:text-[16px] 2xl:text-[18px] px-5 py-2.5 w-full md:px-2 md:py-2 lg:px-3 lg:py-3 xl:px-6 xl:py-3 md:w-[250px] lg:w-auto xl:w-auto"
                     >
                       <span className="absolute inset-0 w-0 h-full bg-white transition-all duration-300 ease-in-out group-hover:w-full"></span>
@@ -184,7 +186,9 @@ function HeroSection({ heroData }) {
 
                     <button
                       type="button"
-                      onClick={() => handleButtonClick(heroData[currentSlide].btn_two_link)}
+                      onClick={() =>
+                        handleButtonClick(heroData[currentSlide].btn_two_link)
+                      }
                       className="text-white transition-transform duration-500 ease-in-out transform hover:bg-white hover:text-[#DB0032] uppercase w-full justify-center xs:text-[12px] md:w-[250px] lg:w-auto xl:w-auto flex sm:justify-center md:justify-around xl:justify-around lg:justify-around items-center space-x-2 border-2 border-white md:text-[12px] lg:text-[12px] xl:text-[16px] 2xl:text-[18px] sm:text-sm px-3 py-2 md:px-6 md:py-2 xl:px-6 xl:py-2.5 2xl:py-3 lg:px-6 lg:py-2.5 sm:px-4 sm:py-2"
                     >
                       {heroData[currentSlide].btn_two_text}
@@ -199,7 +203,7 @@ function HeroSection({ heroData }) {
               </AnimatePresence>
 
               <motion.div
-                className="lg:w-1/2 mt-8 lg:mt-0 flex justify-center lg:justify-end hidden lg:flex"
+                className="lg:w-1/2 mt-8 lg:mt-0 flex justify-center lg:justify-end  lg:flex"
                 ref={ref2}
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{
@@ -218,7 +222,6 @@ function HeroSection({ heroData }) {
 
             <div className="container mx-auto px-4">
               <div className="btn-hero-slider space-x-5 gap-3">
-
                 <button
                   onClick={goToPreviousSlide}
                   className={` bg-gradient-to-r from-[#DB0032] to-[#FA6602] p-4 rounded-full z-50 text-white shadow-lg hover:scale-105 transition-opacity duration-300  hover:bg-gradient-to-r hover:from-[#FA6602] group hover:to-[#DB0032] hover:shadow-xl`}
@@ -236,7 +239,6 @@ function HeroSection({ heroData }) {
                 >
                   <FaArrowRight className="text-xl text-[#fff] group-hover:text-[#383F71]" />
                 </button>
-
               </div>
             </div>
 

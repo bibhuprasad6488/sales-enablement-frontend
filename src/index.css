@@ -270,20 +270,20 @@ body {
 
 .border-btn2:hover {
   border: 2px solid transparent;
-  color: linear-gradient(to right, #db0032 0%, #A6602 100%) 1;
-  border-image: linear-gradient(to right, #db0032 0%, #A6602 100%) 1;
+  color: linear-gradient(to right, #db0032 0%, #fa6602 100%) 1;
+  border-image: linear-gradient(to right, #db0032 0%, #fa6602 100%) 1;
   animation: borderRunningAnimation 2s linear infinite;
 }
 
 @keyframes borderRunningAnimation {
   0% {
-    border-image-source: linear-gradient(to right, #db0032 0%, #A6602 100%);
+    border-image-source: linear-gradient(to right, #db0032 0%, #fa6602 100%);
   }
   50% {
-    border-image-source: linear-gradient(to left, #db0032 0%, #A6602 100%);
+    border-image-source: linear-gradient(to left, #db0032 0%, #fa6602 100%);
   }
   100% {
-    border-image-source: linear-gradient(to right, #db0032 0%, #A6602 100%);
+    border-image-source: linear-gradient(to right, #db0032 0%, #fa6602 100%);
   }
 }
 

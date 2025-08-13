@@ -182,7 +182,6 @@ const DesktopMenu = ({
                           key={idx}
                           className="flex icon-hover items-center space-x-3 p-4 group bg-white hover:text-white shadow-md text-sm rounded-lg cursor-pointer hover:bg-gradient-to-r hover:from-[#DB0032] hover:to-[#FA6602]"
                         >
-
                           <div>
                             <span
                               dangerouslySetInnerHTML={{ __html: item.icon }}
@@ -194,15 +193,21 @@ const DesktopMenu = ({
                               link.name === "Courses"
                                 ? `/courses-details/${item.slug}`
                                 : item.indp === "1"
-                                  ? `/service/sales-force-details/${item.slug}`
-                                  : item.indp === "2"
-                                    ? `/service/sales-candidate-details/${item.slug}`
-                                    : `/service/${item.slug}`
+                                ? `/service/sales-force-details/${item.slug}`
+                                : item.indp === "2"
+                                ? `/service/sales-candidate-details/${item.slug}`
+                                : `/service/${item.slug}`
                             }
-                            id={item.indp === '1' ? 'sales-force-details' : 'sales-candidate-details'} className={({ isActive }) =>
-                              `block font-bold ${isActive
-                                ? "text-transparent bg-clip-text bg-gradient-to-r from-[#DB0032] to-[#FA6602] icon-hover2 transition duration-200 ease-in-out"
-                                : " "
+                            id={
+                              item.indp === "1"
+                                ? "sales-force-details"
+                                : "sales-candidate-details"
+                            }
+                            className={({ isActive }) =>
+                              `block font-bold ${
+                                isActive
+                                  ? "text-transparent bg-clip-text bg-gradient-to-r from-[#DB0032] to-[#FA6602] icon-hover2 transition duration-200 ease-in-out"
+                                  : " "
                               }`
                             }
                           >
@@ -236,15 +241,15 @@ const DesktopMenu = ({
                     </div>
                   </ul>
                 )}
-
               </div>
             ) : (
               <NavLink
                 to={link.route}
                 className={({ isActive }) =>
-                  `relative sm:text-xs lg:text-sm xl:text-base ${isActive
-                    ? "text-transparent w-10 h-10 bg-clip-text bg-gradient-to-r from-[#DB0032] to-[#FA6602] font-bold"
-                    : "hover:text-transparent  hover:bg-clip-text hover:font-bold hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602]"
+                  `relative sm:text-xs lg:text-sm xl:text-base ${
+                    isActive
+                      ? "text-transparent w-10 h-10 bg-clip-text bg-gradient-to-r from-[#DB0032] to-[#FA6602] font-bold"
+                      : "hover:text-transparent  hover:bg-clip-text hover:font-bold hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602]"
                   }`
                 }
               >
@@ -268,9 +273,7 @@ const DesktopMenu = ({
             <>
               <div className="flex justify-between items-center gap-6 relative flex-wrap">
                 <span>Welcome, {user.first_name}!</span>
-                <span
-                  className="group cursor-pointer border-2 border-[#db2100] flex justify-center items-center h-10 w-10 text-center rounded-full"
-                >
+                <span className="group cursor-pointer border-2 border-[#db2100] flex justify-center items-center h-10 w-10 text-center rounded-full">
                   <FaUser className="w-5 h-5" />
                   <div
                     id="dropdownContainer"
@@ -284,21 +287,33 @@ const DesktopMenu = ({
                     <div className="space-y-5">
                       <div className="flex items-center cursor-pointer space-x-3 hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:text-white transition-all duration-300 rounded-md p-2">
                         <FaBook className=" text-xl transition-colors duration-300" />
-                        <Link to="/login-signup" className="text-lg font-medium transition-colors duration-300" onClick={() => setActiveTab("My Learning Journey")}  >
+                        <Link
+                          to="/login-signup"
+                          className="text-lg font-medium transition-colors duration-300"
+                          onClick={() => setActiveTab("My Learning Journey")}
+                        >
                           My learning journey
                         </Link>
                       </div>
 
                       <div className="flex items-center cursor-pointer space-x-3 hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:text-white transition-all duration-300 rounded-md p-2">
                         <FaUserAlt className=" text-xl transition-colors duration-300" />
-                        <Link to="/login-signup" className="text-lg font-medium  transition-colors duration-300" onClick={() => setActiveTab("Personal Details")} >
+                        <Link
+                          to="/login-signup"
+                          className="text-lg font-medium  transition-colors duration-300"
+                          onClick={() => setActiveTab("Personal Details")}
+                        >
                           Personal details
                         </Link>
                       </div>
 
                       <div className="flex items-center cursor-pointer space-x-3 hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:text-white transition-all duration-300 rounded-md p-2">
                         <FaKey className=" text-xl  transition-colors duration-300" />
-                        <Link to="/login-signup" className="text-lg font-medium  transition-colors duration-300" onClick={() => setActiveTab("Change Password")} >
+                        <Link
+                          to="/login-signup"
+                          className="text-lg font-medium  transition-colors duration-300"
+                          onClick={() => setActiveTab("Change Password")}
+                        >
                           Change password
                         </Link>
                       </div>
@@ -316,15 +331,14 @@ const DesktopMenu = ({
                       </span>
                     </button>
                   </div>
-
                 </span>
               </div>
-
             </>
           ) : (
             <div className="hidden lg:flex gap-5">
               <NavLink
-                onClick={handleLoginClick}
+                // onClick={handleLoginClick}
+                to="/login-signup"
                 className="text-white group flex justify-center items-center transition-transform duration-500 ease-out transform uppercase text-[12px] bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:bg-gradient-to-bl font-bold text-sm px-10 py-3"
               >
                 <span className="absolute inset-0 w-0 h-full bg-white transition-all duration-300 ease-in-out group-hover:w-full"></span>
@@ -344,7 +358,6 @@ const DesktopMenu = ({
         </div>
       </div>
 
-
       {isLogInOpen && (
         <div
           className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 backdrop-blur-sm z-50"
@@ -358,7 +371,6 @@ const DesktopMenu = ({
               className="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
               onClick={closeModal}
             >
-
               <span className="text-black text-2xl hover:text-red-600 transition-all duration-300 ease-in-out  font-semibold">
                 <FaTimes />
               </span>
@@ -390,7 +402,11 @@ const DesktopMenu = ({
                       value={loginData.email_id}
                       className="w-full border border-gray-300 pl-10 mt-1 p-2"
                     />
-                    {errors && <span className="text-red-500 text-xs mt-2">{errors.email_id}</span>}
+                    {errors && (
+                      <span className="text-red-500 text-xs mt-2">
+                        {errors.email_id}
+                      </span>
+                    )}
                   </div>
                   <div className="relative text-neutral-950">
                     <label
@@ -416,12 +432,17 @@ const DesktopMenu = ({
                     >
                       {passwordVisible ? <FaEyeSlash /> : <FaEye />}
                     </button>
-                    {errors && <span className="text-red-500 text-xs mt-2">{errors.password}</span>}
-
+                    {errors && (
+                      <span className="text-red-500 text-xs mt-2">
+                        {errors.password}
+                      </span>
+                    )}
                   </div>
                   <div className="flex justify-between text-black items-center">
-
-                    <label htmlFor="remember" className="flex gap-2  cursor-pointer items-center">
+                    <label
+                      htmlFor="remember"
+                      className="flex gap-2  cursor-pointer items-center"
+                    >
                       <input
                         id="remember"
                         type="checkbox"
@@ -470,10 +491,7 @@ const DesktopMenu = ({
                 </div>
 
                 <div className="text-xs text-gray-600 flex justify-center gap-1 py-6">
-                  <span className="mt-1">
-                    {" "}
-                    By continuing, you agree to the
-                  </span>
+                  <span className="mt-1"> By continuing, you agree to the</span>
                   <Link to="/terms-and-conditions">
                     <span className="text-sm font-bold text-[#DB0032] hover:text-[#FA6602]  cursor-pointer">
                       Terms, Conditions and Privacy policy.
@@ -487,9 +505,9 @@ const DesktopMenu = ({
                   Forgot Password
                 </h2>
                 <p className="text-gray-600 mb-4 text-sm text-center">
-                  Reset your password by submitting your email address linked
-                  to your GIBS account. We will send you an email with a link
-                  to choose a new password.
+                  Reset your password by submitting your email address linked to
+                  your GIBS account. We will send you an email with a link to
+                  choose a new password.
                 </p>
                 <hr />
                 <br />
