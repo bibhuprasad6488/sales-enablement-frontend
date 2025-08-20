@@ -25,7 +25,7 @@ function CourseDetails() {
 
   return (
     <div>
-      <HeroCourseDetails titleData={course} />
+      <HeroCourseDetails titleData={course} />                                         
 
       <div className="container mx-auto px-4 py-12 ">
         <CourseDetailSection courseData={course} />
