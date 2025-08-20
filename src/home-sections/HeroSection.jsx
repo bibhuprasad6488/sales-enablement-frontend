@@ -163,6 +163,7 @@ function HeroSection({ heroData }) {
                   >
                     <button
                       type="button"
+                      
                       onClick={() =>
                         handleButtonClick(heroData[currentSlide].btn_one_link)
                       }

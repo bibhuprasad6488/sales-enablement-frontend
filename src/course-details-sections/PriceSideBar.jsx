@@ -10,35 +10,57 @@ import { toast } from "react-toastify";
 import { IoCall } from "react-icons/io5";
 import CallToDiscussForm from "../components/CallToDiscussForm";
 import { useNavigate } from "react-router-dom";
+import { useApi3 } from "../context/WebsiteDataContext";
 const PriceSideBar = ({ course }) => {
+ const { websiteData } = useApi3();
+  console.log(websiteData.phone);
+  
   const [isHovered, setIsHovered] = useState(false);
   const formattedDate = new Date(course.end_date).toLocaleDateString("en-GB", {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",
   });
-  const formattedDate1 = new Date(course.start_date).toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  });
-
+  const formattedDate1 = new Date(course.start_date).toLocaleDateString(
+    "en-GB",
+    {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    }
+  );
+ 
+  
   const today = new Date();
   const startDate = new Date(course.app_open_date);
   const endDate = new Date(course.app_close_date);
   const closingSoonThreshold = 3;
   const isValidDate = (date) => date instanceof Date && !isNaN(date);
   const isBeforeStart = isValidDate(startDate) && today < startDate;
-  const isApplicationOpen = isValidDate(startDate) && isValidDate(endDate) && today >= startDate && today <= endDate;
-  const isClosingSoon = isValidDate(endDate) && (endDate - today) / (1000 * 60 * 60 * 24) <= closingSoonThreshold && today < endDate;
+  const isApplicationOpen =
+    isValidDate(startDate) &&
+    isValidDate(endDate) &&
+    today >= startDate &&
+    today <= endDate;
+  const isClosingSoon =
+    isValidDate(endDate) &&
+    (endDate - today) / (1000 * 60 * 60 * 24) <= closingSoonThreshold &&
+    today < endDate;
   const isClosed = isValidDate(endDate) && today > endDate;
   const formattedStartDate = isValidDate(startDate)
-    ? startDate.toLocaleDateString("en-GB", { day: "2-digit", month: "2-digit", year: "numeric" })
+    ? startDate.toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      })
     : "N/A";
   const formattedEndDate = isValidDate(endDate)
-    ? endDate.toLocaleDateString("en-GB", { day: "2-digit", month: "2-digit", year: "numeric" })
+    ? endDate.toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      })
     : "N/A";
-
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -64,8 +86,8 @@ const PriceSideBar = ({ course }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("token"); 
-    setIsLoggedIn(!!token); 
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
   }, []);
 
   const handleClick = () => {
@@ -74,7 +96,7 @@ const PriceSideBar = ({ course }) => {
         position: "top-right",
         autoClose: 3000,
       });
-      navigate("/login-signup"); 
+      navigate("/login-signup");
     } else {
       toast.success("Proceeding to booking...", {
         position: "top-right",
@@ -84,7 +106,6 @@ const PriceSideBar = ({ course }) => {
     }
   };
 
-
   return (
     <section className="w-full  bg-white p-4 sm:p-6 hover:scale-105 transition-transform duration-200 shadow-2xl mx-auto ">
       <div>
@@ -93,10 +114,11 @@ const PriceSideBar = ({ course }) => {
             {course.name}
           </h2>
           <div
-            className={`flex items-center justify-center gap-1 rounded-md px-2 py-2 transition-all duration-300 ${isHovered
-              ? "bg-white text-[#DB0032]"
-              : "text-white bg-gradient-to-r from-[#DB0032] to-[#FA6602]"
-              }`}
+            className={`flex items-center justify-center gap-1 rounded-md px-2 py-2 transition-all duration-300 ${
+              isHovered
+                ? "bg-white text-[#DB0032]"
+                : "text-white bg-gradient-to-r from-[#DB0032] to-[#FA6602]"
+            }`}
           >
             <div className="flex items-center gap-2">
               {course?.course_type}
@@ -118,7 +140,10 @@ const PriceSideBar = ({ course }) => {
           {isBeforeStart ? (
             <div className="text-sm sm:text-md text-gray-500 font-bold">
               Applications opening soon
-              <div className="bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text"> {formattedStartDate} - {formattedEndDate}</div>
+              <div className="bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text">
+                {" "}
+                {formattedStartDate} - {formattedEndDate}
+              </div>
             </div>
           ) : isApplicationOpen ? (
             <>
@@ -129,13 +154,17 @@ const PriceSideBar = ({ course }) => {
                 {formattedStartDate} - {formattedEndDate}
               </div>
             </>
-          )  : isClosed ? (
+          ) : isClosed ? (
             <div className="text-sm sm:text-md text-gray-500 font-bold">
               Applications are currently closed
-              <div className="bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text"> {formattedEndDate} - {formattedEndDate}</div>
+              <div className="bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text">
+                {" "}
+                {formattedEndDate} - {formattedEndDate}
+              </div>
             </div>
           ) : null}
-        </div><div className="mt-4 flex flex-wrap justify-between gap-4">
+        </div>
+        <div className="mt-4 flex flex-wrap justify-between gap-4">
           <div>
             <span className="text-xs font-light">To Start by:</span>
             <div className="text-sm font-light"> {formattedDate1}</div>
@@ -165,7 +194,7 @@ const PriceSideBar = ({ course }) => {
             <div className="flex items-center mt-2">
               <FaEnvelope className="text-gray-700 mr-2" />
               <div className="text-sm font-bold text-gray-700">
-                info@theenablement.com
+                {websiteData.email}
               </div>
             </div>
           </div>
@@ -174,7 +203,7 @@ const PriceSideBar = ({ course }) => {
             <div className="flex items-center mt-2">
               <FaPhoneAlt className="text-gray-700 mr-2" />
               <div className="text-sm font-bold text-gray-700">
-                010 335-1182
+                {websiteData.phone}
               </div>
             </div>
           </div>
@@ -190,23 +219,27 @@ const PriceSideBar = ({ course }) => {
           // </button>
 
           <button
-          onClick={handleClick}
-          className="w-full relative uppercase group text-xs sm:text-sm bg-gradient-to-r from-[#DB0032] to-[#FA6602] cursor-pointer text-white p-2 sm:p-3 flex items-center justify-center"
-        >
-          <span className="absolute inset-0 w-0 h-full bg-[#060b33] transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
-          <span className="relative z-10 text-white group-hover:text-white flex items-center">
-            Book Now
-          </span>
-        </button>
+            onClick={handleClick}
+            className="w-full relative uppercase group text-xs sm:text-sm bg-gradient-to-r from-[#DB0032] to-[#FA6602] cursor-pointer text-white p-2 sm:p-3 flex items-center justify-center"
+          >
+            <span className="absolute inset-0 w-0 h-full bg-[#060b33] transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
+            <span className="relative z-10 text-white group-hover:text-white flex items-center">
+              Book Now
+            </span>
+          </button>
         ) : isBeforeStart ? (
           <div className="w-full text-center text-sm sm:text-md font-bold text-gray-500 bg-yellow-400 p-2 sm:p-3 ">
             Opening Soon
           </div>
-        )  : (
-          <div className="w-full text-center text-sm cursor-pointer sm:text-md font-bold text-white bg-gray-500 p-2 sm:p-3 " onClick={openModal}>
+        ) : (
+          <div
+            className="w-full text-center text-sm cursor-pointer sm:text-md font-bold text-white bg-gray-500 p-2 sm:p-3 "
+            onClick={openModal}
+          >
             Closed - Call for Discuss
           </div>
-        )}</div>
+        )}
+      </div>
 
       {/* {isModalOpen && (
         <div
@@ -238,16 +271,35 @@ const PriceSideBar = ({ course }) => {
       <div className="mt-4 flex flex-wrap justify-between gap-4">
         <button className="w-full md:w-auto flex-1 uppercase relative group bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white p-2 sm:p-3 flex items-center justify-center ">
           <span className="absolute inset-0 w-0 h-full bg-[#060b33] transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
-          <span className="relative z-10 text-white group-hover:text-white flex items-center">
+          <a
+            className="relative z-10 text-white group-hover:text-white flex items-center"
+            href={`tel:${websiteData.phone}`}
+          >
             <IoCall className="mr-2" />
             <span className="text-sm">Call Us</span>
-          </span>
+          </a>
         </button>
         <button className="w-full md:w-auto flex-1 uppercase relative group bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white p-2 sm:p-3 flex items-center justify-center ">
           <span className="absolute inset-0 w-0 h-full bg-[#060b33] transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
-          <span className="relative z-10 text-white group-hover:text-white flex items-center">
+          <span
+            className="relative z-10 text-white group-hover:text-white flex items-center"
+            onClick={() => {
+              if (navigator.share) {
+                navigator
+                  .share({
+                    title: "thesalesenablement",
+                    text: "Check out this awesome website!",
+                    url: window.location.href,
+                  })
+                  .then(() => console.log("Shared successfully"))
+                  .catch((err) => console.log("Error:", err));
+              } else {
+                console.log("Web Share API not supported in this browser");
+              }
+            }}
+          >
             <FaShareAlt className="mr-2" />
-            <span className="text-sm">Share</span>
+            <button className="text-sm">Share</button>
           </span>
         </button>
       </div>
