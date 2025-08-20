@@ -15,7 +15,7 @@ const CourseItem = ({ course }) => {
   };
   const [showFullDescription, setShowFullDescription] = useState(false);
   const description = course.description;
-  const charLimit = 180;
+  const charLimit = 180;   
   const shortDescription = description.slice(0, charLimit);
   const fullDescription = description;
   return (

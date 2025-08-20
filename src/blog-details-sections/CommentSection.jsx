@@ -1,68 +1,89 @@
-import React from "react";
-const CommentSection = () => {
-  const comments = [
-    {
-      id: 1,
-      author: "Kevin Martin",
-      date: "March 20, 2023 at 2:37 PM",
-      content: "Neque porro est qui dolorem ipsum quia quaed inventor veritatis et beatae vitae dicta sunt explicabo. Aelltes port lacus quis enim var.",
-      replies: [
-        {
-          id: 1,
-          author: "Kevin Martin",
-          date: "March 20, 2023 at 2:37 PM",
-          content: "Neque porro est qui dolorem ipsum quia quaed inventor veritatis et quasi beatae vitae dicta sunt explicabo. Aelltes port lacus quis enim var.",
-        },
-      ],
-    },
-  ];
+import React, { useState } from "react";
+
+const CommentSection = ({ comments }) => {
+  const commentsPerPage = 3; // Number of comments per page
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = Math.ceil(comments.length / commentsPerPage);
+
+  // Calculate which comments to show on the current page
+  const startIndex = (currentPage - 1) * commentsPerPage;
+  const endIndex = startIndex + commentsPerPage;
+  const currentComments = comments.slice(startIndex, endIndex);
+
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
   return (
     <div className="space-y-8">
-      <h3 className="text-2xl font-semibold text-gray-800 mb-6">02 Comments</h3>
-      {comments.map((comment) => (
-        <div key={comment.id} className="border-t border-gray-300 pt-6">
-          <div className="flex flex-col space-y-4">
-            <div className="flex items-start space-x-3">
-              <span className="font-semibold text-gray-800 text-lg">
-                {comment.author}
-              </span>
-              <span className="text-sm text-gray-500">{comment.date}</span>
+      {comments.length >= 1 && (
+        <h3 className="text-2xl font-semibold text-gray-800 mb-6">
+          {comments.length} Comments
+        </h3>
+      )}
+
+      {currentComments.map((comment) => (
+        <div key={comment.id} className="pb-4">
+          <div className="flex items-start space-x-4">
+            <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-full bg-yellow-600 text-white font-bold text-sm">
+              {comment.user_name.charAt(0).toUpperCase()}
             </div>
-            <p className="text-gray-700 text-base">{comment.content}</p>
-            <button className="text-sm text-[#DB0032] hover:text-[#FA6602] font-semibold hover:underline">
-              Reply
-            </button>
+            <div>
+              <div className="flex items-center space-x-2">
+                <span className="font-semibold text-gray-800 text-lg">
+                  {comment.user_name}
+                </span>
+                <span className="text-sm text-gray-500">
+                  {comment.cmt_date}
+                </span>
+              </div>
+              <p className="text-gray-700 text-base mt-1">{comment.message}</p>
+            </div>
           </div>
-          {comment.replies && comment.replies.length > 0 && (
-            <div className="ml-6 mt-6 border-t border-gray-200 pt-6">
-              {comment.replies.map((reply) => (
-                <div key={reply.id} className="flex flex-col space-y-4">
-                  <div className="flex items-start space-x-3">
-                    <span className="font-semibold text-gray-800 text-lg">
-                      {reply.author}
-                    </span>
-                    <span className="text-sm text-gray-500">{reply.date}</span>
-                  </div>
-                  <p className="text-gray-700 text-base">{reply.content}</p>
-                  <button className="text-sm text-[#DB0032] hover:text-[#FA6602] font-semibold hover:underline">
-                    Reply
-                  </button>
+
+          {comment.auth_reply && (
+            <div className="ml-14 mt-6 flex space-x-4 bg-gray-50 p-4 rounded-xl shadow-sm">
+              <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-full bg-red-500 text-white font-bold text-sm">
+                A
+              </div>
+              <div>
+                <div className="flex items-center space-x-2">
+                  <span className="font-semibold text-gray-800 text-lg">
+                    {comment.auth_name || "Admin"}
+                  </span>
+                  <span className="text-sm text-gray-500">
+                    {comment.reply_date}
+                  </span>
                 </div>
-              ))}
+                <p className="text-gray-700 text-base mt-2 leading-relaxed">
+                  {comment.auth_reply}
+                </p>
+              </div>
             </div>
           )}
+
+          <hr className="mt-6 border-gray-300" />
         </div>
       ))}
-      <div className="flex justify-center space-x-4 mt-8">
-        <button className="px-6 py-2 bg-[#DB0032] text-white rounded-lg shadow-md hover:bg-[#FA6602] transition duration-300 ease-in-out">
-          1
-        </button>
-        <button className="px-6 py-2 bg-white text-[#DB0032] border-2 border-[#DB0032] rounded-lg shadow-md hover:bg-[#FA6602] hover:text-white transition duration-300 ease-in-out">
-          2
-        </button>
-        <button className="px-6 py-2 bg-white text-[#DB0032] border-2 border-[#DB0032] rounded-lg shadow-md hover:bg-[#FA6602] hover:text-white transition duration-300 ease-in-out">
-          3
-        </button>
+
+      {/* Pagination Buttons */}
+      <div className="flex justify-center space-x-2 mt-8">
+        {Array.from({ length: totalPages }, (_, idx) => (
+          <button
+            key={idx + 1}
+            onClick={() => handlePageChange(idx + 1)}
+            className={`h-7 w-7 rounded-lg shadow-md transition duration-300 ease-in-out flex justify-center items-center ${
+              currentPage === idx + 1
+                ? "bg-[#DB0032] text-white "
+                : "bg-white text-[#DB0032] border-2 border-[#DB0032] hover:bg-[#FA6602] hover:text-white"
+            }`}
+          >
+            {idx + 1}
+          </button>
+        ))}
       </div>
     </div>
   );

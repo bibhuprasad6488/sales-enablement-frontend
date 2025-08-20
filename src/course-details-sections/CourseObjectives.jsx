@@ -15,14 +15,15 @@ const CourseObjectives = ({course}) => {
                   className="text-left font-light text-sm md:text-base space-y-2 "
                   dangerouslySetInnerHTML={{ __html: course.course_objective }}
                 />
-          </ul> <div className="mt-8 flex justify-center">
+          </ul> 
+          {/* <div className="mt-8 flex justify-center">
               <button className="px-6 group md:px-8 uppercase py-3 md:py-4  bg-gradient-to-r from-[#DB0032] to-[#FF6A00] text-white text-sm md:text-lg font-semibold shadow-lg  transition-all duration-300 focus:outline-none relative overflow-hidden">
                 <span className="absolute inset-0 w-0 h-full bg-[#383F71] transition-all duration-300 ease-in-out group-hover:w-full"></span>
                 <span className="relative z-10">Enroll Now</span>
               </button>
          
 
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

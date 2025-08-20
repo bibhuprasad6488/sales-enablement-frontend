@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import HeroBlog from "../blog-sections/HeroBlog";
 import BlogContent from "../blog-sections/BlogContent";
 import BlogSideBar from "../blog-sections/BlogSideBar";
+import { useParams } from "react-router-dom"; 
+import axios from "../api/axios";
 function BlogPage() {
   const [filters, setFilters] = useState({
     location: "both",
@@ -13,10 +15,19 @@ function BlogPage() {
       territoryPlanning: false,
       retailPlanning: false,
       communicationSkills: false,
-    },
+    },      
     searchTerm: "",
   });
 
+  // const {slug} = useParams()
+  // const [BlogpageData,setBlogpageData] = useState([])
+  // useEffect(()=>{
+  //   const blogFun =async ()=>{
+  //     const response = await axios.get(`/data/${slug}`)
+  //     const result = await response.data
+  //     setBlogpageData(BlogpageData)
+  //   }
+  // },[])
   return (
     <div>
       <HeroBlog />

@@ -5,39 +5,69 @@ import Blog1 from "../assets/blog1.png";
 import Blog2 from "../assets/blog2.png";
 import Blog3 from "../assets/blog3.png";
 import Blog4 from "../assets/blog-4.png";
-import axios from "../api/axios";
+
 const BlogSideBar = ({ setFilters }) => {
   const location = useLocation(); // to detect current page
 
+  const [categories, setCategories] = useState({
+    "Sales Strategies": false,
+    "Sales Training": false,
+    "Sales Tools & Technology": false,
+    "Performance Analytics": false,
+    "Sales Coaching": false,
+    "Negotiation Skills": false,
+    "Sales Leadership": false,
+  });
+  const [tags, setTags] = useState({
+    "Sales Strategies": false,
+    "Sales Training": false,
+    "Sales Tools": false,
+    Technology: false,
+  });
   const [audience, setAudience] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [price, setPrice] = useState("all");
-
+  const [trends, setTrends] = useState({
+    "Maximizing Sales Performance": false,
+    "Sales Performance Trends": false,
+    "Marketing Strategies": false,
+  });
   const [isOpen, setIsOpen] = useState(false);
 
   // 🔹 Update filters in parent whenever searchTerm changes
   useEffect(() => {
     setFilters({
+      categories,
+      tags,
+      audience,
       searchTerm,
+      price,
+      trends,
     });
-  }, [searchTerm, setFilters]);
-  const [recentpost, setrecentpost] = useState([]);
-  const [category, setcategory] = useState([]);
-  const [tag, settag] = useState([]);
-  const [trends, settrends] = useState([]);
-  useEffect(() => {
-    const SidebarData = async () => {
-      const response = await axios.get("/blog-filters");
-      const result = await response.data;
-      console.log("hii", result);
-      setrecentpost(result.recent_post);
-      setcategory(result.categories);
-      settag(result.tags);
-      settrends(result.trends);
-    };
-    SidebarData();
-  }, []);
-  console.log("datais ", recentpost);
+  }, [searchTerm, categories, tags, audience, price, trends, setFilters]);
+
+  const recentPosts = [
+    {
+      title: "Maximizing Sales Performance: The Ultimate Guide",
+      date: "January 15, 2025",
+      image: Blog2,
+    },
+    {
+      title: "Sales Strategies for 2025",
+      date: "January 10, 2025",
+      image: Blog1,
+    },
+    {
+      title: "Mastering Negotiation Skills",
+      date: "January 5, 2025",
+      image: Blog3,
+    },
+    {
+      title: "Top Sales Tools in 2025",
+      date: "December 30, 2024",
+      image: Blog4,
+    },
+  ];
 
   return (
     <aside
@@ -75,19 +105,18 @@ const BlogSideBar = ({ setFilters }) => {
         </div>
 
         {/* Recent posts */}
-
         <div className="mb-4">
           <h3 className="text-lg font-semibold text-gray-700 mb-2">
             Recent Posts
           </h3>
           <ul className="space-y-2">
-            {recentpost?.map((post, index) => (
+            {recentPosts.slice(0, 4).map((post, index) => (
               <li
                 key={index}
                 className="flex items-center text-sm text-gray-600"
               >
                 <img
-                  src={post.thumbnail}
+                  src={post.image}
                   alt={post.title}
                   className="w-12 h-12 rounded-full mr-3 object-cover"
                 />
@@ -96,7 +125,7 @@ const BlogSideBar = ({ setFilters }) => {
                     {post.title}
                   </a>
                   <span className="text-xs text-gray-400 block">
-                    {post.created}
+                    {post.date}
                   </span>
                 </div>
               </li>
@@ -104,6 +133,7 @@ const BlogSideBar = ({ setFilters }) => {
           </ul>
         </div>
 
+        {/* Only show Categories, Tags, Trends if we are on /blogs */}
         {location.pathname === "/blogs" && (
           <>
             {/* Categories */}
@@ -112,11 +142,22 @@ const BlogSideBar = ({ setFilters }) => {
                 Categories
               </label>
               <div className="space-y-2">
-                {category.map((category, index) => (
-                  <div key={index} className="flex items-center">
-                    <input type="checkbox" id={index} className="mr-2" />
-                    <label className="text-sm text-gray-700" htmlFor={index}>
-                      {category.title}
+                {Object.keys(categories).map((category) => (
+                  <div key={category} className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id={category}
+                      checked={categories[category]}
+                      onChange={() =>
+                        setCategories((prev) => ({
+                          ...prev,
+                          [category]: !prev[category],
+                        }))
+                      }
+                      className="mr-2"
+                    />
+                    <label className="text-sm text-gray-700" htmlFor={category}>
+                      {category}
                     </label>
                   </div>
                 ))}
@@ -129,16 +170,22 @@ const BlogSideBar = ({ setFilters }) => {
                 Tags
               </label>
               <div className="space-x-2 flex gap-2 flex-wrap">
-                {tag.map((tag, i) => (
+                {Object.keys(tags).map((tag) => (
                   <button
-                    key={i}
+                    key={tag}
+                    onClick={() =>
+                      setTags((prev) => ({
+                        ...prev,
+                        [tag]: !prev[tag],
+                      }))
+                    }
                     className={`text-sm py-2 px-4 rounded-full transition duration-300 ease-in-out transform ${
-                      tag[tag]
+                      tags[tag]
                         ? "bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white shadow-lg scale-105"
                         : "bg-gray-200 text-gray-700 hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:text-white hover:scale-105"
                     }`}
                   >
-                    {tag.title}
+                    {tag}
                   </button>
                 ))}
               </div>
@@ -150,16 +197,22 @@ const BlogSideBar = ({ setFilters }) => {
                 Trends
               </label>
               <div className="space-x-2 gap-3 flex flex-wrap">
-                {trends.map((trend, i) => (
+                {Object.keys(trends).map((trend) => (
                   <button
-                    key={i}
+                    key={trend}
+                    onClick={() =>
+                      setTrends((prev) => ({
+                        ...prev,
+                        [trend]: !prev[trend],
+                      }))
+                    }
                     className={`text-sm py-2 px-4 rounded-full transition duration-300 ease-in-out transform ${
                       trends[trend]
                         ? "bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white shadow-lg scale-105"
                         : "bg-gray-200 text-gray-700 hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:text-white hover:scale-105"
                     }`}
                   >
-                    {trend.title}
+                    {trend}
                   </button>
                 ))}
               </div>

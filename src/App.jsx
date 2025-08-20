@@ -85,7 +85,7 @@ function App() {
                 element={<CourseDetails />}
               />
               <Route path="/blogs" element={<BlogPage />} />
-              <Route path="/blog-details/:blogId" element={<BlogDetails />} />
+              <Route path="/blog-details/:slug" element={<BlogDetails />} />
               <Route path="/contact-us" element={<ContactUsPage />} />
               <Route
                 path="/services/sales-candidate-assessments/sample-sales-candidate-assessments"

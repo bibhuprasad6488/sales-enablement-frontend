@@ -1,10 +1,13 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import LogIn from "./Login";
 import SignUp from "./SignUp";
 import MyLearningJourney from "../components/MyLearningJourney";
 import PersonalInformation from "../components/PersonalInfo";
 import ChangePassword from "./ChangePwd";
 import { useTab } from "../context/TabContext";
+
+const PUBLIC_TABS = ["login", "signup"];
+const PRIVATE_TABS = ["journey", "personal", "password"];
 
 const AuthTab = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -16,31 +19,28 @@ const AuthTab = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
-      setIsLoggedIn(true);
-    }
+    setIsLoggedIn(Boolean(token));
   }, []);
 
-  const handleScroll = () => {
-    setIsVisible(window.scrollY > 400);
-  };
-
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setIsVisible(window.scrollY > 400);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Measure header height
   useEffect(() => {
-    if (headerRef.current) {
-      setHeaderHeight(headerRef.current.offsetHeight);
-    }
+    if (headerRef.current) setHeaderHeight(headerRef.current.offsetHeight);
   }, [isVisible]);
 
-  const tabButtonClass = (tabName) =>
-    `relative group flex justify-center items-center transition-all duration-500 ease-out uppercase text-sm font-bold px-2 py-2 sm:px-4 sm:py-4 md:px-10 md:py-3 
-    ${
-      activeTab === tabName
+  useEffect(() => {
+    if (!isLoggedIn && PRIVATE_TABS.includes(activeTab)) {
+      setActiveTab("login");
+    }
+  }, [activeTab, isLoggedIn, setActiveTab]);
+
+  const tabButtonClass = (key) =>
+    `relative group flex justify-center items-center transition-all duration-500 ease-out uppercase text-sm font-bold px-2 py-2 sm:px-4 sm:py-4 md:px-10 md:py-3 ${
+      activeTab === key
         ? "bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white shadow-md"
         : "bg-[#383f71] text-white"
     }`;
@@ -48,11 +48,11 @@ const AuthTab = () => {
   const handleLoginSuccess = () => {
     localStorage.setItem("token", "your-token-here");
     setIsLoggedIn(true);
+    setActiveTab("journey");
   };
 
   return (
     <div className="py-12 flex flex-col content-center">
-      {/* HEADER */}
       <div
         ref={headerRef}
         className={`w-full bg-white ${
@@ -62,11 +62,11 @@ const AuthTab = () => {
         }`}
       >
         <div className="flex justify-center z-10 py-3 overflow-hidden transition-all duration-500">
-          {!isLoggedIn && (
+          {!isLoggedIn ? (
             <>
               <button
-                onClick={() => setActiveTab("Login")}
-                className={tabButtonClass("Login")}
+                onClick={() => setActiveTab("login")}
+                className={tabButtonClass("login")}
               >
                 <span className="absolute inset-0 w-0 h-full bg-white transition-all duration-300 ease-in-out group-hover:w-full"></span>
                 <span className="relative z-10 group-hover:text-[#DB0032]">
@@ -74,8 +74,8 @@ const AuthTab = () => {
                 </span>
               </button>
               <button
-                onClick={() => setActiveTab("Sign Up")}
-                className={tabButtonClass("Sign Up")}
+                onClick={() => setActiveTab("signup")}
+                className={tabButtonClass("signup")}
               >
                 <span className="absolute inset-0 w-0 h-full bg-white transition-all duration-300 ease-in-out group-hover:w-full"></span>
                 <span className="relative z-10 group-hover:text-[#DB0032]">
@@ -83,12 +83,11 @@ const AuthTab = () => {
                 </span>
               </button>
             </>
-          )}
-          {isLoggedIn && (
+          ) : (
             <>
               <button
-                onClick={() => setActiveTab("My Learning Journey")}
-                className={tabButtonClass("My Learning Journey")}
+                onClick={() => setActiveTab("journey")}
+                className={tabButtonClass("journey")}
               >
                 <span className="absolute inset-0 w-0 h-full bg-white transition-all duration-300 ease-in-out group-hover:w-full"></span>
                 <span className="relative text-xs sm:text-sm z-10 group-hover:text-[#DB0032]">
@@ -96,8 +95,8 @@ const AuthTab = () => {
                 </span>
               </button>
               <button
-                onClick={() => setActiveTab("Personal Details")}
-                className={tabButtonClass("Personal Details")}
+                onClick={() => setActiveTab("personal")}
+                className={tabButtonClass("personal")}
               >
                 <span className="absolute inset-0 w-0 h-full bg-white transition-all duration-300 ease-in-out group-hover:w-full"></span>
                 <span className="relative z-10 text-xs sm:text-sm group-hover:text-[#DB0032]">
@@ -105,8 +104,8 @@ const AuthTab = () => {
                 </span>
               </button>
               <button
-                onClick={() => setActiveTab("Change Password")}
-                className={tabButtonClass("Change Password")}
+                onClick={() => setActiveTab("password")}
+                className={tabButtonClass("password")}
               >
                 <span className="absolute inset-0 w-0 h-full bg-white transition-all duration-300 ease-in-out group-hover:w-full"></span>
                 <span className="relative z-10 text-xs sm:text-sm group-hover:text-[#DB0032]">
@@ -116,28 +115,31 @@ const AuthTab = () => {
             </>
           )}
         </div>
+
         <div className="relative flex items-center my-2 w-full">
           <div className="flex-grow border-t-2 border-[#DB0032]"></div>
           <div className="flex-grow border-t-2 border-[#FA6602]"></div>
         </div>
       </div>
 
-      {/* SPACER WHEN FIXED */}
       {isVisible && <div style={{ height: headerHeight }} />}
 
-      {/* FORM CONTENT */}
       <div className="w-full mt-4 p-0 sm:p-6 bg-white">
-        {activeTab === "Login" ? (
-          <LogIn onLoginSuccess={handleLoginSuccess} />
-        ) : activeTab === "Sign Up" ? (
-          <SignUp />
-        ) : activeTab === "Change Password" ? (
-          <ChangePassword />
-        ) : activeTab === "Personal Details" ? (
-          <PersonalInformation />
-        ) : activeTab === "My Learning Journey" ? (
+        {!isLoggedIn ? (
+          activeTab === "login" ? (
+            <LogIn onLoginSuccess={handleLoginSuccess} />
+          ) : (
+            <SignUp />
+          )
+        ) : activeTab === "journey" ? (
           <MyLearningJourney />
-        ) : null}
+        ) : activeTab === "personal" ? (
+          <PersonalInformation />
+        ) : activeTab === "password" ? (
+          <ChangePassword />
+        ) : (
+          <MyLearningJourney />
+        )}
       </div>
     </div>
   );
