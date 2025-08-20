@@ -6,7 +6,6 @@ const CommentSection = ({ comments }) => {
 
   const totalPages = Math.ceil(comments.length / commentsPerPage);
 
-  // Calculate which comments to show on the current page
   const startIndex = (currentPage - 1) * commentsPerPage;
   const endIndex = startIndex + commentsPerPage;
   const currentComments = comments.slice(startIndex, endIndex);
@@ -77,8 +76,8 @@ const CommentSection = ({ comments }) => {
             onClick={() => handlePageChange(idx + 1)}
             className={`h-7 w-7 rounded-lg shadow-md transition duration-300 ease-in-out flex justify-center items-center ${
               currentPage === idx + 1
-                ? "bg-[#DB0032] text-white "
-                : "bg-white text-[#DB0032] border-2 border-[#DB0032] hover:bg-[#FA6602] hover:text-white"
+                ? "bg-gradient-to-r from-[#DB0032] to-[#fa6602] text-white "
+                : "bg-white text-[#eb3419] border-2 border-[#eb3419]"
             }`}
           >
             {idx + 1}
