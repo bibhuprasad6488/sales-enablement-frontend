@@ -21,6 +21,7 @@ const BlogDetailSection = ({
   const [course, setCourse] = useState(null);
   const [relatedCourses, setRelatedCourses] = useState([]);
   const [playingVideo, setPlayingVideo] = useState(null);
+  const currentUrl = window.location.href;
   useEffect(() => {
     const stripHtml = (html) => {
       if (!html) return "";
@@ -63,25 +64,96 @@ const BlogDetailSection = ({
       <div className="md:w-1/3 md:ml-8 xl:w-full xl:ml-0 mt-6 md:mt-0 mb-6 relative">
         <div className="relative">
           <div className="absolute bottom-4 right-4 flex items-center">
-            <button
-              className="w-full md:w-auto flex-1 uppercase relative bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white p-2 sm:p-3 flex items-center justify-center rounded-full hover:from-[#FA6602] hover:to-[#DB0032] transition-all duration-300"
-              onClick={() => {
-                if (navigator.share) {
-                  navigator
-                    .share({
-                      title: "thesalesenablement",
-                      text: "Check out this awesome website!",
-                      url: window.location.href,
-                    })
-                    .then(() => console.log("Shared successfully"))
-                    .catch((err) => console.log("Error:", err));
-                } else {
-                  console.log("Web Share API not supported in this browser");
-                }
-              }}
-            >
-              <FaShareAlt className="text-white" />
-            </button>
+            <div className="relative group">
+              <button className="p-3 bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white rounded-full flex items-center justify-center transition-all duration-300">
+                <FaShareAlt size={18} className="text-white" />
+              </button>
+              <div className="absolute right-0 bottom-12 bg-gradient-to-r from-[#DB0032] to-[#FA6602] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out px-2 py-1 space-x-0.5 flex gap-2">
+                <a
+                  className="cursor-pointer"
+                  onClick={() => {
+                    window.open(
+                      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                        currentUrl
+                      )}`,
+                      "_blank"
+                    );
+                  }}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaFacebook size={18} className="text-white text-xl" />
+                </a>
+                <span>
+                  <hr className="h-[80%] w-[1.4px] border-0 bg-white flex justify-self-center self-center" />
+                </span>
+                <a
+                  className="cursor-pointer"
+                  onClick={() => {
+                    window.open(
+                      `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+                        currentUrl
+                      )}`,
+                      "_blank"
+                    );
+                  }}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaTwitter size={18} className="text-white text-xl" />
+                </a>
+                <span>
+                  <hr className="h-[80%] w-[1.4px] border-0 bg-white flex justify-self-center self-center" />
+                </span>
+                <a
+                  className="cursor-pointer"
+                  onClick={() => {
+                    window.open(
+                      `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+                        currentUrl
+                      )}`,
+                      "_blank"
+                    );
+                  }}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaLinkedin size={18} className="text-white text-xl" />
+                </a>
+                <span>
+                  <hr className="h-[80%] w-[1px] border-0 bg-white flex justify-self-center self-center" />
+                </span>
+                <a
+                  className="cursor-pointer"
+                  onClick={(e) => {
+                    e.preventDefault(); // stop auto navigation
+                    navigator.clipboard.writeText(window.location.href);
+
+                    window.open("https://instagram.com", "_blank"); // optional: still open Instagram site
+                  }}
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaInstagram size={22} className="text-white text-xl" />
+                </a>
+                {/* <a
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const currentUrl = window.location.href;
+                    const whatsappUrl = `https://web.whatsapp.com/send?text=${encodeURIComponent(
+                      currentUrl
+                    )}`;
+                    window.open(whatsappUrl, "_blank");
+                  }}
+                  href="https://web.whatsapp.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  W
+                </a> */}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -112,7 +184,7 @@ const BlogDetailSection = ({
       <div>
         {Allblogdata?.description && (
           <p
-            className="text-gray-700 mt-2 text-justify"
+            className="text-gray-700 prose mt-2 text-justify"
             dangerouslySetInnerHTML={{
               __html: Allblogdata?.description,
             }}

@@ -27,6 +27,7 @@ import ContextProviders from "./context/ContextProviders";
 import ScrollToTop from "./components/ScrollToTop";
 import DetailsSlug from "./home-sections/DetailsSlug";
 import WhoweAre from "./home-sections/WhoweAre";
+import MeasurableGrowth from "./service-section/MeasurableGrowth";
 function App() {
   const [isPopupOpen, setIsPopupOpen] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
@@ -108,7 +109,11 @@ function App() {
 
               <Route path="*" element={<NotFound />} />
               <Route path="/studydetails/:slug" element={<DetailsSlug />} />
-              <Route path="/who-we-are" element={<WhoweAre/>} />
+              <Route path="/who-we-are" element={<WhoweAre />} />
+              <Route
+                path="/sales-enablement-that-drives-measurable-growth"
+                element={<MeasurableGrowth />}
+              />
             </Routes>
             <ScrollToTopButton />
             <Footer />

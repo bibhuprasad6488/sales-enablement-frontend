@@ -5,7 +5,12 @@ import {
   FaGlobeAmericas,
   FaPhoneAlt,
   FaShareAlt,
+  FaFacebook,
+  FaTwitter,
+  FaLinkedin,
+  FaInstagram,
 } from "react-icons/fa";
+
 import { toast } from "react-toastify";
 import { IoCall } from "react-icons/io5";
 import CallToDiscussForm from "../components/CallToDiscussForm";
@@ -14,7 +19,7 @@ import { useApi3 } from "../context/WebsiteDataContext";
 const PriceSideBar = ({ course }) => {
  const { websiteData } = useApi3();
   console.log(websiteData.phone);
-  
+  const currentUrl = window.location.href;
   const [isHovered, setIsHovered] = useState(false);
   const formattedDate = new Date(course.end_date).toLocaleDateString("en-GB", {
     day: "2-digit",
@@ -281,23 +286,77 @@ const PriceSideBar = ({ course }) => {
         </button>
         <button className="w-full md:w-auto flex-1 uppercase relative group bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white p-2 sm:p-3 flex items-center justify-center ">
           <span className="absolute inset-0 w-0 h-full bg-[#060b33] transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
-          <span
-            className="relative z-10 text-white group-hover:text-white flex items-center"
-            onClick={() => {
-              if (navigator.share) {
-                navigator
-                  .share({
-                    title: "thesalesenablement",
-                    text: "Check out this awesome website!",
-                    url: window.location.href,
-                  })
-                  .then(() => console.log("Shared successfully"))
-                  .catch((err) => console.log("Error:", err));
-              } else {
-                console.log("Web Share API not supported in this browser");
-              }
-            }}
-          >
+          <span className="relative z-10 text-white group-hover:text-white flex items-center">
+            <div className="absolute right-[-60px] bottom-[-50px] bg-gradient-to-r from-[#DB0032] to-[#FA6602] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out p-2 space-x-0.5 flex gap-3">
+              <a
+                className="cursor-pointer"
+                onClick={() => {
+                  window.open(
+                    `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                      currentUrl
+                    )}`,
+                    "_blank"
+                  );
+                }}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaFacebook size={18} className="text-white text-xl" />
+              </a>
+              <span>
+                <hr className="h-full w-[1px] border-0 bg-white flex justify-self-center self-center" />
+              </span>
+              <a
+                className="cursor-pointer"
+                onClick={() => {
+                  window.open(
+                    `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+                      currentUrl
+                    )}`,
+                    "_blank"
+                  );
+                }}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaTwitter size={18} className="text-white text-xl" />
+              </a>
+              <span>
+                <hr className="h-full w-[1.4px] border-0 bg-white flex justify-self-center self-center" />
+              </span>
+              <a
+                className="cursor-pointer"
+                onClick={() => {
+                  window.open(
+                    `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+                      currentUrl
+                    )}`,
+                    "_blank"
+                  );
+                }}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaLinkedin size={18} className="text-white text-xl" />
+              </a>
+              <span>
+                <hr className="h-full w-[1px] border-0 bg-white flex justify-self-center self-center" />
+              </span>
+              <a
+                className="cursor-pointer"
+                onClick={(e) => {
+                  e.preventDefault(); // stop auto navigation
+                  navigator.clipboard.writeText(window.location.href);
+
+                  window.open("https://instagram.com", "_blank"); // optional: still open Instagram site
+                }}
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaInstagram size={18} className="text-white text-xl" />
+              </a>
+            </div>
             <FaShareAlt className="mr-2" />
             <button className="text-sm">Share</button>
           </span>
