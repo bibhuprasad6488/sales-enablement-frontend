@@ -3,12 +3,13 @@ import RightArrow from "../assets/arrow-right.png";
 import ServiceArrow from "../assets/service-arrow.png";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { LuPlus } from "react-icons/lu";
 import { useApi } from "../context/ServiceContextApi";
 
 function Services({ consultationData }) {
+  const navigate = useNavigate()
 const [showDescription, setShowDescription] = useState(false);
   const handleCardClick = (id) => {
     if (id === clickedCard) {
@@ -68,7 +69,10 @@ if (!Array.isArray(serviceData)) {
             {consultationData.description}
           </p>
           <button
-            onClick={() => handleButtonClick(consultationData.btn_link)}
+            onClick={() =>{
+              navigate("/sales-enablement-that-drives-measurable-growth");
+            } }
+            
             type="button"
             className="text-[#000] transition-transform duration-500 ease-out transform  h-12 w-full justify-center  flex space-x-5 gap-6 uppercase items-center font-bold text-xs sm:text-sm md:px-20 lg:px-20 sm:w-full xl:w-auto 2xl:w-auto  md:w-auto xl:px-20   md:py-6 sm:px-16 py-4 hover:text-[#000] border border-[#000] sm:justify-center md:justify-between border-btn2"
           >

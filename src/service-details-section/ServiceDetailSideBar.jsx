@@ -63,7 +63,7 @@ const ServiceDetailSideBar = ({ course }) => {
         ))}
       </div>
 
-      <div className="py-6 px-4 bg-gray-200 rounded-lg shadow-md">
+      {/* <div className="py-6 px-4 bg-gray-200 rounded-lg shadow-md">
         <h2 className="text-xl font-semibold text-gray-800 text-center">
           Get Updates
         </h2>
@@ -101,7 +101,7 @@ const ServiceDetailSideBar = ({ course }) => {
             Thank you for subscribing!
           </div>
         )}
-      </div>
+      </div> */}
     </aside>
   );
 };

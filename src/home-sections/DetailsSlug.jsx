@@ -74,7 +74,15 @@ export default function DetailsPage() {
           </div>
         </div>
       </section>
-      <div class="bg-white min-h-screen py-12 px-6 md:px-20">
+      <section className="prose max-w-none mx-20 my-10">
+        <div className="text-black"
+          dangerouslySetInnerHTML={{
+            __html: studyDetail?.description,
+          }}
+        />
+      </section>
+
+      {/* <div class="bg-white min-h-screen py-12 px-6 md:px-20">
         <motion.div
           class="text-baseline mb-12"
           id="study_detail_head"
@@ -331,7 +339,7 @@ export default function DetailsPage() {
             </div>
           </motion.div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }
