@@ -17,7 +17,7 @@ import CallToDiscussForm from "../components/CallToDiscussForm";
 import { useNavigate } from "react-router-dom";
 import { useApi3 } from "../context/WebsiteDataContext";
 const PriceSideBar = ({ course }) => {
- const { websiteData } = useApi3();
+  const { websiteData } = useApi3();
   console.log(websiteData.phone);
   const currentUrl = window.location.href;
   const [isHovered, setIsHovered] = useState(false);
@@ -34,8 +34,8 @@ const PriceSideBar = ({ course }) => {
       year: "numeric",
     }
   );
- 
-  
+
+
   const today = new Date();
   const startDate = new Date(course.app_open_date);
   const endDate = new Date(course.app_close_date);
@@ -54,17 +54,17 @@ const PriceSideBar = ({ course }) => {
   const isClosed = isValidDate(endDate) && today > endDate;
   const formattedStartDate = isValidDate(startDate)
     ? startDate.toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      })
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    })
     : "N/A";
   const formattedEndDate = isValidDate(endDate)
     ? endDate.toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      })
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    })
     : "N/A";
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -119,11 +119,10 @@ const PriceSideBar = ({ course }) => {
             {course.name}
           </h2>
           <div
-            className={`flex items-center justify-center gap-1 rounded-md px-2 py-2 transition-all duration-300 ${
-              isHovered
+            className={`flex items-center justify-center gap-1 rounded-md px-2 py-2 transition-all duration-300 ${isHovered
                 ? "bg-white text-[#DB0032]"
                 : "text-white bg-gradient-to-r from-[#DB0032] to-[#FA6602]"
-            }`}
+              }`}
           >
             <div className="flex items-center gap-2">
               {course?.course_type}
@@ -184,7 +183,7 @@ const PriceSideBar = ({ course }) => {
           <div>
             <span className="text-xs font-light">Cost</span>
             <div className="text-sm sm:text-md bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text font-bold">
-              $ {course.fees}
+              R {course.fees}
             </div>
           </div>
           <div>

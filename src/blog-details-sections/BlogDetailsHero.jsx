@@ -9,7 +9,7 @@ function BlogDetailsHero({titles}) {
         <div className="relative w-full h-full   course-bg">
           <div className="relative   bg-layer">
             <Navbar />
-            <div className="text-white flex items-center justify-center container mx-auto px-4 pt-6 sm:px-4 sm:pt-16 ">
+            <div className="text-white flex items-center text-center justify-center container mx-auto px-4 pt-6 sm:px-4 sm:pt-16 ">
               <h1 className="text-xl md:text-xl lg:text-4xl uppercase font-bold ">
                 {titles}
               </h1>

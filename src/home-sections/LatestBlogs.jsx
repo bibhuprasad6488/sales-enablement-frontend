@@ -102,13 +102,17 @@ function LatestBlogs() {
             <img
               src={blog.thumbnail}
               alt={blog.title}
-              className="w-full h-[233px] p-2 object-cover mb-4"
+              className="w-[100%] h-[233px] p-2 object-cover mb-4"
             />
-            <h3 className="text-lg sm:text-sm md:text-[17px] uppercase font-semibold mb-2 p-4 text-center">
-              {blog.title}
+            <h3 title={blog.title} className="text-lg sm:text-sm md:text-[17px] uppercase font-semibold mb-2 p-4 text-center">
+              {blog.title?.length > 43
+                ? blog.title.substring(0, 43) + "..."
+                : blog.title}
             </h3>
             <p className="text-left mb-4 text-sm px-6 sm:text-base">
-              {blog.short_desc}
+              {blog.short_desc?.length > 150
+                ? blog.short_desc.substring(0, 150) + "..."
+                : blog.short_desc}
             </p>
 
             <Link

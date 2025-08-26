@@ -6,9 +6,9 @@ import { motion } from "framer-motion";
 
 function LatestBlogs({ filters }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 9; // 3 posts per page
+  const itemsPerPage = 9; // 9 posts per page
   const elementRef = useRef(null);
-  
+
   const [BlogpageData, setBlogpageData] = useState([]);
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -72,18 +72,23 @@ function LatestBlogs({ filters }) {
                   <img
                     src={blog.thumbnail}
                     alt={blog.title}
-                    className="w-full h-[233px] p-2 object-cover mb-4"
+                    className="w-[100%] h-[233px] p-2 object-fit mb-4"
                   />
                   <div className="absolute bottom-6 right-2 bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white text-xs font-semibold py-1 px-3 rounded-tl-[8px]">
                     <p className="text-base">{blog.created}</p>
                   </div>
                 </div>
 
-                <h3 className="text-lg sm:text-sm md:text-[17px] uppercase font-semibold mb-2 p-4 text-center flex-grow">
-                  {blog.title}
+                <h3 title={blog.title} className="text-lg sm:text-sm md:text-[17px] uppercase font-semibold mb-2 p-4 text-center flex-grow">
+                  {/* {blog.title} */}
+                  {blog.title?.length > 40
+                    ? blog.title.substring(0, 40) + "..."
+                    : blog.title}
                 </h3>
                 <p className="text-left mb-4 text-sm px-6 sm:text-base flex-grow">
-                  {blog.short_desc}
+                  {blog.short_desc?.length > 108
+                    ? blog.short_desc.substring(0, 108) + "..."
+                    : blog.short_desc}
                   <hr className="mt-4" />
                 </p>
 
@@ -120,11 +125,10 @@ function LatestBlogs({ filters }) {
               <button
                 key={page}
                 onClick={() => handlePageChange(page)}
-                className={`h-8 w-8 flex justify-center items-center mx-1 rounded-md ${
-                  currentPage === page
-                    ? "bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white"
-                    : "bg-gray-200 text-gray-700"
-                }`}
+                className={`h-8 w-8 flex justify-center items-center mx-1 rounded-md ${currentPage === page
+                  ? "bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white"
+                  : "bg-gray-200 text-gray-700"
+                  }`}
               >
                 {page}
               </button>

@@ -15,7 +15,7 @@ function HeroSection({ heroData }) {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prevSlide) => (prevSlide + 1) % heroData.length);
-    }, 5000);
+    }, 8000);
 
     return () => clearInterval(interval);
   }, [heroData.length]);
@@ -163,7 +163,7 @@ function HeroSection({ heroData }) {
                   >
                     <button
                       type="button"
-                      
+
                       onClick={() =>
                         handleButtonClick(heroData[currentSlide].btn_one_link)
                       }
