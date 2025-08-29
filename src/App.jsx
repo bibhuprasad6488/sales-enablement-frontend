@@ -28,7 +28,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import DetailsSlug from "./home-sections/DetailsSlug";
 import WhoweAre from "./home-sections/WhoweAre";
 import MeasurableGrowth from "./service-section/MeasurableGrowth";
-import BookCoarse from "./course-section/BookCoarse";
+import BookCourse from "./course-section/BookCourse"
 function App() {
   const [isPopupOpen, setIsPopupOpen] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
@@ -107,11 +107,10 @@ function App() {
                 element={<TermsAndConditions />}
               />
               <Route path="/login-signup" element={<LoginSignUp />} />
-
               <Route path="*" element={<NotFound />} />
               <Route path="/studydetails/:slug" element={<DetailsSlug />} />
               <Route path="/who-we-are" element={<WhoweAre />} />
-              <Route path="/booking-coarse" element={<BookCoarse/>} />
+              <Route path="/booking-course/*" element={<BookCourse />} />
               <Route
                 path="/sales-enablement-that-drives-measurable-growth"
                 element={<MeasurableGrowth />}

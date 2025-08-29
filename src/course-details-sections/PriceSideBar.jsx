@@ -35,7 +35,6 @@ const PriceSideBar = ({ course }) => {
     }
   );
 
-
   const today = new Date();
   const startDate = new Date(course.app_open_date);
   const endDate = new Date(course.app_close_date);
@@ -54,17 +53,17 @@ const PriceSideBar = ({ course }) => {
   const isClosed = isValidDate(endDate) && today > endDate;
   const formattedStartDate = isValidDate(startDate)
     ? startDate.toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    })
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      })
     : "N/A";
   const formattedEndDate = isValidDate(endDate)
     ? endDate.toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    })
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      })
     : "N/A";
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -95,6 +94,7 @@ const PriceSideBar = ({ course }) => {
     setIsLoggedIn(!!token);
   }, []);
 
+   // In your component with the Book Now button
   const handleClick = () => {
     if (!isLoggedIn) {
       toast.error("You need to log in first!", {
@@ -103,16 +103,14 @@ const PriceSideBar = ({ course }) => {
       });
       navigate("/login-signup");
     } else {
-
       toast.success("Proceeding to booking...", {
         position: "top-right",
         autoClose: 2000,
       });
-     navigate("/booking-coarse", { state: { course: course } });
-      console.log("Proceeding to booking...");
+      navigate("/booking-course/general", { state: { course: course } });
     }
   };
-console.log("kkkkkkkkk",course);
+  console.log("kkkkkkkkk", course);
 
   return (
     <section className="w-full  bg-white p-4 sm:p-6 hover:scale-105 transition-transform duration-200 shadow-2xl mx-auto ">
@@ -122,10 +120,11 @@ console.log("kkkkkkkkk",course);
             {course.name}
           </h2>
           <div
-            className={`flex items-center justify-center gap-1 rounded-md px-2 py-2 transition-all duration-300 ${isHovered
+            className={`flex items-center justify-center gap-1 rounded-md px-2 py-2 transition-all duration-300 ${
+              isHovered
                 ? "bg-white text-[#DB0032]"
                 : "text-white bg-gradient-to-r from-[#DB0032] to-[#FA6602]"
-              }`}
+            }`}
           >
             <div className="flex items-center gap-2">
               {course?.course_type}
@@ -226,7 +225,6 @@ console.log("kkkkkkkkk",course);
           // </button>
 
           <button
-          
             onClick={handleClick}
             className="w-full relative uppercase group text-xs sm:text-sm bg-gradient-to-r from-[#DB0032] to-[#FA6602] cursor-pointer text-white p-2 sm:p-3 flex items-center justify-center"
           >

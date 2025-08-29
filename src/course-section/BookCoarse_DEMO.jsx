@@ -8,7 +8,7 @@ const BookCoarse = () => {
   const courses = location.state?.course;
   const courseName = courses?.name || "";
   const courseId = courses?.id || "";
-  
+
   // const [accepted, setAccepted] = useState("no");
   const [specialNeeds, setSpecialNeeds] = useState("no");
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -113,8 +113,8 @@ const BookCoarse = () => {
   });
 
   const [errors, setErrors] = useState({});
-const [step, setStep] = useState(1);
-// console.log("count",step);
+  const [step, setStep] = useState(1);
+  // console.log("count",step);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -130,66 +130,66 @@ const [step, setStep] = useState(1);
     });
   };
 
-const validateStep = () => {
-  let stepErrors = {};
+  const validateStep = () => {
+    let stepErrors = {};
 
-  if (step === 1) {
-    [
-      "title",
-      "surname",
-      "firstname",
-      "preferName",
-      "email",
-      "diet",
-      "company",
-      "organisation",
-      "levelOrg",
-      "sector",
-      "nationality",
-      "job",
-      "gender",
-      "population",
-      "passport",
-      "finding",
-      "nature",
-      "internationalMobilePhone",
-      "disabled",
-    ].forEach((f) => {
-      if (!formData[f] || formData[f].trim() === "") {
-        stepErrors[f] = "This field is required";
-      }
-    });
-  }
+    if (step === 1) {
+      [
+        "title",
+        "surname",
+        "firstname",
+        "preferName",
+        "email",
+        "diet",
+        "company",
+        "organisation",
+        "levelOrg",
+        "sector",
+        "nationality",
+        "job",
+        "gender",
+        "population",
+        "passport",
+        "finding",
+        "nature",
+        "internationalMobilePhone",
+        "disabled",
+      ].forEach((f) => {
+        if (!formData[f] || formData[f].trim() === "") {
+          stepErrors[f] = "This field is required";
+        }
+      });
+    }
 
-  if (step === 2) {
-    [
-      "account",
-      "country",
-      "postalAd_1",
-      "postalAd_2",
-      "city",
-      "sendingEmail",
-    ].forEach((f) => {
-      if (!formData[f] || formData[f].trim() === "") {
-        stepErrors[f] = "This field is required";
-      }
-    });
-  }
+    if (step === 2) {
+      [
+        "account",
+        "country",
+        "postalAd_1",
+        "postalAd_2",
+        "city",
+        "sendingEmail",
+      ].forEach((f) => {
+        if (!formData[f] || formData[f].trim() === "") {
+          stepErrors[f] = "This field is required";
+        }
+      });
+    }
 
-  if (step === 3 && formData.terms !== "yes") {
-    stepErrors.terms = "You must accept the terms";
-  }
+    if (step === 3 && formData.terms !== "yes") {
+      stepErrors.terms = "You must accept the terms";
+    }
 
-  setErrors(stepErrors);
-  return Object.keys(stepErrors).length === 0;
-};
+    setErrors(stepErrors);
+    return Object.keys(stepErrors).length === 0;
+  };
 
   const nextStep = () => {
     // console.log("jiiiiiiiiiiiii");
-    
+
     if (validateStep()) {
       console.log("hii", step);
-      
+
       setStep(step + 1);
     }
   };
@@ -413,7 +413,6 @@ const validateStep = () => {
                       <select
                         name="diet"
                         value={formData.diet}
-
                         onChange={handleChange}
                         required
                         className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
@@ -675,7 +674,6 @@ const validateStep = () => {
                             <input
                               type="radio"
                               name="disabled"
-
                               value="yes"
                               checked={formData.disabled === "yes"}
                               onChange={handleChange} // ✅ use handleChange
@@ -963,7 +961,7 @@ const validateStep = () => {
                   Next
                 </button>
               ) : (
-                formData.terms === "yes" && ( // ✅ Only show Book Now if Yes
+                formData.terms === "yes" && (
                   <button
                     type="submit"
                     className="px-6 py-2 rounded-lg text-white bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:opacity-90 transition"
