@@ -54,6 +54,7 @@ function ServiceDetails() {
           <ServiceDetailSideBar />
         </div>
       </div>
+      
     </>
   );
 }
