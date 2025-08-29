@@ -103,13 +103,16 @@ const PriceSideBar = ({ course }) => {
       });
       navigate("/login-signup");
     } else {
+
       toast.success("Proceeding to booking...", {
         position: "top-right",
         autoClose: 2000,
       });
+     navigate("/booking-coarse", { state: { course: course } });
       console.log("Proceeding to booking...");
     }
   };
+console.log("kkkkkkkkk",course);
 
   return (
     <section className="w-full  bg-white p-4 sm:p-6 hover:scale-105 transition-transform duration-200 shadow-2xl mx-auto ">
@@ -223,6 +226,7 @@ const PriceSideBar = ({ course }) => {
           // </button>
 
           <button
+          
             onClick={handleClick}
             className="w-full relative uppercase group text-xs sm:text-sm bg-gradient-to-r from-[#DB0032] to-[#FA6602] cursor-pointer text-white p-2 sm:p-3 flex items-center justify-center"
           >

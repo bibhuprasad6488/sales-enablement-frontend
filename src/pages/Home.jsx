@@ -88,7 +88,7 @@ function Home() {
             <Services consultationData={consultation} />
             <GetInTouch />
             <CaseStudies />
-            <Testimonials testimonialsData={testimonials} />
+            {/* <Testimonials testimonialsData={testimonials} /> */}
             <LatestBlogs />
             <FooterSubscribe />
           </div>
