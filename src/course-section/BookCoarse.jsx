@@ -8,12 +8,12 @@ const BookCoarse = () => {
   const courses = location.state?.course;
   const courseName = courses?.name || "";
   const courseId = courses?.id || "";
-  const [step, setStep] = useState(1);
+  
   // const [accepted, setAccepted] = useState("no");
   const [specialNeeds, setSpecialNeeds] = useState("no");
   const [selectedCountry, setSelectedCountry] = useState("");
   const [internationalMobile, setInternationalMobile] = useState("");
-  const nextStep = () => setStep(step + 1);
+
   const steps = ["General", "Billing Details", "Legal"];
   const optionTitle = [
     "Aprof",
@@ -82,9 +82,10 @@ const BookCoarse = () => {
   ];
   const vision = ["Hearing", "Vision", "Mobility", "Other"];
 
+  // ✅ All keys lowercase + consistent
   const [formData, setFormData] = useState({
     title: "",
-    Surname: "",
+    surname: "",
     firstname: "",
     preferName: "",
     email: "",
@@ -112,70 +113,90 @@ const BookCoarse = () => {
   });
 
   const [errors, setErrors] = useState({});
-  console.log("hekldjhd", errors);
+const [step, setStep] = useState(1);
+// console.log("count",step);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+
+    // ✅ clear error for this field when user types
+    setErrors((prev) => {
+      const newErrors = { ...prev };
+      if (value.trim() !== "") {
+        delete newErrors[name];
+      }
+      return newErrors;
+    });
   };
 
-  const validateStep = (currentStep) => {
-    let stepErrors = {};
-    if (currentStep === 1) {
-      [
-        "title",
-        "Surname",
-        "firstname",
-        "preferName",
-        "email",
-        "diet",
-        "company",
-        "organisation",
-        "levelOrg",
-        "sector",
-        "nationality",
-        "job",
-        "gender",
-        "population",
-        "passport",
-        "finding",
-        "nature",
-        "internationalMobilePhone",
-        "disabled",
-      ].forEach((f) => {
-        if (!formData[f] || formData[f].trim() === "")
-          stepErrors[f] = "This field is required";
-      });
-    }
-    if (currentStep === 2) {
-      [
-        "account",
-        "country",
-        "postalAd_1",
-        "postalAd_2",
-        "city",
-        "sendingEmail",
-     
-       
-        
-      ].forEach((f) => {
-        if (!formData[f] || formData[f].trim() === "")
-          stepErrors[f] = "This field is required";
-      });
-    }
-    if (currentStep === 3 && formData.terms !== "yes") {
-      stepErrors.terms = "You must accept the terms";
-    }
-    setErrors(stepErrors);
+const validateStep = () => {
+  let stepErrors = {};
 
-    return Object.keys(stepErrors).length === 0;
+  if (step === 1) {
+    [
+      "title",
+      "surname",
+      "firstname",
+      "preferName",
+      "email",
+      "diet",
+      "company",
+      "organisation",
+      "levelOrg",
+      "sector",
+      "nationality",
+      "job",
+      "gender",
+      "population",
+      "passport",
+      "finding",
+      "nature",
+      "internationalMobilePhone",
+      "disabled",
+    ].forEach((f) => {
+      if (!formData[f] || formData[f].trim() === "") {
+        stepErrors[f] = "This field is required";
+      }
+    });
+  }
+
+  if (step === 2) {
+    [
+      "account",
+      "country",
+      "postalAd_1",
+      "postalAd_2",
+      "city",
+      "sendingEmail",
+    ].forEach((f) => {
+      if (!formData[f] || formData[f].trim() === "") {
+        stepErrors[f] = "This field is required";
+      }
+    });
+  }
+
+  if (step === 3 && formData.terms !== "yes") {
+    stepErrors.terms = "You must accept the terms";
+  }
+
+  setErrors(stepErrors);
+  return Object.keys(stepErrors).length === 0;
+};
+
+  const nextStep = () => {
+    // console.log("jiiiiiiiiiiiii");
+    
+    if (validateStep()) {
+      console.log("hii", step);
+      
+      setStep(step + 1);
+    }
   };
 
   const prevStep = () => setStep(step - 1);
 
   const handleSubmit = (e) => {
-    console.log("Errrrorrrrrs", errors);
-
     e.preventDefault();
     if (validateStep(step)) {
       console.log("Form submitted:", formData);
@@ -314,14 +335,15 @@ const BookCoarse = () => {
                         </span>
                       </label>
                       <input
-                        name="Surname"
+                        name="surname"
+                        value={formData.surname || ""}
                         onChange={handleChange}
                         type="text"
                         className="w-full p-2 border border-gray-300 rounded-lg bg-slate-100"
                       />
-                      {errors.Surname && (
+                      {errors.surname && (
                         <p className="text-red-500 text-xs mt-1" id="err">
-                          {errors.Surname}
+                          {errors.surname}
                         </p>
                       )}
                     </div>,
@@ -335,6 +357,7 @@ const BookCoarse = () => {
                       </label>
                       <input
                         name="firstname"
+                        value={formData.firstname || ""}
                         onChange={handleChange}
                         type="text"
                         className="w-full p-2 border border-gray-300 rounded-lg bg-slate-100"
@@ -351,6 +374,7 @@ const BookCoarse = () => {
                       <input
                         type="text"
                         name="preferName"
+                        value={formData.preferName || ""}
                         onChange={handleChange}
                         className="w-full p-2 border border-gray-300 rounded-lg bg-slate-100"
                       />
@@ -373,6 +397,7 @@ const BookCoarse = () => {
                         name="email"
                         onChange={handleChange}
                         type="email"
+                        value={formData.email || ""}
                         required
                         className="w-full p-2 border border-gray-300 rounded-lg bg-slate-100"
                       />
@@ -388,6 +413,7 @@ const BookCoarse = () => {
                       <select
                         name="diet"
                         value={formData.diet}
+
                         onChange={handleChange}
                         required
                         className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
@@ -412,6 +438,7 @@ const BookCoarse = () => {
                       <label htmlFor="">Organization / Company</label>
                       <input
                         name="company"
+                        value={formData.company || ""}
                         onChange={handleChange}
                         type="text"
                         required
@@ -428,10 +455,10 @@ const BookCoarse = () => {
                       <label htmlFor="">Function in organisation</label>
                       <select
                         name="organisation"
+                        value={formData.organisation || ""}
                         onChange={handleChange}
                         required
                         className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
-                        defaultValue=""
                       >
                         <option value="" disabled>
                           -- Please Select --
@@ -453,10 +480,10 @@ const BookCoarse = () => {
                       <label htmlFor="">Level in organisation</label>
                       <select
                         name="levelOrg"
+                        value={formData.levelOrg || ""}
                         onChange={handleChange}
                         required
                         className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
-                        defaultValue=""
                       >
                         <option value="" disabled>
                           -- Please Select --
@@ -478,10 +505,10 @@ const BookCoarse = () => {
                       <label htmlFor="">Sector / industry</label>
                       <select
                         name="sector"
+                        value={formData.sector || ""}
                         onChange={handleChange}
                         required
                         className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
-                        defaultValue=""
                       >
                         <option value="" disabled>
                           -- Please Select --
@@ -533,6 +560,7 @@ const BookCoarse = () => {
                         type="text"
                         onChange={handleChange}
                         name="job"
+                        value={formData.job || ""}
                         required
                         className="w-full p-2 border rounded-lg text-gray-600 bg-slate-100"
                       />
@@ -548,9 +576,9 @@ const BookCoarse = () => {
                       <select
                         onChange={handleChange}
                         name="gender"
+                        value={formData.gender || ""}
                         required
                         className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
-                        defaultValue=""
                       >
                         <option value="" disabled>
                           -- Please Select --
@@ -573,9 +601,9 @@ const BookCoarse = () => {
                       <select
                         onChange={handleChange}
                         name="population"
+                        value={formData.population || ""}
                         required
                         className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
-                        defaultValue=""
                       >
                         <option value="" disabled>
                           -- Please Select --
@@ -601,6 +629,7 @@ const BookCoarse = () => {
                         type="text"
                         onChange={handleChange}
                         name="passport"
+                        value={formData.passport || ""}
                         required
                         className="w-full p-2 border rounded-lg text-gray-600 bg-slate-100"
                       />
@@ -616,9 +645,9 @@ const BookCoarse = () => {
                       <select
                         onChange={handleChange}
                         name="finding"
+                        value={formData.finding || ""}
                         required
                         className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
-                        defaultValue=""
                       >
                         <option value="" disabled>
                           -- Please Select --
@@ -646,6 +675,7 @@ const BookCoarse = () => {
                             <input
                               type="radio"
                               name="disabled"
+
                               value="yes"
                               checked={formData.disabled === "yes"}
                               onChange={handleChange} // ✅ use handleChange
@@ -676,9 +706,9 @@ const BookCoarse = () => {
                           <select
                             onChange={handleChange}
                             name="nature"
+                            value={formData.nature || ""}
                             required
                             className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
-                            defaultValue=""
                           >
                             <option value="" disabled>
                               -- Please Select --
@@ -707,9 +737,11 @@ const BookCoarse = () => {
                           type="text"
                           id="internationalMobile"
                           name="internationalMobilePhone"
-                          onChange={(e) =>
-                            setInternationalMobile(e.target.value)
-                          }
+                          value={formData.internationalMobilePhone || ""}
+                          onChange={(e) => {
+                            setInternationalMobile(e.target.value);
+                            handleChange(e);
+                          }}
                           className="w-full p-2 border border-gray-300 rounded-lg bg-slate-100"
                         />
                         {errors.internationalMobile && (
@@ -742,10 +774,10 @@ const BookCoarse = () => {
                   <label htmlFor="">Responsible for account</label>
                   <select
                     name="account"
+                    value={formData.account || ""}
                     onChange={handleChange}
                     required
                     className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
-                    defaultValue=""
                   >
                     <option value="" disabled>
                       -- Please Select --
@@ -798,6 +830,7 @@ const BookCoarse = () => {
                     type="text"
                     onChange={handleChange}
                     name="postalAd_1"
+                    value={formData.postalAd_1 || ""}
                     required
                     className="w-full p-2 border rounded-lg text-gray-600 bg-slate-100"
                   />
@@ -817,6 +850,7 @@ const BookCoarse = () => {
                     type="text"
                     onChange={handleChange}
                     name="postalAd_2"
+                    value={formData.postalAd_2 || ""}
                     required
                     className="w-full p-2 border rounded-lg text-gray-600 bg-slate-100"
                   />
@@ -833,6 +867,7 @@ const BookCoarse = () => {
                     type="text"
                     onChange={handleChange}
                     name="city"
+                    value={formData.city || ""}
                     required
                     className="w-full p-2 border rounded-lg text-gray-600 bg-slate-100"
                   />
@@ -849,6 +884,7 @@ const BookCoarse = () => {
                     type="email"
                     onChange={handleChange}
                     name="sendingEmail"
+                    value={formData.sendingEmail || ""}
                     required
                     className="w-full p-2 border rounded-lg text-gray-600 bg-slate-100"
                   />
