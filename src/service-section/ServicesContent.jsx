@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 const ServiceContent = ({ serviceData }) => {
   if (!serviceData) return <p></p>;
 
-console.log("all",serviceData);
-
+  console.log("all", serviceData);
 
   return (
     <>
@@ -53,9 +52,10 @@ console.log("all",serviceData);
                   {service.title}
                 </h3>
 
-              <p className="mb-4 prose text-sm sm:text-sm md:text-base font-light sm:font-normal px-6 text-center flex-1">
-  {service.description.replace(/<[^>]+>/g, '').slice(0, 80) + '...'}
-</p>
+                <p className="mb-4 prose text-sm sm:text-sm md:text-base font-light sm:font-normal px-6 text-center flex-1">
+                  {service.description.replace(/<[^>]+>/g, "").slice(0, 80) +
+                    "..."}
+                </p>
                 <div className="flex justify-center">
                   <Link
                     to={

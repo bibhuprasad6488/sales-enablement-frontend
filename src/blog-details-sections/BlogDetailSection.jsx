@@ -22,14 +22,8 @@ const BlogDetailSection = ({
   const [relatedCourses, setRelatedCourses] = useState([]);
   const [playingVideo, setPlayingVideo] = useState(null);
   const currentUrl = window.location.href;
-  useEffect(() => {
-    const stripHtml = (html) => {
-      if (!html) return "";
-      const tempDiv = document.createElement("div");
-      tempDiv.innerHTML = html;
-      return tempDiv.textContent || tempDiv.innerText || "";
-    };
 
+  useEffect(() => {
     const fetchCourseDetails = async () => {
       const relatedCoursesData = [
         {
@@ -38,7 +32,6 @@ const BlogDetailSection = ({
           image: "/src/assets/course1.png",
         },
       ];
-
       setRelatedCourses(relatedCoursesData);
     };
 
@@ -52,139 +45,77 @@ const BlogDetailSection = ({
   };
 
   return (
-    <section className="w-3/4  py-3">
-      <div className="flex flex-col md:flex-row items-center mb-6">
-        <div className="w-full md:w-2/3">
-          <h2 className="text-3xl font-semibold text-gray-900 flex items-center">
-            {Allblogdata?.title}
-          </h2>
-        </div>
-      </div>
-
-      <div className="md:w-1/3 md:ml-8 xl:w-full xl:ml-0 mt-6 md:mt-0 mb-6 relative">
-        <div className="relative">
-          <div className="absolute bottom-4 right-4 flex items-center">
-            <div className="relative group">
-              <button className="p-3 bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white rounded-full flex items-center justify-center transition-all duration-300">
-                <FaShareAlt size={18} className="text-white" />
-              </button>
-              <div className="absolute right-0 bottom-12 bg-gradient-to-r from-[#DB0032] to-[#FA6602] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out px-2 py-1 space-x-0.5 flex gap-2">
-                <a
-                  className="cursor-pointer"
-                  onClick={() => {
-                    window.open(
-                      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                        currentUrl
-                      )}`,
-                      "_blank"
-                    );
-                  }}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FaFacebook size={18} className="text-white text-xl" />
-                </a>
-                <span>
-                  <hr className="h-[80%] w-[1.4px] border-0 bg-white flex justify-self-center self-center" />
-                </span>
-                <a
-                  className="cursor-pointer"
-                  onClick={() => {
-                    window.open(
-                      `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-                        currentUrl
-                      )}`,
-                      "_blank"
-                    );
-                  }}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FaTwitter size={18} className="text-white text-xl" />
-                </a>
-                <span>
-                  <hr className="h-[80%] w-[1.4px] border-0 bg-white flex justify-self-center self-center" />
-                </span>
-                <a
-                  className="cursor-pointer"
-                  onClick={() => {
-                    window.open(
-                      `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-                        currentUrl
-                      )}`,
-                      "_blank"
-                    );
-                  }}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FaLinkedin size={18} className="text-white text-xl" />
-                </a>
-                <span>
-                  <hr className="h-[80%] w-[1px] border-0 bg-white flex justify-self-center self-center" />
-                </span>
-                <a
-                  className="cursor-pointer"
-                  onClick={(e) => {
-                    e.preventDefault(); // stop auto navigation
-                    navigator.clipboard.writeText(window.location.href);
-
-                    window.open("https://instagram.com", "_blank"); // optional: still open Instagram site
-                  }}
-                  href="https://instagram.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FaInstagram size={22} className="text-white text-xl" />
-                </a>
-                {/* <a
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const currentUrl = window.location.href;
-                    const whatsappUrl = `https://web.whatsapp.com/send?text=${encodeURIComponent(
-                      currentUrl
-                    )}`;
-                    window.open(whatsappUrl, "_blank");
-                  }}
-                  href="https://web.whatsapp.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  W
-                </a> */}
-              </div>
-            </div>
+    <section className="w-3/4 py-3">
+      {/* Title + Share Button */}
+      <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6">
+        <h2 className="text-3xl font-semibold text-gray-900 leading-snug w-full md:w-10/12 pr-4">
+          {Allblogdata?.title}
+        </h2>
+        <div className="relative group mt-4 md:mt-0 shrink-0">
+          <button className="p-3 bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white rounded-full flex items-center justify-center transition-all duration-300">
+            <FaShareAlt size={18} />
+          </button>
+          <div className="absolute right-0 bottom-12 bg-gradient-to-r from-[#DB0032] to-[#FA6602] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out px-2 py-1 flex gap-2">
+            <a
+              onClick={() =>
+                window.open(
+                  `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                    currentUrl
+                  )}`,
+                  "_blank"
+                )
+              }
+              className="cursor-pointer"
+            >
+              <FaFacebook size={18} className="text-white" />
+            </a>
+            <a
+              onClick={() =>
+                window.open(
+                  `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+                    currentUrl
+                  )}`,
+                  "_blank"
+                )
+              }
+              className="cursor-pointer"
+            >
+              <FaTwitter size={18} className="text-white" />
+            </a>
+            <a
+              onClick={() =>
+                window.open(
+                  `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+                    currentUrl
+                  )}`,
+                  "_blank"
+                )
+              }
+              className="cursor-pointer"
+            >
+              <FaLinkedin size={18} className="text-white" />
+            </a>
+            <a
+              onClick={(e) => {
+                e.preventDefault();
+                navigator.clipboard.writeText(window.location.href);
+                window.open("https://instagram.com", "_blank");
+              }}
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaInstagram size={20} className="text-white" />
+            </a>
           </div>
         </div>
       </div>
 
-      {/* <div className="flex justify-between mb-8">
-        <div className="flex flex-wrap gap-4 ">
-          <div className="flex items-center space-x-2">
-            <FaEye className="text-[#DB0032]" />
-            <span className="text-sm">1.5k</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <FaComment className="text-[#DB0032]" />
-            <span className="text-sm">25</span>
-          </div>
-        </div>
-        <div className="flex gap-4">
-          <div className="flex items-center space-x-2">
-            <FaCalendarAlt className="text-[#DB0032]" />
-            <span className="text-sm">14th Jan 2015</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <FaUser className="text-[#DB0032]" />
-            <span className="text-lg font-bold">By Admin</span>
-          </div>
-        </div>
-      </div> */}
-
+      {/* Blog Description */}
       <div>
         {Allblogdata?.description && (
           <p
-            className="text-gray-700 prose mt-2 text-justify"
+            className="text-gray-700 prose mt-2 text-justify max-w-none"
             dangerouslySetInnerHTML={{
               __html: Allblogdata?.description,
             }}
@@ -192,8 +123,9 @@ const BlogDetailSection = ({
         )}
       </div>
 
+      {/* Videos */}
       <div className="py-5 px-2">
-        <div className="flex flex-wrap justify-st gap-4">
+        <div className="flex flex-wrap gap-4">
           {videos.map((videoContent, index) => {
             const urlParams = new URLSearchParams(
               new URL(videoContent.vdo_link).search
@@ -224,9 +156,7 @@ const BlogDetailSection = ({
                       alt="Video Thumbnail"
                       className="w-full h-full object-cover"
                     />
-
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="bg-gradient-to-r from-[#DB0032] to-[#FA6602] w-16 h-16 flex items-center justify-center rounded-full shadow-lg">
                         <svg
@@ -252,36 +182,33 @@ const BlogDetailSection = ({
           })}
         </div>
       </div>
+
+      {/* White Papers */}
       {whitepaper.length >= 1 && (
-        <div className=" py-6 px-4">
-          {whitepaper && (
-            <div className="max-w-6xl mx-auto">
-              <h2 className="text-black text-3xl font-semibold mb-6">
-                White Papers
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* Map each whitepaper item */}
-                {whitepaper.map((data, index) => (
-                  <div
-                    key={index}
-                    className="bg-white p-6 rounded-lg shadow-md"
+        <div className="py-6 px-4">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-black text-3xl font-semibold mb-6">
+              White Papers
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {whitepaper.map((data, index) => (
+                <div key={index} className="bg-white p-6 rounded-lg shadow-md">
+                  <h3 className="text-xl font-semibold mb-4">{data.title}</h3>
+                  <p className="text-gray-700 mb-4">{data?.desc}</p>
+                  <a
+                    href={data?.btn_link}
+                    className="text-[#DB0032] hover:text-[#FA6602] font-semibold"
                   >
-                    <h3 className="text-xl font-semibold mb-4">{data.title}</h3>
-                    <p className="text-gray-700 mb-4">{data?.desc}</p>
-                    <a
-                      href={data?.btn_link}
-                      className="text-[#DB0032] hover:text-[#FA6602] font-semibold"
-                    >
-                      {data.btn_text}
-                    </a>
-                  </div>
-                ))}
-              </div>
+                    {data.btn_text}
+                  </a>
+                </div>
+              ))}
             </div>
-          )}
+          </div>
         </div>
       )}
 
+      {/* Comments */}
       <CommentSection comments={Blogcomments} />
       <CommentPost BlogId={Allblogdata?.id} />
     </section>

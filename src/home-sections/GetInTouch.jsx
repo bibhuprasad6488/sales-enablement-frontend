@@ -1,11 +1,20 @@
 import React, { useState } from "react";
+import {
+  FaUser,
+  FaBuilding,
+  FaEnvelope,
+  FaPhoneAlt,
+  FaQuestionCircle,
+  FaPaperPlane,
+} from "react-icons/fa";
+import { MdOutlineDescription, MdOutlineSupportAgent } from "react-icons/md";
 import GetInTouchImg from "../assets/getintouch.png";
 import RightArrow from "../assets/arrow-right.png";
 import RightArrow1 from "../assets/arrow-right1.png";
 import PhoneIncome from "../assets/phone-incoming.png";
 import { motion } from "framer-motion";
 import ReCAPTCHA from "react-google-recaptcha";
-
+import axios from "../api/axios";
 function GetInTouch() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -25,7 +34,9 @@ function GetInTouch() {
     }
     if (!email.trim()) {
       newErrors.email = "Email is required.";
-    } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email)) {
+    } else if (
+      !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email)
+    ) {
       newErrors.email = "Enter a valid email address.";
     }
     if (!description.trim()) newErrors.description = "Description is required.";
@@ -35,14 +46,49 @@ function GetInTouch() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (validateForm()) {
-      console.log({ name, phone, email, description, recaptchaToken });
-      alert("Form submitted successfully!");
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   if (validateForm()) {
+  //     console.log({ name, phone, email, description, recaptchaToken });
+  //     alert("Form submitted successfully!");
+  //   }
+  // };
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const payload = {
+      cf_name: e.target.name.value,
+      cf_company: e.target.company.value,
+      cf_phone: e.target.phone.value,
+      cf_inquiry_type: e.target.inquiry.value,
+      cf_message: e.target.message.value,
+      cf_email: e.target.email.value,
+    };
+
+    try {
+      setLoading(true);
+      const response = await axios.post("/contact-form-store", payload);
+      setLoading(false);
+
+      if (response.status === 200) {
+        console.log(response.data);
+        document.getElementById("submission").innerText = response.data.message;
+        document.getElementById("submission").style.color = "green";
+        e.target.reset();
+      } else {
+        alert("Failed to send message.");
+        document.getElementById("submission").innerText =
+          response.data.message ?? "Failed to send message.";
+        document.getElementById("submission").style.color = "red";
+      }
+    } catch (error) {
+      setLoading(false);
+      console.error(error);
+      alert("An error occurred while sending the message.");
     }
   };
-
   const rightVariants = {
     hidden: { opacity: 0, x: 100 },
     visible: {
@@ -51,7 +97,6 @@ function GetInTouch() {
       transition: { duration: 0.8, ease: "easeOut" },
     },
   };
-
 
   const handleRecaptchaChange = (token) => {
     setRecaptchaToken(token);
@@ -78,7 +123,7 @@ function GetInTouch() {
               We Are Here To Help!
             </h5>
 
-            <form onSubmit={handleSubmit} className="mt-8 space-y-4">
+            {/* <form onSubmit={handleSubmit} className="mt-8 space-y-4">
               <div className="flex flex-col items-center sm:flex sm:items-center space-y-4 xl:space-y-0 md:flex md:items-center sm:flex-col lg:flex-col lg:space-x-0 xl:flex-row xl:space-x-6">
                 <div className="w-full">
 
@@ -162,6 +207,125 @@ function GetInTouch() {
                         className="absolute w-full h-full transition-opacity duration-300 ease-in-out opacity-0 group-hover:opacity-100" // Show on hover
                       />
                     </span>
+                  </span>
+                </button>
+              </div>
+            </form> */}
+            <form
+              className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2"
+              onSubmit={handleSubmit}
+            >
+              {/* Name */}
+              <div className="relative flex items-center">
+                <FaUser className="absolute left-3 text-gray-400 top-1/2 -translate-y-1/2 peer-focus:text-[#060B33]" />
+                <input
+                  type="text"
+                  id="name"
+                  required
+                  placeholder="Your Name*"
+                  className="peer w-full p-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#060B33] transition duration-300 ease-in-out hover:border-[#060B33]"
+                />
+              </div>
+
+              {/* Company */}
+              <div className="relative flex items-center">
+                <FaBuilding className="absolute left-3 text-gray-500 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  id="company"
+                  required
+                  placeholder="Company Name*"
+                  className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#060B33] transition duration-300 ease-in-out hover:border-[#060B33]"
+                />
+              </div>
+
+              {/* Email */}
+              <div className="relative">
+                <input
+                  type="email"
+                  id="email"
+                  required
+                  placeholder="Email Address*"
+                  className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#060B33] transition duration-300 ease-in-out hover:border-[#060B33]"
+                />
+                <FaEnvelope className="absolute left-3 text-gray-500 top-1/2 -translate-y-1/2" />
+              </div>
+
+              {/* Phone */}
+              <div className="relative">
+                <input
+                  type="text"
+                  id="phone"
+                  placeholder="Phone Number*"
+                  maxLength={10}
+                  required
+                  className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#060B33] transition duration-300 ease-in-out hover:border-[#060B33]"
+                  onInput={(e) => {
+                    e.target.value = e.target.value.replace(/\D/g, "");
+                  }}
+                />
+                <FaPhoneAlt className="absolute left-3 text-gray-500 top-1/2 -translate-y-1/2" />
+              </div>
+
+              {/* Inquiry Select */}
+              <div className="relative">
+                <select
+                  id="inquiry"
+                  required
+                  className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#060B33] transition duration-300 ease-in-out hover:border-[#060B33]"
+                  defaultValue=""
+                >
+                  <option value="" disabled>
+                    Select Inquiry Type
+                  </option>
+                  <option value="demo">Request a Demo</option>
+                  <option value="consultation">Consultation</option>
+                  <option value="support">Support</option>
+                  <option value="general">General Inquiry</option>
+                </select>
+                <MdOutlineSupportAgent className="absolute left-3 text-gray-500 top-6 -translate-y-1/2" />
+              </div>
+
+              {/* Message */}
+              <div className="relative">
+                <textarea
+                  id="message"
+                  required
+                  rows="3"
+                  placeholder="Your Message*"
+                  className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#060B33] transition duration-300 ease-in-out hover:border-[#060B33]"
+                ></textarea>
+                <MdOutlineDescription className="absolute left-3 text-gray-500 top-6 -translate-y-1/2" />
+              </div>
+
+              {/* Recaptcha + Button full width row */}
+              {/* Recaptcha + Button full-width row */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:col-span-2">
+                {/* <div className="flex justify-center md:justify-start">
+                  <ReCAPTCHA
+                    sitekey="your-site-key"
+                    onChange={handleRecaptchaChange}
+                  />
+                  {errors.recaptcha && (
+                    <p className="text-red-500 text-sm">{errors.recaptcha}</p>
+                  )}
+                </div> */}
+
+                {/* Button */}
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="relative uppercase font-medium text-white transition-all duration-300 ease-in-out overflow-hidden group bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:bg-gradient-to-bl focus:outline-none shadow-lg flex items-center justify-center text-base px-5 py-3 w-full"
+                >
+                  <span className="absolute inset-0 w-0 h-full bg-[#060b33] transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
+                  <span className="relative flex items-center">
+                    {loading ? (
+                      "Sending..."
+                    ) : (
+                      <>
+                        <FaPaperPlane className="mr-2" /> Send Message
+                      </>
+                    )}
                   </span>
                 </button>
               </div>
