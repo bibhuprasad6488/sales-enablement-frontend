@@ -11,10 +11,11 @@ function Navbar() {
 
   const links = [
     { name: "Home", route: "/" },
-    { name: "About Us", route: "/about-us" },
+    // { name: "About Us", route: "/about-us" },
+    { name: "Who we are", route: "/who-we-are" },
     { name: "Services", route: "/services" },
     { name: "Courses", route: "/courses" },
-    { name: "Blogs", route: "/blogs" },
+    { name: "Blog", route: "/blogs" },
     { name: "Contact Us", route: "/contact-us" },
   ];
 

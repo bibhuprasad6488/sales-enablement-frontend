@@ -110,10 +110,10 @@ if (isLoading) {
         <ContactContent contactData={data.contact_data} />
       </div>
 
-      <div className="container mx-auto py-12">
+      {/* <div className="container mx-auto py-12">
         <Faq faqData={data.faq_data} />
       </div>
-      <MapEmbed mapData={data.location_data}/>
+      <MapEmbed mapData={data.location_data}/> */}
     </div>
   );
 }

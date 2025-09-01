@@ -50,14 +50,10 @@ function LatestBlogs() {
   return (
     <section className="container mx-auto px-4 py-12 case-study">
       <div className="text-center md:text-left mb-8">
-        <h5 className="text-[16px] md:text-[24px] font-bold bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text">
-          Latest News And Blogs
-        </h5>
         <div className="flex flex-col md:flex-row justify-between items-center md:items-start">
-          <h2 className="text-[18px] sm:text-[28px] md:text-[36px] font-bold  mt-7 mb-5">
-            Always Smart to Hear <br />
+          <h2 className="text-[18px] sm:text-[28px] md:text-[36px] font-bold">
             <span className="bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text">
-              News
+              Blog
             </span>
           </h2>
           <Link
@@ -104,7 +100,10 @@ function LatestBlogs() {
               alt={blog.title}
               className="w-[100%] h-[233px] p-2 object-cover mb-4"
             />
-            <h3 title={blog.title} className="text-lg sm:text-sm md:text-[17px] uppercase font-semibold mb-2 p-4 text-center">
+            <h3
+              title={blog.title}
+              className="text-lg sm:text-sm md:text-[17px] uppercase font-semibold mb-2 p-4 text-center"
+            >
               {blog.title?.length > 43
                 ? blog.title.substring(0, 43) + "..."
                 : blog.title}

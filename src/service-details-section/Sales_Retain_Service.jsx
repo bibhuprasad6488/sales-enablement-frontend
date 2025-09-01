@@ -1,5 +1,6 @@
 import React from "react";
 import { CheckCircle } from "lucide-react";
+import { Oval } from "react-loader-spinner";
 
 const ServiceDetailSection = ({ serviceDetails }) => {
   if (!serviceDetails) return <p></p>;
@@ -146,6 +147,14 @@ const ServiceDetailSection = ({ serviceDetails }) => {
             Contact us today to book a discovery call and find the right package
             for your business.
           </p>
+          <a
+            href="https://calendly.com/theenablement/30min"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center mt-4 px-6 py-3 bg-white text-[#DB0032] font-semibold rounded-lg shadow hover:scale-105 transition"
+          >
+            CRM Free Diagnosis
+          </a>
         </div>
       </div>
     </section>

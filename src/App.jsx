@@ -20,7 +20,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import SampleRequestPage from "./pages/SampleRequestPage";
 import LoginSignUp from "./auth/LoginSignUp";
-import { ToastContainer  } from 'react-toastify';
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ChangePassword from "./auth/ChangePwd";
 import ContextProviders from "./context/ContextProviders";
@@ -28,7 +28,8 @@ import ScrollToTop from "./components/ScrollToTop";
 import DetailsSlug from "./home-sections/DetailsSlug";
 import WhoweAre from "./home-sections/WhoweAre";
 import MeasurableGrowth from "./service-section/MeasurableGrowth";
-import BookCourse from "./course-section/BookCourse"
+import BookCourse from "./course-section/BookCourse";
+import BookingConfirmation from "./course-section/BookCoarseConfirmation"
 function App() {
   const [isPopupOpen, setIsPopupOpen] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
@@ -111,6 +112,10 @@ function App() {
               <Route path="/studydetails/:slug" element={<DetailsSlug />} />
               <Route path="/who-we-are" element={<WhoweAre />} />
               <Route path="/booking-course/*" element={<BookCourse />} />
+              <Route
+                path="/booking-confirmation"
+                element={<BookingConfirmation />}
+              />
               <Route
                 path="/sales-enablement-that-drives-measurable-growth"
                 element={<MeasurableGrowth />}

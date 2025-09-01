@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import Breadcrumb from "../components/Breadcrumb";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import axios from "../api/axios";
 import {
@@ -11,28 +11,40 @@ import {
   FaUsers,
   FaSeedling,
 } from "react-icons/fa";
+import { Oval } from "react-loader-spinner";
 const WhoweAre = () => {
-const [whoweAre, setwhoweAre] = useState([]);
-const containerRef = useRef(null);
-const [path, setPath] = useState("");
+  const [whoweAre, setwhoweAre] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const containerRef = useRef(null);
+  const [path, setPath] = useState("");
 
-useEffect(() => {
-  const test = async () => {
-    try {
-      const response = await axios.get("/who-we-are");
-      const result = response.data;
-      console.log("res", result);
-      setwhoweAre(result);
-    
-    } catch (error) {
-      console.error("Error fetching who-we-are:", error);
-    }
-  };
-  test();
-}, []);
+  const [currentFact, setCurrentFact] = useState(0);
 
-  
   useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentFact((prev) => (prev + 1) % funFacts.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const test = async () => {
+      try {
+        const response = await axios.get("/who-we-are");
+        const result = response.data;
+        console.log("res", result);
+        setwhoweAre(result);
+      } catch (error) {
+        console.error("Error fetching who-we-are:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    test();
+  }, []);
+
+  useEffect(() => {
+    if (!whoweAre?.wwd_keys) return;
     const circles = containerRef.current.querySelectorAll(".circle");
     let pathStr = "";
     circles.forEach((circle, i) => {
@@ -52,30 +64,31 @@ useEffect(() => {
     setPath(pathStr);
   }, [whoweAre?.wwd_keys]);
 
-  
   const values = [
     {
       icon: <FaCheckCircle />,
     },
   ];
 
-  // Variants for the container to stagger children
   const containerVariants = {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.1,
       },
     },
   };
-
-  // Variants for each child item
   const itemVariants = {
-    hidden: { opacity: 0, x: 50 },
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
-      x: 0,
-      transition: { duration: 0.8, ease: "easeOut" },
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 80,
+        damping: 12,
+        duration: 0.5,
+      },
     },
   };
 
@@ -103,6 +116,31 @@ useEffect(() => {
       transition: { duration: 1, ease: "easeOut" },
     },
   };
+
+  const funFacts = [
+    " Sales reps supported by enablement tools and training close deals 49% more often than those without. That’s why sales enablement isn’t a luxury — it’s a growth engine.",
+    " Did you know? Prospects are 30% more likely to say ‘yes’ when they’ve shared a laugh with the salesperson. Sales enablement isn’t just about process — it’s about people.",
+    " 70% of salespeople say they feel underprepared before a sales conversation — enablement bridges that gap.",
+    " Companies with dedicated sales enablement programs see 15% faster ramp-up times for new hires.",
+    " Sales reps who use enablement tools achieve 49% higher win rates than those who don’t.",
+  ];
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Oval
+          height={60}
+          width={60}
+          color="#DB0032"
+          secondaryColor="#FA6602"
+          strokeWidth={4}
+          strokeWidthSecondary={4}
+          visible={true}
+          ariaLabel="loading"
+        />
+      </div>
+    );
+  }
   return (
     <>
       {/* Header Section */}
@@ -251,7 +289,7 @@ useEffect(() => {
               variants={containerVariants}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.5 }}
+              viewport={{ once: true, amount: 0.3 }}
             >
               {whoweAre?.core_values?.map((value, idx) => (
                 <motion.div
@@ -270,13 +308,74 @@ useEffect(() => {
           </div>
         </section>
 
-        {/* Is This You? */}
+        <section className="relative bg-white py-8">
+          <div className="max-w-4xl mx-auto px-6 text-center">
+            <h2 className="text-3xl font-bold mb-8 uppercase tracking-wide">
+              Some Fun Facts
+              <span className="block w-16 h-1 bg-gradient-to-r from-[#DB0032] to-[#FA6602] mx-auto mt-3 rounded-full"></span>
+            </h2>
+
+            <div className="relative min-h-[180px] flex items-center justify-center">
+              <button
+                onClick={() =>
+                  setCurrentFact((prev) =>
+                    prev === 0 ? funFacts.length - 1 : prev - 1
+                  )
+                }
+                className="absolute left-0 text-3xl font-bold text-[#DB0032] hover:text-[#FA6602] z-10"
+              >
+                &#8592;
+              </button>
+
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentFact}
+                  initial={{ opacity: 0, x: 60, scale: 0.95 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: -60, scale: 0.95 }}
+                  transition={{ duration: 0.6 }}
+                  className="bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white px-6 py-8 rounded-2xl shadow-lg text-lg sm:text-xl font-medium max-w-lg mx-auto"
+                >
+                  {funFacts[currentFact]}
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Right Arrow */}
+              <button
+                onClick={() =>
+                  setCurrentFact((prev) =>
+                    prev === funFacts.length - 1 ? 0 : prev + 1
+                  )
+                }
+                className="absolute right-0 text-3xl font-bold text-[#DB0032] hover:text-[#FA6602] z-10"
+              >
+                &#8594;
+              </button>
+            </div>
+
+            {/* Navigation Dots */}
+            <div className="flex justify-center mt-6 space-x-3">
+              {funFacts.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentFact(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === currentFact
+                      ? "bg-gradient-to-r from-[#DB0032] to-[#FA6602] scale-125"
+                      : "bg-gray-300 hover:bg-gray-400"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+
         <motion.div
           className="bg-gradient-to-b from-white to-gray-50 py-10"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
-          variants={topVariants} // Used leftVariants here to fix undefined Variants issue
+          variants={topVariants}
         >
           <h2 className="text-center text-3xl font-bold mb-8">
             Is This You?

@@ -47,11 +47,11 @@ function Footer() {
   // Map each link name to the real path in App.jsx
   const links = [
     { name: "Home", path: "/" },
-    { name: "About Us", path: "/about-us" },
+    { name: "Who We Are", path: "/who-we-are" },
+    // { name: "About Us", path: "/about-us" },
     { name: "Services", path: "/services" },
     { name: "Blogs", path: "/blogs" }, // Assuming "Blogs" means "Courses"
     { name: "Contact Us", path: "/contact-us" }, // Replace with correct path
-    { name: "Who We Are", path: "/who-we-are" },
   ];
 
   const socialMedia = [

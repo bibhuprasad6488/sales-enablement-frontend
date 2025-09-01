@@ -12,7 +12,6 @@ const CRMServices = ({ serviceDetails }) => {
         <div className="mt-3 mx-auto h-1 w-32 bg-gradient-to-r from-[#DB0032] to-[#FA6602] rounded"></div>
       </div>
 
-      {/* Intro */}
       <div className="max-w-3xl mx-auto text-center text-gray-600 mb-12">
         <p className="text-lg md:text-xl leading-relaxed font-medium">
           Your CRM should be more than a database — it should be the{" "}
@@ -22,7 +21,6 @@ const CRMServices = ({ serviceDetails }) => {
         </p>
       </div>
 
-      {/* Service Details */}
       <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl shadow-lg p-8">
         <h3 className="text-2xl font-semibold text-gray-900 mb-6">
           How We Help
@@ -53,6 +51,17 @@ const CRMServices = ({ serviceDetails }) => {
           </strong>{" "}
           — all while boosting adoption and productivity.
         </p>
+      </div>
+
+      <div className="mt-8 text-center">
+        <a
+          href="https://calendly.com/theenablement/30min"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white font-semibold rounded-lg shadow hover:scale-105 transition"
+        >
+          CRM Free Diagnosis
+        </a>
       </div>
     </section>
   );

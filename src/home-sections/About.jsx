@@ -84,27 +84,32 @@ function About({ aboutPageData }) {
           </p>
 
           <div className="space-y-6 pl-2">
-            {Object.entries(aboutPageData.key_points).map(([icon, item], index) => (
-              <div className="flex items-start space-x-5" key={index}>
-                <div className="w-[10%]">
-                  <div className="w-12 bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:scale-110 h-12 rounded-full flex justify-center items-center pt-1">
-                    <div dangerouslySetInnerHTML={{ __html: icon }} className="text-3xl text-white " />
+            {Object.entries(aboutPageData.key_points).map(
+              ([icon, item], index) => (
+                <div className="flex items-start space-x-5" key={index}>
+                  <div className="w-[10%]">
+                    <div className="w-12 bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:scale-110 h-12 rounded-full flex justify-center items-center pt-1">
+                      <div
+                        dangerouslySetInnerHTML={{ __html: icon }}
+                        className="text-3xl text-white "
+                      />
+                    </div>
+                  </div>
+                  <div className="flex items-start w-[90%] gap-6">
+                    <div className="w-[30%]">
+                      <h5 className="font-bold text-[11px] sm:text-[16px] md:text-[16px] lg:text-[16px] xl:text-xl uppercase mt-3 sm:mt-4 md:mt-5 lg:mt-1 xl:mt-3">
+                        {item.title}
+                      </h5>
+                    </div>
+                    <div className="w-[70%]">
+                      <p className="text-[11px] sm:text-[16px] md:text-[18px] mt-3 sm:mt-4 md:mt-5 lg:mt-1 xl:mt-3">
+                        {item.key_note}
+                      </p>
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-start w-[90%] gap-6">
-                  <div className="w-[30%]">
-                    <h5 className="font-bold text-[11px] sm:text-[16px] md:text-[16px] lg:text-[16px] xl:text-xl uppercase mt-3 sm:mt-4 md:mt-5 lg:mt-1 xl:mt-3">
-                      {item.title}
-                    </h5>
-                  </div>
-                  <div className="w-[70%]">
-                    <p className="text-[11px] sm:text-[16px] md:text-[18px] mt-3 sm:mt-4 md:mt-5 lg:mt-1 xl:mt-3">
-                      {item.key_note}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
+              )
+            )}
           </div>
           <div className="flex flex-col sm:flex-wrap md:flex-wrap   lg:flex-row xl:flex-nowrap 2xl:flex-nowrap justify-between gap-4 mt-8">
             <Link

@@ -272,38 +272,6 @@ const BookCoarseLegal = () => {
 
           {/* Form fields */}
           <form className="space-y-3" onSubmit={handleSubmit}>
-            {/* <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-              <h3 className="font-bold text-lg mb-2">Terms and Conditions</h3>
-              <p className="mb-3">
-                Please review our terms and conditions before proceeding with
-                your booking.
-              </p>
-
-              <div className="text-sm space-y-2 mb-4">
-                <p>
-                  <strong>Cancellation Policy:</strong> Cancellations must be
-                  made at least 14 days prior to the course start date for a
-                  full refund.
-                </p>
-                <p>
-                  <strong>Rescheduling:</strong> You may reschedule your booking
-                  once without penalty if done at least 7 days before the
-                  course.
-                </p>
-                <p>
-                  <strong>Privacy:</strong> Your personal information will be
-                  handled in accordance with our privacy policy.
-                </p>
-              </div>
-
-              <button
-                type="button"
-                onClick={openTerms}
-                className="text-blue-600 hover:text-blue-800 font-medium text-sm underline"
-              >
-                View full terms and conditions
-              </button>
-            </div> */}
 
             <div className="grid gap-1.5 pt-4">
               <label className="font-medium">

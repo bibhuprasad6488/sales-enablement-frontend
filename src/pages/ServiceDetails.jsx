@@ -12,6 +12,7 @@ function ServiceDetails() {
   const { slug } = useParams();
   const [data, setData] = useState(null)
   const [error, setError] = useState("")
+  const [loading,setLoading] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -27,6 +28,8 @@ function ServiceDetails() {
       } catch (error) {
         setError("Failed to fetch data");
         console.error("Error fetching data:", error);
+      } finally{
+        setLoading(false);
       }
     };
     fetchData();
@@ -46,11 +49,11 @@ function ServiceDetails() {
       </Helmet>
 
 
-      <HeroServiceDetails serviceDetails={data} />
+      <HeroServiceDetails serviceDetails={data} loading={loading}/>
 
       <div className="container mx-auto px-4 py-12 ">
         <div className="flex flex-col sm:flex-col md:flex-col lg:flex-row gap-10">
-          <ServiceDetailSection serviceDetails={data} />
+          <ServiceDetailSection serviceDetails={data} loading={loading} />
           <ServiceDetailSideBar />
         </div>
       </div>
