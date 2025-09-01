@@ -85,73 +85,7 @@ const navigate = useNavigate()
       </div>
 
       {/* Recruitment Services */}
-      <div>
-        <h3 className="text-2xl font-semibold text-gray-900 mb-6">
-          Recruitment Services
-        </h3>
-        <p className="text-gray-700 mb-6">
-          The right people make all the difference. We don’t just train and
-          coach sales teams — we also help you find and hire the right talent to
-          fuel your growth.
-        </p>
-
-        <h4 className="text-xl font-bold text-gray-800 mb-4">
-          We recruit for roles including:
-        </h4>
-        <ul className="grid md:grid-cols-2 gap-4 text-gray-700">
-          {[
-            "Sales Development Representatives (SDRs)",
-            "Account Executives (AEs)",
-            "Sales Managers",
-            "Sales Directors",
-            "Chief Revenue Officers (CROs)",
-            "Sales Enablement Specialists",
-          ].map((item, idx) => (
-            <li
-              key={idx}
-              className="flex items-start gap-3 bg-white shadow-sm p-3 rounded-lg hover:shadow-md transition"
-            >
-              <CheckCircle className="text-green-500 w-5 h-5 mt-1 flex-shrink-0" />
-              {item}
-            </li>
-          ))}
-        </ul>
-
-        <h4 className="text-xl font-bold text-gray-800 mt-10 mb-4">
-          Our recruitment process includes:
-        </h4>
-        <ul className="space-y-3 text-gray-700">
-          {[
-            "Targeted sourcing of top sales talent",
-            "Competency assessments (prospecting, closing, leadership, value selling)",
-            "Onboarding alignment for faster productivity",
-            "Executive hiring support (Sales Directors, CROs)",
-          ].map((item, idx) => (
-            <li
-              key={idx}
-              className="flex items-start gap-3 bg-white shadow-sm p-3 rounded-lg hover:shadow-md transition"
-            >
-              <CheckCircle className="text-purple-500 w-5 h-5 mt-1 flex-shrink-0" />
-              {item}
-            </li>
-          ))}
-        </ul>
-
-        <p className="mt-6 text-gray-800 font-medium">
-          With our recruitment services, you’re not just filling seats — you’re{" "}
-          <strong>building a high-performance sales organization</strong>
-          designed for long-term success.
-        </p>
-
-        <div className="mt-8 text-center">
-          <button
-            onClick={()=>navigate("/contact-us")}
-            className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white font-semibold rounded-lg shadow hover:scale-105 transition"
-          >
-            Talk to Us Today
-          </button>
-        </div>
-      </div>
+      
     </section>
   );
 };

@@ -1,5 +1,5 @@
-// BookCoarseGeneral.js
-import React, { useState } from "react";
+// BookCoarseGeneral.js - Fixed
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Breadcrumb from "../components/Breadcrumb";
@@ -11,7 +11,8 @@ const BookCoarseGeneral = () => {
   const courses = location.state?.course;
   const courseName = courses?.name || "";
   const courseId = courses?.id || "";
- const [internationalMobile, setInternationalMobile] = useState("");
+
+  const [selectedCountry, setSelectedCountry] = useState("");
   const [formData, setFormData] = useState({
     title: "",
     surname: "",
@@ -35,16 +36,18 @@ const BookCoarseGeneral = () => {
     postalAd_2: "",
     city: "",
     sendingEmail: "",
-    disabled: "",
+    physicallyDisabled: "no",
     nature: "",
     terms: "no",
     internationalMobilePhone: "",
   });
 
   const [errors, setErrors] = useState({});
-  const [selectedCountry, setSelectedCountry] = useState("");
 
-  // ADD THESE OPTION ARRAYS - THEY WERE MISSING
+  const capitalizeFirst = (str) =>
+    str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+
+  // Option arrays
   const optionTitle = [
     "Aprof",
     "adv",
@@ -59,6 +62,7 @@ const BookCoarseGeneral = () => {
     "Mr",
     "Ms",
   ];
+
   const diataryReq = [
     "None",
     "Halaal",
@@ -68,7 +72,8 @@ const BookCoarseGeneral = () => {
     "Strict Kosher",
     "Vegeteriahn",
     "Other",
-  ];
+  ].map(capitalizeFirst);
+
   const funOrg = [
     "adminstration",
     "board and director developement",
@@ -81,7 +86,8 @@ const BookCoarseGeneral = () => {
     "group talent manager",
     "human resources",
     "information technology",
-  ];
+  ].map(capitalizeFirst);
+
   const levlOrg = [
     "Executive",
     "general",
@@ -91,7 +97,8 @@ const BookCoarseGeneral = () => {
     "not specified",
     "other",
     "senior management",
-  ];
+  ].map(capitalizeFirst);
+
   const industry = [
     "accounting",
     "Namking",
@@ -99,9 +106,16 @@ const BookCoarseGeneral = () => {
     "Building constructions",
     "chemicals oil and plastics",
     "consulting firms",
-  ];
-  const gender = ["male", "female", "unknown", "intersex"];
-  const populationgrp = ["black", "coloured", "indian", "white", "others"];
+  ].map(capitalizeFirst);
+
+  const genderOptions = ["male", "female", "unknown", "intersex"].map(
+    capitalizeFirst
+  );
+
+  const populationgrp = ["black", "coloured", "indian", "white", "others"].map(
+    capitalizeFirst
+  );
+
   const socialMedia = [
     "facebook",
     "linkedIn",
@@ -109,13 +123,17 @@ const BookCoarseGeneral = () => {
     "print advertisiment",
     "radio advertisiment",
     "trade show",
-  ];
-  const vision = ["Hearing", "Vision", "Mobility", "Other"];
+  ].map(capitalizeFirst);
+
+  const vision = ["Hearing", "Vision", "Mobility", "Other"].map(
+    capitalizeFirst
+  );
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
 
+    // Clear error when field is filled
     setErrors((prev) => {
       const newErrors = { ...prev };
       if (value.trim() !== "") {
@@ -123,11 +141,16 @@ const BookCoarseGeneral = () => {
       }
       return newErrors;
     });
+
+    // Special handling for country selection
+    if (name === "nationality") {
+      setSelectedCountry(value);
+    }
   };
 
   const validateStep = () => {
     let stepErrors = {};
-    [
+    const requiredFields = [
       "title",
       "surname",
       "firstname",
@@ -144,14 +167,29 @@ const BookCoarseGeneral = () => {
       "population",
       "passport",
       "finding",
-      "nature",
-      "internationalMobilePhone",
-      "disabled",
-    ].forEach((f) => {
-      if (!formData[f] || formData[f].trim() === "") {
-        stepErrors[f] = "This field is required";
+      "physicallyDisabled",
+    ];
+
+    // Add international mobile if not South Africa
+    if (formData.nationality && formData.nationality !== "South Africa") {
+      requiredFields.push("internationalMobilePhone");
+    }
+
+    // Add nature if disabled is yes
+    if (formData.physicallyDisabled === "yes") {
+      requiredFields.push("nature");
+    }
+
+    requiredFields.forEach((field) => {
+      if (!formData[field] || formData[field].toString().trim() === "") {
+        stepErrors[field] = "This field is required";
       }
     });
+
+    // Email validation
+    if (formData.email && !/\S+@\S+\.\S+/.test(formData.email)) {
+      stepErrors.email = "Email is invalid";
+    }
 
     setErrors(stepErrors);
     return Object.keys(stepErrors).length === 0;
@@ -164,10 +202,12 @@ const BookCoarseGeneral = () => {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const savedData = sessionStorage.getItem("bookingFormData");
     if (savedData) {
-      setFormData(JSON.parse(savedData));
+      const parsedData = JSON.parse(savedData);
+      setFormData(parsedData);
+      setSelectedCountry(parsedData.nationality || "");
     }
   }, []);
 
@@ -193,6 +233,7 @@ const BookCoarseGeneral = () => {
           </div>
         </div>
       </section>
+
       <h1 className="text-center mt-10 text-4xl font-black uppercase">
         {courseName}
       </h1>
@@ -241,89 +282,94 @@ const BookCoarseGeneral = () => {
 
           <form className="space-y-3">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div key="title" className="grid gap-1.5">
-                <label htmlFor="">Title</label>
+              {/* Title Field */}
+              <div className="grid gap-1.5">
+                <label htmlFor="title">Title</label>
                 <select
                   id="title"
                   name="title"
-                  value={formData.title || ""} // controlled value
+                  value={formData.title}
                   onChange={handleChange}
                   required
                   className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
                 >
-                  <option value="" disabled>
-                    -- Please Select --
-                  </option>
+                  <option value="">-- Please Select --</option>
                   {optionTitle.map((opt, i) => (
                     <option key={i} value={opt}>
                       {opt}
                     </option>
                   ))}
                 </select>
-
                 {errors.title && (
-                  <p className="text-red-500 text-xs mt-1" id="err">
-                    {errors.title}
-                  </p>
+                  <p className="text-red-500 text-xs mt-1">{errors.title}</p>
                 )}
               </div>
-              <div key="surname" className="grid gap-1.5">
-                <label htmlFor="">
+
+              {/* Surname Field */}
+              <div className="grid gap-1.5">
+                <label htmlFor="surname">
                   Surname{" "}
                   <span className="text-gray-400 text-sm">
                     (as per your ID)
                   </span>
                 </label>
                 <input
+                  id="surname"
                   name="surname"
-                  value={formData.surname || ""}
+                  value={formData.surname}
                   onChange={handleChange}
                   type="text"
                   className="w-full p-2 border border-gray-300 rounded-lg bg-slate-100"
                 />
                 {errors.surname && (
-                  <p className="text-red-500 text-xs mt-1" id="err">
-                    {errors.surname}
-                  </p>
+                  <p className="text-red-500 text-xs mt-1">{errors.surname}</p>
                 )}
               </div>
-              <div key="firstName" className="grid gap-1.5">
-                <label htmlFor="">
+
+              {/* First Name Field */}
+              <div className="grid gap-1.5">
+                <label htmlFor="firstname">
                   First name{" "}
                   <span className="text-gray-400 text-sm">
                     (as per your ID)
                   </span>
                 </label>
                 <input
+                  id="firstname"
                   name="firstname"
-                  value={formData.firstname || ""}
+                  value={formData.firstname}
                   onChange={handleChange}
                   type="text"
                   className="w-full p-2 border border-gray-300 rounded-lg bg-slate-100"
                 />
                 {errors.firstname && (
-                  <p className="text-red-500 text-xs mt-1" id="err">
+                  <p className="text-red-500 text-xs mt-1">
                     {errors.firstname}
                   </p>
                 )}
               </div>
-              <div key="preferredName" className="grid gap-1.5">
-                <label htmlFor="">Preferred name</label>
+
+              {/* Preferred Name Field */}
+              <div className="grid gap-1.5">
+                <label htmlFor="preferName">Preferred name</label>
                 <input
-                  type="text"
+                  id="preferName"
                   name="preferName"
-                  value={formData.preferName || ""}
+                  value={formData.preferName}
                   onChange={handleChange}
+                  type="text"
                   className="w-full p-2 border border-gray-300 rounded-lg bg-slate-100"
                 />
                 {errors.preferName && (
-                  <p className="text-red-500 text-xs mt-1" id="err">
+                  <p className="text-red-500 text-xs mt-1">
                     {errors.preferName}
                   </p>
                 )}
               </div>
-              <div key="email" className="grid gap-1.5">
-                <label htmlFor="">
+
+              {/* Email Field */}
+              <div className="grid gap-1.5">
+                <label htmlFor="email">
                   Email address{" "}
                   <span className="text-gray-400 text-sm">
                     (please contact info@theenablement.com to change this email
@@ -331,31 +377,31 @@ const BookCoarseGeneral = () => {
                   </span>
                 </label>
                 <input
+                  id="email"
                   name="email"
                   onChange={handleChange}
                   type="email"
-                  value={formData.email || ""}
+                  value={formData.email}
                   required
                   className="w-full p-2 border border-gray-300 rounded-lg bg-slate-100"
                 />
                 {errors.email && (
-                  <p className="text-red-500 text-xs mt-1" id="err">
-                    {errors.email}
-                  </p>
+                  <p className="text-red-500 text-xs mt-1">{errors.email}</p>
                 )}
               </div>
-              <div key="dietary" className="grid gap-1.5">
-                <label htmlFor="">Dietary requirement</label>
+
+              {/* Dietary Requirement Field */}
+              <div className="grid gap-1.5">
+                <label htmlFor="diet">Dietary requirement</label>
                 <select
+                  id="diet"
                   name="diet"
                   value={formData.diet}
                   onChange={handleChange}
                   required
                   className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
                 >
-                  <option value="" disabled>
-                    -- Please Select --
-                  </option>
+                  <option value="">-- Please Select --</option>
                   {diataryReq.map((opt, i) => (
                     <option key={i} value={opt}>
                       {opt}
@@ -363,63 +409,64 @@ const BookCoarseGeneral = () => {
                   ))}
                 </select>
                 {errors.diet && (
-                  <p className="text-red-500 text-xs mt-1" id="err">
-                    {errors.diet}
-                  </p>
+                  <p className="text-red-500 text-xs mt-1">{errors.diet}</p>
                 )}
               </div>
-              <div key="org" className="grid gap-1.5">
-                <label htmlFor="">Organization / Company</label>
+
+              {/* Company Field */}
+              <div className="grid gap-1.5">
+                <label htmlFor="company">Organization / Company</label>
                 <input
+                  id="company"
                   name="company"
-                  value={formData.company || ""}
+                  value={formData.company}
                   onChange={handleChange}
                   type="text"
                   required
                   className="w-full p-2 border rounded-lg text-gray-600 bg-slate-100"
                 />
                 {errors.company && (
-                  <p className="text-red-500 text-xs mt-1" id="err">
-                    {errors.company}
-                  </p>
+                  <p className="text-red-500 text-xs mt-1">{errors.company}</p>
                 )}
               </div>
-              <div key="funOrg" className="grid gap-1.5">
-                <label htmlFor="">Function in organisation</label>
+
+              {/* Function in Organisation Field */}
+              <div className="grid gap-1.5">
+                <label htmlFor="organisation">Function in organisation</label>
                 <select
+                  id="organisation"
                   name="organisation"
-                  value={formData.organisation || ""}
+                  value={formData.organisation}
                   onChange={handleChange}
                   required
                   className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
                 >
-                  <option value="" disabled>
-                    -- Please Select --
-                  </option>
+                  <option value="">-- Please Select --</option>
                   {funOrg.map((opt, i) => (
-                    <option key={i} value={opt}>
+                    <option key={i} value={opt} className="capitalize">
                       {opt}
                     </option>
                   ))}
                 </select>
                 {errors.organisation && (
-                  <p className="text-red-500 text-xs mt-1" id="err">
+                  <p className="text-red-500 text-xs mt-1">
                     {errors.organisation}
                   </p>
                 )}
               </div>
-              <div key="levelOrg" className="grid gap-1.5">
-                <label htmlFor="">Level in organisation</label>
+
+              {/* Level in Organisation Field */}
+              <div className="grid gap-1.5">
+                <label htmlFor="levelOrg">Level in organisation</label>
                 <select
+                  id="levelOrg"
                   name="levelOrg"
-                  value={formData.levelOrg || ""}
+                  value={formData.levelOrg}
                   onChange={handleChange}
                   required
                   className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
                 >
-                  <option value="" disabled>
-                    -- Please Select --
-                  </option>
+                  <option value="">-- Please Select --</option>
                   {levlOrg.map((opt, i) => (
                     <option key={i} value={opt}>
                       {opt}
@@ -427,23 +474,22 @@ const BookCoarseGeneral = () => {
                   ))}
                 </select>
                 {errors.levelOrg && (
-                  <p className="text-red-500 text-xs mt-1" id="err">
-                    {errors.levelOrg}
-                  </p>
+                  <p className="text-red-500 text-xs mt-1">{errors.levelOrg}</p>
                 )}
               </div>
-              <div key="industry" className="grid gap-1.5">
-                <label htmlFor="">Sector / industry</label>
+
+              {/* Sector/Industry Field */}
+              <div className="grid gap-1.5">
+                <label htmlFor="sector">Sector / industry</label>
                 <select
+                  id="sector"
                   name="sector"
-                  value={formData.sector || ""}
+                  value={formData.sector}
                   onChange={handleChange}
                   required
                   className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
                 >
-                  <option value="" disabled>
-                    -- Please Select --
-                  </option>
+                  <option value="">-- Please Select --</option>
                   {industry.map((opt, i) => (
                     <option key={i} value={opt}>
                       {opt}
@@ -451,26 +497,22 @@ const BookCoarseGeneral = () => {
                   ))}
                 </select>
                 {errors.sector && (
-                  <p className="text-red-500 text-xs mt-1" id="err">
-                    {errors.sector}
-                  </p>
+                  <p className="text-red-500 text-xs mt-1">{errors.sector}</p>
                 )}
               </div>
-              <div key="nationality" className="grid gap-1.5">
+
+              {/* Nationality Field */}
+              <div className="grid gap-1.5">
                 <label htmlFor="nationality">Nationality</label>
                 <select
+                  id="nationality"
                   name="nationality"
                   value={formData.nationality}
-                  onChange={(e) => {
-                    handleChange(e); // updates formData
-                    setSelectedCountry(e.target.value); // still keep extra state if needed
-                  }}
+                  onChange={handleChange}
                   required
                   className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
                 >
-                  <option value="" disabled>
-                    -- Please Select --
-                  </option>
+                  <option value="">-- Please Select --</option>
                   {nationality.map((opt, i) => (
                     <option key={i} value={opt.name}>
                       {opt.name}
@@ -478,63 +520,64 @@ const BookCoarseGeneral = () => {
                   ))}
                 </select>
                 {errors.nationality && (
-                  <p className="text-red-500 text-xs mt-1" id="err">
+                  <p className="text-red-500 text-xs mt-1">
                     {errors.nationality}
                   </p>
                 )}
               </div>
-              <div key="position" className="grid gap-1.5">
-                <label htmlFor="">Position / job title</label>
+
+              {/* Job Title Field */}
+              <div className="grid gap-1.5">
+                <label htmlFor="job">Position / job title</label>
                 <input
-                  type="text"
-                  onChange={handleChange}
+                  id="job"
                   name="job"
-                  value={formData.job || ""}
+                  onChange={handleChange}
+                  type="text"
+                  value={formData.job}
                   required
                   className="w-full p-2 border rounded-lg text-gray-600 bg-slate-100"
                 />
                 {errors.job && (
-                  <p className="text-red-500 text-xs mt-1" id="err">
-                    {errors.job}
-                  </p>
+                  <p className="text-red-500 text-xs mt-1">{errors.job}</p>
                 )}
               </div>
-              <div key="gender" className="grid gap-1.5">
-                <label htmlFor="">Gender</label>
+
+              {/* Gender Field */}
+              <div className="grid gap-1.5">
+                <label htmlFor="gender">Gender</label>
                 <select
-                  onChange={handleChange}
+                  id="gender"
                   name="gender"
-                  value={formData.gender || ""}
+                  value={formData.gender}
+                  onChange={handleChange}
                   required
                   className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
                 >
-                  <option value="" disabled>
-                    -- Please Select --
-                  </option>
-                  {gender.map((opt, i) => (
+                  <option value="">-- Please Select --</option>
+                  {genderOptions.map((opt, i) => (
                     <option key={i} value={opt}>
                       {opt}
                     </option>
                   ))}
                 </select>
                 {errors.gender && (
-                  <p className="text-red-500 text-xs mt-1" id="err">
-                    {errors.gender}
-                  </p>
+                  <p className="text-red-500 text-xs mt-1">{errors.gender}</p>
                 )}
               </div>
-              <div key="population" className="grid gap-1.5">
-                <label htmlFor="">Population group</label>
+
+              {/* Population Group Field */}
+              <div className="grid gap-1.5">
+                <label htmlFor="population">Population group</label>
                 <select
-                  onChange={handleChange}
+                  id="population"
                   name="population"
-                  value={formData.population || ""}
+                  value={formData.population}
+                  onChange={handleChange}
                   required
                   className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
                 >
-                  <option value="" disabled>
-                    -- Please Select --
-                  </option>
+                  <option value="">-- Please Select --</option>
                   {populationgrp.map((opt, i) => (
                     <option key={i} value={opt}>
                       {opt}
@@ -542,41 +585,43 @@ const BookCoarseGeneral = () => {
                   ))}
                 </select>
                 {errors.population && (
-                  <p className="text-red-500 text-xs mt-1" id="err">
+                  <p className="text-red-500 text-xs mt-1">
                     {errors.population}
                   </p>
                 )}
               </div>
-              <div key="certificateName" className="grid gap-1.5">
-                <label htmlFor="">
+
+              {/* Certificate Name Field */}
+              <div className="grid gap-1.5">
+                <label htmlFor="passport">
                   Name to appear on certificate as per ID/Passport
                 </label>
                 <input
-                  type="text"
-                  onChange={handleChange}
+                  id="passport"
                   name="passport"
-                  value={formData.passport || ""}
+                  onChange={handleChange}
+                  type="text"
+                  value={formData.passport}
                   required
                   className="w-full p-2 border rounded-lg text-gray-600 bg-slate-100"
                 />
                 {errors.passport && (
-                  <p className="text-red-500 text-xs mt-1" id="err">
-                    {errors.passport}
-                  </p>
+                  <p className="text-red-500 text-xs mt-1">{errors.passport}</p>
                 )}
               </div>
-              <div key="socialMedia" className="grid gap-1.5">
-                <label htmlFor="">How did you find out about us?</label>
+
+              {/* How Did You Find Us Field */}
+              <div className="grid gap-1.5">
+                <label htmlFor="finding">How did you find out about us?</label>
                 <select
-                  onChange={handleChange}
+                  id="finding"
                   name="finding"
-                  value={formData.finding || ""}
+                  value={formData.finding}
+                  onChange={handleChange}
                   required
                   className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
                 >
-                  <option value="" disabled>
-                    -- Please Select --
-                  </option>
+                  <option value="">-- Please Select --</option>
                   {socialMedia.map((opt, i) => (
                     <option key={i} value={opt}>
                       {opt}
@@ -584,56 +629,59 @@ const BookCoarseGeneral = () => {
                   ))}
                 </select>
                 {errors.finding && (
-                  <p className="text-red-500 text-xs mt-1" id="err">
-                    {errors.finding}
-                  </p>
+                  <p className="text-red-500 text-xs mt-1">{errors.finding}</p>
                 )}
               </div>
-              <div key="specialNeeds" className="grid gap-4">
+
+              {/* Special Needs Field */}
+              <div className="grid gap-4">
                 <div className="grid gap-1.5">
-                  <label htmlFor="">
+                  <label htmlFor="physicallyDisabled">
                     Physically disabled or special needs?
                   </label>
                   <span className="flex items-center gap-4">
                     <label className="flex items-center gap-1">
                       <input
                         type="radio"
-                        name="disabled"
+                        name="physicallyDisabled"
                         value="yes"
-                        checked={formData.disabled === "yes"}
-                        onChange={handleChange} // ✅ use handleChange
+                        checked={formData.physicallyDisabled === "yes"}
+                        onChange={handleChange}
                       />
                       Yes
                     </label>
                     <label className="flex items-center gap-1">
                       <input
                         type="radio"
-                        name="disabled"
+                        name="physicallyDisabled"
                         value="no"
-                        checked={formData.disabled === "no"}
-                        onChange={handleChange} // ✅ use handleChange
+                        checked={formData.physicallyDisabled === "no"}
+                        onChange={handleChange}
                       />
                       No
                     </label>
                   </span>
+                  {errors.physicallyDisabled && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.physicallyDisabled}
+                    </p>
+                  )}
                 </div>
 
-                {formData.disabled === "yes" && (
+                {formData.physicallyDisabled === "yes" && (
                   <div className="grid gap-1.5">
-                    <label htmlFor="">
+                    <label htmlFor="nature">
                       Nature of disability{" "}
                       <span className="text-gray-700 text-sm">(optional)</span>
                     </label>
                     <select
-                      onChange={handleChange}
+                      id="nature"
                       name="nature"
-                      value={formData.nature || ""}
-                      required
+                      value={formData.nature}
+                      onChange={handleChange}
                       className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
                     >
-                      <option value="" disabled>
-                        -- Please Select --
-                      </option>
+                      <option value="">-- Please Select --</option>
                       {vision.map((opt, i) => (
                         <option key={i} value={opt}>
                           {opt}
@@ -641,37 +689,37 @@ const BookCoarseGeneral = () => {
                       ))}
                     </select>
                     {errors.nature && (
-                      <p className="text-red-500 text-xs mt-1" id="err">
+                      <p className="text-red-500 text-xs mt-1">
                         {errors.nature}
                       </p>
                     )}
                   </div>
                 )}
               </div>
-             { selectedCountry !== "South Africa" && (
-              <div key="intlMobile" className="grid gap-1.5">
-                <label htmlFor="internationalMobile">
-                  International mobile
-                </label>
-                <input
-                  type="text"
-                  id="internationalMobile"
-                  name="internationalMobilePhone"
-                  value={formData.internationalMobilePhone || ""}
-                  onChange={(e) => {
-                    setInternationalMobile(e.target.value);
-                    handleChange(e);
-                  }}
-                  className="w-full p-2 border border-gray-300 rounded-lg bg-slate-100"
-                />
-                {errors.internationalMobile && (
-                  <p className="text-red-500 text-xs mt-1" id="err">
-                    {errors.internationalMobilePhone}
-                  </p>
+
+              {/* International Mobile Field (if not South Africa) */}
+              {formData.nationality &&
+                formData.nationality !== "South Africa" && (
+                  <div className="grid gap-1.5">
+                    <label htmlFor="internationalMobilePhone">
+                      International mobile
+                    </label>
+                    <input
+                      id="internationalMobilePhone"
+                      name="internationalMobilePhone"
+                      value={formData.internationalMobilePhone}
+                      onChange={handleChange}
+                      type="text"
+                      className="w-full p-2 border border-gray-300 rounded-lg bg-slate-100"
+                    />
+                    {errors.internationalMobilePhone && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.internationalMobilePhone}
+                      </p>
+                    )}
+                  </div>
                 )}
-              </div>
-            )}
-          </div>
+            </div>
 
             <div className="flex justify-between pt-6">
               <div></div>

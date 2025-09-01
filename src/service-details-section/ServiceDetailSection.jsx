@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import SalesCoaching from "./SalesCoaching";
 import Sales_Retain_Service from "./Sales_Retain_Service";
 import Crm_selection from "./Crm_selection";
-
+import RecruitmentServices from "./RecruitmentServices";
 const ServiceDetailSection = ({ serviceDetails }) => {
   const { slug } = useParams(); // get slug from URL
 
@@ -13,6 +13,7 @@ const ServiceDetailSection = ({ serviceDetails }) => {
     "sales-coaching": SalesCoaching,
     "sales-enablement-retainer-services": Sales_Retain_Service,
     "crm-selection-installation-and-integration": Crm_selection,
+    "recruitment-services": RecruitmentServices,
   };
 
   const SelectedComponent = componentMap[slug];
