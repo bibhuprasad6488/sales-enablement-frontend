@@ -6,26 +6,26 @@ import { useEffect, useRef, useState } from "react";
 import axios from "../api/axios";
 import {
   FaCheckCircle,
+   FaChevronLeft ,
   FaFlask,
+  FaChevronRight,
   FaChartLine,
   FaUsers,
   FaSeedling,
 } from "react-icons/fa";
 import { Oval } from "react-loader-spinner";
 const WhoweAre = () => {
+  
   const [whoweAre, setwhoweAre] = useState([]);
   const [loading, setLoading] = useState(true);
   const containerRef = useRef(null);
   const [path, setPath] = useState("");
 
   const [currentFact, setCurrentFact] = useState(0);
+  const [paused, setPaused] = useState(false);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentFact((prev) => (prev + 1) % funFacts.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
+
+
 
   useEffect(() => {
     const test = async () => {
@@ -124,6 +124,14 @@ const WhoweAre = () => {
     " Companies with dedicated sales enablement programs see 15% faster ramp-up times for new hires.",
     " Sales reps who use enablement tools achieve 49% higher win rates than those who don’t.",
   ];
+useEffect(() => {
+  if (paused) return;
+  const interval = setInterval(() => {
+    setCurrentFact((prev) => (prev + 1) % funFacts.length);
+  }, 4000);
+
+  return () => clearInterval(interval);
+}, [paused, funFacts.length]);
 
   if (loading) {
     return (
@@ -315,16 +323,20 @@ const WhoweAre = () => {
               <span className="block w-16 h-1 bg-gradient-to-r from-[#DB0032] to-[#FA6602] mx-auto mt-3 rounded-full"></span>
             </h2>
 
-            <div className="relative min-h-[180px] flex items-center justify-center">
+            <div
+              className="relative min-h-[180px] flex items-center justify-center"
+              onMouseEnter={() => setPaused(true)} 
+              onMouseLeave={() => setPaused(false)} 
+            >
               <button
                 onClick={() =>
                   setCurrentFact((prev) =>
                     prev === 0 ? funFacts.length - 1 : prev - 1
                   )
                 }
-                className="absolute left-0 text-3xl font-bold text-[#DB0032] hover:text-[#FA6602] z-10"
+                className="absolute left-0 text-5xl font-bold text-[#DB0032] hover:text-[#FA6602] z-10"
               >
-                &#8592;
+                <FaChevronLeft />
               </button>
 
               <AnimatePresence mode="wait">
@@ -334,26 +346,25 @@ const WhoweAre = () => {
                   animate={{ opacity: 1, x: 0, scale: 1 }}
                   exit={{ opacity: 0, x: -60, scale: 0.95 }}
                   transition={{ duration: 0.6 }}
-                  className="bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white px-6 py-8 rounded-2xl shadow-lg text-lg sm:text-xl font-medium max-w-lg mx-auto"
+                  whileHover={{scale:1.06}}
+                  className="bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white px-6 py-8 rounded-2xl shadow-lg text-lg sm:text-xl font-medium max-w-lg mx-auto cursor-pointer"
                 >
                   {funFacts[currentFact]}
                 </motion.div>
               </AnimatePresence>
 
-              {/* Right Arrow */}
               <button
                 onClick={() =>
                   setCurrentFact((prev) =>
                     prev === funFacts.length - 1 ? 0 : prev + 1
                   )
                 }
-                className="absolute right-0 text-3xl font-bold text-[#DB0032] hover:text-[#FA6602] z-10"
+                className="absolute right-0 text-5xl font-bold text-[#DB0032] hover:text-[#FA6602] z-10"
               >
-                &#8594;
+                <FaChevronRight />
               </button>
             </div>
 
-            {/* Navigation Dots */}
             <div className="flex justify-center mt-6 space-x-3">
               {funFacts.map((_, index) => (
                 <button
