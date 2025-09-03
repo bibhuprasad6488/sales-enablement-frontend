@@ -2,19 +2,20 @@ import React, { useContext, useEffect, useState } from "react";
 import { FaLock, FaEnvelope, FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import RightArrow1 from "../assets/arrow-right1.png";
-import axios from "../api/axios"
-import { toast, ToastContainer } from 'react-toastify'; 
-import { AuthContext } from "../context/AuthContext"
+import axios from "../api/axios";
+import { toast, ToastContainer } from "react-toastify";
+import { AuthContext } from "../context/AuthContext";
 import { useTab } from "../context/TabContext";
+import { Oval } from "react-loader-spinner";
 function LogIn() {
-    const { setActiveTab } = useTab();
+  const { setActiveTab } = useTab();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [forgotEmail, setForgotEmail] = useState("");
   const [loginData, setLoginData] = useState({ email_id: "", password: "" });
   const [errors, setErrors] = useState({});
   const [remember, setRemember] = useState(false);
-  const { login } = useContext(AuthContext)
+  const { login } = useContext(AuthContext);
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
@@ -28,14 +29,19 @@ function LogIn() {
     setLoginData({
       ...loginData,
       [name]: value,
-    })
-  }
+    });
+  };
   useEffect(() => {
     const savedEmail = localStorage.getItem("email_id");
     const savedPassword = localStorage.getItem("password");
-    const rememberMe = JSON.parse(localStorage.getItem("rememberMe") || "false"); 
+    const rememberMe = JSON.parse(
+      localStorage.getItem("rememberMe") || "false"
+    );
     if (rememberMe) {
-      setLoginData({ email_id: savedEmail || "", password: savedPassword || "" });
+      setLoginData({
+        email_id: savedEmail || "",
+        password: savedPassword || "",
+      });
       setRemember(true);
     }
   }, []);
@@ -49,9 +55,12 @@ function LogIn() {
     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;
   };
+  const [loader, setloader] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setloader(true);
     if (!validateFields()) {
+      setloader(false);
       toast.error("Please fill all required fields", {
         position: "top-right",
         autoClose: 3000,
@@ -75,10 +84,15 @@ function LogIn() {
       }
       const url = "/login";
       const { data: res } = await axios.post(url, loginData);
+
       if (res.status) {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("user_id", res.data.user_id);
         const userData = { first_name: res.data.first_name };
+        localStorage.setItem("user_data", JSON.stringify(res.data));
+        const userDetails = localStorage.getItem("user_data");
+        // console.log("login", userDetails);
+
         login(userData);
         toast.success(res.message, {
           position: "top-right",
@@ -91,9 +105,10 @@ function LogIn() {
         });
         setTimeout(() => {
           window.location.href = "/";
-        }, 3000);
-      }                               
+        }, 1000);
+      }
     } catch (error) {
+      setloader(false);
       toast.error("Invalid credentials", {
         position: "top-right",
         autoClose: 3000,
@@ -104,9 +119,26 @@ function LogIn() {
         theme: "light",
       });
     }
+    // finally {
+    // }
   };
   return (
     <>
+      {loader && (
+        <div className="flex items-center justify-center h-screen">
+          <Oval
+            height={60}
+            width={60}
+            color="#DB0032"
+            secondaryColor="#FA6602"
+            strokeWidth={4}
+            strokeWidthSecondary={4}
+            visible={true}
+            ariaLabel="loading"
+          />
+        </div>
+      )}
+
       <section className="flex items-center justify-center ">
         <div className="max-w-xl w-full bg-white p-6 md:p-8 lg:p-10  py-6  shadow-xl mx-4 md:mx-6 lg:mx-8">
           {!showForgotPassword ? (
@@ -137,8 +169,11 @@ function LogIn() {
                     value={loginData.email_id}
                     className="w-full border border-gray-300 pl-10 mt-1 p-2"
                   />
-                  {errors && <span className="text-red-500 text-xs mt-2">{errors.email_id}</span>}
-
+                  {errors && (
+                    <span className="text-red-500 text-xs mt-2">
+                      {errors.email_id}
+                    </span>
+                  )}
                 </div>
                 <div className="relative">
                   <label
@@ -164,16 +199,22 @@ function LogIn() {
                   >
                     {passwordVisible ? <FaEyeSlash /> : <FaEye />}
                   </button>
-                  {errors && <span className="text-red-500 text-xs mt-2">{errors.password}</span>}
-
+                  {errors && (
+                    <span className="text-red-500 text-xs mt-2">
+                      {errors.password}
+                    </span>
+                  )}
                 </div>
                 <div className="flex justify-between items-center">
-                  <label htmlFor="remember" className="flex gap-2  cursor-pointer items-center">
+                  <label
+                    htmlFor="remember"
+                    className="flex gap-2  cursor-pointer items-center"
+                  >
                     <input
-                    id="remember"
-                    type="checkbox"
-                    checked={remember}
-                    onChange={handleRememberMe}
+                      id="remember"
+                      type="checkbox"
+                      checked={remember}
+                      onChange={handleRememberMe}
                       className="checkbox-custom w-5 hover:border-[#FA6602] h-5 border-2 border-[#DB0032] rounded-sm appearance-none relative transition-all ease-in cursor-pointer"
                     />
                     <span className="text-sm">Remember Me</span>
@@ -287,7 +328,6 @@ function LogIn() {
                   </button>
                 </div>
               </form>
-
             </>
           )}
         </div>

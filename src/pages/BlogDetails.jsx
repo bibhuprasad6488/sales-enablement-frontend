@@ -36,14 +36,26 @@ console.log("blogData",result);
     <div>
       <Helmet>
         <title>{BlogdetailsData?.blog_details?.meta_title}</title>
-        <meta name="description" content={BlogdetailsData?.blog_details?.meta_description} />
-        <meta name="keywords" content={BlogdetailsData?.blog_details?.meta_keywords} />
-        <meta property="og:title" content={BlogdetailsData?.blog_details?.og_title} />
+        <meta
+          name="description"
+          content={BlogdetailsData?.blog_details?.meta_description}
+        />
+        <meta
+          name="keywords"
+          content={BlogdetailsData?.blog_details?.meta_keywords}
+        />
+        <meta
+          property="og:title"
+          content={BlogdetailsData?.blog_details?.og_title}
+        />
         <meta
           property="og:description"
           content={BlogdetailsData?.blog_details?.og_description}
         />
-        <meta property="og:image" content={BlogdetailsData?.blog_details?.og_image} />
+        <meta
+          property="og:image"
+          content={BlogdetailsData?.blog_details?.og_image}
+        />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={window.location.href} />
       </Helmet>
@@ -51,13 +63,18 @@ console.log("blogData",result);
       <div className="container mx-auto px-4 py-12 ">
         <div className="flex flex-col md:flex-row py-12 gap-10">
           <BlogDetailSection
+            className="w-full" // Make full width on mobile
             filters={filters}
             Allblogdata={BlogdetailsData?.blog_details}
             whitepaper={BlogdetailsData?.white_papers}
             videos={BlogdetailsData?.videos}
             Blogcomments={BlogdetailsData?.comments}
           />
-          <BlogSideBar setFilters={setFilters} filters={filters} />
+          <BlogSideBar
+            className="w-full md:w-auto" // Full width on mobile, auto on desktop
+            setFilters={setFilters}
+            filters={filters}
+          />
         </div>
       </div>
     </div>

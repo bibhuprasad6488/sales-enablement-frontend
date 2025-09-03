@@ -12,7 +12,10 @@ import { AiOutlineGlobal } from "react-icons/ai";
 import { FaLinkedin, FaTwitter, FaFacebook, FaInstagram } from "react-icons/fa";
 import { MdOutlineDescription, MdOutlineSupportAgent } from "react-icons/md";
 import { useApi3 } from "../context/WebsiteDataContext";
-
+import logoFacebook from "../assets/logoFacebook.png";
+import logoInstagram from "../assets/logoInstagram.png";
+import logoLinkedIn from "../assets/logoLinkedIn.png";
+import logoTwitter from "../assets/logoTwitter.png";
 function ContactContent({ contactData }) {
   if (!contactData) return <p></p>;
   const { websiteData } = useApi3();
@@ -103,31 +106,49 @@ function ContactContent({ contactData }) {
             </div>
           </div>
 
-          <div className="flex justify-center mb-8 cursor-pointer space-x-6">
-            <div className="transform hover:scale-110 transition duration-300 bg-blue-700 p-3 rounded-full text-white">
+          <div className="flex justify-center items-center mb-8 cursor-pointer gap-4">
+            <div className="transform hover:scale-110 transition duration-300  rounded-full text-white">
               <a href={websiteData.linkedin_link}>
-                <FaLinkedin size={24} />
+                <img
+                  src={logoLinkedIn}
+                  alt="Share on LinkedIn"
+                  className=" object-contain h-10 w-10"
+                />
               </a>
             </div>
 
-            <div className="transform hover:scale-110 transition duration-300 bg-blue-400 p-3 rounded-full text-white">
+            <div className="transform hover:scale-110 transition duration-300 rounded-full text-white">
               <a href={websiteData.twitter_link}>
                 {" "}
-                <FaTwitter size={24} />{" "}
+                <img
+                  src={logoTwitter}
+                  alt="Share on Twitter"
+                  className=" object-contain h-10 w-10"
+                />
               </a>
             </div>
 
-            <div className="transform hover:scale-110 transition duration-300 bg-blue-600 p-3 rounded-full text-white">
+          
+
+            <div className="transform hover:scale-110 transition duration-300 rounded-full text-white">
               <a href={websiteData.facebook_link}>
                 {" "}
-                <FaFacebook size={24} />{" "}
+                <img
+                  src={logoFacebook}
+                  alt="Share on Facebook"
+                  className=" object-contain h-10 w-10"
+                />
               </a>
             </div>
 
-            <div className="transform hover:scale-110 transition duration-300 bg-pink-500 p-3 rounded-full text-white">
+            <div className="transform hover:scale-110 transition duration-300 rounded-full text-white">
               <a href={websiteData.instagram_link}>
                 {" "}
-                <FaInstagram size={24} />{" "}
+                <img
+                  src={logoInstagram}
+                  alt="Share on Instagram"
+                  className=" object-contain h-10 w-10"
+                />
               </a>
             </div>
           </div>
@@ -215,9 +236,9 @@ function ContactContent({ contactData }) {
               <MdOutlineDescription className="absolute left-3 top-3 text-gray-500" />
             </div>
 
-                <span>
-                  <h4 style={{textAlign:"center"}} id="submission"></h4>
-                </span>
+            <span>
+              <h4 style={{ textAlign: "center" }} id="submission"></h4>
+            </span>
             <div className="text-center flex justify-center">
               <button
                 type="submit"

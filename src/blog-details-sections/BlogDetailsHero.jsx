@@ -31,3 +31,10 @@ function BlogDetailsHero({titles}) {
 }
 
 export default BlogDetailsHero;
+  // <a
+  //               onClick={() => {
+  //                 window.open("https://instagram.com", "_blank");
+  //               }}
+  //               href="https://instagram.com"
+  //               target="_blank"
+  //               rel="noopener noreferrer"

@@ -65,7 +65,8 @@ const Header = () => {
             </span>
           </div>
 
-          <div className="flex space-x-10 mb-3 sm:mb-0">
+      <div className="flex space-x-6 sm:space-x-8 mb-3 sm:mb-0">
+
             <a
               href={websiteData.facebook_link}
               aria-label="Facebook"

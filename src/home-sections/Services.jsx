@@ -9,8 +9,24 @@ import { LuPlus } from "react-icons/lu";
 import { useApi } from "../context/ServiceContextApi";
 
 function Services({ consultationData }) {
-  const navigate = useNavigate()
-const [showDescription, setShowDescription] = useState(false);
+  const navigate = useNavigate();
+  const [showDescription, setShowDescription] = useState(false);
+  const [clickedCard, setClickedCard] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [ref2, inView2] = useInView({ triggerOnce: true, threshold: 0.5 });
+  const { serviceData } = useApi();
+
+  if (!consultationData) return null;
+  if (!Array.isArray(serviceData)) {
+    console.error("serviceData is not an array:", serviceData);
+    return null;
+  }
+  const cardsPerPage = 4;
+  const totalPages = Math.ceil(serviceData.length / cardsPerPage);
+  const currentCards = serviceData.slice(
+    (currentPage - 1) * cardsPerPage,
+    currentPage * cardsPerPage
+  );
   const handleCardClick = (id) => {
     if (id === clickedCard) {
       setClickedCard(null);
@@ -23,20 +39,10 @@ const [showDescription, setShowDescription] = useState(false);
       }, 500);
     }
   };
-if (!consultationData) return null;
-const { serviceData } = useApi();
-if (!Array.isArray(serviceData)) {
-    console.error("serviceData is not an array:", serviceData);
-    return null;
-  }
-  const [currentPage, setCurrentPage] = useState(1);
-  const cardsPerPage = 4;
-  const totalPages = Math.ceil(serviceData.length / cardsPerPage);
-  const currentCards = serviceData.slice((currentPage - 1) * cardsPerPage, currentPage * cardsPerPage);
-  const [clickedCard, setClickedCard] = useState(null);
-  const handleNext = () => setCurrentPage((prev) => (prev < totalPages ? prev + 1 : prev));
-  const handlePrev = () => setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev));
-  const [ref2, inView2] = useInView({ triggerOnce: true, threshold: 0.5 });
+  const handleNext = () =>
+    setCurrentPage((prev) => (prev < totalPages ? prev + 1 : prev));
+  const handlePrev = () =>
+    setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev));
   const leftVariants = {
     hidden: { opacity: 0, x: -100 },
     visible: {
@@ -63,16 +69,14 @@ if (!Array.isArray(serviceData)) {
               className="about-intro-title"
               dangerouslySetInnerHTML={{ __html: consultationData.title }}
             />
-
           </h2>
           <p className="text-sm sm:text-[14px] md:text-[16px] leading-[32px] text-justify mb-8">
             {consultationData.description}
           </p>
           <button
-            onClick={() =>{
+            onClick={() => {
               navigate("/sales-enablement-that-drives-measurable-growth");
-            } }
-            
+            }}
             type="button"
             className="text-[#000] transition-transform duration-500 ease-out transform  h-12 w-full justify-center  flex space-x-5 gap-6 uppercase items-center font-bold text-xs sm:text-sm md:px-20 lg:px-20 sm:w-full xl:w-auto 2xl:w-auto  md:w-auto xl:px-20   md:py-6 sm:px-16 py-4 hover:text-[#000] border border-[#000] sm:justify-center md:justify-between border-btn2"
           >
@@ -93,8 +97,6 @@ if (!Array.isArray(serviceData)) {
               }}
               transition={{ duration: 1, ease: "easeOut" }}
             >
-
-
               <div className="relative hidden sm:block w-full sm:w-3/4 md:w-1/2">
                 {currentCards.map((card, index) => {
                   let positionClass = "";
@@ -135,22 +137,32 @@ if (!Array.isArray(serviceData)) {
                       }}
                     >
                       <div className="h-full flex flex-col justify-between bg-layer1 p-5 transition-all duration-300">
-                        <h3 className="text-[14px] uppercase font-bold">{card.title}</h3>
+                        <h3 className="text-[14px] uppercase font-bold">
+                          {card.title}
+                        </h3>
 
                         <div className="flex justify-start items-center">
                           {clickedCard === index && showDescription && (
-                            <p className="absolute text-sm leading-6 lg:leading-4 lg:text-[13px] xl:leading-6 xl:text-[16px] 2xl:leading-6 2xl:text-[16px] bold-text1 top-16 w-[90%]">
-                              {card.description.length > 120 ? `${card.description.slice(0, 150)}...` : card.description}
-                            </p>
+                            <p
+                              className="absolute text-sm leading-6 lg:leading-4 lg:text-[13px] xl:leading-6 xl:text-[16px] 2xl:leading-6 2xl:text-[16px] bold-text1 top-16 w-[90%] text-white prose"
+                              dangerouslySetInnerHTML={{
+                                __html:
+                                  card.description.length > 120
+                                    ? `${card.description.slice(0, 150)}...`
+                                    : card.description,
+                              }}
+                            ></p>
                           )}
 
-                          <Link to={
-                            card.indp === "1"
-                              ? `/service/sales-force-details/${card.slug}`
-                              : card.indp === "2"
+                          <Link
+                            to={
+                              card.indp === "1"
+                                ? `/service/sales-force-details/${card.slug}`
+                                : card.indp === "2"
                                 ? `/service/sales-candidate-details/${card.slug}`
                                 : `/service/${card.slug}`
-                          }>
+                            }
+                          >
                             {clickedCard === index ? (
                               <span className="w-10 h-10 border-2 text-red-500 border-red-500 bg-text flex items-center justify-center">
                                 <FaArrowRight className="text-xl" />
@@ -182,29 +194,35 @@ if (!Array.isArray(serviceData)) {
                         height: "290px",
                       }}
                     >
-                      <div className="h-full flex flex-col justify-between bg-layer1 p-5">
+                      <div className="h-full flex justify-center items-center bg-layer1 p-5">
                         <h3 className="text-[14px] uppercase font-bold">
                           {card.title}
                         </h3>
-                        <p className="absolute text-sm leading-6 lg:leading-4 lg:text-[13px] xl:leading-6 xl:text-[16px] 2xl:leading-6 2xl:text-[16px] bold-text1 top-16 w-[90%]">
-                          {card.description}
-                        </p>
-                        <Link to={
+
+                        {/* <p
+                          className="absolute text-sm leading-6 lg:leading-4 lg:text-[13px] xl:leading-6 xl:text-[16px] 2xl:leading-6 2xl:text-[16px] bold-text1 top-16 w-[90%] text-white prose"
+                          dangerouslySetInnerHTML={{
+                            __html:
+                              card.description.length > 120
+                                ? `${card.description.slice(0, 150)}...`
+                                : card.description,
+                          }}
+                        ></p> */}
+                        <Link
+                          to={
                             card.indp === "1"
                               ? `/service/sales-force-details/${card.slug}`
                               : card.indp === "2"
-                                ? `/service/sales-candidate-details/${card.slug}`
-                                : `/service/${card.slug}`
-                          }>
-
+                              ? `/service/sales-candidate-details/${card.slug}`
+                              : `/service/${card.slug}`
+                          }
+                        >
                           <img
                             src={ServiceArrow}
                             alt="Service Arrow"
                             className="w-7 h-7"
                           />
                         </Link>
-
-
                       </div>
                     </div>
                   ))}
@@ -240,4 +258,3 @@ if (!Array.isArray(serviceData)) {
 }
 
 export default Services;
-

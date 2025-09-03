@@ -20,7 +20,7 @@ const BookCoarseBilling = () => {
       postalAd_2: "",
       city: "",
       sendingEmail: "",
-      organisationBilling: "",
+      organisationBilling: "The Sales Enablement Company",
       division: "",
       division_on_the_invoice: "",
       vatNumber: "",
@@ -44,6 +44,7 @@ const BookCoarseBilling = () => {
         "account",
         "country",
         "postalAd_1",
+        "postalAd_2",
         "city",
         "sendingEmail",
       ];
@@ -122,7 +123,7 @@ const BookCoarseBilling = () => {
 
   return (
     <>
-      <section>
+      {/* <section>
         <div className="relative w-full h-full course-bg">
           <div className="relative bg-layer">
             <Navbar />
@@ -142,14 +143,14 @@ const BookCoarseBilling = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <h1 className="text-center mt-10 text-4xl font-black uppercase">
         {courseName}
       </h1>
 
-      <section className="px-2 md:px-10 flex justify-center bg-white relative py-10">
-        <div className="w-full md:w-[70%] shadow-lg rounded-xl bg-white p-8 sticky top-0">
+      <section className="px-2 md:px-10 flex justify-center bg-white relative py-3">
+        <div className="w-full md:w-[100%] shadow-lg rounded-xl bg-white p-8 sticky top-0">
           {/* Progress indicator */}
           <div className="flex items-center justify-between mb-10 relative">
             <div className="flex-1 flex flex-col items-center relative">
@@ -264,8 +265,8 @@ const BookCoarseBilling = () => {
                           : "bg-slate-100"
                       } text-gray-600`}
                     >
-                      <option value="">-- Please Select --</option>
-                      {["Not Specified"].map((opt, i) => (
+                      <option value="">The Sales Enablement Company</option>
+                      {[].map((opt, i) => (
                         <option key={i} value={opt}>
                           {opt}
                         </option>
@@ -378,8 +379,17 @@ const BookCoarseBilling = () => {
                   onChange={handleChange}
                   name="postalAd_2"
                   value={formData.postalAd_2}
-                  className="w-full p-2 border rounded-lg text-gray-600 bg-slate-100"
+                  className={`w-full p-2 border rounded-lg ${
+                    errors.postalAd_2
+                      ? "border-red-500 bg-red-50"
+                      : "bg-slate-100"
+                  } text-gray-600`}
                 />
+                {errors.postalAd_2 && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.postalAd_2}
+                  </p>
+                )}
               </div>
 
               <div className="grid gap-1.5">

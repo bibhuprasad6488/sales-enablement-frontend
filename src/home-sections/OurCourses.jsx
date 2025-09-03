@@ -6,10 +6,9 @@ import { useApi2 } from "../context/CourseContextApi";
 import { useState } from "react";
 import { useApi3 } from "../context/WebsiteDataContext";
 
-
 function OurCourses() {
   const { websiteData, loading: websiteLoading } = useApi3();
-  const { courseData, } = useApi2();
+  const { courseData } = useApi2();
   if (!courseData) return <p></p>;
   const courses = Array.isArray(courseData) ? courseData : [];
   const [searchQuery, setSearchQuery] = useState("");
@@ -20,7 +19,7 @@ function OurCourses() {
   const navigate = useNavigate();
   const handlenavigate = () => {
     navigate("/services");
-  }
+  };
   return (
     <>
       <div className="courses">
@@ -33,21 +32,27 @@ function OurCourses() {
             </div>
             <div className="w-full flex justify-center items-center">
               <div className="flex gap-4 2xl:gap-12 text-white mb-6">
-                {Array.isArray(courseData) && courseData.slice(0, 6).map((course, index) => (
-                  <Link to={`/courses-details/${course.slug}`}>
-                    <div key={index} className="card p-2 shadow-lg flex flex-col items-center">
-                      <div className="w-[112.19px] h-[112.19px] rounded-full bg-aliceblue flex items-center justify-center mb-4">
-                        <img
-                          src={course.image}
-                          alt={course.name}
-                          className="w-full h-full object-cover rounded-full"
-                        />
+                {Array.isArray(courseData) &&
+                  courseData.slice(0, 6).map((course, index) => (
+                    <Link
+                      key={course.id || index}
+                      to={`/courses-details/${course.slug}`}
+                    >
+                      <div className="card p-2 shadow-lg flex flex-col items-center">
+                        <div className="w-[112.19px] h-[112.19px] rounded-full bg-aliceblue flex items-center justify-center mb-4">
+                          <img
+                            src={course.image}
+                            alt={course.name}
+                            className="w-full h-full object-cover rounded-full"
+                          />
+                        </div>
+                        <p className="text-center text-sm md:text-[12px] px-1 uppercase">
+                          {course.name}
+                        </p>{" "}
                       </div>
-                      <p className="text-center text-sm md:text-[12px] px-1 uppercase">
-                        {course.name}
-                      </p> </div>
-                  </Link>
-                ))} </div>
+                    </Link>
+                  ))}{" "}
+              </div>
             </div>
             <div className="flex flex-col md:flex-wrap lg:flex-wrap xl:flex-row lg:m xl:mx-7  justify-between items-center gap-4">
               <a
@@ -85,7 +90,8 @@ function OurCourses() {
                       setDropdownOpen(e.target.value.length > 0);
                     }}
                     className="flex-1 w-full px-6 py-2 sm:px-4 sm:py-1 font-bold placeholder:text-sm  outline-none"
-                  />{filteredCourses.length > 0 ? (
+                  />
+                  {filteredCourses.length > 0 ? (
                     <Link
                       to={`/courses-details/${filteredCourses[0].slug || ""}`}
                       className="text-white group transition-transform duration-500 ease-out transform uppercase bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:bg-gradient-to-bl focus:outline-none text-[12px] sm:text-sm md:text-[14px] px-5 py-2.5 flex items-center justify-center relative"
@@ -96,9 +102,8 @@ function OurCourses() {
                       </span>
                     </Link>
                   ) : null}
-
-
-                </div> {isDropdownOpen && (
+                </div>
+                {isDropdownOpen && (
                   <div className="absolute w-full bg-white border border-gray-300 rounded-md shadow-md mt-1 max-h-48 overflow-y-auto">
                     {filteredCourses.length > 0 ? (
                       filteredCourses.map((course, index) => (
@@ -138,4 +143,3 @@ function OurCourses() {
 }
 
 export default OurCourses;
-

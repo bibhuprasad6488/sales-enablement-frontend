@@ -22,7 +22,7 @@ export const FilterProvider = ({ children }) => {
     const fetchFilters = async () => {
       try {
         const res = await axios.get("/get-cat-filtre");
-        console.log("✅ Filters API Response:", res.data);
+        // console.log("✅ Filters API Response:", res.data);
 
         setTopics(res.data.data?.topics || []);
         setLocations(res.data.data?.location || []);
@@ -40,7 +40,7 @@ export const FilterProvider = ({ children }) => {
     const fetchCourses = async () => {
       try {
         const res = await axios.post("/courses");
-        console.log("✅ Courses API Response:", res.data);
+        // console.log("✅ Courses API Response:", res.data);
 
         const courseData = Array.isArray(res.data.data) ? res.data.data : [];
         setCourses(courseData);

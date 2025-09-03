@@ -16,10 +16,77 @@ import { IoCall } from "react-icons/io5";
 import CallToDiscussForm from "../components/CallToDiscussForm";
 import { useNavigate } from "react-router-dom";
 import { useApi3 } from "../context/WebsiteDataContext";
+import logoFacebook from "../assets/logoFacebook.png";
+import logoInstagram from "../assets/logoInstagram.png";
+import logoLinkedIn from "../assets/logoLinkedIn.png";
+import logoTwitter from "../assets/logoTwitter.png";
 const PriceSideBar = ({ course }) => {
   const { websiteData } = useApi3();
   console.log(websiteData.phone);
   const currentUrl = window.location.href;
+  // helper for app deep link + web fallback
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+const shareTo = (platform, currentUrl) => {
+  let appUrl = "";
+  let webUrl = "";
+
+  switch (platform) {
+    case "facebook":
+      appUrl = `fb://facewebmodal/f?href=${encodeURIComponent(currentUrl)}`;
+      webUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+        currentUrl
+      )}`;
+      break;
+    case "twitter":
+      appUrl = `twitter://post?message=${encodeURIComponent(
+        "Check this out: " + currentUrl
+      )}`;
+      webUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+        currentUrl
+      )}`;
+      break;
+    case "linkedin":
+      webUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+        currentUrl
+      )}`;
+      break;
+    case "instagram":
+      appUrl = `instagram://share?text=${encodeURIComponent(
+        "Check this out: " + currentUrl
+      )}`;
+      webUrl = `https://instagram.com`; // no official share, fallback only
+      break;
+    default:
+      return;
+  }
+
+  // ✅ On desktop → skip deep link, go straight to web
+  if (!isMobile || !appUrl) {
+    window.open(webUrl, "_blank");
+    return;
+  }
+
+  // ✅ On mobile → try deep link, fallback to web
+  let opened = false;
+  const timeout = setTimeout(() => {
+    if (!opened && webUrl) {
+      window.open(webUrl, "_blank");
+    }
+  }, 700);
+
+  try {
+    const newWindow = window.open(appUrl, "_blank");
+    if (newWindow) opened = true;
+  } catch (err) {
+    if (webUrl) window.open(webUrl, "_blank");
+  }
+
+  setTimeout(() => clearTimeout(timeout), 1500);
+};
+
+
+
   const [isHovered, setIsHovered] = useState(false);
   const formattedDate = new Date(course.end_date).toLocaleDateString("en-GB", {
     day: "2-digit",
@@ -94,7 +161,7 @@ const PriceSideBar = ({ course }) => {
     setIsLoggedIn(!!token);
   }, []);
 
-   // In your component with the Book Now button
+  // In your component with the Book Now button
   const handleClick = () => {
     if (!isLoggedIn) {
       toast.error("You need to log in first!", {
@@ -247,33 +314,6 @@ const PriceSideBar = ({ course }) => {
         )}
       </div>
 
-      {/* {isModalOpen && (
-        <div
-          className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 backdrop-blur-sm z-50 text-[#000]"
-          onClick={(e) => {
-            // Close modal if clicked outside the modal content area
-            if (e.target === e.currentTarget) {
-              closeModal();
-            }
-          }}
-        >
-          <div className="p-4 sm:p-4 lg:p-4 rounded-md relative ">
-            <button
-              onClick={closeModal}
-              className="absolute top-5 right-5 text-gray-600 hover:text-gray-800 text-xl sm:text-2xl md:text-3xl transition-all duration-300 ease-in-out bg-transparent  p-2 rounded-full"
-            >
-
-
-              <span className="text-black text-2xl hover:text-red-600 transition-all duration-300 ease-in-out  font-semibold">
-                <FaTimes />
-              </span>
-            </button>
-
-            <CallToDiscussForm />
-          </div>
-        </div>
-      )} */}
-
       <div className="mt-4 flex flex-wrap justify-between gap-4">
         <button className="w-full md:w-auto flex-1 uppercase relative group bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white p-2 sm:p-3 flex items-center justify-center ">
           <span className="absolute inset-0 w-0 h-full bg-[#060b33] transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
@@ -285,77 +325,61 @@ const PriceSideBar = ({ course }) => {
             <span className="text-sm">Call Us</span>
           </a>
         </button>
+
         <button className="w-full md:w-auto flex-1 uppercase relative group bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white p-2 sm:p-3 flex items-center justify-center ">
           <span className="absolute inset-0 w-0 h-full bg-[#060b33] transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
           <span className="relative z-10 text-white group-hover:text-white flex items-center">
-            <div className="absolute right-[-60px] bottom-[-50px] bg-gradient-to-r from-[#DB0032] to-[#FA6602] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out p-2 space-x-0.5 flex gap-3">
+            <div className="absolute  right-[-70px] bottom-[-90px] opacity-0  mb-2 border-2 border-[#f04512] border-gradient-to-r from-[#DB0032] to-[#FA6602] bg-white rounded-lg shadow-xl p-3 flex gap-4 z-50 group-hover:opacity-100 group-hover:visible transition-opacity duration-300">
               <a
-                className="cursor-pointer"
                 onClick={() => {
-                  window.open(
-                    `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                      currentUrl
-                    )}`,
-                    "_blank"
-                  );
+                  shareTo("facebook", currentUrl);
                 }}
-                target="_blank"
-                rel="noopener noreferrer"
+                className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
               >
-                <FaFacebook size={18} className="text-white text-xl" />
+                <img
+                  src={logoFacebook}
+                  alt="Share on Facebook"
+                  className="w-full h-full object-contain"
+                />
               </a>
-              <span>
-                <hr className="h-full w-[1px] border-0 bg-white flex justify-self-center self-center" />
-              </span>
-              <a
-                className="cursor-pointer"
-                onClick={() => {
-                  window.open(
-                    `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-                      currentUrl
-                    )}`,
-                    "_blank"
-                  );
-                }}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FaTwitter size={18} className="text-white text-xl" />
-              </a>
-              <span>
-                <hr className="h-full w-[1.4px] border-0 bg-white flex justify-self-center self-center" />
-              </span>
-              <a
-                className="cursor-pointer"
-                onClick={() => {
-                  window.open(
-                    `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-                      currentUrl
-                    )}`,
-                    "_blank"
-                  );
-                }}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FaLinkedin size={18} className="text-white text-xl" />
-              </a>
-              <span>
-                <hr className="h-full w-[1px] border-0 bg-white flex justify-self-center self-center" />
-              </span>
-              <a
-                className="cursor-pointer"
-                onClick={(e) => {
-                  e.preventDefault(); // stop auto navigation
-                  navigator.clipboard.writeText(window.location.href);
 
-                  window.open("https://instagram.com", "_blank"); // optional: still open Instagram site
+              <a
+                onClick={() => {
+                  shareTo("twitter", currentUrl);
                 }}
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
+                className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
               >
-                <FaInstagram size={18} className="text-white text-xl" />
+                <img
+                  src={logoTwitter}
+                  alt="Share on Twitter"
+                  className="w-full h-full object-contain"
+                />
+              </a>
+
+              <a
+                onClick={() => {
+                  shareTo("linkedin", currentUrl);
+                }}
+                className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
+              >
+                <img
+                  src={logoLinkedIn}
+                  alt="Share on LinkedIn"
+                  className="w-full h-full object-contain"
+                />
+              </a>
+
+              <a
+                onClick={() => {
+                  shareTo("instagram", currentUrl);
+                }}
+                className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
+              >
+                <img
+                  src={logoInstagram}
+                  alt="Share on Instagram"
+                  className="w-full h-full object-contain"
+                />
               </a>
             </div>
             <FaShareAlt className="mr-2" />
