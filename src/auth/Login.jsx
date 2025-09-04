@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { FaLock, FaEnvelope, FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import RightArrow1 from "../assets/arrow-right1.png";
 import axios from "../api/axios";
 import { toast, ToastContainer } from "react-toastify";
@@ -9,6 +9,7 @@ import { useTab } from "../context/TabContext";
 import { Oval } from "react-loader-spinner";
 function LogIn() {
   const { setActiveTab } = useTab();
+  const navigate = useNavigate()
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [forgotEmail, setForgotEmail] = useState("");
@@ -91,7 +92,8 @@ function LogIn() {
         const userData = { first_name: res.data.first_name };
         localStorage.setItem("user_data", JSON.stringify(res.data));
         const userDetails = localStorage.getItem("user_data");
-        // console.log("login", userDetails);
+        
+         localStorage.setItem("loginTime", Date.now());
 
         login(userData);
         toast.success(res.message, {
@@ -104,7 +106,7 @@ function LogIn() {
           theme: "light",
         });
         setTimeout(() => {
-          window.location.href = "/";
+          navigate("/");
         }, 1000);
       }
     } catch (error) {

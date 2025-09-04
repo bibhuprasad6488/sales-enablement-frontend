@@ -10,17 +10,19 @@ const BookCourse = () => {
   const courseData = location.state?.course;
 
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <Navigate to="general" replace state={{ course: courseData }} />
-        }
-      />
-      <Route path="general" element={<BookCoarseGeneral />} />
-      <Route path="billing" element={<BookCoarseBilling />} />
-      <Route path="legal" element={<BookCoarseLegal />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Navigate to="general" replace state={{ course: courseData }} />
+          }
+        />
+        <Route path="general" element={<BookCoarseGeneral />} />
+        <Route path="billing" element={<BookCoarseBilling />} />
+        <Route path="legal" element={<BookCoarseLegal />} />
+      </Routes>
+    </>
   );
 };
 

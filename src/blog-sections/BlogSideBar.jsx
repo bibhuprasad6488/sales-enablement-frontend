@@ -29,7 +29,6 @@ const BlogSideBar = ({ setFilters }) => {
     const SidebarData = async () => {
       const response = await axios.get("/blog-filters");
       const result = await response.data;
-      console.log("hii", result);
       setrecentpost(result.recent_post);
       setcategory(result.categories);
       settag(result.tags);
@@ -37,7 +36,6 @@ const BlogSideBar = ({ setFilters }) => {
     };
     SidebarData();
   }, []);
-  console.log("datais ", recentpost);
 
   return (
     <aside

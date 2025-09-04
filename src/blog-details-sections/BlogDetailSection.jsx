@@ -20,6 +20,7 @@ import logoFacebook from "../assets/logoFacebook.png";
 import logoInstagram from "../assets/logoInstagram.png";
 import logoLinkedIn from "../assets/logoLinkedIn.png";
 import logoTwitter from "../assets/logoTwitter.png";
+import { ToastContainer } from "react-toastify";
 
 const BlogDetailSection = ({
   Allblogdata,
@@ -33,64 +34,65 @@ const BlogDetailSection = ({
   const [playingVideo, setPlayingVideo] = useState(null);
   const [showShareOptions, setShowShareOptions] = useState(false);
   const currentUrl = window.location.href;
-  const shareTo = (platform, currentUrl) => {
-    let appUrl = "";
-    let webUrl = "";
+   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-    switch (platform) {
-      case "facebook":
-        appUrl = `fb://facewebmodal/f?href=${encodeURIComponent(currentUrl)}`;
-        webUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-          currentUrl
-        )}`;
-        break;
-      case "twitter":
-        appUrl = `twitter://post?message=${encodeURIComponent(
-          "Check this out: " + currentUrl
-        )}`;
-        webUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-          currentUrl
-        )}`;
-        break;
-      case "linkedin":
-        webUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-          currentUrl
-        )}`;
-        break;
-      case "instagram":
-        appUrl = `instagram://share?text=${encodeURIComponent(
-          "Check this out: " + currentUrl
-        )}`;
-        webUrl = `https://instagram.com`; // no official share, fallback only
-        break;
-      default:
-        return;
-    }
+   const shareTo = (platform, currentUrl) => {
+     let appUrl = "";
+     let webUrl = "";
 
-    // ✅ On desktop → skip deep link, go straight to web
-    if (!isMobile || !appUrl) {
-      window.open(webUrl, "_blank");
-      return;
-    }
+     switch (platform) {
+       case "facebook":
+         appUrl = `fb://facewebmodal/f?href=${encodeURIComponent(currentUrl)}`;
+         webUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+           currentUrl
+         )}`;
+         break;
+       case "twitter":
+         appUrl = `twitter://post?message=${encodeURIComponent(
+           "Check this out: " + currentUrl
+         )}`;
+         webUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+           currentUrl
+         )}`;
+         break;
+       case "linkedin":
+         webUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+           currentUrl
+         )}`;
+         break;
+       case "instagram":
+         appUrl = `instagram://share?text=${encodeURIComponent(
+           "Check this out: " + currentUrl
+         )}`;
+         webUrl = `https://instagram.com`; // no official share, fallback only
+         break;
+       default:
+         return;
+     }
 
-    // ✅ On mobile → try deep link, fallback to web
-    let opened = false;
-    const timeout = setTimeout(() => {
-      if (!opened && webUrl) {
-        window.open(webUrl, "_blank");
-      }
-    }, 700);
+     // ✅ On desktop → skip deep link, go straight to web
+     if (!isMobile || !appUrl) {
+       window.open(webUrl, "_blank");
+       return;
+     }
 
-    try {
-      const newWindow = window.open(appUrl, "_blank");
-      if (newWindow) opened = true;
-    } catch (err) {
-      if (webUrl) window.open(webUrl, "_blank");
-    }
+     // ✅ On mobile → try deep link, fallback to web
+     let opened = false;
+     const timeout = setTimeout(() => {
+       if (!opened && webUrl) {
+         window.open(webUrl, "_blank");
+       }
+     }, 700);
 
-    setTimeout(() => clearTimeout(timeout), 1500);
-  };
+     try {
+       const newWindow = window.open(appUrl, "_blank");
+       if (newWindow) opened = true;
+     } catch (err) {
+       if (webUrl) window.open(webUrl, "_blank");
+     }
 
+     setTimeout(() => clearTimeout(timeout), 1500);
+   };
   useEffect(() => {
     const fetchCourseDetails = async () => {
       const relatedCoursesData = [
@@ -123,6 +125,8 @@ const BlogDetailSection = ({
   };
 
   return (
+    <>
+    
     <section className="w-full md:w-3/4 py-3">
       {/* BlogDetailSection content */}
 
@@ -290,6 +294,9 @@ const BlogDetailSection = ({
       <CommentSection comments={Blogcomments} />
       <CommentPost BlogId={Allblogdata?.id} />
     </section>
+    <ToastContainer/>
+    </>
+    
   );
 };
 

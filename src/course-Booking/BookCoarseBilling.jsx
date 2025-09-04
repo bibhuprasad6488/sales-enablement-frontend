@@ -36,6 +36,9 @@ const BookCoarseBilling = () => {
   const [errors, setErrors] = useState({});
   const [isFormValid, setIsFormValid] = useState(false);
 
+  const user = localStorage.getItem("user_data");
+
+  const userData = JSON.parse(user);
   // Validate form on data change
   useEffect(() => {
     const validateForm = () => {
@@ -145,12 +148,12 @@ const BookCoarseBilling = () => {
         </div>
       </section> */}
 
-      <h1 className="text-center mt-10 text-4xl font-black uppercase">
+      {/* <h1 className="text-center mt-10 text-4xl font-black uppercase">
         {courseName}
-      </h1>
+      </h1> */}
 
-      <section className="px-2 md:px-10 flex justify-center bg-white relative py-3">
-        <div className="w-full md:w-[100%] shadow-lg rounded-xl bg-white p-8 sticky top-0">
+      <section className="w-full  flex justify-center relative py-3">
+        <div className="w-full md:w-[95%] px-5 md:px-10 shadow-lg rounded-xl bg-white py-5   sticky top-0">
           {/* Progress indicator */}
           <div className="flex items-center justify-between mb-10 relative">
             <div className="flex-1 flex flex-col items-center relative">
@@ -281,24 +284,13 @@ const BookCoarseBilling = () => {
 
                   <div className="grid gap-1.5">
                     <label htmlFor="division">Division (optional)</label>
-                    <select
+
+                    <input
+                      type="text"
                       name="division"
-                      value={formData.division}
-                      onChange={handleChange}
-                      className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
-                    >
-                      <option value="">-- Please Select --</option>
-                      {[
-                        "QUANTUM FOODS",
-                        "Mobile Network Oparation",
-                        "Hospital Manager",
-                        "IT",
-                      ].map((opt, i) => (
-                        <option key={i} value={opt}>
-                          {opt}
-                        </option>
-                      ))}
-                    </select>
+                      value={userData.division}
+                      className="w-full p-2 border rounded-lg text-gray-600 bg-slate-100"
+                    />
                   </div>
 
                   <div className="grid gap-1.5">

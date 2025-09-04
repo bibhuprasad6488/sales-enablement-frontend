@@ -32,7 +32,6 @@ const Achievement = ({ archivementData, error }) => {
   if (!archivementData) return <p></p>
     ;
   const achievementPointsArray = archivementData.achievement_points.split(",");
-  console.log(achievementPointsArray)
   return (
     <section className="relative py-12 overflow-hidden container mx-auto px-4">
       <div className="absolute inset-0 flex justify-center items-center z-0">
@@ -88,7 +87,6 @@ const Achievement = ({ archivementData, error }) => {
     
 
               {achievementPointsArray.map((point, index) => (
-                console.log("Rendering:", point),
                 <div
                   key={index}
                   className="flex items-center bg-[#fff] border  border-gray-200 p-4  rounded space-x-3 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg hover:border-[#db0032]"

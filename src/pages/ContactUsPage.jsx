@@ -23,7 +23,6 @@ function ContactUsPage() {
         setData(res.data.data);
       } catch (error) {
         setError("Failed to fetch data")
-        console.log("Error fetching data:", error)
       } finally {
         setIsLoading(false);
       }

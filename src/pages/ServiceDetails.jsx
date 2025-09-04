@@ -17,7 +17,6 @@ function ServiceDetails() {
     const fetchData = async () => {
       try {
         const res = await axios.get(`/services-details/${slug}`);
-        console.log("API Response:", res.data);
         if (res.data && res.data.data) {
           setData(res.data.data);
     

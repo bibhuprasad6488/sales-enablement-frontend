@@ -4,13 +4,11 @@ import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const People_Invitation = () => {
-    const userId = localStorage.getItem("user_id");
-    console.log(userId);
+  const userId = localStorage.getItem("user_id");
 
-    const location = useLocation();
-    const courses = location.state?.course;
-    const courseId = courses?.id || "";
-    console.log(courseId);
+  const location = useLocation();
+  const courses = location.state?.course;
+  const courseId = courses?.id || "";
   const [shareData, setShareData] = useState({
     recipientName: "",
     recipientSurName: "",
@@ -36,8 +34,6 @@ const People_Invitation = () => {
       [name]: "",
     }));
   };
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -78,8 +74,11 @@ const People_Invitation = () => {
         course_url: currenturl,
       };
 
-      const response = await axios.post("invite-other", payload);
-      console.log(response.data);
+      const response = await axios.post("invite-other", payload, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
 
       toast.success("Data shared successfully");
 

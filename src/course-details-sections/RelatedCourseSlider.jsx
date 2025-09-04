@@ -11,7 +11,6 @@ import axios from "../api/axios"
 import { Link } from "react-router-dom";
 
 const RelatedCourseSlider = ({courseId, course}) => {
-  console.log(courseId)
   if (!courseId) return <p></p>;
   const sliderRef = useRef(null);
   const [hoveredCourseId, setHoveredCourseId] = useState(null);
@@ -22,7 +21,6 @@ const RelatedCourseSlider = ({courseId, course}) => {
     const fetchRelatedCourses = async () => {
       try {
         const res = await axios.get(`/get-related-course/${courseId}`);
-        console.log("API Response:", res.data.data); // Check if API itself returns duplicates
   
         // Ensure unique courses based on `id`
         const uniqueCourses = Array.from(

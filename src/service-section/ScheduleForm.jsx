@@ -88,7 +88,6 @@ const [consultationForm, setConsultationForm] = useState({
         });
       }
 
-      console.log(response.data);
     } catch (error) {
       toast.error(error.response?.data?.message || "An error occurred", {
         position: "top-right",

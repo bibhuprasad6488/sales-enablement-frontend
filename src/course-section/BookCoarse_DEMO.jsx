@@ -114,7 +114,6 @@ const BookCoarse = () => {
 
   const [errors, setErrors] = useState({});
   const [step, setStep] = useState(1);
-  // console.log("count",step);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -185,10 +184,8 @@ const BookCoarse = () => {
   };
 
   const nextStep = () => {
-    // console.log("jiiiiiiiiiiiii");
 
     if (validateStep()) {
-      console.log("hii", step);
 
       setStep(step + 1);
     }
@@ -199,7 +196,6 @@ const BookCoarse = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateStep(step)) {
-      console.log("Form submitted:", formData);
       alert("Form submitted successfully!");
     }
   };

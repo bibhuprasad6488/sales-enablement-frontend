@@ -59,7 +59,7 @@ export default function DetailsPage() {
       </section>
 
       <div className="flex flex-col sm:flex-col md:flex-col lg:flex-row gap-10">
-        <section className="prose max-w-none mx-20 my-10 flex-1 prose-p:m-0 prose-p:leading-normal prose-headings:leading-tight">
+        <section className="prose max-w-none mx-10 my-10 flex-1 prose-p:m-0 prose-p:leading-normal prose-headings:leading-tight">
           <div
             className="text-black"
             dangerouslySetInnerHTML={{
@@ -75,7 +75,7 @@ export default function DetailsPage() {
             {allStudies?.map((study, index) => (
               <Link key={index} to={`/studydetails/${study.slug}`}>
                 <div
-                  className={`flex items-center justify-between p-4 cursor-pointer rounded-lg shadow-sm border transition-all duration-300
+                  className={`flex items-center justify-between p-4 cursor-pointer rounded-lg shadow-sm border transition-all duration-300 
       ${
         study.slug === slug
           ? "bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white shadow-lg border-transparent"
@@ -83,11 +83,11 @@ export default function DetailsPage() {
       }`}
                 >
                   <span
-                    className={`font-medium transition-colors duration-300 ${
+                    className={`text-lg md:text-base transition-colors duration-300 ${
                       study.slug === slug ? "text-white" : "text-black"
                     }`}
                   >
-                    {study.title}
+                    {study.title} 
                   </span>
                   <FaLongArrowAltRight
                     className={`transition-colors duration-300 ${

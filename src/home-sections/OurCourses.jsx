@@ -24,19 +24,20 @@ function OurCourses() {
     <>
       <div className="courses">
         <section className=" container mx-auto p-4 z-10">
-          <div className="mx-8">
+          <div className=" mx-8">
             <div className="text-center mb-6">
               <h2 className="text-3xl uppercase md:text-2xl font-bold bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text">
                 Our Courses
               </h2>
             </div>
             <div className="w-full flex justify-center items-center">
-              <div className="flex gap-4 2xl:gap-12 text-white mb-6">
+              <div className="flex gap-4 2xl:gap-12 text-white mb-6 overflow-x-auto md:overflow-visible scrollbar-hide">
                 {Array.isArray(courseData) &&
                   courseData.slice(0, 6).map((course, index) => (
                     <Link
                       key={course.id || index}
                       to={`/courses-details/${course.slug}`}
+                      className="min-w-[45%] sm:min-w-[200px] md:min-w-0"
                     >
                       <div className="card p-2 shadow-lg flex flex-col items-center">
                         <div className="w-[112.19px] h-[112.19px] rounded-full bg-aliceblue flex items-center justify-center mb-4">
@@ -48,12 +49,13 @@ function OurCourses() {
                         </div>
                         <p className="text-center text-sm md:text-[12px] px-1 uppercase">
                           {course.name}
-                        </p>{" "}
+                        </p>
                       </div>
                     </Link>
-                  ))}{" "}
+                  ))}
               </div>
             </div>
+
             <div className="flex flex-col md:flex-wrap lg:flex-wrap xl:flex-row lg:m xl:mx-7  justify-between items-center gap-4">
               <a
                 id="consultation"

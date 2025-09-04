@@ -21,7 +21,6 @@ const CandidateAssessment = () => {
       try {
         const res = await axios.get(`/sales-candidate-details/${slug}`)
         setData(res.data.data)
-        console.log(res.data.data)
       } catch (error) {
         setError("failed to fetch data")
       }

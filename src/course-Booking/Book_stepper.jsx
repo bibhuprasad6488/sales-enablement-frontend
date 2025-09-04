@@ -5,6 +5,7 @@ import BookCourse from "./BookCourse";
 import { useLocation } from "react-router-dom";
 import Spereadsheet_Book from "./Spereadsheet_Book";
 import People_Invitation from "./People_Invitation";
+import { ToastContainer } from "react-toastify";
 
 export default function RedStepper() {
   const [activeTab, setActiveTab] = useState(1);
@@ -76,12 +77,13 @@ export default function RedStepper() {
         </div>
 
         {/* Content */}
-        <div className="w-full sm:w-[80%] p-4 sm:p-6 bg-white  ">
+        <div className="w-full md:w-[70%]  sm:p-0 bg-white mb-5  ">
           {activeTab === 1 && <BookCourse />}
           {activeTab === 2 && <Spereadsheet_Book />}
           {activeTab === 3 && <People_Invitation />}
         </div>
       </div>
+      <ToastContainer/>
     </>
   );
 }

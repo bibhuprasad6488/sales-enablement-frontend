@@ -6,19 +6,17 @@ import Breadcrumb from "../components/Breadcrumb";
 import nationality from "./country.json";
 
 const BookCoarseGeneral = () => {
+  const [sectionComplete, setsectionComplete] = useState("Missing Information");
+  const [sectiontik, setsectiontik] = useState("1");
   const location = useLocation();
   const navigate = useNavigate();
   const courses = location.state?.course;
   const courseName = courses?.name || "";
   const courseId = courses?.id || "";
-const user = localStorage.getItem("user_data")
-console.log("userdata",user);
+  const user = localStorage.getItem("user_data");
 
   const userData = JSON.parse(user);
-  console.log("User Data:", userData);
-  console.log("First Name:", userData.first_name);
-  console.log("Last Name:", userData.last_name);
-  console.log("Email:", userData.email);
+
 
   const [selectedCountry, setSelectedCountry] = useState("");
   const [formData, setFormData] = useState({
@@ -136,7 +134,6 @@ console.log("userdata",user);
   const vision = ["Hearing", "Vision", "Mobility", "Other"].map(
     capitalizeFirst
   );
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -218,45 +215,69 @@ console.log("userdata",user);
     }
   }, []);
 
+  // ✅ Auto-update section status
+  useEffect(() => {
+    const requiredFields = [
+      "title",
+     
+      "preferName",
+      "diet",
+      "company",
+      // "organisation",
+      "levelOrg",
+      "sector",
+      "nationality",
+      "job",
+      "gender",
+      "population",
+      "passport",
+      "finding",
+      "physicallyDisabled",
+    ];
+
+    if (formData.nationality && formData.nationality !== "South Africa") {
+      requiredFields.push("internationalMobilePhone");
+    }
+    if (formData.physicallyDisabled === "yes") {
+      requiredFields.push("nature");
+    }
+
+    const allFilled = requiredFields.every(
+      (field) => formData[field] && formData[field].toString().trim() !== ""
+    );
+
+    const emailValid = formData.email && /\S+@\S+\.\S+/.test(formData.email);
+
+    if (allFilled && emailValid) {
+      setsectionComplete("Complete");
+      setsectiontik("✔");
+    } else {
+      setsectionComplete("Missing Information");
+      setsectiontik("1");
+    }
+  }, [formData]);
+
   return (
     <>
-      {/* <section>
-        <div className="relative w-full h-full course-bg">
-          <div className="relative bg-layer">
-            <Navbar />
-            <div className="text-white flex items-center justify-center container mx-auto px-4 pt-6 sm:px-4 sm:pt-16">
-              <h1 className="text-2xl md:text-4xl lg:text-5xl uppercase font-bold">
-                Booking Courses
-              </h1>
-            </div>
-            <div className="text-white flex items-center justify-center container mx-auto px-4 pt-4 pb-10 sm:px-4 sm:pt-10 sm:pb-20">
-              <Breadcrumb
-                breadcrumbs={[
-                  { label: "Course", to: "/" },
-                  { label: "Booking Courses", to: "/booking-course/general" },
-                ]}
-              />
-            </div>
-          </div>
-        </div>
-      </section> */}
-
-      
-
-     <section className="w-full px-2 md:px-10 flex justify-center bg-white relative py-3">
- 
-
-        <div className="w-full md:w-[100%] shadow-lg rounded-xl bg-white p-8 sticky top-0">
-          <div className="flex items-center justify-between mb-10 relative ">
+      <section className="w-full   flex justify-center relative py-3">
+        <div className="w-full md:w-[95%] px-5 md:px-10 shadow-lg rounded-xl bg-white py-5   sticky top-0">
+          <div className="flex items-center justify-between mb-10 gap-3 relative ">
             <div className="flex-1 flex flex-col items-center relative">
               <div className="w-9 h-9 flex items-center justify-center rounded-full text-white font-bold z-10 bg-gradient-to-r from-[#DB0032] to-[#FA6602]">
                 1
               </div>
+
               <p className="mt-2 text-xs sm:text-sm font-medium text-[#DB0032]">
                 General
               </p>
-              <span className="mt-1 px-3 py-1 rounded-full  text-xs font-medium bg-yellow-400 text-white">
-                Missing Information
+              <span
+                className={`mt-1 px-3 py-1 rounded-full  text-xs font-medium  ${
+                  sectionComplete === "Missing Information"
+                    ? "bg-yellow-400 text-white"
+                    : "bg-green-100 text-green-700"
+                } `}
+              >
+                {sectionComplete}
               </span>
               <div className="absolute top-4 left-1/2 w-full h-[3px] -translate-y-1/2 bg-gray-300"></div>
             </div>
@@ -427,15 +448,13 @@ console.log("userdata",user);
                 <input
                   id="company"
                   name="company"
-                  value={formData.company}
+                  value="The Sales Enablement Company"
                   onChange={handleChange}
                   type="text"
                   required
                   className="w-full p-2 border rounded-lg text-gray-600 bg-slate-100"
                 />
-                {errors.company && (
-                  <p className="text-red-500 text-xs mt-1">{errors.company}</p>
-                )}
+               
               </div>
 
               {/* Function in Organisation Field */}
