@@ -35,7 +35,6 @@ const FormWithProgress = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Form Data:", formData);
     };
 
     const nextStep = () => setStep(step + 1);

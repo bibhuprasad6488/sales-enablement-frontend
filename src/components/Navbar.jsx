@@ -32,13 +32,13 @@ function Navbar() {
   
       const { courseData,  } = useApi2();
       if (!courseData) return <p></p>;
-  
+    const baseUrl = import.meta.env.BASE_URL;
   return (
     <section className="container mx-auto px-4 z-50">
       <nav className="text-white">
         <div className="flex justify-between items-center py-4">
           <div className="text-xl font-bold">
-            <a href="/">
+            <a href={baseUrl}>
               <img src=   {websiteData.logo} alt="Logo" className="w-[170px] h-auto" />
             </a>
           </div>

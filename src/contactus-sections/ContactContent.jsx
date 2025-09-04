@@ -41,7 +41,6 @@ function ContactContent({ contactData }) {
       setLoading(false);
 
       if (response.status === 200) {
-        console.log(response.data);
         document.getElementById("submission").innerText = response.data.message;
         document.getElementById("submission").style.color = "green";
         e.target.reset();

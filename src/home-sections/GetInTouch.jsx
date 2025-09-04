@@ -46,13 +46,7 @@ function GetInTouch() {
     return Object.keys(newErrors).length === 0;
   };
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   if (validateForm()) {
-  //     console.log({ name, phone, email, description, recaptchaToken });
-  //     alert("Form submitted successfully!");
-  //   }
-  // };
+
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -73,7 +67,6 @@ function GetInTouch() {
       setLoading(false);
 
       if (response.status === 200) {
-        console.log(response.data);
         document.getElementById("submission").innerText = response.data.message;
         document.getElementById("submission").style.color = "green";
         e.target.reset();

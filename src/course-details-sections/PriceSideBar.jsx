@@ -11,7 +11,7 @@ import {
   FaInstagram,
 } from "react-icons/fa";
 
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { IoCall } from "react-icons/io5";
 import CallToDiscussForm from "../components/CallToDiscussForm";
 import { useNavigate } from "react-router-dom";
@@ -22,70 +22,67 @@ import logoLinkedIn from "../assets/logoLinkedIn.png";
 import logoTwitter from "../assets/logoTwitter.png";
 const PriceSideBar = ({ course }) => {
   const { websiteData } = useApi3();
-  console.log(websiteData.phone);
   const currentUrl = window.location.href;
   // helper for app deep link + web fallback
-const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-const shareTo = (platform, currentUrl) => {
-  let appUrl = "";
-  let webUrl = "";
+  const shareTo = (platform, currentUrl) => {
+    let appUrl = "";
+    let webUrl = "";
 
-  switch (platform) {
-    case "facebook":
-      appUrl = `fb://facewebmodal/f?href=${encodeURIComponent(currentUrl)}`;
-      webUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-        currentUrl
-      )}`;
-      break;
-    case "twitter":
-      appUrl = `twitter://post?message=${encodeURIComponent(
-        "Check this out: " + currentUrl
-      )}`;
-      webUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-        currentUrl
-      )}`;
-      break;
-    case "linkedin":
-      webUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-        currentUrl
-      )}`;
-      break;
-    case "instagram":
-      appUrl = `instagram://share?text=${encodeURIComponent(
-        "Check this out: " + currentUrl
-      )}`;
-      webUrl = `https://instagram.com`; // no official share, fallback only
-      break;
-    default:
-      return;
-  }
-
-  // ✅ On desktop → skip deep link, go straight to web
-  if (!isMobile || !appUrl) {
-    window.open(webUrl, "_blank");
-    return;
-  }
-
-  // ✅ On mobile → try deep link, fallback to web
-  let opened = false;
-  const timeout = setTimeout(() => {
-    if (!opened && webUrl) {
-      window.open(webUrl, "_blank");
+    switch (platform) {
+      case "facebook":
+        appUrl = `fb://facewebmodal/f?href=${encodeURIComponent(currentUrl)}`;
+        webUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+          currentUrl
+        )}`;
+        break;
+      case "twitter":
+        appUrl = `twitter://post?message=${encodeURIComponent(
+          "Check this out: " + currentUrl
+        )}`;
+        webUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+          currentUrl
+        )}`;
+        break;
+      case "linkedin":
+        webUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+          currentUrl
+        )}`;
+        break;
+      case "instagram":
+        appUrl = `instagram://share?text=${encodeURIComponent(
+          "Check this out: " + currentUrl
+        )}`;
+        webUrl = `https://instagram.com`; // no official share, fallback only
+        break;
+      default:
+        return;
     }
-  }, 700);
 
-  try {
-    const newWindow = window.open(appUrl, "_blank");
-    if (newWindow) opened = true;
-  } catch (err) {
-    if (webUrl) window.open(webUrl, "_blank");
-  }
+    // ✅ On desktop → skip deep link, go straight to web
+    if (!isMobile || !appUrl) {
+      window.open(webUrl, "_blank");
+      return;
+    }
 
-  setTimeout(() => clearTimeout(timeout), 1500);
-};
+    // ✅ On mobile → try deep link, fallback to web
+    let opened = false;
+    const timeout = setTimeout(() => {
+      if (!opened && webUrl) {
+        window.open(webUrl, "_blank");
+      }
+    }, 700);
 
+    try {
+      const newWindow = window.open(appUrl, "_blank");
+      if (newWindow) opened = true;
+    } catch (err) {
+      if (webUrl) window.open(webUrl, "_blank");
+    }
 
+    setTimeout(() => clearTimeout(timeout), 1500);
+  };
 
   const [isHovered, setIsHovered] = useState(false);
   const formattedDate = new Date(course.end_date).toLocaleDateString("en-GB", {
@@ -161,25 +158,31 @@ const shareTo = (platform, currentUrl) => {
     setIsLoggedIn(!!token);
   }, []);
 
-  // In your component with the Book Now button
-  const handleClick = () => {
-    if (!isLoggedIn) {
-      toast.error("You need to log in first!", {
-        position: "top-right",
-        autoClose: 3000,
-      });
-      navigate("/login-signup");
-    } else {
-      toast.success("Proceeding to booking...", {
-        position: "top-right",
-        autoClose: 2000,
-      });
-      navigate("/booking-course/general", { state: { course: course } });
-    }
-  };
-  console.log("kkkkkkkkk", course);
+ const handleClick = () => {
+  if (!isLoggedIn) {
+    toast.error("You need to log in first!", {
+      position: "top-right",
+      autoClose: 2000,
+    });
+
+    setTimeout(() => {
+      navigate("/login-signup", { state: { activeTab: "login"}});
+    }, 2000);
+  } else {
+    toast.success("Proceeding to booking...", {
+      position: "top-right",
+      autoClose: 1000,
+    });
+
+    setTimeout(() => {
+      navigate("/booking-course/general", { state: { course } });
+    }, 1000);
+  }
+};
 
   return (
+    <>
+    
     <section className="w-full  bg-white p-4 sm:p-6 hover:scale-105 transition-transform duration-200 shadow-2xl mx-auto ">
       <div>
         <div className="flex flex-wrap justify-between items-center gap-4">
@@ -388,6 +391,9 @@ const shareTo = (platform, currentUrl) => {
         </button>
       </div>
     </section>
+    <ToastContainer/>
+    </>
+
   );
 };
 export default PriceSideBar;

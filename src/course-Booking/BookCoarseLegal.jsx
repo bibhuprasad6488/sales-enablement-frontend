@@ -141,7 +141,6 @@ const BookCoarseLegal = () => {
         accept_legal: formData.terms === "yes",
       };
 
-      console.log("Sending payload:", payload); // Debug log
 
       const response = await axios.post("store-course-booking", payload, {
         headers: {
@@ -151,7 +150,6 @@ const BookCoarseLegal = () => {
       });
 
       const results = response.data;
-      console.log("API Response:", results);
 
       if (response.status === 200 || response.status === 201) {
         toast.success("Course Successfully Booked!");
@@ -211,12 +209,9 @@ const BookCoarseLegal = () => {
         </div>
       </section> */}
 
-      <h1 className="text-center mt-10 text-4xl font-black uppercase">
-        {courseName}
-      </h1>
-
-      <section className="px-2 md:px-10 flex justify-center bg-white relative py-3">
-        <div className="w-full md:w-[100%] shadow-lg rounded-xl bg-white p-8 sticky top-0">
+   
+      <section className="w-full  flex justify-center relative py-3">
+        <div className="w-full md:w-[95%] px-5 md:px-10 shadow-lg rounded-xl bg-white py-5   sticky top-0">
           {/* Progress indicator */}
           <div className="flex items-center justify-between mb-10 relative">
             <div className="flex-1 flex flex-col items-center relative">
@@ -281,8 +276,13 @@ const BookCoarseLegal = () => {
                     Terms and Conditions
                   </span>
                 </Link>{" "}
-                and <Link to="/privacy-policy"><span className="font-bold text-[#DB0032] hover:text-[#FA6602] cursor-pointer">Privacy Policy</span></Link> and accept
-                the cancellation policy applicable to this programme.
+                and{" "}
+                <Link to="/privacy-policy">
+                  <span className="font-bold text-[#DB0032] hover:text-[#FA6602] cursor-pointer">
+                    Privacy Policy
+                  </span>
+                </Link>{" "}
+                and accept the cancellation policy applicable to this programme.
               </label>
 
               <p className="mt-3 font-medium">Do you accept these terms?</p>

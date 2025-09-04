@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 const ServiceContent = ({ serviceData }) => {
   if (!serviceData) return <p></p>;
 
-  console.log("all", serviceData);
 
   return (
     <>

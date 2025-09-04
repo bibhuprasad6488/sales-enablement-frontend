@@ -39,7 +39,6 @@ function Home() {
 
     fetchData();
   }, []);
-  // console.log("fhggg", websiteData);
 
   const { consultation, page_banners, page_data, testimonials } = data || {};
 

@@ -12,7 +12,6 @@ function BlogDetails() {
     const blogFun = async () => {
       const response = await axios.get(`/blog-details/${slug}`);
       const result = await response.data;
-console.log("blogData",result);
 
       setBlogdetailData(result);
     };
