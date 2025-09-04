@@ -1,6 +1,6 @@
 // BookCoarseLegal.js
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Breadcrumb from "../components/Breadcrumb";
 import { toast } from "react-toastify";
@@ -189,7 +189,7 @@ const BookCoarseLegal = () => {
 
   return (
     <>
-      <section>
+      {/* <section>
         <div className="relative w-full h-full course-bg">
           <div className="relative bg-layer">
             <Navbar />
@@ -209,14 +209,14 @@ const BookCoarseLegal = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <h1 className="text-center mt-10 text-4xl font-black uppercase">
         {courseName}
       </h1>
 
-      <section className="px-2 md:px-10 flex justify-center bg-white relative py-10">
-        <div className="w-full md:w-[70%] shadow-lg rounded-xl bg-white p-8 sticky top-0">
+      <section className="px-2 md:px-10 flex justify-center bg-white relative py-3">
+        <div className="w-full md:w-[100%] shadow-lg rounded-xl bg-white p-8 sticky top-0">
           {/* Progress indicator */}
           <div className="flex items-center justify-between mb-10 relative">
             <div className="flex-1 flex flex-col items-center relative">
@@ -272,12 +272,17 @@ const BookCoarseLegal = () => {
 
           {/* Form fields */}
           <form className="space-y-3" onSubmit={handleSubmit}>
-
             <div className="grid gap-1.5 pt-4">
               <label className="font-medium">
                 By selecting "Yes" you are indicating that you have read and
-                accepted our Website and Privacy Policies and accept the
-                cancellation policy applicable to this programme.
+                accepted our Website and{" "}
+                <Link to="/terms-and-conditions">
+                  <span className="font-bold text-[#DB0032] hover:text-[#FA6602] cursor-pointer">
+                    Terms and Conditions
+                  </span>
+                </Link>{" "}
+                and <Link to="/privacy-policy"><span className="font-bold text-[#DB0032] hover:text-[#FA6602] cursor-pointer">Privacy Policy</span></Link> and accept
+                the cancellation policy applicable to this programme.
               </label>
 
               <p className="mt-3 font-medium">Do you accept these terms?</p>

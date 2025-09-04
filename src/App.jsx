@@ -28,8 +28,9 @@ import ScrollToTop from "./components/ScrollToTop";
 import DetailsSlug from "./home-sections/DetailsSlug";
 import WhoweAre from "./home-sections/WhoweAre";
 import MeasurableGrowth from "./service-section/MeasurableGrowth";
-import BookCourse from "./course-section/BookCourse";
+import BookCourse from "../src/course-Booking/BookCourse"
 import BookingConfirmation from "./course-section/BookCoarseConfirmation"
+import Book_stepper from "./course-Booking/Book_stepper"
 function App() {
   const [isPopupOpen, setIsPopupOpen] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
@@ -111,7 +112,8 @@ function App() {
               <Route path="*" element={<NotFound />} />
               <Route path="/studydetails/:slug" element={<DetailsSlug />} />
               <Route path="/who-we-are" element={<WhoweAre />} />
-              <Route path="/booking-course/*" element={<BookCourse />} />
+              <Route path="/booking-course/*" element={<Book_stepper/>} />
+              {/* <Route path="/booking-course/*" element={<BookCourse />} /> */}
               <Route
                 path="/booking-confirmation"
                 element={<BookingConfirmation />}

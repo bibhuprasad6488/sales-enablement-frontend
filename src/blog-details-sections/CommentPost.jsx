@@ -37,7 +37,7 @@ function CommentPost({ BlogId }) {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg w-3/5 mt-6 shadow-md">
+    <div className="bg-white p-6 rounded-lg w-full mt-6 shadow-md">
       <h3 className="text-xl font-semibold mb-4">Post a Comment</h3>
 
       {isLoading && (

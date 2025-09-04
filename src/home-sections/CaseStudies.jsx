@@ -16,7 +16,6 @@ function CaseStudies() {
     const caseData = async () => {
       const response = await axios.get("/get-case-study-data");
       const result = await response.data;
-      console.log(result);
       setcaseStudiesData(result);
     };
     caseData();

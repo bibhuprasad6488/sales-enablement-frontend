@@ -10,7 +10,10 @@ import ModalScheduleForm from "./ModalScheduleForm";
 import { FaTimes } from "react-icons/fa";
 import { useApi } from "../context/ContactContextApi";
 import { useApi3 } from "../context/WebsiteDataContext";
-
+import logoFacebook from "../assets/logoFacebook.png";
+import logoInstagram from "../assets/logoInstagram.png";
+import logoLinkedIn from "../assets/logoLinkedIn.png";
+import logoTwitter from "../assets/logoTwitter.png";
 const Header = () => {
   const { websiteData } = useApi3();
   if (!websiteData) return <p></p>;
@@ -62,16 +65,17 @@ const Header = () => {
             </span>
           </div>
 
-          <div className="flex space-x-10 mb-3 sm:mb-0">
+      <div className="flex space-x-6 sm:space-x-8 mb-3 sm:mb-0">
+
             <a
               href={websiteData.facebook_link}
               aria-label="Facebook"
               className="group"
             >
               <img
-                src={Facebook}
+                src={logoFacebook}
                 alt="Facebook"
-                className="w-[28px] sm:w-[24px] lg:w-[34px] lg:h-[34px] md:w-[28px] md:h-[28px] xl:h-[40px] xl:w-[40px] h-[28px] sm:h-[24px] transition-all duration-300 ease-in-out group-hover:ring-2 group-hover:ring-blue-500"
+                className="w-10 h-10 transition-all cursor-pointer duration-300 ease-in-out hover:scale-[1.1]"
               />
             </a>
             <a
@@ -80,9 +84,9 @@ const Header = () => {
               className="group"
             >
               <img
-                src={Instagram}
+                src={logoInstagram}
                 alt="Instagram"
-                className="w-[28px] sm:w-[24px] lg:w-[34px] lg:h-[34px] md:w-[28px] md:h-[28px] xl:h-[40px] xl:w-[40px] h-[28px] sm:h-[24px] transition-all duration-300 ease-in-out group-hover:ring-2 group-hover:ring-pink-500"
+                className="w-10 h-10 transition-all cursor-pointer duration-300 ease-in-out hover:scale-[1.1]"
               />
             </a>
             <a
@@ -91,9 +95,9 @@ const Header = () => {
               className="group"
             >
               <img
-                src={Twitter}
+                src={logoTwitter}
                 alt="Twitter"
-                className="w-[28px] sm:w-[24px] lg:w-[34px] lg:h-[34px] md:w-[28px] md:h-[28px] xl:h-[40px] xl:w-[40px] h-[28px] sm:h-[24px] transition-all duration-300 ease-in-out group-hover:ring-2 group-hover:ring-blue-400"
+                className="w-10 h-10 transition-all cursor-pointer duration-300 ease-in-out hover:scale-[1.1]"
               />
             </a>
             <a
@@ -102,9 +106,9 @@ const Header = () => {
               className="group"
             >
               <img
-                src={Linkedin}
+                src={logoLinkedIn}
                 alt="LinkedIn"
-                className="w-[28px] sm:w-[24px] lg:w-[34px] lg:h-[34px] md:w-[28px] md:h-[28px] xl:h-[40px] xl:w-[40px] h-[28px] sm:h-[24px] transition-all duration-300 ease-in-out group-hover:ring-2 group-hover:ring-blue-600"
+                className="w-10 h-10 transition-all cursor-pointer duration-300 ease-in-out hover:scale-[1.1]"
               />
             </a>
           </div>

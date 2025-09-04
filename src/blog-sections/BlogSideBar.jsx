@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Blog1 from "../assets/blog1.png";
 import Blog2 from "../assets/blog2.png";
 import Blog3 from "../assets/blog3.png";
@@ -92,12 +92,18 @@ const BlogSideBar = ({ setFilters }) => {
                   className="w-12 h-12 rounded-full mr-3 object-cover"
                 />
                 <div>
-                  <a href="#" className="hover:text-[#DB0032] block">
-                    {post.title}
-                  </a>
-                  <span className="text-xs text-gray-400 block">
-                    {post.created}
-                  </span>
+                  <Link
+                    to={`/blog-details/${post.slug}`}
+                    title={post.title}
+                    className="hover:text-[#DB0032] block"
+                  >
+                    {post.title?.length > 30
+                      ? post.title.substring(0, 30) + "..."
+                      : post.title}
+                    <span className="text-xs text-gray-400 block">
+                      {post.created}
+                    </span>
+                  </Link>
                 </div>
               </li>
             ))}

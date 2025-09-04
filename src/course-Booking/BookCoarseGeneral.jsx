@@ -11,6 +11,14 @@ const BookCoarseGeneral = () => {
   const courses = location.state?.course;
   const courseName = courses?.name || "";
   const courseId = courses?.id || "";
+const user = localStorage.getItem("user_data")
+console.log("userdata",user);
+
+  const userData = JSON.parse(user);
+  console.log("User Data:", userData);
+  console.log("First Name:", userData.first_name);
+  console.log("Last Name:", userData.last_name);
+  console.log("Email:", userData.email);
 
   const [selectedCountry, setSelectedCountry] = useState("");
   const [formData, setFormData] = useState({
@@ -18,7 +26,7 @@ const BookCoarseGeneral = () => {
     surname: "",
     firstname: "",
     preferName: "",
-    email: "",
+    email: userData.email || "",
     diet: "",
     company: "",
     organisation: "",
@@ -155,7 +163,6 @@ const BookCoarseGeneral = () => {
       "surname",
       "firstname",
       "preferName",
-      "email",
       "diet",
       "company",
       "organisation",
@@ -213,7 +220,7 @@ const BookCoarseGeneral = () => {
 
   return (
     <>
-      <section>
+      {/* <section>
         <div className="relative w-full h-full course-bg">
           <div className="relative bg-layer">
             <Navbar />
@@ -232,15 +239,15 @@ const BookCoarseGeneral = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
-      <h1 className="text-center mt-10 text-4xl font-black uppercase">
-        {courseName}
-      </h1>
+      
 
-      <section className="px-2 md:px-10 flex justify-center bg-white relative py-10">
-        <div className="w-full md:w-[70%] shadow-lg rounded-xl bg-white p-8 sticky top-0">
-          <div className="flex items-center justify-between mb-10 relative">
+     <section className="w-full px-2 md:px-10 flex justify-center bg-white relative py-3">
+ 
+
+        <div className="w-full md:w-[100%] shadow-lg rounded-xl bg-white p-8 sticky top-0">
+          <div className="flex items-center justify-between mb-10 relative ">
             <div className="flex-1 flex flex-col items-center relative">
               <div className="w-9 h-9 flex items-center justify-center rounded-full text-white font-bold z-10 bg-gradient-to-r from-[#DB0032] to-[#FA6602]">
                 1
@@ -248,7 +255,7 @@ const BookCoarseGeneral = () => {
               <p className="mt-2 text-xs sm:text-sm font-medium text-[#DB0032]">
                 General
               </p>
-              <span className="mt-1 px-3 py-1 rounded-full text-xs font-medium bg-yellow-400 text-white">
+              <span className="mt-1 px-3 py-1 rounded-full  text-xs font-medium bg-yellow-400 text-white">
                 Missing Information
               </span>
               <div className="absolute top-4 left-1/2 w-full h-[3px] -translate-y-1/2 bg-gray-300"></div>
@@ -316,7 +323,7 @@ const BookCoarseGeneral = () => {
                 <input
                   id="surname"
                   name="surname"
-                  value={formData.surname}
+                  value={userData.last_name}
                   onChange={handleChange}
                   type="text"
                   className="w-full p-2 border border-gray-300 rounded-lg bg-slate-100"
@@ -337,7 +344,7 @@ const BookCoarseGeneral = () => {
                 <input
                   id="firstname"
                   name="firstname"
-                  value={formData.firstname}
+                  value={userData.first_name}
                   onChange={handleChange}
                   type="text"
                   className="w-full p-2 border border-gray-300 rounded-lg bg-slate-100"
@@ -380,8 +387,9 @@ const BookCoarseGeneral = () => {
                   id="email"
                   name="email"
                   onChange={handleChange}
+                  readOnly
                   type="email"
-                  value={formData.email}
+                  value={userData.email}
                   required
                   className="w-full p-2 border border-gray-300 rounded-lg bg-slate-100"
                 />

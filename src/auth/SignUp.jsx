@@ -83,10 +83,10 @@ function SignUp() {
       console.log("Response:", response.data); // Debugging
   
       if (response.data.status && response.data.message) {
-        console.log("Success Message:", response.data.message); 
-  
+        console.log("Success Message:", response.data.message);
+
         toast.success(response.data.message, { toastId: "registerSuccess" });
-  
+
         setTimeout(() => {
           setSignUpData({
             title: "",
@@ -99,10 +99,26 @@ function SignUp() {
             marketingConsent: false,
             termsAccepted: false,
           });
-  
+
           setErrors({});
           setActiveTab("Login");
         }, 1500); // Delay reset
+      } else {
+        // Error: parse the message string to JSON
+        let errors = {};
+        try {
+          errors = JSON.parse(response.data.message);
+        } catch (e) {
+          console.log("Failed to parse error message:", e);
+        }
+
+        // Show first error as toast
+        for (const key in errors) {
+          if (Array.isArray(errors[key]) && errors[key].length > 0) {
+            toast.error(errors[key][0], { toastId: `error_${key}` });
+            break;
+          }
+        }
       }
     } catch (err) {
       let errorMessage = err.response?.data?.message || "Something went wrong!";
@@ -121,8 +137,8 @@ function SignUp() {
           <h2 className="sm:text-3xl text-2xl font-extrabold mb-4 text-center text-gray-800">
             Create Your Account
           </h2>
-          <p className="text-gray-600 mb-6 text-sm text-center leading-relaxed">
-            Start your journey toward greater success with our platform.
+          <p className="text-gray-600 mb-6 text-sm text-center leading-relaxed capitalize">
+            Start your journey of sales enablement with us
           </p>
           <ToastContainer />
           <form className="space-y-6" onSubmit={handleSubmit}>
@@ -150,14 +166,25 @@ function SignUp() {
                 ))}
               </select>
               <FaChevronDown className="absolute right-3 top-10  text-gray-400 pointer-events-none" />
-              {errors.title && <p className="text-red-500 text-xs mt-2">{errors.title}</p>}
-
+              {errors.title && (
+                <p className="text-red-500 text-xs mt-2">{errors.title}</p>
+              )}
             </div>
             {[
               { label: "First Name", name: "first_name", icon: <FaUser /> },
               { label: "Last Name", name: "last_name", icon: <FaUser /> },
-              { label: "Phone Number", name: "phone_no", icon: <FaPhoneAlt />, type: "number" },
-              { label: "Email Address", name: "email_id", icon: <FaEnvelope />, type: "email" },
+              {
+                label: "Phone Number",
+                name: "phone_no",
+                icon: <FaPhoneAlt />,
+                type: "number",
+              },
+              {
+                label: "Email Address",
+                name: "email_id",
+                icon: <FaEnvelope />,
+                type: "email",
+              },
             ].map(({ label, name, icon, type = "text" }) => (
               <div key={name} className="relative">
                 <label htmlFor={name} className="block text-sm font-medium">
@@ -173,8 +200,12 @@ function SignUp() {
                   placeholder={`Enter your ${label.toLowerCase()}`}
                   className="w-full border border-gray-300  px-10 py-3 text-sm focus:outline-none focus:ring-2 hover:ring-1 hover:ring-[#060B33] focus:ring-[#383F71] appearance-none"
                 />
-                <span className="absolute left-3 top-9 text-gray-400">{icon}</span>
-                {errors[name] && <p className="text-red-500 text-xs mt-1">{errors[name]}</p>}
+                <span className="absolute left-3 top-9 text-gray-400">
+                  {icon}
+                </span>
+                {errors[name] && (
+                  <p className="text-red-500 text-xs mt-1">{errors[name]}</p>
+                )}
               </div>
             ))}
 
@@ -196,11 +227,12 @@ function SignUp() {
                 autoComplete="off"
                 className="w-full border border-gray-300  px-10 py-3 text-sm focus:outline-none focus:ring-2 hover:ring-1 hover:ring-[#060B33] focus:ring-[#383F71] appearance-none"
               />
-              {errors.password && <p className="text-red-500 text-xs mt-2">{errors.password}</p>}
+              {errors.password && (
+                <p className="text-red-500 text-xs mt-2">{errors.password}</p>
+              )}
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
-
                 className="absolute right-3 top-10 text-gray-400 hover:text-gray-600"
               >
                 {passwordVisible ? <FaEyeSlash /> : <FaEye />}
@@ -243,7 +275,11 @@ function SignUp() {
               >
                 {confirmPasswordVisible ? <FaEyeSlash /> : <FaEye />}
               </button>
-              {errors.confirmPassword && <p className="text-red-500 text-xs mt-2">{errors.confirmPassword}</p>}
+              {errors.confirmPassword && (
+                <p className="text-red-500 text-xs mt-2">
+                  {errors.confirmPassword}
+                </p>
+              )}
             </div>
             <div className="flex gap-2 items-center">
               <input
@@ -254,8 +290,12 @@ function SignUp() {
                 onChange={handleChange}
                 className="checkbox-custom w-5 h-5 border-2 hover:border-[#FA6602] border-[#DB0032] rounded-sm appearance-none relative transition-all ease-in cursor-pointer"
               />
-              <label htmlFor="may-we-send" className="text-xs text-gray-600 cursor-pointer">
-                May we send you marketing material via email and other electronic channels?
+              <label
+                htmlFor="may-we-send"
+                className="text-xs text-gray-600 cursor-pointer"
+              >
+                May we send you marketing material via email and other
+                electronic channels?
               </label>
             </div>
             <div className="flex gap-2 items-center">
@@ -267,7 +307,10 @@ function SignUp() {
                 onChange={handleChange}
                 className="checkbox-custom w-5 h-5 border-2 hover:border-[#FA6602] border-[#DB0032] rounded-sm appearance-none relative transition-all ease-in cursor-pointer"
               />
-              <label htmlFor="terms-and-conditions" className="text-xs cursor-pointer text-gray-600">
+              <label
+                htmlFor="terms-and-conditions"
+                className="text-xs cursor-pointer text-gray-600"
+              >
                 I agree to the{" "}
                 <Link to="/terms-and-conditions">
                   <span className="text-sm font-bold text-[#DB0032] hover:text-[#FA6602] cursor-pointer">
@@ -276,13 +319,15 @@ function SignUp() {
                 </Link>
               </label>
             </div>
-            {errors.termsAccepted && <p className="text-red-500 text-xs mt-1">{errors.termsAccepted}</p>}
-
+            {errors.termsAccepted && (
+              <p className="text-red-500 text-xs mt-1">
+                {errors.termsAccepted}
+              </p>
+            )}
 
             <div className="flex justify-center items-center">
               <button
                 type="submit"
-
                 className="text-white w-full group text-nowrap transition-transform duration-500 ease-out transform uppercase bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:bg-gradient-to-bl focus:outline-none text-sm md:text-[13px] px-5 py-2.5   flex items-center justify-center"
               >
                 <span className="absolute inset-0 w-0 h-full bg-[#060b33] transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
@@ -307,12 +352,14 @@ function SignUp() {
               >
                 Login
               </button>
-
             </p>
             <div className="font-bold">|</div>
             <div className="text-sm text-gray-600">
               If you require support{" "}
-              <a href="/contact-us" className="text-[#DB0032] hover:text-[#FA6602] ">
+              <a
+                href="/contact-us"
+                className="text-[#DB0032] hover:text-[#FA6602] "
+              >
                 Contact us
               </a>
             </div>

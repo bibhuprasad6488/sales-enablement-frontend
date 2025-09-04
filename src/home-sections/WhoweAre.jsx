@@ -6,7 +6,9 @@ import { useEffect, useRef, useState } from "react";
 import axios from "../api/axios";
 import {
   FaCheckCircle,
+  FaChevronLeft,
   FaFlask,
+  FaChevronRight,
   FaChartLine,
   FaUsers,
   FaSeedling,
@@ -19,20 +21,13 @@ const WhoweAre = () => {
   const [path, setPath] = useState("");
 
   const [currentFact, setCurrentFact] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentFact((prev) => (prev + 1) % funFacts.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
     const test = async () => {
       try {
         const response = await axios.get("/who-we-are");
         const result = response.data;
-        console.log("res", result);
         setwhoweAre(result);
       } catch (error) {
         console.error("Error fetching who-we-are:", error);
@@ -124,6 +119,14 @@ const WhoweAre = () => {
     " Companies with dedicated sales enablement programs see 15% faster ramp-up times for new hires.",
     " Sales reps who use enablement tools achieve 49% higher win rates than those who don’t.",
   ];
+  useEffect(() => {
+    if (paused) return;
+    const interval = setInterval(() => {
+      setCurrentFact((prev) => (prev + 1) % funFacts.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [paused, funFacts.length]);
 
   if (loading) {
     return (
@@ -307,34 +310,41 @@ const WhoweAre = () => {
             </motion.div>
           </div>
         </section>
-
-        <section className="relative bg-white py-8">
-          <div className="max-w-4xl mx-auto px-6 text-center">
-            <h2 className="text-3xl font-bold mb-8 uppercase tracking-wide">
+        <section className="relative bg-white py-6">
+          <div className="max-w-4xl mx-auto px-3 sm:px-6 text-center">
+            <h2 className="text-xl sm:text-3xl font-bold mb-4 sm:mb-8 uppercase tracking-wide">
               Some Fun Facts
-              <span className="block w-16 h-1 bg-gradient-to-r from-[#DB0032] to-[#FA6602] mx-auto mt-3 rounded-full"></span>
+              <span className="block w-10 sm:w-16 h-1 bg-gradient-to-r from-[#DB0032] to-[#FA6602] mx-auto mt-2 sm:mt-3 rounded-full"></span>
             </h2>
 
-            <div className="relative min-h-[180px] flex items-center justify-center">
+            <div
+              className="relative min-h-[120px] sm:min-h-[180px] flex items-center justify-center"
+              onMouseEnter={() => setPaused(true)}
+              onMouseLeave={() => setPaused(false)}
+            >
+              {/* Left Arrow */}
               <button
                 onClick={() =>
                   setCurrentFact((prev) =>
                     prev === 0 ? funFacts.length - 1 : prev - 1
                   )
                 }
-                className="absolute left-0 text-3xl font-bold text-[#DB0032] hover:text-[#FA6602] z-10"
+                className="absolute left-0 text-2xl sm:text-5xl font-bold text-[#DB0032] hover:text-[#FA6602] z-10"
               >
-                &#8592;
+                <FaChevronLeft />
               </button>
 
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentFact}
-                  initial={{ opacity: 0, x: 60, scale: 0.95 }}
+                  initial={{ opacity: 0, x: 30, scale: 0.9 }}
                   animate={{ opacity: 1, x: 0, scale: 1 }}
-                  exit={{ opacity: 0, x: -60, scale: 0.95 }}
+                  exit={{ opacity: 0, x: -30, scale: 0.9 }}
                   transition={{ duration: 0.6 }}
-                  className="bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white px-6 py-8 rounded-2xl shadow-lg text-lg sm:text-xl font-medium max-w-lg mx-auto"
+                  whileHover={{ scale: 1.03 }}
+                  className="bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white 
+                     px-3 sm:px-6 py-3 sm:py-8 rounded-2xl shadow-lg 
+                     text-xs sm:text-lg font-medium max-w-[250px] sm:max-w-lg mx-auto cursor-pointer"
                 >
                   {funFacts[currentFact]}
                 </motion.div>
@@ -347,19 +357,19 @@ const WhoweAre = () => {
                     prev === funFacts.length - 1 ? 0 : prev + 1
                   )
                 }
-                className="absolute right-0 text-3xl font-bold text-[#DB0032] hover:text-[#FA6602] z-10"
+                className="absolute right-0 text-2xl sm:text-5xl font-bold text-[#DB0032] hover:text-[#FA6602] z-10"
               >
-                &#8594;
+                <FaChevronRight />
               </button>
             </div>
 
-            {/* Navigation Dots */}
-            <div className="flex justify-center mt-6 space-x-3">
+            {/* Dots */}
+            <div className="flex justify-center mt-3 sm:mt-6 space-x-2 sm:space-x-3">
               {funFacts.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentFact(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  className={`w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full transition-all duration-300 ${
                     index === currentFact
                       ? "bg-gradient-to-r from-[#DB0032] to-[#FA6602] scale-125"
                       : "bg-gray-300 hover:bg-gray-400"
