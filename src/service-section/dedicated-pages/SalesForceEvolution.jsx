@@ -90,7 +90,7 @@ const SalesForceEvaluation = () => {
       ? `https://img.youtube.com/vi/${videoIdMatch[1]}/maxresdefault.jpg`
       : "default-thumbnail.jpg";
   };
-  const videoUrl = getYouTubeEmbedUrl(data?.tool_video_link);
+  const videoUrl = (data?.tool_video_link);
   const VideoThumb = getYouTubeThumbnail(data?.tool_video_link);
 
   return (
@@ -232,7 +232,7 @@ const SalesForceEvaluation = () => {
               )} */}
             </div>
           </div>
-          <div className="flex justify-end px-4">
+          <div className="flex justify-end px-4 mb-6">
             <div className="w-full max-w-[600px] h-[400px] md:h-[600px] relative">
               {!isPlaying ? (
                 <div
@@ -262,14 +262,12 @@ const SalesForceEvaluation = () => {
                   </div>
                 </div>
               ) : (
-                <iframe
-                  className="w-full h-full rounded-lg shadow-xl"
+                <video
                   src={videoUrl}
-                  title="Sales Force Evaluation Tool Demo"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
+                  controls
+                  autoPlay={isPlaying} // conditional autoplay
+                  className="w-full h-full rounded-lg shadow-xl"
+                />
               )}
             </div>
           </div>

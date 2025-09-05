@@ -6,16 +6,17 @@ import {
   FaPhoneAlt,
   FaEye,
   FaEyeSlash,
- 
   FaChevronDown,
 } from "react-icons/fa";
+import { Oval } from "react-loader-spinner";
 import { TbNewSection } from "react-icons/tb";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import RightArrow1 from "../assets/arrow-right1.png";
 import axios from "../api/axios";
 import { toast, ToastContainer } from "react-toastify";
 import { useTab } from "../context/TabContext";
 function SignUp() {
+  const navigate = useNavigate()
   const { setActiveTab } = useTab();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
@@ -24,7 +25,7 @@ function SignUp() {
     first_name: "",
     last_name: "",
     phone_no: "",
-    division:"",
+    division: "",
     email_id: "",
     password: "",
     confirmPassword: "",
@@ -75,44 +76,47 @@ function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
     if (!validateFields()) {
+      setLoading(false);
       toast.error("Please fix the errors in the form.");
       return;
     }
 
-    setLoading(true);
     try {
       const response = await axios.post("/register", signUpData);
 
       if (response.data.status && response.data.message) {
-
         toast.success(response.data.message, { toastId: "registerSuccess" });
+       
+    setTimeout(() => {
+      setSignUpData({
+        title: "",
+        first_name: "",
+        last_name: "",
+        phone_no: "",
+        division: "",
+        email_id: "",
+        password: "",
+        confirmPassword: "",
+        marketingConsent: false,
+        termsAccepted: false,
+      });
 
-        setTimeout(() => {
-          setSignUpData({
-            title: "",
-            first_name: "",
-            last_name: "",
-            phone_no: "",
-            email_id: "",
-            password: "",
-            confirmPassword: "",
-            marketingConsent: false,
-            termsAccepted: false,
-          });
+      setErrors({});
 
-          setErrors({});
-          setActiveTab("Login");
-        }, 1500); // Delay reset
+      // ✅ navigate to login-signup with login tab
+      navigate("/login-signup", { state: { activeTab: "login" } });
+      setActiveTab("Login");
+    }, 1500);
+
       } else {
-        // Error: parse the message string to JSON
         let errors = {};
         try {
           errors = JSON.parse(response.data.message);
-        } catch (e) {
-        }
+        } catch (e) {}
 
-        // Show first error as toast
         for (const key in errors) {
           if (Array.isArray(errors[key]) && errors[key].length > 0) {
             toast.error(errors[key][0], { toastId: `error_${key}` });
@@ -131,247 +135,264 @@ function SignUp() {
 
   return (
     <>
-      <section className=" py-12 flex items-center justify-center ">
-        <div className="max-w-xl w-full bg-white p-4 md:p-8 lg:p-10  py-6  shadow-xl mx-4 md:mx-6 lg:mx-8">
-          <h2 className="sm:text-3xl text-2xl font-extrabold mb-4 text-center text-gray-800">
-            Create Your Account
-          </h2>
-          <p className="text-gray-600 mb-6 text-sm text-center leading-relaxed capitalize">
-            Start your journey of sales enablement with us
-          </p>
-          <ToastContainer />
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div className="relative">
-              <label
-                htmlFor="title"
-                className="block font-normal mb-1 text-sm "
-              >
-                Title
-              </label>
-              <select
-                id="title"
-                name="title"
-                value={signUpData.title}
-                onChange={handleChange}
-                className="w-full border border-gray-300 px-3 py-3 text-sm focus:outline-none focus:ring-2 hover:ring-1 hover:ring-[#060B33] focus:ring-[#383F71] appearance-none"
-              >
-                <option value="" disabled selected className="font-normal">
-                  Select Your Title
-                </option>
-                {titles.map((title, index) => (
-                  <option key={index} value={title.toLowerCase()}>
-                    {title}
-                  </option>
-                ))}
-              </select>
-              <FaChevronDown className="absolute right-3 top-10  text-gray-400 pointer-events-none" />
-              {errors.title && (
-                <p className="text-red-500 text-xs mt-2">{errors.title}</p>
-              )}
-            </div>
-            {[
-              { label: "First Name", name: "first_name", icon: <FaUser /> },
-              { label: "Last Name", name: "last_name", icon: <FaUser /> },
-              {
-                label: "Phone Number",
-                name: "phone_no",
-                icon: <FaPhoneAlt />,
-                type: "number",
-              },
-              {
-                label: "Division",
-                name: "division",
-                icon: <TbNewSection/>,
-                type: "text",
-              },
-              {
-                label: "Email Address",
-                name: "email_id",
-                icon: <FaEnvelope />,
-                type: "email",
-              },
-            ].map(({ label, name, icon, type = "text" }) => (
-              <div key={name} className="relative">
-                <label htmlFor={name} className="block text-sm font-medium">
-                  {label}
+      {loading ? (
+        <div className="flex items-center justify-center h-screen">
+          <Oval
+            height={60}
+            width={60}
+            color="#DB0032"
+            secondaryColor="#FA6602"
+            strokeWidth={4}
+            strokeWidthSecondary={4}
+            visible={true}
+            ariaLabel="loading"
+          />
+        </div>
+      ) : (
+        <section className=" py-12 flex items-center justify-center ">
+          <div className="max-w-xl w-full bg-white p-4 md:p-8 lg:p-10  py-6  shadow-xl mx-4 md:mx-6 lg:mx-8">
+            <h2 className="sm:text-3xl text-2xl font-extrabold mb-4 text-center text-gray-800">
+              Create Your Account
+            </h2>
+            <p className="text-gray-600 mb-6 text-sm text-center leading-relaxed capitalize">
+              Start your journey of sales enablement with us
+            </p>
+
+            <form className="space-y-6" onSubmit={handleSubmit}>
+              <div className="relative">
+                <label
+                  htmlFor="title"
+                  className="block font-normal mb-1 text-sm "
+                >
+                  Title
                 </label>
-                <input
-                  id={name}
-                  min="0"
-                  type={type}
-                  name={name}
-                  value={signUpData[name]}
+                <select
+                  id="title"
+                  name="title"
+                  value={signUpData.title}
                   onChange={handleChange}
-                  placeholder={`Enter your ${label.toLowerCase()}`}
-                  className="w-full border border-gray-300  px-10 py-3 text-sm focus:outline-none focus:ring-2 hover:ring-1 hover:ring-[#060B33] focus:ring-[#383F71] appearance-none"
-                />
-                <span className="absolute left-3 top-9 text-gray-400">
-                  {icon}
-                </span>
-                {errors[name] && (
-                  <p className="text-red-500 text-xs mt-1">{errors[name]}</p>
+                  className="w-full border border-gray-300 px-3 py-3 text-sm focus:outline-none focus:ring-2 hover:ring-1 hover:ring-[#060B33] focus:ring-[#383F71] appearance-none"
+                >
+                  <option value="" disabled selected className="font-normal">
+                    Select Your Title
+                  </option>
+                  {titles.map((title, index) => (
+                    <option key={index} value={title.toLowerCase()}>
+                      {title}
+                    </option>
+                  ))}
+                </select>
+                <FaChevronDown className="absolute right-3 top-10  text-gray-400 pointer-events-none" />
+                {errors.title && (
+                  <p className="text-red-500 text-xs mt-2">{errors.title}</p>
                 )}
               </div>
-            ))}
-
-            <div className="relative">
-              <label
-                htmlFor="password"
-                className="block font-normal mb-1 text-sm"
-              >
-                Password
-              </label>
-              <FaLock className="absolute left-3 top-9 text-gray-400 pointer-events-none" />
-              <input
-                id="password"
-                type={passwordVisible ? "text" : "password"}
-                placeholder="Create a password"
-                name="password"
-                value={signUpData.password}
-                onChange={handleChange}
-                autoComplete="off"
-                className="w-full border border-gray-300  px-10 py-3 text-sm focus:outline-none focus:ring-2 hover:ring-1 hover:ring-[#060B33] focus:ring-[#383F71] appearance-none"
-              />
-              {errors.password && (
-                <p className="text-red-500 text-xs mt-2">{errors.password}</p>
-              )}
-              <button
-                type="button"
-                onClick={togglePasswordVisibility}
-                className="absolute right-3 top-10 text-gray-400 hover:text-gray-600"
-              >
-                {passwordVisible ? <FaEyeSlash /> : <FaEye />}
-              </button>
-              <div className="mt-2 text-xs text-gray-500 flex justify-between">
-                <div className="rounded-full px-1 mx-2 flex justify-center align-middle text-gray h-4 w-4 border-2 border-gray-500">
-                  i
+              {[
+                { label: "First Name", name: "first_name", icon: <FaUser /> },
+                { label: "Last Name", name: "last_name", icon: <FaUser /> },
+                {
+                  label: "Phone Number",
+                  name: "phone_no",
+                  icon: <FaPhoneAlt />,
+                  type: "number",
+                },
+                {
+                  label: "Division",
+                  name: "division",
+                  icon: <TbNewSection />,
+                  type: "text",
+                },
+                {
+                  label: "Email Address",
+                  name: "email_id",
+                  icon: <FaEnvelope />,
+                  type: "email",
+                },
+              ].map(({ label, name, icon, type = "text" }) => (
+                <div key={name} className="relative">
+                  <label htmlFor={name} className="block text-sm font-medium">
+                    {label}
+                  </label>
+                  <input
+                    id={name}
+                    min="0"
+                    type={type}
+                    name={name}
+                    value={signUpData[name]}
+                    onChange={handleChange}
+                    placeholder={`Enter your ${label.toLowerCase()}`}
+                    className="w-full border border-gray-300  px-10 py-3 text-sm focus:outline-none focus:ring-2 hover:ring-1 hover:ring-[#060B33] focus:ring-[#383F71] appearance-none"
+                  />
+                  <span className="absolute left-3 top-9 text-gray-400">
+                    {icon}
+                  </span>
+                  {errors[name] && (
+                    <p className="text-red-500 text-xs mt-1">{errors[name]}</p>
+                  )}
                 </div>
-                <div>
-                  <i className="text-gray-400">
-                    Note: The password must contain a minimum of 8 characters
-                    with 1 Uppercase, 1 Lowercase, 1 Number, and 1 Special
-                    character.
-                  </i>
+              ))}
+
+              <div className="relative">
+                <label
+                  htmlFor="password"
+                  className="block font-normal mb-1 text-sm"
+                >
+                  Password
+                </label>
+                <FaLock className="absolute left-3 top-9 text-gray-400 pointer-events-none" />
+                <input
+                  id="password"
+                  type={passwordVisible ? "text" : "password"}
+                  placeholder="Create a password"
+                  name="password"
+                  value={signUpData.password}
+                  onChange={handleChange}
+                  autoComplete="off"
+                  className="w-full border border-gray-300  px-10 py-3 text-sm focus:outline-none focus:ring-2 hover:ring-1 hover:ring-[#060B33] focus:ring-[#383F71] appearance-none"
+                />
+                {errors.password && (
+                  <p className="text-red-500 text-xs mt-2">{errors.password}</p>
+                )}
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute right-3 top-10 text-gray-400 hover:text-gray-600"
+                >
+                  {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+                </button>
+                <div className="mt-2 text-xs text-gray-500 flex justify-between">
+                  <div className="rounded-full px-1 mx-2 flex justify-center align-middle text-gray h-4 w-4 border-2 border-gray-500">
+                    i
+                  </div>
+                  <div>
+                    <i className="text-gray-400">
+                      Note: The password must contain a minimum of 8 characters
+                      with 1 Uppercase, 1 Lowercase, 1 Number, and 1 Special
+                      character.
+                    </i>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="relative">
-              <label
-                htmlFor="confirmPassword"
-                className="block font-normal mb-1 text-sm"
-              >
-                Confirm Password
-              </label>
-              <FaLock className="absolute left-3 top-9  text-gray-400 pointer-events-none" />
-              <input
-                id="confirmPassword"
-                type={confirmPasswordVisible ? "text" : "password"}
-                placeholder="Re-enter your password"
-                name="confirmPassword"
-                value={signUpData.confirmPassword}
-                onChange={handleChange}
-                autoComplete="off"
-                className="w-full border border-gray-300  px-10 py-3 text-sm focus:outline-none focus:ring-2 hover:ring-1 hover:ring-[#060B33] focus:ring-[#383F71] appearance-none"
-              />
-              <button
-                type="button"
-                onClick={toggleConfirmPasswordVisibility}
-                className="absolute right-3 top-10 text-gray-400 hover:text-gray-600"
-              >
-                {confirmPasswordVisible ? <FaEyeSlash /> : <FaEye />}
-              </button>
-              {errors.confirmPassword && (
-                <p className="text-red-500 text-xs mt-2">
-                  {errors.confirmPassword}
+              <div className="relative">
+                <label
+                  htmlFor="confirmPassword"
+                  className="block font-normal mb-1 text-sm"
+                >
+                  Confirm Password
+                </label>
+                <FaLock className="absolute left-3 top-9  text-gray-400 pointer-events-none" />
+                <input
+                  id="confirmPassword"
+                  type={confirmPasswordVisible ? "text" : "password"}
+                  placeholder="Re-enter your password"
+                  name="confirmPassword"
+                  value={signUpData.confirmPassword}
+                  onChange={handleChange}
+                  autoComplete="off"
+                  className="w-full border border-gray-300  px-10 py-3 text-sm focus:outline-none focus:ring-2 hover:ring-1 hover:ring-[#060B33] focus:ring-[#383F71] appearance-none"
+                />
+                <button
+                  type="button"
+                  onClick={toggleConfirmPasswordVisibility}
+                  className="absolute right-3 top-10 text-gray-400 hover:text-gray-600"
+                >
+                  {confirmPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+                </button>
+                {errors.confirmPassword && (
+                  <p className="text-red-500 text-xs mt-2">
+                    {errors.confirmPassword}
+                  </p>
+                )}
+              </div>
+              <div className="flex gap-2 items-center">
+                <input
+                  id="may-we-send"
+                  type="checkbox"
+                  name="marketingConsent"
+                  checked={signUpData.marketingConsent}
+                  onChange={handleChange}
+                  className="checkbox-custom w-5 h-5 border-2 hover:border-[#FA6602] border-[#DB0032] rounded-sm appearance-none relative transition-all ease-in cursor-pointer"
+                />
+                <label
+                  htmlFor="may-we-send"
+                  className="text-xs text-gray-600 cursor-pointer"
+                >
+                  May we send you marketing material via email and other
+                  electronic channels?
+                </label>
+              </div>
+              <div className="flex gap-2 items-center">
+                <input
+                  id="terms-and-conditions"
+                  type="checkbox"
+                  name="termsAccepted"
+                  checked={signUpData.termsAccepted}
+                  onChange={handleChange}
+                  className="checkbox-custom w-5 h-5 border-2 hover:border-[#FA6602] border-[#DB0032] rounded-sm appearance-none relative transition-all ease-in cursor-pointer"
+                />
+                <label
+                  htmlFor="terms-and-conditions"
+                  className="text-xs cursor-pointer text-gray-600"
+                >
+                  I agree to the{" "}
+                  <Link to="/terms-and-conditions">
+                    <span className="text-sm font-bold text-[#DB0032] hover:text-[#FA6602] cursor-pointer">
+                      Terms, Conditions, and Privacy Policy.
+                    </span>
+                  </Link>
+                </label>
+              </div>
+              {errors.termsAccepted && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.termsAccepted}
                 </p>
               )}
-            </div>
-            <div className="flex gap-2 items-center">
-              <input
-                id="may-we-send"
-                type="checkbox"
-                name="marketingConsent"
-                checked={signUpData.marketingConsent}
-                onChange={handleChange}
-                className="checkbox-custom w-5 h-5 border-2 hover:border-[#FA6602] border-[#DB0032] rounded-sm appearance-none relative transition-all ease-in cursor-pointer"
-              />
-              <label
-                htmlFor="may-we-send"
-                className="text-xs text-gray-600 cursor-pointer"
-              >
-                May we send you marketing material via email and other
-                electronic channels?
-              </label>
-            </div>
-            <div className="flex gap-2 items-center">
-              <input
-                id="terms-and-conditions"
-                type="checkbox"
-                name="termsAccepted"
-                checked={signUpData.termsAccepted}
-                onChange={handleChange}
-                className="checkbox-custom w-5 h-5 border-2 hover:border-[#FA6602] border-[#DB0032] rounded-sm appearance-none relative transition-all ease-in cursor-pointer"
-              />
-              <label
-                htmlFor="terms-and-conditions"
-                className="text-xs cursor-pointer text-gray-600"
-              >
-                I agree to the{" "}
-                <Link to="/terms-and-conditions">
-                  <span className="text-sm font-bold text-[#DB0032] hover:text-[#FA6602] cursor-pointer">
-                    Terms, Conditions, and Privacy Policy.
+
+              <div className="flex justify-center items-center">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="text-white w-full group text-nowrap transition-transform duration-500 ease-out transform uppercase bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:bg-gradient-to-bl focus:outline-none text-sm md:text-[13px] px-5 py-2.5 flex items-center justify-center"
+                >
+                  <span className="absolute inset-0 w-0 h-full bg-[#060b33] transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
+                  <span className="relative text-white group-hover:text-white flex items-center">
+                    {loading ? "Registering..." : "Sign Up"}
+                    <img
+                      src={RightArrow1}
+                      alt="Arrow Icon"
+                      className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"
+                    />
                   </span>
+                </button>
+              </div>
+            </form>
+
+            <div className="mt-6 justify-around flex space-x-3">
+              <p className="text-sm text-gray-600 inline-block">
+                Already have an account?{" "}
+                <Link
+                  to="/login-signup"
+                  state={{ activeTab: "login" }}
+                  className={`font-semibold text-sm text-[#DB0032] hover:text-[#FA6602] transition-all`}
+                >
+                  Login
                 </Link>
-              </label>
-            </div>
-            {errors.termsAccepted && (
-              <p className="text-red-500 text-xs mt-1">
-                {errors.termsAccepted}
               </p>
-            )}
-
-            <div className="flex justify-center items-center">
-              <button
-                type="submit"
-                className="text-white w-full group text-nowrap transition-transform duration-500 ease-out transform uppercase bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:bg-gradient-to-bl focus:outline-none text-sm md:text-[13px] px-5 py-2.5   flex items-center justify-center"
-              >
-                <span className="absolute inset-0 w-0 h-full bg-[#060b33] transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
-                <span className="relative text-white group-hover:text-white flex items-center">
-                  {loading ? "Registering..." : "Sign Up"}
-                  <img
-                    src={RightArrow1}
-                    alt="Arrow Icon"
-                    className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"
-                  />
-                </span>
-              </button>
-            </div>
-          </form>
-
-          <div className="mt-6 justify-around flex space-x-3">
-            <p className="text-sm text-gray-600 inline-block">
-              Already have an account?{" "}
-              <Link
-                to="/login-signup"
-                state={{ activeTab: "login" }}
-                className={`font-semibold text-sm text-[#DB0032] hover:text-[#FA6602] transition-all`}
-              >
-                Login
-              </Link>
-            </p>
-            <div className="font-bold">|</div>
-            <div className="text-sm text-gray-600">
-              If you require support{" "}
-              <Link
-                to="/contact-us"
-                className="text-[#DB0032] hover:text-[#FA6602] "
-              >
-                Contact us
-              </Link>
+              <div className="font-bold">|</div>
+              <div className="text-sm text-gray-600">
+                If you require support{" "}
+                <Link
+                  to="/contact-us"
+                  className="text-[#DB0032] hover:text-[#FA6602] "
+                >
+                  Contact us
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+      <ToastContainer />
     </>
   );
 }

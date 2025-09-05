@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
-import { Link, useLocation } from "react-router-dom";
+import { Link, redirect, useLocation, useParams } from "react-router-dom";
 import Blog1 from "../assets/blog1.png";
 import Blog2 from "../assets/blog2.png";
 import Blog3 from "../assets/blog3.png";
 import Blog4 from "../assets/blog-4.png";
 import axios from "../api/axios";
 const BlogSideBar = ({ setFilters }) => {
-  const location = useLocation(); // to detect current page
+
+  const {slug} = useParams()
+  console.log("slug is ",slug);
+  
+  const location = useLocation();
 
   const [audience, setAudience] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
@@ -15,7 +19,6 @@ const BlogSideBar = ({ setFilters }) => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  // 🔹 Update filters in parent whenever searchTerm changes
   useEffect(() => {
     setFilters({
       searchTerm,
@@ -92,8 +95,11 @@ const BlogSideBar = ({ setFilters }) => {
                 <div>
                   <Link
                     to={`/blog-details/${post.slug}`}
-                    title={post.title}
-                    className="hover:text-[#DB0032] block"
+                    className={`hover:text-[#DB0032] block ${
+                      slug === post.slug
+                        ? "text-[#ee3e15] font-semibold"
+                        : "text-gray-700"
+                    }`}
                   >
                     {post.title?.length > 30
                       ? post.title.substring(0, 30) + "..."
