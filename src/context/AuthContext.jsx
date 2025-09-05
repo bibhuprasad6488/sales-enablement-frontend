@@ -18,7 +18,12 @@ export const AuthProvider = ({ children }) => {
   const idleTimerRef = useRef(null);
   const logout = () => {
     setUser(null);
-    localStorage.clear();
+    localStorage.removeItem("user");
+    localStorage.removeItem("user_id");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user_data");
+    localStorage.removeItem("loginTime");
+    // localStorage.clear();
     sessionStorage.clear();
     navigate("/");
   };
@@ -29,7 +34,7 @@ export const AuthProvider = ({ children }) => {
 
     idleTimerRef.current = setTimeout(() => {
       logout();
-    }, 30 * 24 * 60 * 1000);
+    }, 7 * 24 * 60 * 1000);
   };
 
   useEffect(() => {

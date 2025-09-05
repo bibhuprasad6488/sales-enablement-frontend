@@ -23,24 +23,27 @@ import logoTwitter from "../assets/logoTwitter.png";
 const PriceSideBar = ({ course }) => {
   const { websiteData } = useApi3();
   const currentUrl = window.location.href;
-  // helper for app deep link + web fallback
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-  const shareTo = (platform, currentUrl) => {
-    let appUrl = "";
+  const shareTo = (platform) => {
+    if (isMobile && navigator.share) {
+      navigator
+        .share({
+          title: "the-sales-enablement",
+          text: "Have a look at this website",
+          url: currentUrl,
+        })
+        .catch((err) => console.log("Share cancelled", err));
+      return;
+    }
     let webUrl = "";
-
     switch (platform) {
       case "facebook":
-        appUrl = `fb://facewebmodal/f?href=${encodeURIComponent(currentUrl)}`;
         webUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
           currentUrl
         )}`;
         break;
       case "twitter":
-        appUrl = `twitter://post?message=${encodeURIComponent(
-          "Check this out: " + currentUrl
-        )}`;
         webUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
           currentUrl
         )}`;
@@ -51,39 +54,14 @@ const PriceSideBar = ({ course }) => {
         )}`;
         break;
       case "instagram":
-        appUrl = `instagram://share?text=${encodeURIComponent(
-          "Check this out: " + currentUrl
-        )}`;
-        webUrl = `https://instagram.com`; // no official share, fallback only
+        webUrl = `https://instagram.com`; 
         break;
       default:
         return;
     }
 
-    // ✅ On desktop → skip deep link, go straight to web
-    if (!isMobile || !appUrl) {
-      window.open(webUrl, "_blank");
-      return;
-    }
-
-    // ✅ On mobile → try deep link, fallback to web
-    let opened = false;
-    const timeout = setTimeout(() => {
-      if (!opened && webUrl) {
-        window.open(webUrl, "_blank");
-      }
-    }, 700);
-
-    try {
-      const newWindow = window.open(appUrl, "_blank");
-      if (newWindow) opened = true;
-    } catch (err) {
-      if (webUrl) window.open(webUrl, "_blank");
-    }
-
-    setTimeout(() => clearTimeout(timeout), 1500);
+    window.open(webUrl, "_blank");
   };
-
   const [isHovered, setIsHovered] = useState(false);
   const formattedDate = new Date(course.end_date).toLocaleDateString("en-GB", {
     day: "2-digit",
@@ -158,242 +136,229 @@ const PriceSideBar = ({ course }) => {
     setIsLoggedIn(!!token);
   }, []);
 
- const handleClick = () => {
-  if (!isLoggedIn) {
-    toast.error("You need to log in first!", {
-      position: "top-right",
-      autoClose: 2000,
-    });
+  const handleClick = () => {
+    if (!isLoggedIn) {
+      toast.error("You need to log in first!", {
+        position: "top-right",
+        autoClose: 2000,
+      });
 
-    setTimeout(() => {
-      navigate("/login-signup", { state: { activeTab: "login"}});
-    }, 2000);
-  } else {
-    toast.success("Proceeding to booking...", {
-      position: "top-right",
-      autoClose: 1000,
-    });
+      setTimeout(() => {
+        navigate("/login-signup", { state: { activeTab: "login" } });
+      }, 2000);
+    } else {
+      toast.success("Proceeding to booking...", {
+        position: "top-right",
+        autoClose: 1000,
+      });
 
-    setTimeout(() => {
-      navigate("/booking-course/general", { state: { course } });
-    }, 1000);
-  }
-};
+      setTimeout(() => {
+        navigate("/booking-course/general", { state: { course } });
+      }, 1000);
+    }
+  };
 
   return (
     <>
-    
-    <section className="w-full  bg-white p-4 sm:p-6 hover:scale-105 transition-transform duration-200 shadow-2xl mx-auto ">
-      <div>
-        <div className="flex flex-wrap justify-between items-center gap-4">
-          <h2 className="text-base sm:text-lg font-semibold uppercase">
-            {course.name}
-          </h2>
-          <div
-            className={`flex items-center justify-center gap-1 rounded-md px-2 py-2 transition-all duration-300 ${
-              isHovered
-                ? "bg-white text-[#DB0032]"
-                : "text-white bg-gradient-to-r from-[#DB0032] to-[#FA6602]"
-            }`}
-          >
-            <div className="flex items-center gap-2">
-              {course?.course_type}
-              {course?.course_type === "Offline" ? (
-                <>
-                  <BsBuildings />
-                </>
-              ) : course?.course_type === "Virtual" ? (
-                <>
-                  <FaGlobeAmericas />
-                </>
-              ) : (
-                <span>Unknown Mode</span>
-              )}
-            </div>
-          </div>
-        </div>
-        <div className="mt-4">
-          {isBeforeStart ? (
-            <div className="text-sm sm:text-md text-gray-500 font-bold">
-              Applications opening soon
-              <div className="bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text">
-                {" "}
-                {formattedStartDate} - {formattedEndDate}
+      <section className="w-full  bg-white p-4 sm:p-6 hover:scale-105 transition-transform duration-200 shadow-2xl mx-auto ">
+        <div>
+          <div className="flex flex-wrap justify-between items-center gap-4">
+            <h2 className="text-base sm:text-lg font-semibold uppercase">
+              {course.name}
+            </h2>
+            <div
+              className={`flex items-center justify-center gap-1 rounded-md px-2 py-2 transition-all duration-300 ${
+                isHovered
+                  ? "bg-white text-[#DB0032]"
+                  : "text-white bg-gradient-to-r from-[#DB0032] to-[#FA6602]"
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                {course?.course_type}
+                {course?.course_type === "Offline" ? (
+                  <>
+                    <BsBuildings />
+                  </>
+                ) : course?.course_type === "Virtual" ? (
+                  <>
+                    <FaGlobeAmericas />
+                  </>
+                ) : (
+                  <span>Unknown Mode</span>
+                )}
               </div>
             </div>
-          ) : isApplicationOpen ? (
-            <>
-              <label className="block text-xs sm:text-sm bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text mb-2">
-                Application Open Between
-              </label>
+          </div>
+          <div className="mt-4">
+            {isBeforeStart ? (
+              <div className="text-sm sm:text-md text-gray-500 font-bold">
+                Applications opening soon
+                <div className="bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text">
+                  {" "}
+                  {formattedStartDate} - {formattedEndDate}
+                </div>
+              </div>
+            ) : isApplicationOpen ? (
+              <>
+                <label className="block text-xs sm:text-sm bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text mb-2">
+                  Application Open Between
+                </label>
+                <div className="text-sm sm:text-md bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text font-bold">
+                  {formattedStartDate} - {formattedEndDate}
+                </div>
+              </>
+            ) : isClosed ? (
+              <div className="text-sm sm:text-md text-gray-500 font-bold">
+                Applications are currently closed
+                <div className="bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text">
+                  {" "}
+                  {formattedEndDate} - {formattedEndDate}
+                </div>
+              </div>
+            ) : null}
+          </div>
+          <div className="mt-4 flex flex-wrap justify-between gap-4">
+            <div>
+              <span className="text-xs font-light">To Start by:</span>
+              <div className="text-sm font-light"> {formattedDate1}</div>
+            </div>
+            <div>
+              <span className="text-xs font-light">To End by:</span>
+              <div className="text-sm font-light">{formattedDate}</div>
+            </div>
+          </div>
+
+          <div className="mt-4 flex flex-wrap justify-between gap-4">
+            <div>
+              <span className="text-xs font-light">Cost</span>
               <div className="text-sm sm:text-md bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text font-bold">
-                {formattedStartDate} - {formattedEndDate}
-              </div>
-            </>
-          ) : isClosed ? (
-            <div className="text-sm sm:text-md text-gray-500 font-bold">
-              Applications are currently closed
-              <div className="bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text">
-                {" "}
-                {formattedEndDate} - {formattedEndDate}
+                R {course.fees}
               </div>
             </div>
-          ) : null}
+            <div>
+              <span className="text-xs font-light">Venue</span>
+              <div className="text-sm text-gray-700">{course.type_address}</div>
+            </div>
+          </div>
+
+          <div className="mt-4 flex flex-wrap justify-between items-start gap-4">
+            <div className="text-xs font-light text-gray-600">
+              <div>For Enquiries</div>
+              <div className="flex items-center mt-2">
+                <FaEnvelope className="text-gray-700 mr-2" />
+                <div className="text-sm font-bold text-gray-700">
+                  {websiteData.email}
+                </div>
+              </div>
+            </div>
+            <div className="text-xs font-light text-gray-600">
+              <div>Contact Number</div>
+              <div className="flex items-center mt-2">
+                <FaPhoneAlt className="text-gray-700 mr-2" />
+                <div className="text-sm font-bold text-gray-700">
+                  {websiteData.phone}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="mt-4 flex flex-wrap justify-between gap-4">
-          <div>
-            <span className="text-xs font-light">To Start by:</span>
-            <div className="text-sm font-light"> {formattedDate1}</div>
-          </div>
-          <div>
-            <span className="text-xs font-light">To End by:</span>
-            <div className="text-sm font-light">{formattedDate}</div>
-          </div>
+        <div className="mt-6">
+          {isApplicationOpen ? (
+        
+
+            <button
+              onClick={handleClick}
+              className="w-full relative uppercase group text-xs sm:text-sm bg-gradient-to-r from-[#DB0032] to-[#FA6602] cursor-pointer text-white p-2 sm:p-3 flex items-center justify-center"
+            >
+              <span className="absolute inset-0 w-0 h-full bg-[#060b33] transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
+              <span className="relative z-10 text-white group-hover:text-white flex items-center">
+                Book Now
+              </span>
+            </button>
+          ) : isBeforeStart ? (
+            <div className="w-full text-center text-sm sm:text-md font-bold text-gray-500 bg-yellow-400 p-2 sm:p-3 ">
+              Opening Soon
+            </div>
+          ) : (
+            <div
+              className="w-full text-center text-sm cursor-pointer sm:text-md font-bold text-white bg-gray-500 p-2 sm:p-3 "
+              onClick={openModal}
+            >
+              Closed - Call for Discuss
+            </div>
+          )}
         </div>
 
         <div className="mt-4 flex flex-wrap justify-between gap-4">
-          <div>
-            <span className="text-xs font-light">Cost</span>
-            <div className="text-sm sm:text-md bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text font-bold">
-              R {course.fees}
-            </div>
-          </div>
-          <div>
-            <span className="text-xs font-light">Venue</span>
-            <div className="text-sm text-gray-700">{course.type_address}</div>
-          </div>
-        </div>
-
-        <div className="mt-4 flex flex-wrap justify-between items-start gap-4">
-          <div className="text-xs font-light text-gray-600">
-            <div>For Enquiries</div>
-            <div className="flex items-center mt-2">
-              <FaEnvelope className="text-gray-700 mr-2" />
-              <div className="text-sm font-bold text-gray-700">
-                {websiteData.email}
-              </div>
-            </div>
-          </div>
-          <div className="text-xs font-light text-gray-600">
-            <div>Contact Number</div>
-            <div className="flex items-center mt-2">
-              <FaPhoneAlt className="text-gray-700 mr-2" />
-              <div className="text-sm font-bold text-gray-700">
-                {websiteData.phone}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="mt-6">
-        {isApplicationOpen ? (
-          // <button className="w-full relative uppercase group text-xs sm:text-sm bg-gradient-to-r from-[#DB0032] to-[#FA6602] cursor-pointer text-white p-2 sm:p-3 flex items-center justify-center">
-          //   <span className="absolute inset-0 w-0 h-full bg-[#060b33] transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
-          //   <span className="relative z-10 text-white group-hover:text-white flex items-center">
-          //     Book Now
-          //   </span>
-          // </button>
-
-          <button
-            onClick={handleClick}
-            className="w-full relative uppercase group text-xs sm:text-sm bg-gradient-to-r from-[#DB0032] to-[#FA6602] cursor-pointer text-white p-2 sm:p-3 flex items-center justify-center"
-          >
+          <button className="w-full md:w-auto flex-1 uppercase relative group bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white p-2 sm:p-3 flex items-center justify-center ">
             <span className="absolute inset-0 w-0 h-full bg-[#060b33] transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
+            <a
+              className="relative z-10 text-white group-hover:text-white flex items-center"
+              href={`tel:${websiteData.phone}`}
+            >
+              <IoCall className="mr-2" />
+              <span className="text-sm">Call Us</span>
+            </a>
+          </button>
+
+          <button className="w-full md:w-auto flex-1 uppercase relative group bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white p-2 sm:p-3 flex items-center justify-center ">
+            <span className="absolute inset-0 w-0 h-full bg-[#060b33] transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
+
             <span className="relative z-10 text-white group-hover:text-white flex items-center">
-              Book Now
+              <div className="absolute right-[-70px] bottom-[-90px] opacity-0 mb-2 border-2 border-[#f04512] border-gradient-to-r from-[#DB0032] to-[#FA6602] bg-white rounded-lg shadow-xl p-3 flex gap-4 z-50 group-hover:opacity-100 group-hover:visible transition-opacity duration-300">
+                <a
+                  onClick={() => shareTo("facebook")}
+                  className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
+                >
+                  <img
+                    src={logoFacebook}
+                    alt="Share on Facebook"
+                    className="w-full h-full object-contain"
+                  />
+                </a>
+
+                <a
+                  onClick={() => shareTo("twitter")}
+                  className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
+                >
+                  <img
+                    src={logoTwitter}
+                    alt="Share on Twitter"
+                    className="w-full h-full object-contain"
+                  />
+                </a>
+
+                <a
+                  onClick={() => shareTo("linkedin")}
+                  className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
+                >
+                  <img
+                    src={logoLinkedIn}
+                    alt="Share on LinkedIn"
+                    className="w-full h-full object-contain"
+                  />
+                </a>
+
+                <a
+                  onClick={() => shareTo("instagram")}
+                  className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
+                >
+                  <img
+                    src={logoInstagram}
+                    alt="Share on Instagram"
+                    className="w-full h-full object-contain"
+                  />
+                </a>
+              </div>
+
+              <FaShareAlt className="mr-2" />
+              <span className="text-sm">Share</span>
             </span>
           </button>
-        ) : isBeforeStart ? (
-          <div className="w-full text-center text-sm sm:text-md font-bold text-gray-500 bg-yellow-400 p-2 sm:p-3 ">
-            Opening Soon
-          </div>
-        ) : (
-          <div
-            className="w-full text-center text-sm cursor-pointer sm:text-md font-bold text-white bg-gray-500 p-2 sm:p-3 "
-            onClick={openModal}
-          >
-            Closed - Call for Discuss
-          </div>
-        )}
-      </div>
-
-      <div className="mt-4 flex flex-wrap justify-between gap-4">
-        <button className="w-full md:w-auto flex-1 uppercase relative group bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white p-2 sm:p-3 flex items-center justify-center ">
-          <span className="absolute inset-0 w-0 h-full bg-[#060b33] transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
-          <a
-            className="relative z-10 text-white group-hover:text-white flex items-center"
-            href={`tel:${websiteData.phone}`}
-          >
-            <IoCall className="mr-2" />
-            <span className="text-sm">Call Us</span>
-          </a>
-        </button>
-
-        <button className="w-full md:w-auto flex-1 uppercase relative group bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white p-2 sm:p-3 flex items-center justify-center ">
-          <span className="absolute inset-0 w-0 h-full bg-[#060b33] transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
-          <span className="relative z-10 text-white group-hover:text-white flex items-center">
-            <div className="absolute  right-[-70px] bottom-[-90px] opacity-0  mb-2 border-2 border-[#f04512] border-gradient-to-r from-[#DB0032] to-[#FA6602] bg-white rounded-lg shadow-xl p-3 flex gap-4 z-50 group-hover:opacity-100 group-hover:visible transition-opacity duration-300">
-              <a
-                onClick={() => {
-                  shareTo("facebook", currentUrl);
-                }}
-                className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
-              >
-                <img
-                  src={logoFacebook}
-                  alt="Share on Facebook"
-                  className="w-full h-full object-contain"
-                />
-              </a>
-
-              <a
-                onClick={() => {
-                  shareTo("twitter", currentUrl);
-                }}
-                className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
-              >
-                <img
-                  src={logoTwitter}
-                  alt="Share on Twitter"
-                  className="w-full h-full object-contain"
-                />
-              </a>
-
-              <a
-                onClick={() => {
-                  shareTo("linkedin", currentUrl);
-                }}
-                className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
-              >
-                <img
-                  src={logoLinkedIn}
-                  alt="Share on LinkedIn"
-                  className="w-full h-full object-contain"
-                />
-              </a>
-
-              <a
-                onClick={() => {
-                  shareTo("instagram", currentUrl);
-                }}
-                className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
-              >
-                <img
-                  src={logoInstagram}
-                  alt="Share on Instagram"
-                  className="w-full h-full object-contain"
-                />
-              </a>
-            </div>
-            <FaShareAlt className="mr-2" />
-            <button className="text-sm">Share</button>
-          </span>
-        </button>
-      </div>
-    </section>
-    <ToastContainer/>
+        </div>
+      </section>
+      <ToastContainer />
     </>
-
   );
 };
 export default PriceSideBar;
