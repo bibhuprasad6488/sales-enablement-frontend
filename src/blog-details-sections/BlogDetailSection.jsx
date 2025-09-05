@@ -13,6 +13,7 @@ const BlogDetailSection = ({
   whitepaper = [],
   videos = [],
   Blogcomments = [],
+  filters,
 }) => {
   const [playingVideo, setPlayingVideo] = useState(null);
   const [showShareOptions, setShowShareOptions] = useState(false);
@@ -82,59 +83,56 @@ const BlogDetailSection = ({
             {Allblogdata?.title}
           </h2>
 
-          <div className="relative mt-2 sm:mt-0 shrink-0">
+          <div className="relative mt-2 sm:mt-0 shrink-0 group">
+            {" "}
+            {/* add group here */}
             <button
               className="p-3 bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white rounded-full flex items-center justify-center transition-all duration-300 hover:shadow-lg"
               onClick={handleShareClick}
             >
               <FaShareAlt size={18} />
             </button>
-
-            <div className="absolute right-0 opacity-0 bottom-[120%] md:bottom-[100%] mb-2 border-2 border-[#f04512] bg-white rounded-lg shadow-xl p-3 flex gap-4 z-50 group-hover:opacity-100 group-hover:visible transition-opacity duration-300">
+            <div className="absolute right-0 opacity-0 bottom-[120%] md:bottom-[100%] mb-2 border-2 border-[#f04512] bg-white rounded-lg shadow-xl p-3 flex gap-4 z-50 transition-opacity duration-300 group-hover:opacity-100 group-hover:visible">
               <a
                 onClick={() => shareTo("facebook", currentUrl)}
                 className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
               >
-                {" "}
                 <img
                   src={logoFacebook}
                   alt="Share on Facebook"
                   className="w-full h-full object-contain"
-                />{" "}
-              </a>{" "}
+                />
+              </a>
               <a
                 onClick={() => shareTo("twitter", currentUrl)}
                 className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
               >
-                {" "}
                 <img
                   src={logoTwitter}
                   alt="Share on Twitter"
                   className="w-full h-full object-contain"
-                />{" "}
-              </a>{" "}
+                />
+              </a>
               <a
                 onClick={() => shareTo("linkedin", currentUrl)}
                 className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
               >
-                {" "}
                 <img
                   src={logoLinkedIn}
                   alt="Share on LinkedIn"
                   className="w-full h-full object-contain"
-                />{" "}
-              </a>{" "}
+                />
+              </a>
               <a
                 onClick={() => shareTo("instagram", currentUrl)}
                 className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
               >
-                {" "}
                 <img
                   src={logoInstagram}
                   alt="Share on Instagram"
                   className="w-full h-full object-contain"
-                />{" "}
-              </a>{" "}
+                />
+              </a>
             </div>
           </div>
         </div>

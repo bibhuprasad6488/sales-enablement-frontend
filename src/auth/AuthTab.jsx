@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import LogIn from "./Login";
+import { useLocation } from "react-router-dom";
 import SignUp from "./SignUp";
 import MyLearningJourney from "../components/MyLearningJourney";
 import PersonalInformation from "../components/PersonalInfo";
@@ -14,8 +15,14 @@ const AuthTab = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [headerHeight, setHeaderHeight] = useState(0);
   const headerRef = useRef(null);
+  const location = useLocation();
 
   const { activeTab, setActiveTab } = useTab();
+  useEffect(() => {
+    if (location.state?.activeTab) {
+      setActiveTab(location.state.activeTab);
+    }
+  }, [location.state, setActiveTab]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");

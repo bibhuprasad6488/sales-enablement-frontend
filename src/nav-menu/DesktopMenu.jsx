@@ -305,33 +305,33 @@ const DesktopMenu = ({
 
                     <div className="space-y-5">
                       <div className="flex items-center cursor-pointer space-x-3 hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:text-white transition-all duration-300 rounded-md p-2">
-                        <FaBook className=" text-xl transition-colors duration-300" />
+                        <FaBook className="text-xl transition-colors duration-300" />
                         <Link
                           to="/login-signup"
+                          state={{ activeTab: "journey" }} // pass tab via state
                           className="text-lg font-medium transition-colors duration-300"
-                          onClick={() => setActiveTab("My Learning Journey")}
                         >
                           My learning journey
                         </Link>
                       </div>
 
                       <div className="flex items-center cursor-pointer space-x-3 hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:text-white transition-all duration-300 rounded-md p-2">
-                        <FaUserAlt className=" text-xl transition-colors duration-300" />
+                        <FaUserAlt className="text-xl transition-colors duration-300" />
                         <Link
                           to="/login-signup"
-                          className="text-lg font-medium  transition-colors duration-300"
-                          onClick={() => setActiveTab("Personal Details")}
+                          state={{ activeTab: "personal" }} // pass tab via state
+                          className="text-lg font-medium transition-colors duration-300"
                         >
                           Personal details
                         </Link>
                       </div>
 
                       <div className="flex items-center cursor-pointer space-x-3 hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:text-white transition-all duration-300 rounded-md p-2">
-                        <FaKey className=" text-xl  transition-colors duration-300" />
+                        <FaKey className="text-xl transition-colors duration-300" />
                         <Link
                           to="/login-signup"
-                          className="text-lg font-medium  transition-colors duration-300"
-                          onClick={() => setActiveTab("Change Password")}
+                          state={{ activeTab: "password" }} // pass tab via state
+                          className="text-lg font-medium transition-colors duration-300"
                         >
                           Change password
                         </Link>
