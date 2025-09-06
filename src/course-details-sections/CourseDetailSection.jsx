@@ -10,7 +10,6 @@ const CourseDetailSection = ({ courseData }) => {
 
   const { websiteData } = useApi3();
   if (!websiteData) return <p></p>;
-
   const handleDownload = async (fileUrlOrName) => {
     try {
       // If full URL is given, extract only the file name
