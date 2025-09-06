@@ -77,40 +77,45 @@ const BlogSideBar = ({ setFilters }) => {
 
         {/* Recent posts */}
 
+        {/* Recent posts */}
         <div className="mb-4">
           <h3 className="text-lg font-semibold text-gray-700 mb-2">
             Recent Posts
           </h3>
           <ul className="space-y-2">
-            {recentpost?.map((post, index) => (
-              <li
-                key={index}
-                className="flex items-center text-sm text-gray-600"
-              >
-                <img
-                  src={post.thumbnail}
-                  alt={post.title}
-                  className="w-12 h-12 rounded-full mr-3 object-cover"
-                />
-                <div>
-                  <Link
-                    to={`/blog-details/${post.slug}`}
-                    className={`hover:text-[#DB0032] block ${
-                      slug === post.slug
-                        ? "text-[#ee3e15] font-semibold"
-                        : "text-gray-700"
-                    }`}
-                  >
-                    {post.title?.length > 30
-                      ? post.title.substring(0, 30) + "..."
-                      : post.title}
-                    <span className="text-xs text-gray-400 block">
-                      {post.created}
-                    </span>
-                  </Link>
-                </div>
-              </li>
-            ))}
+            {recentpost
+              ?.filter((post) =>
+                post.title.toLowerCase().includes(searchTerm.toLowerCase())
+              )
+              .map((post, index) => (
+                <li
+                  key={index}
+                  className="flex items-center text-sm text-gray-600"
+                >
+                  <img
+                    src={post.thumbnail}
+                    alt={post.title}
+                    className="w-12 h-12 rounded-full mr-3 object-cover"
+                  />
+                  <div>
+                    <Link
+                      to={`/blog-details/${post.slug}`}
+                      className={`hover:text-[#DB0032] block ${
+                        slug === post.slug
+                          ? "text-[#ee3e15] font-semibold"
+                          : "text-gray-700"
+                      }`}
+                    >
+                      {post.title?.length > 30
+                        ? post.title.substring(0, 30) + "..."
+                        : post.title}
+                      <span className="text-xs text-gray-400 block">
+                        {post.created}
+                      </span>
+                    </Link>
+                  </div>
+                </li>
+              ))}
           </ul>
         </div>
 

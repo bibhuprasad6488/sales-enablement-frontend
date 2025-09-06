@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Logo from "../assets/logo.png";
 import { AuthContext } from "../context/AuthContext";
 import { useTab } from "../context/TabContext";
@@ -64,23 +64,38 @@ const MobileMenu = ({ links, isMenuOpen, toggleMenu }) => {
                     <div className="space-y-5">
                       <div className="flex items-center cursor-pointer space-x-3 hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:text-white transition-all duration-300 rounded-md p-2">
                         <FaBook className=" text-sm transition-colors duration-300" />
-                        <p className="text-sm font-medium transition-colors duration-300">
+                        <Link
+                          to="/login-signup"
+                          state={{ activeTab: "journey" }} // pass tab via state
+                          className="text-sm font-medium transition-colors
+                      duration-300"
+                        >
                           My learning journey
-                        </p>
+                        </Link>
                       </div>
 
                       <div className="flex items-center cursor-pointer space-x-3 hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:text-white transition-all duration-300 rounded-md p-2">
                         <FaUserAlt className=" text-sm transition-colors duration-300" />
-                        <p className="text-sm font-medium  transition-colors duration-300">
+                        <Link
+                          to="/login-signup"
+                          state={{ activeTab: "personal" }} // pass tab via state
+                          className="text-sm font-medium transition-colors
+                      duration-300"
+                        >
                           Personal details
-                        </p>
+                        </Link>
                       </div>
 
                       <div className="flex items-center cursor-pointer space-x-3 hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:text-white transition-all duration-300 rounded-md p-2">
                         <FaKey className=" text-sm  transition-colors duration-300" />
-                        <p className="text-sm font-medium  transition-colors duration-300">
+                        <Link
+                          to="/login-signup"
+                          state={{ activeTab: "password" }} // pass tab via state
+                          className="text-sm font-medium transition-colors
+                      duration-300"
+                        >
                           Change password
-                        </p>
+                        </Link>
                       </div>
                     </div>
 
