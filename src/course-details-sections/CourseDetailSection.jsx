@@ -3,6 +3,7 @@ import TabNavigation from "../components/TabNavigation";
 import RelatedCourseSlider from "./RelatedCourseSlider";
 import PriceSideBar from "./PriceSideBar";
 import { Helmet } from "react-helmet-async";
+import axios from "../api/axios";
 import { useApi3 } from "../context/WebsiteDataContext";
 const CourseDetailSection = ({ courseData }) => {
   if (!courseData) return <p></p>;
@@ -10,33 +11,28 @@ const CourseDetailSection = ({ courseData }) => {
   const { websiteData } = useApi3();
   if (!websiteData) return <p></p>;
 
-  // const handleDownload = () => {
-  //   const link = document.createElement("a");
-  //   link.href = courseData.benifit_btn_link;
-  //   link.setAttribute("download", "brochure.pdf");
-  //   document.body.appendChild(link);
-  //   link.click();
-  //   document.body.removeChild(link);
-  // };
+  const handleDownload = async (fileUrlOrName) => {
+    try {
+      // If full URL is given, extract only the file name
+      const filename = fileUrlOrName.split("/").pop();
 
-  // const handleDownload = async () => {
-  //   try {
-  //     const response = await fetch(courseData.benifit_btn_link);
-  //     const blob = await response.blob();
+      const response = await axios.get(`/download/brochure/${filename}`, {
+        responseType: "blob",
+      });
 
-  //     const url = window.URL.createObjectURL(blob);
-  //     const link = document.createElement("a");
-  //     link.href = url;
-  //     link.download = "brochure.pdf";
-  //     document.body.appendChild(link);
-  //     link.click();
-
-  //     link.remove();
-  //     window.URL.revokeObjectURL(url);
-  //   } catch (error) {
-  //     console.error("Download failed:", error);
-  //   }
-  // };
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", filename);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (error) {
+      toast.error("Download failed. Please try again later.");
+      console.error("Download failed:", error);
+    }
+  
+  };
 
   return (
     <>
@@ -107,11 +103,8 @@ const CourseDetailSection = ({ courseData }) => {
 
               <div className="mt-6 flex flex-wrap justify-between gap-6">
                 <div className="w-full sm:w-auto">
-                  <a
-                    href={courseData.benifit_btn_link}
-                    target="_blank"
-                    download
-                    // onClick={handleDownload}
+                  <button
+                    onClick={() => handleDownload(courseData.benifit_btn_link)}
                     className="relative text-xs sm:text-sm w-full uppercase px-6 py-3 bg-gradient-to-r from-[#DB0032] to-[#FA6602] group text-white flex items-center justify-center sm:justify-start space-x-2"
                   >
                     <span className="absolute inset-0 w-0 h-full bg-[#060b33] transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
@@ -119,22 +112,20 @@ const CourseDetailSection = ({ courseData }) => {
                       {courseData.benifit_btn_text}
                       <FaArrowDown />
                     </span>
-                  </a>
+                  </button>
                 </div>
 
                 <div className="w-full sm:w-auto">
-                  <a
-                    href={courseData.attend_btn_link}
-                    target="_blank"
-                    download
-                    className="relative w-full text-xs sm:text-sm  uppercase px-3 py-2 sm:px-6 sm:py-3 bg-gradient-to-r from-[#DB0032] to-[#FA6602] group text-white flex items-center justify-center sm:justify-start space-x-2"
+                  <button
+                    onClick={() => handleDownload(courseData.attend_btn_link)}
+                    className=" relative w-full text-xs sm:text-sm  uppercase px-3 py-2 sm:px-6 sm:py-3 bg-gradient-to-r from-[#DB0032] to-[#FA6602] group text-white flex items-center justify-center sm:justify-start space-x-2"
                   >
                     <span className="absolute inset-0 w-0 h-full bg-[#060b33] transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
                     <span className="relative z-10 text-white group-hover:text-white flex gap-2 items-center">
                       {courseData.attend_btn_text}
                       <FaArrowDown />
                     </span>
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>

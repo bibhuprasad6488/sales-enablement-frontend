@@ -314,7 +314,8 @@ const DesktopMenu = ({
                           My learning journey
                         </Link>
                       </div>
-
+                      {/* className="text-sm font-medium transition-colors
+                      duration-300"> */}
                       <div className="flex items-center cursor-pointer space-x-3 hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:text-white transition-all duration-300 rounded-md p-2">
                         <FaUserAlt className="text-xl transition-colors duration-300" />
                         <Link
@@ -325,7 +326,6 @@ const DesktopMenu = ({
                           Personal details
                         </Link>
                       </div>
-
                       <div className="flex items-center cursor-pointer space-x-3 hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:text-white transition-all duration-300 rounded-md p-2">
                         <FaKey className="text-xl transition-colors duration-300" />
                         <Link

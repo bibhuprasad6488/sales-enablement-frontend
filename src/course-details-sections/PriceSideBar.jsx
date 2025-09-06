@@ -264,8 +264,6 @@ const PriceSideBar = ({ course }) => {
         </div>
         <div className="mt-6">
           {isApplicationOpen ? (
-        
-
             <button
               onClick={handleClick}
               className="w-full relative uppercase group text-xs sm:text-sm bg-gradient-to-r from-[#DB0032] to-[#FA6602] cursor-pointer text-white p-2 sm:p-3 flex items-center justify-center"
@@ -301,11 +299,14 @@ const PriceSideBar = ({ course }) => {
             </a>
           </button>
 
-          <button className="w-full md:w-auto flex-1 uppercase relative group bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white p-2 sm:p-3 flex items-center justify-center ">
+          <button
+            className="w-full md:w-auto flex-1 uppercase relative group bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white p-2 sm:p-3 flex items-center justify-center "
+            onClick={() => shareTo("facebook")}
+          >
             <span className="absolute inset-0 w-0 h-full bg-[#060b33] transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
 
             <span className="relative z-10 text-white group-hover:text-white flex items-center">
-              <div className="absolute right-[-70px] bottom-[-90px] opacity-0 mb-2 border-2 border-[#f04512] border-gradient-to-r from-[#DB0032] to-[#FA6602] bg-white rounded-lg shadow-xl p-3 flex gap-4 z-50 group-hover:opacity-100 group-hover:visible transition-opacity duration-300">
+              <div className="absolute right-[-60px] bottom-[-90px] mb-2 border-2 border-[#f04512] bg-white rounded-lg shadow-xl p-3 gap-4 z-50 opacity-0 group-hover:opacity-100 group-hover:visible transition-opacity duration-300 hidden md:flex">
                 <a
                   onClick={() => shareTo("facebook")}
                   className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"

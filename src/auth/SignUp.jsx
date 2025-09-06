@@ -16,7 +16,7 @@ import axios from "../api/axios";
 import { toast, ToastContainer } from "react-toastify";
 import { useTab } from "../context/TabContext";
 function SignUp() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { setActiveTab } = useTab();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
@@ -46,29 +46,100 @@ function SignUp() {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+    const newValue = type === "checkbox" ? checked : value;
+
     setSignUpData({
       ...signUpData,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: newValue,
+    });
+
+    // ✅ Clear field error dynamically when valid
+    setErrors((prev) => {
+      const newErrors = { ...prev };
+
+      if (name === "phone_no") {
+        const phoneError = validatePhone(newValue);
+        if (!phoneError) delete newErrors.phone_no;
+        else newErrors.phone_no = phoneError;
+      }
+
+      if (name === "email_id") {
+        const emailError = validateEmail(newValue);
+        if (!emailError) delete newErrors.email_id;
+        else newErrors.email_id = emailError;
+      }
+
+      if (name === "password" || name === "confirmPassword") {
+        if (signUpData.confirmPassword && newValue === signUpData.password) {
+          delete newErrors.confirmPassword;
+        }
+      }
+
+      if (newValue && newErrors[name]) {
+        delete newErrors[name]; // clear generic required errors
+      }
+
+      return newErrors;
     });
   };
 
+  // ✅ Reusable Phone Number Validation
+  const validatePhone = (phone) => {
+    if (!phone || phone.trim() === "") {
+      return "Phone number is required";
+    }
+
+    const phoneRegex = /^[0-9]{10}$/; // only digits, exactly 10
+    if (!phoneRegex.test(phone)) {
+      return "Phone number must be exactly 10 digits";
+    }
+
+    return "";
+  };
+
+  // ✅ Reusable Email Validation
+  const validateEmail = (email) => {
+    if (!email || email.trim() === "") {
+      return "Email is required";
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return "Please enter a valid email address";
+    }
+
+    return "";
+  };
+
+  // ✅ Reusable Phone Number Validation
+
+  // ✅ Validate All Fields
   const validateFields = () => {
     let tempErrors = {};
+
     if (!signUpData.title) tempErrors.title = "Title is required.";
     if (!signUpData.first_name)
       tempErrors.first_name = "First name is required.";
     if (!signUpData.last_name) tempErrors.last_name = "Last name is required.";
-    if (!signUpData.phone_no) tempErrors.phone_no = "Phone Number is required.";
+
+    const phoneError = validatePhone(signUpData.phone_no);
+    if (phoneError) tempErrors.phone_no = phoneError;
+
     if (!signUpData.division) tempErrors.division = "Division is required.";
-    if (!signUpData.email_id) tempErrors.email_id = "Email is required.";
+
+    const emailError = validateEmail(signUpData.email_id);
+    if (emailError) tempErrors.email_id = emailError;
+
     if (!signUpData.password) tempErrors.password = "Password is required.";
     if (!signUpData.confirmPassword) {
       tempErrors.confirmPassword = "Confirm Password is required.";
     } else if (signUpData.password !== signUpData.confirmPassword) {
       tempErrors.confirmPassword = "Passwords do not match.";
     }
-    if (!signUpData.termsAccepted)
+
+    if (!signUpData.termsAccepted) {
       tempErrors.termsAccepted = "You must accept the Terms & Conditions.";
+    }
 
     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;
@@ -89,28 +160,25 @@ function SignUp() {
 
       if (response.data.status && response.data.message) {
         toast.success(response.data.message, { toastId: "registerSuccess" });
-       
-    setTimeout(() => {
-      setSignUpData({
-        title: "",
-        first_name: "",
-        last_name: "",
-        phone_no: "",
-        division: "",
-        email_id: "",
-        password: "",
-        confirmPassword: "",
-        marketingConsent: false,
-        termsAccepted: false,
-      });
 
-      setErrors({});
+        setTimeout(() => {
+          setSignUpData({
+            title: "",
+            first_name: "",
+            last_name: "",
+            phone_no: "",
+            division: "",
+            email_id: "",
+            password: "",
+            confirmPassword: "",
+            marketingConsent: false,
+            termsAccepted: false,
+          });
 
-      // ✅ navigate to login-signup with login tab
-      navigate("/login-signup", { state: { activeTab: "login" } });
-      setActiveTab("Login");
-    }, 1500);
-
+          setErrors({});
+          navigate("/login-signup", { state: { activeTab: "login" } });
+          setActiveTab("Login");
+        }, 1500);
       } else {
         let errors = {};
         try {
@@ -194,7 +262,7 @@ function SignUp() {
                   label: "Phone Number",
                   name: "phone_no",
                   icon: <FaPhoneAlt />,
-                  type: "number",
+                  type: "text", // 👈 use text instead of number (number ignores maxLength)
                 },
                 {
                   label: "Division",
@@ -215,13 +283,30 @@ function SignUp() {
                   </label>
                   <input
                     id={name}
-                    min="0"
                     type={type}
                     name={name}
                     value={signUpData[name]}
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      if (name === "phone_no") {
+                        const value = e.target.value.replace(/\D/g, ""); // only digits
+                        if (value.length <= 10) {
+                          setSignUpData({ ...signUpData, [name]: value });
+
+                          // ✅ live validation for phone
+                          setErrors((prev) => {
+                            const newErrors = { ...prev };
+                            const phoneError = validatePhone(value);
+                            if (!phoneError) delete newErrors.phone_no;
+                            else newErrors.phone_no = phoneError;
+                            return newErrors;
+                          });
+                        }
+                      } else {
+                        handleChange(e);
+                      }
+                    }}
                     placeholder={`Enter your ${label.toLowerCase()}`}
-                    className="w-full border border-gray-300  px-10 py-3 text-sm focus:outline-none focus:ring-2 hover:ring-1 hover:ring-[#060B33] focus:ring-[#383F71] appearance-none"
+                    className="w-full border border-gray-300 px-10 py-3 text-sm focus:outline-none focus:ring-2 hover:ring-1 hover:ring-[#060B33] focus:ring-[#383F71] appearance-none"
                   />
                   <span className="absolute left-3 top-9 text-gray-400">
                     {icon}

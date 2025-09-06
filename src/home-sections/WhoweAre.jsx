@@ -4,6 +4,7 @@ import Breadcrumb from "../components/Breadcrumb";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import axios from "../api/axios";
+import { Bars } from "react-loader-spinner"; 
 import {
   FaCheckCircle,
   FaChevronLeft,
@@ -22,7 +23,7 @@ const WhoweAre = () => {
 
   const [currentFact, setCurrentFact] = useState(0);
   const [paused, setPaused] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const test = async () => {
       try {
@@ -32,7 +33,7 @@ const WhoweAre = () => {
       } catch (error) {
         console.error("Error fetching who-we-are:", error);
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     };
     test();
@@ -128,22 +129,39 @@ const WhoweAre = () => {
     return () => clearInterval(interval);
   }, [paused, funFacts.length]);
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <Oval
-          height={60}
-          width={60}
-          color="#DB0032"
-          secondaryColor="#FA6602"
-          strokeWidth={4}
-          strokeWidthSecondary={4}
-          visible={true}
-          ariaLabel="loading"
-        />
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="flex items-center justify-center h-screen">
+  //       <Oval
+  //         height={60}
+  //         width={60}
+  //         color="#DB0032"
+  //         secondaryColor="#FA6602"
+  //         strokeWidth={4}
+  //         strokeWidthSecondary={4}
+  //         visible={true}
+  //         ariaLabel="loading"
+  //       />
+  //     </div>
+  //   );
+  // }
+  if (isLoading) {
+      return (
+        <div
+          style={{
+            background: "linear-gradient(to right, #DB0032, #FA6602)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+          }}
+        >
+          <div className="flex flex-wrap">
+            <Bars height="80" width="80" color="#FFFFFF" ariaLabel="bars-loading" visible={true} />
+          </div>
+        </div>
+      );
+    }
   return (
     <>
       {/* Header Section */}

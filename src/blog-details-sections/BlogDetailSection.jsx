@@ -84,17 +84,17 @@ const BlogDetailSection = ({
           </h2>
 
           <div className="relative mt-2 sm:mt-0 shrink-0 group">
-            {" "}
-            {/* add group here */}
             <button
               className="p-3 bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white rounded-full flex items-center justify-center transition-all duration-300 hover:shadow-lg"
-              onClick={handleShareClick}
+              onClick={() => shareTo("facebook")}
             >
               <FaShareAlt size={18} />
             </button>
-            <div className="absolute right-0 opacity-0 bottom-[120%] md:bottom-[100%] mb-2 border-2 border-[#f04512] bg-white rounded-lg shadow-xl p-3 flex gap-4 z-50 transition-opacity duration-300 group-hover:opacity-100 group-hover:visible">
+
+            {/* Hidden on mobile, visible on hover in desktop */}
+            <div className="absolute right-0 bottom-[120%] md:bottom-[100%] mb-2 border-2 border-[#f04512] bg-white rounded-lg shadow-xl p-3 gap-4 z-50 transition-opacity duration-300 opacity-0 group-hover:opacity-100 group-hover:visible md:flex hidden">
               <a
-                onClick={() => shareTo("facebook", currentUrl)}
+                onClick={() => shareTo("facebook")}
                 className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
               >
                 <img
@@ -104,7 +104,7 @@ const BlogDetailSection = ({
                 />
               </a>
               <a
-                onClick={() => shareTo("twitter", currentUrl)}
+                onClick={() => shareTo("twitter")}
                 className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
               >
                 <img
@@ -114,7 +114,7 @@ const BlogDetailSection = ({
                 />
               </a>
               <a
-                onClick={() => shareTo("linkedin", currentUrl)}
+                onClick={() => shareTo("linkedin")}
                 className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
               >
                 <img
@@ -124,7 +124,7 @@ const BlogDetailSection = ({
                 />
               </a>
               <a
-                onClick={() => shareTo("instagram", currentUrl)}
+                onClick={() => shareTo("instagram")}
                 className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
               >
                 <img

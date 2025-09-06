@@ -18,11 +18,11 @@ const AuthTab = () => {
   const location = useLocation();
 
   const { activeTab, setActiveTab } = useTab();
-  useEffect(() => {
-    if (location.state?.activeTab) {
-      setActiveTab(location.state.activeTab);
-    }
-  }, [location.state, setActiveTab]);
+  // useEffect(() => {
+  //   if (location.state?.activeTab) {
+  //     setActiveTab(location.state.activeTab);
+  //   }
+  // }, [location.state, setActiveTab]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");

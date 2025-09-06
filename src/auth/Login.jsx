@@ -33,14 +33,14 @@ function LogIn() {
       const result = response.data;
 
       if (!result.status) {
-        setloader(false)
+        setloader(false);
         toast.error(result.message || "Something went wrong");
         return;
       }
 
       toast.success(result.message || "Reset link sent to your email");
       setShowForgotPassword(false);
-      setloader(false)
+      setloader(false);
       setForgotEmail("");
     } catch (error) {
       setloader(false);
@@ -71,13 +71,43 @@ function LogIn() {
     }
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setLoginData({
-      ...loginData,
-      [name]: value,
-    });
-  };
+ const handleChange = (e) => {
+   const { name, value } = e.target;
+
+   setLoginData({
+     ...loginData,
+     [name]: value,
+   });
+
+   // clear error as user types
+   setErrors((prev) => {
+     const newErrors = { ...prev };
+     if (value && newErrors[name]) {
+       delete newErrors[name];
+     }
+     if (name === "email_id") {
+       const emailError = validateEmail(value);
+       if (!emailError) delete newErrors.email_id;
+       else newErrors.email_id = emailError;
+     }
+     return newErrors;
+   });
+ };
+
+  // ✅ Reusable Email Validation
+ const validateEmail = (email) => {
+   if (!email || email.trim() === "") {
+     return "Email is required";
+   }
+
+   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+   if (!emailRegex.test(email)) {
+     return "Please enter a valid email address";
+   }
+
+   return "";
+ };
+
   useEffect(() => {
     const savedEmail = localStorage.getItem("email_id");
     const savedPassword = localStorage.getItem("password");
@@ -105,20 +135,22 @@ function LogIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setloader(true);
-    if (!validateFields()) {
+
+    const emailError = validateEmail(loginData.email_id);
+    if (emailError) {
+      toast.error(emailError);
       setloader(false);
-      toast.error("Please fill all required fields", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "light",
-      });
       return;
     }
+
+    if (!validateFields()) {
+      setloader(false);
+      toast.error("Please fill all required fields");
+      return;
+    }
+
     try {
+      // save or clear remember me
       if (remember) {
         localStorage.setItem("email_id", loginData.email_id);
         localStorage.setItem("password", loginData.password);
@@ -128,47 +160,28 @@ function LogIn() {
         localStorage.removeItem("password");
         localStorage.removeItem("rememberMe");
       }
-      const url = "/login";
-      const { data: res } = await axios.post(url, loginData);
+
+      const { data: res } = await axios.post("/login", loginData);
 
       if (res.status) {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("user_id", res.data.user_id);
-        const userData = { first_name: res.data.first_name };
         localStorage.setItem("user_data", JSON.stringify(res.data));
-        const userDetails = localStorage.getItem("user_data");
-
         localStorage.setItem("loginTime", Date.now());
 
-        login(userData);
-        toast.success(res.message, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          theme: "light",
-        });
+        login({ first_name: res.data.first_name });
+        toast.success(res.message);
+
         setTimeout(() => {
           navigate("/");
         }, 1000);
       }
     } catch (error) {
       setloader(false);
-      toast.error("Invalid credentials", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "light",
-      });
+      toast.error("Invalid credentials");
     }
-    // finally {
-    // }
   };
+
   return (
     <>
       {loader ? (
@@ -195,7 +208,6 @@ function LogIn() {
                 <p className="text-gray-600 mb-4 text-sm text-center">
                   Take the next step in your sales journey.
                 </p>
-       
 
                 <form className="space-y-4" onSubmit={handleSubmit}>
                   <div className="relative">
