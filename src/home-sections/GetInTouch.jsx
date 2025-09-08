@@ -15,6 +15,7 @@ import PhoneIncome from "../assets/phone-incoming.png";
 import { motion } from "framer-motion";
 import ReCAPTCHA from "react-google-recaptcha";
 import axios from "../api/axios";
+import { toast } from "react-toastify";
 function GetInTouch() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -65,20 +66,16 @@ function GetInTouch() {
       const response = await axios.post("/contact-form-store", payload);
       setLoading(false);
 
-      if (response.status === 200) {
-        document.getElementById("submission").innerText = response.data.message;
-        document.getElementById("submission").style.color = "green";
+      if (response.data.status) {
+        toast.success(response.data.message);
         e.target.reset();
       } else {
-        alert("Failed to send message.");
-        document.getElementById("submission").innerText =
-          response.data.message ?? "Failed to send message.";
-        document.getElementById("submission").style.color = "red";
+        toast.error(response.data.message);
       }
     } catch (error) {
       setLoading(false);
       console.error(error);
-      alert("An error occurred while sending the message.");
+      toast.error("An error occurred while sending the message.");
     }
   };
   const rightVariants = {
