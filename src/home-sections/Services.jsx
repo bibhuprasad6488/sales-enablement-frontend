@@ -163,7 +163,7 @@ function Services({ consultationData }) {
                             ></p>
                           )}
 
-                          {/* <Link
+                          <Link
                             to={
                               card.indp === "1"
                                 ? `/service/sales-force-details/${card.slug}`
@@ -181,7 +181,7 @@ function Services({ consultationData }) {
                                 <LuPlus className="text-lg w-7 h-7" />
                               </span>
                             )}
-                          </Link> */}
+                          </Link>
                         </div>
                       </Link>
                     </div>
@@ -242,7 +242,7 @@ function Services({ consultationData }) {
         </div>
       </div>
 
-      <div className="xl:mt-24 lg:mt-5 md:mt-[110px] 2xl:mt-28 sm:mt-[110px]  flex justify-end ">
+      {/* <div className="xl:mt-24 lg:mt-5 md:mt-[110px] 2xl:mt-28 sm:mt-[110px]  flex justify-end ">
         <div className="flex  gap-4 z-10">
           <button
             onClick={handlePrev}
@@ -261,7 +261,7 @@ function Services({ consultationData }) {
             <FaArrowRight className="text-xl text-[#fff] group-hover:text-[#383F71]" />
           </button>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }
