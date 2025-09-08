@@ -9,7 +9,6 @@ import axios from "../api/axios";
 const BlogSideBar = ({ setFilters }) => {
 
   const {slug} = useParams()
-  console.log("slug is ",slug);
   
   const location = useLocation();
 

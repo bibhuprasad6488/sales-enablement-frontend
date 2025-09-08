@@ -136,8 +136,17 @@ function Services({ consultationData }) {
                         transform: clickedCard === index ? "scale(1)" : "",
                       }}
                     >
-                      <div className="h-full flex flex-col justify-between bg-layer1 p-5 transition-all duration-300">
-                        <h3 className="text-[14px] uppercase font-bold">
+                      <Link
+                        className="h-full flex flex-col justify-between bg-layer1 p-5 transition-all duration-300"
+                        to={
+                          card.indp === "1"
+                            ? `/service/sales-force-details/${card.slug}`
+                            : card.indp === "2"
+                            ? `/service/sales-candidate-details/${card.slug}`
+                            : `/service/${card.slug}`
+                        }
+                      >
+                        <h3 className="text-[14px] uppercase font-bold flex justify-center items-center">
                           {card.title}
                         </h3>
 
@@ -154,7 +163,7 @@ function Services({ consultationData }) {
                             ></p>
                           )}
 
-                          <Link
+                          {/* <Link
                             to={
                               card.indp === "1"
                                 ? `/service/sales-force-details/${card.slug}`
@@ -172,9 +181,9 @@ function Services({ consultationData }) {
                                 <LuPlus className="text-lg w-7 h-7" />
                               </span>
                             )}
-                          </Link>
+                          </Link> */}
                         </div>
-                      </div>
+                      </Link>
                     </div>
                   );
                 })}
