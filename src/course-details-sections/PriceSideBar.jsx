@@ -175,17 +175,6 @@ const PriceSideBar = ({ course }) => {
             >
               <div className="flex items-center gap-2">
                 {course?.course_type}
-                {course?.course_type === "Offline" ? (
-                  <>
-                    <BsBuildings />
-                  </>
-                ) : course?.course_type === "Virtual" ? (
-                  <>
-                    <FaGlobeAmericas />
-                  </>
-                ) : (
-                  <span>Unknown Mode</span>
-                )}
               </div>
             </div>
           </div>
@@ -238,6 +227,7 @@ const PriceSideBar = ({ course }) => {
             <div>
               <span className="text-xs font-light">Venue</span>
               <div className="text-sm text-gray-700">{course.type_address}</div>
+              <div className="text-sm text-gray-700">{course.type_link}</div>
             </div>
           </div>
 
