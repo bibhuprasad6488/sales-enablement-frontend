@@ -800,7 +800,6 @@ const BookCoarse = () => {
                     required
                     value={formData.country}
                     className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
-                    defaultValue=""
                   >
                     <option value="" disabled>
                       -- Please Select --

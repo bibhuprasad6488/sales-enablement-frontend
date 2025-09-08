@@ -29,7 +29,7 @@ const BlogDetailSection = ({
          text: "Have a look at this website",
          url: currentUrl,
        })
-       .catch((err) => console.log("Share cancelled", err));
+       .catch((err) => console.error("Error sharing:", err));
      return;
    }
    let webUrl = "";

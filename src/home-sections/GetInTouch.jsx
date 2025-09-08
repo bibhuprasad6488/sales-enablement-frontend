@@ -46,7 +46,6 @@ function GetInTouch() {
     return Object.keys(newErrors).length === 0;
   };
 
-
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -266,7 +265,6 @@ function GetInTouch() {
                   id="inquiry"
                   required
                   className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#060B33] transition duration-300 ease-in-out hover:border-[#060B33]"
-                  defaultValue=""
                 >
                   <option value="" disabled>
                     Select Inquiry Type
