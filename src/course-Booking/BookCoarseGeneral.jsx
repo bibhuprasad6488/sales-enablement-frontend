@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Breadcrumb from "../components/Breadcrumb";
 import nationality from "./country.json";
-
+import axios from "../api/axios";
 const BookCoarseGeneral = () => {
   const [sectionComplete, setsectionComplete] = useState("Missing Information");
   const [sectiontik, setsectiontik] = useState("1");
@@ -16,11 +16,13 @@ const BookCoarseGeneral = () => {
   const user = localStorage.getItem("user_data");
 
   const userData = JSON.parse(user);
-
-
+  const usertitle = userData.title || "";
+  const [companyOptions, setCompanyOptions] = useState([]);
+  const [companyNotFound, setCompanyNotFound] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
   const [formData, setFormData] = useState({
-    title: "",
+    title: usertitle,
     surname: "",
     firstname: "",
     preferName: "",
@@ -54,20 +56,8 @@ const BookCoarseGeneral = () => {
     str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 
   // Option arrays
-  const optionTitle = [
-    "Aprof",
-    "adv",
-    "Brig",
-    "Comd",
-    "Dr",
-    "Ds",
-    "Gen",
-    "Judge",
-    "L+",
-    "L+Gen",
-    "Mr",
-    "Ms",
-  ];
+
+  const optionTitle = ["Adv", "Dr", "Miss", "Mr", "Mrs", "Ms", "Prof", "Sir"];
 
   const diataryReq = [
     "None",
@@ -156,11 +146,7 @@ const BookCoarseGeneral = () => {
   const validateStep = () => {
     let stepErrors = {};
     const requiredFields = [
-      "title",
-      "surname",
-      "firstname",
       "preferName",
-      "diet",
       "company",
       "organisation",
       "levelOrg",
@@ -204,6 +190,7 @@ const BookCoarseGeneral = () => {
       sessionStorage.setItem("bookingFormData", JSON.stringify(formData));
       navigate("/booking-course/billing", { state: { course: courses } });
     }
+    console.log("Validation errors:", errors);
   };
 
   useEffect(() => {
@@ -214,14 +201,53 @@ const BookCoarseGeneral = () => {
       setSelectedCountry(parsedData.nationality || "");
     }
   }, []);
+  const fetchCompanies = async (search) => {
+    try {
+      const response = await axios.post("/get-all-companies", { search });
+      const data = response.data;
 
-  // ✅ Auto-update section status
+      if (data.data && data.data.length > 0) {
+        setCompanyOptions(data.data);
+        setCompanyNotFound(false);
+      } else {
+        setCompanyOptions([]);
+        setCompanyNotFound(true);
+      }
+    } catch (err) {
+      console.error(err);
+      setCompanyOptions([]);
+      setCompanyNotFound(true);
+    }
+  };
+
+  const addCompany = async () => {
+    try {
+      const newCompany = searchValue.trim();
+      if (!newCompany) return alert("Please enter a company name");
+
+      await axios.post("/add-company", {
+        company_name: newCompany,
+        user_id: userData.user_id,
+      });
+
+      setFormData((prev) => ({
+        ...prev,
+        company: newCompany,
+      }));
+      setSearchValue(newCompany); // keep it visible in input
+      setCompanyOptions([]);
+      setCompanyNotFound(false);
+    } catch (err) {
+      console.error(err);
+      alert("Failed to add company.");
+    }
+  };
+
   useEffect(() => {
     const requiredFields = [
       "title",
-     
+
       "preferName",
-      "diet",
       "company",
       // "organisation",
       "levelOrg",
@@ -310,13 +336,12 @@ const BookCoarseGeneral = () => {
 
           <form className="space-y-3">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Title Field */}
               <div className="grid gap-1.5">
                 <label htmlFor="title">Title</label>
                 <select
                   id="title"
                   name="title"
-                  value={formData.title}
+                  value={capitalizeFirst(formData.title)}
                   onChange={handleChange}
                   required
                   className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
@@ -328,12 +353,12 @@ const BookCoarseGeneral = () => {
                     </option>
                   ))}
                 </select>
+
                 {errors.title && (
                   <p className="text-red-500 text-xs mt-1">{errors.title}</p>
                 )}
               </div>
 
-              {/* Surname Field */}
               <div className="grid gap-1.5">
                 <label htmlFor="surname">
                   Surname{" "}
@@ -344,7 +369,7 @@ const BookCoarseGeneral = () => {
                 <input
                   id="surname"
                   name="surname"
-                  value={userData.last_name}
+                  value={formData.surname || userData.last_name}
                   onChange={handleChange}
                   type="text"
                   className="w-full p-2 border border-gray-300 rounded-lg bg-slate-100"
@@ -354,7 +379,6 @@ const BookCoarseGeneral = () => {
                 )}
               </div>
 
-              {/* First Name Field */}
               <div className="grid gap-1.5">
                 <label htmlFor="firstname">
                   First name{" "}
@@ -365,7 +389,7 @@ const BookCoarseGeneral = () => {
                 <input
                   id="firstname"
                   name="firstname"
-                  value={userData.first_name}
+                  value={formData.firstname || userData.first_name}
                   onChange={handleChange}
                   type="text"
                   className="w-full p-2 border border-gray-300 rounded-lg bg-slate-100"
@@ -377,7 +401,6 @@ const BookCoarseGeneral = () => {
                 )}
               </div>
 
-              {/* Preferred Name Field */}
               <div className="grid gap-1.5">
                 <label htmlFor="preferName">Preferred name</label>
                 <input
@@ -395,7 +418,6 @@ const BookCoarseGeneral = () => {
                 )}
               </div>
 
-              {/* Email Field */}
               <div className="grid gap-1.5">
                 <label htmlFor="email">
                   Email address{" "}
@@ -418,43 +440,79 @@ const BookCoarseGeneral = () => {
                   <p className="text-red-500 text-xs mt-1">{errors.email}</p>
                 )}
               </div>
-
-              {/* Dietary Requirement Field */}
-              <div className="grid gap-1.5">
-                <label htmlFor="diet">Dietary requirement</label>
-                <select
-                  id="diet"
-                  name="diet"
-                  value={formData.diet}
-                  onChange={handleChange}
-                  required
-                  className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
-                >
-                  <option value="">-- Please Select --</option>
-                  {diataryReq.map((opt, i) => (
-                    <option key={i} value={opt}>
-                      {opt}
-                    </option>
-                  ))}
-                </select>
-                {errors.diet && (
-                  <p className="text-red-500 text-xs mt-1">{errors.diet}</p>
-                )}
-              </div>
-
-              {/* Company Field */}
-              <div className="grid gap-1.5">
+              <div className="grid gap-1.5 relative">
                 <label htmlFor="company">Organization / Company</label>
+
                 <input
                   id="company"
                   name="company"
-                  value="The Sales Enablement Company"
-                  onChange={handleChange}
+                  value={searchValue} // keep raw typing here
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    setSearchValue(value);
+
+                    if (value.trim()) {
+                      fetchCompanies(value.trim());
+                    } else {
+                      setCompanyOptions([]);
+                      setCompanyNotFound(false);
+                      setFormData((prev) => ({ ...prev, company: "" }));
+                    }
+                  }}
                   type="text"
                   required
                   className="w-full p-2 border rounded-lg text-gray-600 bg-slate-100"
+                  autoComplete="off"
                 />
-               
+
+                {/* Dropdown */}
+                {(companyOptions.length > 0 || companyNotFound) &&
+                  searchValue && (
+                    <div
+                      className="absolute z-50 w-full bg-white border rounded-md mt-1 max-h-60 overflow-auto shadow-lg"
+                      style={{ top: "90px" }}
+                    >
+                      {companyOptions.length > 0 ? (
+                        <>
+                          <div className="px-3 py-2 text-white text-sm bg-[#3B82F6]">
+                            -- Please Select --
+                          </div>
+                          {companyOptions.map((comp) => (
+                            <div
+                              key={comp.id}
+                              className="px-3 py-2 hover:bg-gray-200 cursor-pointer"
+                              onClick={() => {
+                                setSearchValue(
+                                  capitalizeFirst(comp.company_name)
+                                );
+                                setFormData((prev) => ({
+                                  ...prev,
+                                  company: comp.company_name,
+                                }));
+                                setCompanyOptions([]);
+                                setCompanyNotFound(false);
+                              }}
+                            >
+                              {capitalizeFirst(comp.company_name)}
+                            </div>
+                          ))}
+                        </>
+                      ) : (
+                        <div className="flex justify-between items-center px-3 py-2">
+                          <span className="text-red-500 text-xs">
+                            No results found
+                          </span>
+                          <button
+                            type="button"
+                            onClick={addCompany}
+                            className="px-3 py-1 text-white bg-blue-600 rounded-md text-xs"
+                          >
+                            Add Company
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  )}
               </div>
 
               {/* Function in Organisation Field */}

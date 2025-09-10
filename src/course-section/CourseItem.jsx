@@ -70,7 +70,7 @@ const CourseItem = ({ course }) => {
             >
               <div className="flex items-center gap-2">
               {course?.course_type}
-                {course?.course_type === "Offline" ? (
+                {/* {course?.course_type === "Offline" ? (
                   <>
                     <BsBuildings  /> 
                   </>
@@ -80,7 +80,7 @@ const CourseItem = ({ course }) => {
                   </>
                 ) : (
                   <span>Unknown Mode</span>
-                )}
+                )} */}
               </div>
 
             </div>
