@@ -28,7 +28,6 @@ import ScrollToTop from "./components/ScrollToTop";
 import DetailsSlug from "./home-sections/DetailsSlug";
 import WhoweAre from "./home-sections/WhoweAre";
 import MeasurableGrowth from "./service-section/MeasurableGrowth";
-import BookCourse from "../src/course-Booking/BookCourse";
 import BookingConfirmation from "./course-section/BookCoarseConfirmation";
 import Book_stepper from "./course-Booking/Book_stepper";
 function App() {
