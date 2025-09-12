@@ -214,7 +214,7 @@ const BookCoarseGeneral = () => {
         setCompanyNotFound(true);
       }
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       setCompanyOptions([]);
       setCompanyNotFound(true);
     }
@@ -297,11 +297,10 @@ const BookCoarseGeneral = () => {
                 General
               </p>
               <span
-                className={`mt-1 px-3 py-1 rounded-full  text-xs font-medium  ${
-                  sectionComplete === "Missing Information"
+                className={`mt-1 px-3 py-1 rounded-full  text-xs font-medium  ${sectionComplete === "Missing Information"
                     ? "bg-yellow-400 text-white"
                     : "bg-green-100 text-green-700"
-                } `}
+                  } `}
               >
                 {sectionComplete}
               </span>
@@ -461,8 +460,9 @@ const BookCoarseGeneral = () => {
                   }}
                   type="text"
                   required
-                  className="w-full p-2 border rounded-lg text-gray-600 bg-slate-100"
+                  className="w-full px-2 border rounded-lg text-gray-600 bg-slate-100"
                   autoComplete="off"
+                  placeholder="Start typing..."
                 />
 
                 {/* Dropdown */}
@@ -470,7 +470,7 @@ const BookCoarseGeneral = () => {
                   searchValue && (
                     <div
                       className="absolute z-50 w-full bg-white border rounded-md mt-1 max-h-60 overflow-auto shadow-lg"
-                      style={{ top: "90px" }}
+                      style={{ top: "92px", maxHeight: "300px", overflowY: "auto" }}
                     >
                       {companyOptions.length > 0 ? (
                         <>

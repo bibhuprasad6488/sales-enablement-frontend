@@ -45,7 +45,7 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter basename="/thesalesenablement/">
+    <BrowserRouter>
       {isLoading ? (
         <div
           style={{
@@ -68,9 +68,8 @@ function App() {
         </div>
       ) : (
         <div
-          className={`transition-opacity duration-1000 ${
-            showContent ? "opacity-100" : "opacity-0"
-          }`}
+          className={`transition-opacity duration-1000 ${showContent ? "opacity-100" : "opacity-0"
+            }`}
         >
           {" "}
           <ScrollToTop />
