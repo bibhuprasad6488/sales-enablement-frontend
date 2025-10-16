@@ -30,7 +30,6 @@ const CourseDetailSection = ({ courseData }) => {
       toast.error("Download failed. Please try again later.");
       console.error("Download failed:", error);
     }
-  
   };
 
   return (
@@ -68,7 +67,7 @@ const CourseDetailSection = ({ courseData }) => {
           </p>
         </div>
 
-        <div className="flex flex-wrap lg:flex-nowrap justify-between items-center py-12 ">
+        <div className="flex flex-wrap lg:flex-nowrap justify-between items-start py-12">
           <div className="px-6 py-16 shadow-xl w-full lg:w-4/5">
             <div className="max-w-5xl">
               <h1 className="text-sm sm:text-xl md:text-xl lg:text-2xl font-bold mb-6">
@@ -130,7 +129,7 @@ const CourseDetailSection = ({ courseData }) => {
             </div>
           </div>
 
-          <div className="w-full lg:w-1/3">
+          <div className="w-full lg:w-1/3 lg:sticky lg:top-6 self-start">
             <PriceSideBar course={courseData} />
           </div>
         </div>
