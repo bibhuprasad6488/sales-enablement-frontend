@@ -127,8 +127,6 @@ function ContactContent({ contactData }) {
               </a>
             </div>
 
-          
-
             <div className="transform hover:scale-110 transition duration-300 rounded-full text-white">
               <a href={websiteData.facebook_link}>
                 {" "}
@@ -167,7 +165,7 @@ function ContactContent({ contactData }) {
                 placeholder="Your Name*"
                 className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#060B33] transition duration-300 ease-in-out hover:border-[#060B33]"
               />
-              <FaUser className="absolute left-3 top-3 text-gray-500" />
+              <FaUser className="absolute left-3 top-4 text-gray-500" />
             </div>
 
             <div className="relative">
@@ -178,7 +176,7 @@ function ContactContent({ contactData }) {
                 placeholder="Company Name*"
                 className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#060B33] transition duration-300 ease-in-out hover:border-[#060B33]"
               />
-              <FaBuilding className="absolute left-3 top-3 text-gray-500" />
+              <FaBuilding className="absolute left-3 top-4 text-gray-500" />
             </div>
 
             <div className="relative">
@@ -189,7 +187,7 @@ function ContactContent({ contactData }) {
                 placeholder="Email Address*"
                 className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#060B33] transition duration-300 ease-in-out hover:border-[#060B33]"
               />
-              <FaEnvelope className="absolute left-3 top-3 text-gray-500" />
+              <FaEnvelope className="absolute left-3 top-4 text-gray-500" />
             </div>
 
             <div className="relative">
@@ -204,7 +202,7 @@ function ContactContent({ contactData }) {
                   e.target.value = e.target.value.replace(/\D/g, "");
                 }}
               />
-              <FaPhoneAlt className="absolute left-3 top-3 text-gray-500" />
+              <FaPhoneAlt className="absolute left-3 top-4 text-gray-500" />
             </div>
 
             <div className="relative">
@@ -221,7 +219,7 @@ function ContactContent({ contactData }) {
                 <option value="support">Support</option>
                 <option value="general">General Inquiry</option>
               </select>
-              <MdOutlineSupportAgent className="absolute left-3 top-3 text-gray-500" />
+              <MdOutlineSupportAgent className="absolute left-3 top-4 text-gray-500  " />
             </div>
 
             <div className="relative">
@@ -232,7 +230,7 @@ function ContactContent({ contactData }) {
                 placeholder="Your Message*"
                 className="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#060B33] transition duration-300 ease-in-out hover:border-[#060B33]"
               ></textarea>
-              <MdOutlineDescription className="absolute left-3 top-3 text-gray-500" />
+              <MdOutlineDescription className="absolute left-3 top-4 text-gray-500" />
             </div>
 
             <span>
