@@ -11,7 +11,7 @@
 button {
   cursor: pointer;
 }
-.bg-layer {
+/* .bg-layer {
   background-color: #060b33bd;
   transition: background 0.5s ease-in-out;
 }
@@ -26,7 +26,8 @@ button {
 .bg-layer1:hover .bg-text {
   color: #ffffff;
   border: 2px solid #ffffff;
-}
+} */
+
 
 .bg-gradient-2 {
   background: linear-gradient(to left, #db0032 0%, #fa6602 100%);

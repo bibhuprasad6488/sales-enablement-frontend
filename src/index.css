@@ -44,7 +44,6 @@ input[type="number"] {
   background: linear-gradient(to right, #db0032 0%, #fa6602 100%);
 }
 
-
 *,
 *::before,
 *::after {
@@ -300,20 +299,20 @@ body {
 
 .border-btn2::before {
   top: 0;
-  left: -100%; 
+  left: -100%;
 }
 
 .border-btn2::after {
   bottom: 0;
-  right: -100%; 
+  right: -100%;
 }
 
 .border-btn2:hover::before {
-  transform: translateX(100%); 
+  transform: translateX(100%);
 }
 
 .border-btn2:hover::after {
-  transform: translateX(-100%); 
+  transform: translateX(-100%);
 }
 
 @keyframes fadeIn {
@@ -348,6 +347,24 @@ body {
   background-position: center;
 }
 
+.bg-layer {
+  background-color: #060b33bd;
+  transition: background 0.5s ease-in-out;
+}
+
+.bg-layer1 {
+  background-color: #060b33bd;
+  transition: background 0.5s ease-in-out;
+}
+
+.bg-layer1:hover {
+  background: linear-gradient(to right, #db0032 0%, #fa6602 100%);
+}
+
+.bg-layer1:hover .bg-text {
+  color: #ffffff;
+  border: 2px solid #ffffff;
+}
 .slick-slide {
   padding: 2px 8px;
   box-sizing: border-box;
@@ -416,6 +433,6 @@ body {
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .scrollbar-hide {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;     /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
