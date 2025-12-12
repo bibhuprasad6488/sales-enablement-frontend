@@ -2,16 +2,11 @@ import React, { useState, useRef, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import {
-
-  FaArrowLeft,
-  FaArrowRight,
-} from "react-icons/fa";
-import axios from "../api/axios"
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import axios from "../api/axios";
 import { Link } from "react-router-dom";
 
-const RelatedCourseSlider = ({courseId, course}) => {
-  console.log(courseId)
+const RelatedCourseSlider = ({ courseId, course }) => {
   if (!courseId) return <p></p>;
   const sliderRef = useRef(null);
   const [hoveredCourseId, setHoveredCourseId] = useState(null);
@@ -22,13 +17,11 @@ const RelatedCourseSlider = ({courseId, course}) => {
     const fetchRelatedCourses = async () => {
       try {
         const res = await axios.get(`/get-related-course/${courseId}`);
-        console.log("API Response:", res.data.data); // Check if API itself returns duplicates
-  
-        // Ensure unique courses based on `id`
+
         const uniqueCourses = Array.from(
           new Map(res.data.data.map((course) => [course.id, course])).values()
         );
-  
+
         setRelatedCourses(uniqueCourses);
       } catch (error) {
         console.error("Error fetching related courses:", error);
@@ -36,13 +29,9 @@ const RelatedCourseSlider = ({courseId, course}) => {
         setLoading(false);
       }
     };
-  
+
     fetchRelatedCourses();
   }, [courseId]);
-  
-
-
-
 
   const settings = {
     dots: false,
@@ -95,8 +84,9 @@ const RelatedCourseSlider = ({courseId, course}) => {
           const isExpanded = expandedDescription[course.id];
           const displayedDescription = isExpanded
             ? course.description
-            : `${course.description.slice(0, charLimit)}${course.description.length > charLimit ? "..." : ""
-            }`;
+            : `${course.description.slice(0, charLimit)}${
+                course.description.length > charLimit ? "..." : ""
+              }`;
 
           return (
             <div
@@ -105,78 +95,78 @@ const RelatedCourseSlider = ({courseId, course}) => {
               onMouseEnter={() => setHoveredCourseId(course.id)}
               onMouseLeave={() => setHoveredCourseId(null)}
             >
-
-<Link to={`/courses-details/${course.slug}`}>
-
-
-              <div
-                className={`border-2 px-4 py-4 flex flex-col justify-between shadow-xl overflow-hidden relative transition-all duration-300  ${hoveredCourseId === course.id
-                    ? "border-transparent bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white"
-                    : "border-gray-300 bg-white"
+              <Link to={`/courses-details/${course.slug}`}>
+                <div
+                  className={`border-2 px-4 py-4 flex flex-col justify-between shadow-xl overflow-hidden relative transition-all duration-300  ${
+                    hoveredCourseId === course.id
+                      ? "border-transparent bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white"
+                      : "border-gray-300 bg-white"
                   }`}
-                style={{
-                  minHeight: "260px",
-                  height: "auto",
-                  maxWidth: "100%",
-                  width: "100%",
-                  boxSizing: "border-box",
-                  borderLeft: "6px solid transparent",
-                  borderImageSource:
-                    "linear-gradient(to bottom, #DB0032, #FA6602)",
-                  borderImageSlice: 1,
-                }}
-              >
-                <div className=" py-3">
-                  {/* Course Icon and Title */}
-                  <div className="flex justify-between items-center mb-6">
-                    <div className="flex items-center gap-3">
-                      <span
-                        className={`font-semibold w-8 h-8 rounded-full flex justify-center items-center transition-all duration-300 ${hoveredCourseId === course.id
-                            ? "bg-white text-[#DB0032]"
-                            : "text-white bg-gradient-to-r from-[#DB0032] to-[#FA6602]"
+                  style={{
+                    minHeight: "260px",
+                    height: "auto",
+                    maxWidth: "100%",
+                    width: "100%",
+                    boxSizing: "border-box",
+                    borderLeft: "6px solid transparent",
+                    borderImageSource:
+                      "linear-gradient(to bottom, #DB0032, #FA6602)",
+                    borderImageSlice: 1,
+                  }}
+                >
+                  <div className=" py-3">
+                    {/* Course Icon and Title */}
+                    <div className="flex justify-between items-center mb-6">
+                      <div className="flex items-center gap-3">
+                        <span
+                          className={`font-semibold w-8 h-8 rounded-full flex justify-center items-center transition-all duration-300 ${
+                            hoveredCourseId === course.id
+                              ? "bg-white text-[#DB0032]"
+                              : "text-white bg-gradient-to-r from-[#DB0032] to-[#FA6602]"
                           }`}
-                      >
-                         <span dangerouslySetInnerHTML={{ __html: course.icon }} />
-                      </span>
-                      <span className="font-semibold">
-                      <span className="font-semibold">{course.name}</span>
-                      </span>
-                    </div>
-                    <div
-                      className={`flex items-center gap-1 rounded-md px-3 py-1 transition-all duration-300 ${hoveredCourseId === course.id
-                          ? "bg-white text-red-600"
-                          : "bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white"
+                        >
+                          <span
+                            dangerouslySetInnerHTML={{ __html: course.icon }}
+                          />
+                        </span>
+                        <span className="font-semibold">
+                          <span className="font-semibold">{course.name}</span>
+                        </span>
+                      </div>
+                      <div
+                        className={`flex items-center gap-1 rounded-md px-3 py-1 transition-all duration-300 ${
+                          hoveredCourseId === course.id
+                            ? "bg-white text-red-600"
+                            : "bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white"
                         }`}
-                    >
-                  {course.course_type}
-                    </div>
-                  </div>
-
-                  {/* Course Title */}
-                  <h3 className="text-sm md:text-base lg:text-lg font-bold uppercase mb-4">
-                 {course.name}
-                  </h3>
-
-                  {/* Horizontal Divider */}
-                  <hr className="my-4 border-gray-300" />
-
-                  {/* Course Description */}
-                  <p className="text-sm font-light leading-relaxed">
-                    {displayedDescription}
-                    {course.description.length > charLimit && (
-                      <button
-                        className="text-blue-500 ml-2 hover:underline"
-                        onClick={() => toggleDescription(course.id)}
                       >
-                        {isExpanded ? "Show Less" : "Learn More"}
-                      </button>
-                    )}
-                  </p>
+                        {course.course_type}
+                      </div>
+                    </div>
+
+                    {/* Course Title */}
+                    <h3 className="text-sm md:text-base lg:text-lg font-bold uppercase mb-4">
+                      {course.name}
+                    </h3>
+
+                    {/* Horizontal Divider */}
+                    <hr className="my-4 border-gray-300" />
+
+                    {/* Course Description */}
+                    <p className="text-sm font-light leading-relaxed">
+                      {displayedDescription}
+                      {course.description.length > charLimit && (
+                        <button
+                          className="text-blue-500 ml-2 hover:underline"
+                          onClick={() => toggleDescription(course.id)}
+                        >
+                          {isExpanded ? "Show Less" : "Learn More"}
+                        </button>
+                      )}
+                    </p>
+                  </div>
                 </div>
-              </div>
               </Link>
-
-
             </div>
           );
         })}

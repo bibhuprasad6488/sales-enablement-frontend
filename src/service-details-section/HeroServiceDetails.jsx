@@ -14,7 +14,7 @@ function HeroServiceDetails({ serviceDetails }) {
             <Navbar />
 
             <div className="text-white flex items-center justify-center container mx-auto px-4 pt-6 sm:px-4 sm:pt-16 ">
-              <h1 className="text-2xl md:text-4xl lg:text-5xl uppercase font-bold  ">
+              <h1 className="text-2xl md:text-3xl lg:text-4xl uppercase font-bold  ">
                 {serviceDetails?.title}
               </h1>
             </div>

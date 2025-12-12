@@ -1,69 +1,106 @@
-import React, { useState } from "react";
-import {
-  FaChartLine,
-  FaUsers,
-  FaClipboardCheck,
-  FaCogs,
-  FaSearch,
+import React, { useEffect, useState } from "react";
+import { BsArrowRight } from "react-icons/bs";
+import { toast } from "react-toastify";
+import axios from "../api/axios";
+import { Link, useParams } from "react-router-dom";
 
-} from "react-icons/fa";
-
-import { BsArrowRight } from "react-icons/bs"; 
-
-const ServiceDetailSideBar = ({ course }) => {
+const ServiceDetailSideBar = () => {
+  const { slug } = useParams(); // current service slug from route
   const [email, setEmail] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [showServices, setShowServices] = useState([]);
 
-  const handleSubmit = (e) => {
+  // Fetch services
+  useEffect(() => {
+    const allServices = async () => {
+      try {
+        const response = await axios.get("/all-services");
+        const result = response.data;
+        setShowServices(result.data || []);
+      } catch (error) {
+        console.error("Failed to fetch services:", error);
+      }
+    };
+    allServices();
+  }, []);
+
+  // Handle subscribe
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email) {
-      setIsSubscribed(true);
-      setEmail("");
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+
+    if (!emailRegex.test(email)) {
+      toast.warn("Please enter a valid email address (e.g: user@gmail.com)", {
+        pauseOnHover: false,
+        closeOnClick: true,
+      });
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "https://www.email.theenablement.com/send_email.php",
+        new URLSearchParams({ email }),
+        { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+      );
+
+      if (response.data?.status === "success") {
+        toast.success(response.data.message);
+        setEmail("");
+        setIsSubscribed(true);
+      } else {
+        toast.error(response.data.message || "Subscription failed");
+      }
+    } catch (error) {
+      toast.error("Failed to subscribe. Please try again.");
+      console.error("Error:", error);
     }
   };
-
-  const services = [
-    { title: "Sales Force Evaluation", icon: <FaChartLine /> },
-    { title: "Recruiting Process Optimization", icon: <FaUsers /> },
-    { title: "Sales Candidate Assessments", icon: <FaClipboardCheck /> },
-    { title: "CRM Selection, Installation, and Integration", icon: <FaCogs /> },
-    { title: "Sales Process Optimization", icon: <FaSearch /> },
-  ];
-
   return (
-    <aside className="w-full h-full  lg:w-1/3 xl:w-2/5 2xl:w-1/3 bg-gray-100 p-6 shadow-lg md:block">
+    <aside className="w-full h-full lg:w-1/6 xl:w-1/3 2xl:w-1/5 bg-gray-100 p-6 shadow-lg md:block sticky top-20">
       <h2 className="text-2xl font-semibold text-gray-800 mb-6">
         Our Services
       </h2>
 
-      <div className="space-y-4 mb-8">
-        {services.map((service, index) => (
-          <React.Fragment key={index}>
-            <div className="flex items-center justify-between bg-white p-4 cursor-pointer icon-hover rounded-lg shadow-md border border-gray-200 hover:shadow-lg hover:text-white hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] transition-all duration-300">
-              <div className="flex items-center space-x-2">
-                <div className="text-red-600 icon-hover2">{service.icon}</div>
-                <span className="font-medium">{service.title}</span>
-              </div>
-              <BsArrowRight />
-            </div>
-
-            {index === 4 && (
-              <div
-                className="flex items-center justify-between bg-white p-4 cursor-pointer icon-hover rounded-lg shadow-md border border-gray-200 hover:shadow-lg hover:text-white hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] transition-all duration-300"
-                onClick={() => (window.location.href = "/our-services")}
-              >
-                <div className="flex items-center space-x-2">
-                  <div className="text-blue-600 icon-hover2">🎉</div>
-                  <span className="font-medium">More Services</span>
-                </div>
-                <BsArrowRight />
-              </div>
-            )}
-          </React.Fragment>
+      {/* Services List */}
+      <div className="space-y-4 mb-8 grid gap-1">
+        {showServices?.map((service) => (
+          <Link
+            key={service.slug}
+            to={
+              service.indp === "1"
+                ? `/service/sales-force-details/${service.slug}`
+                : service.indp === "2"
+                ? `/service/sales-candidate-details/${service.slug}`
+                : `/service/${service.slug}`
+            }
+            state={service}
+            className={`flex items-center justify-between p-4 cursor-pointer rounded-lg shadow-md border transition-all duration-300
+              ${
+                slug === service.slug
+                  ? "bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white"
+                  : "bg-white text-gray-800 hover:shadow-lg hover:bg-gradient-to-r hover:from-[#DB0032] hover:to-[#FA6602] hover:text-white"
+              }
+            `}
+          >
+            <span className="font-medium">{service.title}</span>
+            <BsArrowRight />
+          </Link>
         ))}
+
+        {/* {showServices?.length > 5 && (
+          <div
+            className="flex items-center justify-between bg-white p-4 rounded-lg shadow-md border border-gray-200 cursor-pointer hover:shadow-lg hover:text-white hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] transition-all duration-300"
+            onClick={() => (window.location.href = "/our-services")}
+          >
+            <span className="font-medium">More Services</span>
+            <BsArrowRight />
+          </div>
+        )} */}
       </div>
 
-      <div className="py-6 px-4 bg-gray-200 rounded-lg shadow-md">
+      {/* Subscribe Form */}
+      {/* <div className="py-6 px-4 bg-gray-200 rounded-lg shadow-md">
         <h2 className="text-xl font-semibold text-gray-800 text-center">
           Get Updates
         </h2>
@@ -74,24 +111,22 @@ const ServiceDetailSideBar = ({ course }) => {
         <div className="mt-6 flex justify-center">
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col sm:flex-row md:flex-col lg:flex-col xl:flex-row gap-2 max-w-md w-full bg-white p-2 rounded-lg shadow-md"
+            className="flex flex-col sm:flex-row gap-2 max-w-md w-full bg-white p-2 rounded-lg shadow-md"
           >
             <input
               type="email"
               placeholder="Email address..."
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-t-md sm:rounded-l-md focus:outline-none focus:ring-2 focus:ring-red-500 mb-3 sm:mb-0"
+              className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
               required
             />
             <button
               type="submit"
-              className="px-6 py-2 relative  flex items-center justify-center group bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white rounded-t-md sm:rounded-r-md  transition"
+              className="px-6 py-2 relative flex items-center justify-center group bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white rounded-md transition"
             >
-              <span className="absolute inset-0 w-0 h-full   bg-[#060b33] rounded-r-md transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
-              <span className="relative text-white group-hover:text-white flex items-center">
-
-                Subscribe</span>
+              <span className="absolute inset-0 w-0 h-full bg-[#060b33] rounded-md transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
+              <span className="relative">Subscribe</span>
             </button>
           </form>
         </div>
@@ -101,7 +136,7 @@ const ServiceDetailSideBar = ({ course }) => {
             Thank you for subscribing!
           </div>
         )}
-      </div>
+      </div> */}
     </aside>
   );
 };

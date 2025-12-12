@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import "../home-sections/home.css";
 import HeroSection from "../home-sections/HeroSection";
@@ -13,7 +12,7 @@ import FooterSubscribe from "../home-sections/FooterSubscribe";
 import axios from "../api/axios";
 import { Helmet } from "react-helmet-async";
 import { useApi3 } from "../context/WebsiteDataContext";
-import { Bars } from "react-loader-spinner"; 
+import { Bars } from "react-loader-spinner";
 
 function Home() {
   const { websiteData, loading: websiteLoading } = useApi3();
@@ -21,7 +20,7 @@ function Home() {
   const [data, setData] = useState({});
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [showContent, setShowContent] = useState(false); 
+  const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,7 +29,6 @@ function Home() {
         setData(res.data.data);
       } catch (error) {
         setError("Failed to fetch data");
-    
       } finally {
         setTimeout(() => {
           setIsLoading(false);
@@ -42,11 +40,20 @@ function Home() {
     fetchData();
   }, []);
 
-
   const { consultation, page_banners, page_data, testimonials } = data || {};
 
   return (
     <>
+      <Helmet>
+        <title>{websiteData?.meta_title}</title>
+        <meta name="description" content={websiteData?.meta_description} />
+        <meta name="keywords" content={websiteData?.meta_keywords} />
+        <meta property="og:title" content={websiteData?.og_title} />
+        <meta property="og:description" content={websiteData?.og_description} />
+        <meta property="og:image" content={websiteData?.og_image} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={window.location.href} />
+      </Helmet>
       {isLoading || websiteLoading ? (
         <div
           style={{
@@ -68,23 +75,11 @@ function Home() {
           </div>
         </div>
       ) : (
-  
         <div
           className={`transition-opacity duration-1000 ${
             showContent ? "opacity-100" : "opacity-0"
           }`}
         >
-          <Helmet>
-            <title>{websiteData?.meta_title}</title>
-            <meta name="description" content={websiteData?.meta_description} />
-            <meta name="keywords" content={websiteData?.meta_keywords} />
-            <meta property="og:title" content={websiteData?.og_title} />
-            <meta property="og:description" content={websiteData?.og_description} />
-            <meta property="og:image" content={websiteData?.og_image} />
-            <meta property="og:type" content="website" />
-            <meta property="og:url" content={window.location.href} />
-          </Helmet>
-
           <div className="flex flex-col space-y-16">
             <HeroSection heroData={page_banners} />
             <OurCourses />
@@ -92,7 +87,7 @@ function Home() {
             <Services consultationData={consultation} />
             <GetInTouch />
             <CaseStudies />
-            <Testimonials testimonialsData={testimonials} />
+            {/* <Testimonials testimonialsData={testimonials} /> */}
             <LatestBlogs />
             <FooterSubscribe />
           </div>

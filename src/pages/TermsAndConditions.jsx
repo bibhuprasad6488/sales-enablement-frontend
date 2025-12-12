@@ -1,73 +1,203 @@
 import React from "react";
 import HeroTermsAndConditions from "../service-section/dedicated-pages/sections/HeroTermsAndConditions";
-import { Link } from "react-router-dom";
-import { FaArrowRight } from "react-icons/fa";
-import { useApi3 } from "../context/WebsiteDataContext";
 
-function TermsAndConditions() {
-    const { websiteData,  } = useApi3();
-        if (!websiteData) return <p></p>
+export default function TermsConditions() {
   return (
     <>
       <HeroTermsAndConditions />
-      <div className="flex items-center justify-center min-h-screen bg-gray-100 px-6 py-12">
-        <div className="max-w-5xl w-full bg-white p-10 rounded-xl shadow-lg border border-gray-300">
-          <h1 className="text-3xl font-bold text-gray-800 text-center">Terms & Conditions</h1>
-          <p className="text-gray-600 text-center mt-2">
-            Welcome to <span className="font-semibold">{websiteData.title}</span> platform. By using our services, you agree to the following terms and conditions.
-          </p>
+      <div className="bg-gray-50 min-h-screen w-full py-12 px-6 md:px-16">
+        {/* Header */}
 
-          <div className="mt-8 space-y-6">
-            <section>
-              <h2 className="text-xl font-semibold text-gray-700">1. Authorized Use</h2>
-              <p className="text-gray-600 mt-2">
-                This platform is intended for <span className="font-semibold">authorized sales representatives, managers, and partners</span>. Unauthorized use, credential sharing, or data misuse is strictly prohibited.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-xl font-semibold text-gray-700">2. Data Protection & Privacy</h2>
-              <p className="text-gray-600 mt-2">
-                We adhere to <span className="font-semibold">GDPR</span> and industry best practices to secure your data. Read our
-                <Link to="/privacy-policy" className="text-red-600 hover:text-red-400 hover:underline ml-1">Privacy Policy</Link>.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-xl font-semibold text-gray-700">3. Intellectual Property</h2>
-              <p className="text-gray-600 mt-2">
-                All materials, playbooks, and training content are proprietary to <span className="font-semibold">The Sales Enablement</span>. Unauthorized distribution is prohibited.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-xl font-semibold text-gray-700">4. Platform Updates</h2>
-              <p className="text-gray-600 mt-2">
-                We may update features, pricing, and access levels. Users will be notified of major changes via email or platform alerts.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-xl font-semibold text-gray-700">5. Compliance & Conduct</h2>
-              <p className="text-gray-600 mt-2">
-                Users must follow ethical sales practices, data protection laws, and maintain professionalism when interacting with clients and resources.
-              </p>
-            </section>
+        {/* Content */}
+        <div className="w-full grid grid-cols-2 gap-5 mx-auto mb-10">
+          {/* Section 1 */}
+          <div className="bg-white rounded-2xl shadow p-6 border-l-4 border-red-500">
+            <h2 className="text-lg font-semibold text-gray-800 mb-2">
+              1. Introduction
+            </h2>
+            <p className="text-gray-600 leading-2">
+              Welcome to The Sales Enablement Company (Pty) Ltd (“we,” “us,” or
+              “our”). By accessing and using this website, you (“user,”
+              “visitor,” or “you”) agree to be bound by these Terms and
+              Conditions. If you do not agree, please do not use this website.
+            </p>
           </div>
 
-          <div className="mt-10 text-center">
-            <p className="text-gray-600">By continuing, you acknowledge acceptance of these terms.</p>
-            <Link
-              to="/"
-              className="mt-4 inline-flex items-center px-6 py-3 font-medium text-white bg-gradient-to-r from-red-600 to-orange-500 rounded-lg shadow-lg hover:opacity-90 transition-all"
-            >
-              Back To Home <FaArrowRight className="ml-2" />
-            </Link>
+          {/* Section 2 */}
+          <div className="bg-white rounded-2xl shadow p-6 border-l-4 border-red-500">
+            <h2 className="text-lg font-semibold text-gray-800 mb-2">
+              2. Definitions
+            </h2>
+            <ul className="list-disc list-inside text-gray-600 space-y-1">
+              <li>
+                <b>Website</b>: www.theenablement.com and all related pages.
+              </li>
+              <li>
+                <b>Services</b>: training, coaching, consulting, and sales
+                enablement solutions offered by us.
+              </li>
+              <li>
+                <b>Content</b>: all text, graphics, design, trademarks, and
+                intellectual property displayed on the website.
+              </li>
+            </ul>
+          </div>
+
+          {/* Section 3 */}
+          <div className="bg-white rounded-2xl shadow p-6 border-l-4 border-red-500">
+            <h2 className="text-lg font-semibold text-gray-800 mb-2">
+              3. Use of the Website
+            </h2>
+            <ul className="list-disc list-inside text-gray-600 space-y-1">
+              <li>You agree to use this website only for lawful purposes.</li>
+              <li>
+                You may not attempt to gain unauthorized access, distribute
+                harmful software, or use the site in a way that infringes on the
+                rights of others.
+              </li>
+              <li>
+                We reserve the right to restrict or terminate access if these
+                Terms are violated.
+              </li>
+            </ul>
+          </div>
+
+          {/* Section 4 */}
+          <div className="bg-white rounded-2xl shadow p-6 border-l-4 border-red-500">
+            <h2 className="text-lg font-semibold text-gray-800 mb-2">
+              4. Intellectual Property
+            </h2>
+            <ul className="list-disc list-inside text-gray-600 space-y-1">
+              <li>
+                All content on this website is owned by or licensed to The Sales
+                Enablement Company (Pty) Ltd.
+              </li>
+              <li>
+                You may not copy, reproduce, or distribute any material without
+                prior written consent.
+              </li>
+            </ul>
+          </div>
+
+          {/* Section 5 */}
+          <div className="bg-white rounded-2xl shadow p-6 border-l-4 border-red-500">
+            <h2 className="text-lg font-semibold text-gray-800 mb-2">
+              5. Privacy and Data Protection
+            </h2>
+            <ul className="list-disc list-inside text-gray-600 space-y-1">
+              <li>
+                We respect your privacy and comply with the Protection of
+                Personal Information Act (POPIA).
+              </li>
+              <li>
+                By using this website, you consent to the collection and use of
+                your personal information as described in our Privacy Policy.
+              </li>
+              <li>
+                Information collected may include your name, contact details,
+                and browsing activity.
+              </li>
+            </ul>
+          </div>
+
+          {/* Section 6 */}
+          <div className="bg-white rounded-2xl shadow p-6 border-l-4 border-red-500">
+            <h2 className="text-lg font-semibold text-gray-800 mb-2">
+              6. Limitation of Liability
+            </h2>
+            <ul className="list-disc list-inside text-gray-600 space-y-1">
+              <li>
+                While we aim to keep this website accurate and up to date, we
+                make no guarantees as to its completeness or reliability.
+              </li>
+              <li>
+                We are not responsible for any loss, damage, or disruption
+                arising from the use of this website.
+              </li>
+            </ul>
+          </div>
+
+          {/* Section 7 */}
+          <div className="bg-white rounded-2xl shadow p-6 border-l-4 border-red-500">
+            <h2 className="text-lg font-semibold text-gray-800 mb-2">
+              7. Third-Party Links
+            </h2>
+            <ul className="list-disc list-inside text-gray-600 space-y-1">
+              <li>This website may include links to external websites.</li>
+              <li>
+                We are not responsible for the content, accuracy, or privacy
+                practices of third-party sites.
+              </li>
+            </ul>
+          </div>
+
+          {/* Section 8 */}
+          <div className="bg-white rounded-2xl shadow p-6 border-l-4 border-red-500">
+            <h2 className="text-lg font-semibold text-gray-800 mb-2">
+              8. E-Commerce (If Applicable)
+            </h2>
+            <ul className="list-disc list-inside text-gray-600 space-y-1">
+              <li>
+                Prices, services, and availability are subject to change without
+                notice.
+              </li>
+              <li>
+                Where applicable, refunds and returns will comply with the
+                Consumer Protection Act (CPA).
+              </li>
+              <li>
+                Payments must be made in full before delivery of any service.
+              </li>
+            </ul>
+          </div>
+
+          {/* Section 9 */}
+          <div className="bg-white rounded-2xl shadow p-6 border-l-4 border-red-500">
+            <h2 className="text-lg font-semibold text-gray-800 mb-2">
+              9. Governing Law
+            </h2>
+            <ul className="list-disc list-inside text-gray-600 space-y-1">
+              <li>
+                These Terms are governed by the laws of the Republic of South
+                Africa.
+              </li>
+              <li>
+                Any disputes shall be resolved in the courts of South Africa.
+              </li>
+            </ul>
+          </div>
+
+          {/* Section 10 */}
+          <div className="bg-white rounded-2xl shadow p-6 border-l-4 border-red-500">
+            <h2 className="text-lg font-semibold text-gray-800 mb-2">
+              10. Changes to Terms
+            </h2>
+            <ul className="list-disc list-inside text-gray-600 space-y-1">
+              <li>We may update or amend these Terms from time to time.</li>
+              <li>
+                Changes will take effect immediately once published on this
+                page.
+              </li>
+            </ul>
+          </div>
+
+          {/* Section 11 */}
+        </div>
+        <div className="max-w-4xl  mx-auto mb-10">
+          <div className="bg-white rounded-2xl shadow p-6 border-l-4 border-r-4  border-red-500">
+            <h2 className="text-lg font-semibold text-gray-800 mb-2">
+              11. Contact Information
+            </h2>
+            <p className="text-gray-600 leading-7">
+              For questions or concerns regarding these Terms, please contact
+              us:{" "}
+              <a href="mailto:info@theenablement.com" className="text-red-500">
+                info@theenablement.com
+              </a>
+            </p>
           </div>
         </div>
       </div>
     </>
   );
 }
-
-export default TermsAndConditions;

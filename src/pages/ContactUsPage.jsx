@@ -23,7 +23,6 @@ function ContactUsPage() {
         setData(res.data.data);
       } catch (error) {
         setError("Failed to fetch data")
-        console.log("Error fetching data:", error)
       } finally {
         setIsLoading(false);
       }
@@ -110,10 +109,10 @@ if (isLoading) {
         <ContactContent contactData={data.contact_data} />
       </div>
 
-      <div className="container mx-auto py-12">
+      {/* <div className="container mx-auto py-12">
         <Faq faqData={data.faq_data} />
       </div>
-      <MapEmbed mapData={data.location_data}/>
+      <MapEmbed mapData={data.location_data}/> */}
     </div>
   );
 }

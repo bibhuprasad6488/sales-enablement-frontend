@@ -2,11 +2,22 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { FiChevronDown } from "react-icons/fi";
 import HoverLine from "../assets/hover-line.png";
-import { FaLock, FaEnvelope, FaTimes, FaEye, FaEyeSlash, FaUser, FaSignOutAlt, FaBook, FaUserAlt, FaKey } from "react-icons/fa";
+import {
+  FaLock,
+  FaEnvelope,
+  FaTimes,
+  FaEye,
+  FaEyeSlash,
+  FaUser,
+  FaSignOutAlt,
+  FaBook,
+  FaUserAlt,
+  FaKey,
+} from "react-icons/fa";
 import RightArrow1 from "../assets/arrow-right1.png";
 import { toast } from "react-toastify";
 import { AuthContext } from "../context/AuthContext";
-import axios from "../api/axios"
+import axios from "../api/axios";
 import { useTab } from "../context/TabContext";
 const DesktopMenu = ({
   links,
@@ -18,13 +29,15 @@ const DesktopMenu = ({
   if (!services) return <p></p>;
   const { user, logout } = useContext(AuthContext);
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const togglePasswordVisibility = () => { setPasswordVisible(!passwordVisible) };
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
   const [forgotEmail, setForgotEmail] = useState("");
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [loginData, setLoginData] = useState({ email_id: "", password: "" });
   const [errors, setErrors] = useState({});
   const [remember, setRemember] = useState(false);
-  const { login } = useContext(AuthContext)
+  const { login } = useContext(AuthContext);
   const handleForgotPassword = () => {
     alert(`Password reset link sent to ${forgotEmail}`);
     setShowForgotPassword(false);
@@ -61,15 +74,20 @@ const DesktopMenu = ({
     setLoginData({
       ...loginData,
       [name]: value,
-    })
-  }
+    });
+  };
   useEffect(() => {
     const savedEmail = localStorage.getItem("email_id");
     const savedPassword = localStorage.getItem("password");
-    const rememberMe = JSON.parse(localStorage.getItem("rememberMe") || "false");
+    const rememberMe = JSON.parse(
+      localStorage.getItem("rememberMe") || "false"
+    );
 
     if (rememberMe) {
-      setLoginData({ email_id: savedEmail || "", password: savedPassword || "" });
+      setLoginData({
+        email_id: savedEmail || "",
+        password: savedPassword || "",
+      });
       setRemember(true);
     }
   }, []);
@@ -151,7 +169,11 @@ const DesktopMenu = ({
       });
     }
   };
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> b5a8da09364cc726f4e394da8eb0c32802ac5400
   const { setActiveTab } = useTab();
   if (!courses) return <p></p>;
   return (
@@ -287,33 +309,33 @@ const DesktopMenu = ({
 
                     <div className="space-y-5">
                       <div className="flex items-center cursor-pointer space-x-3 hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:text-white transition-all duration-300 rounded-md p-2">
-                        <FaBook className=" text-xl transition-colors duration-300" />
+                        <FaBook className="text-xl transition-colors duration-300" />
                         <Link
                           to="/login-signup"
+                          state={{ activeTab: "journey" }} // pass tab via state
                           className="text-lg font-medium transition-colors duration-300"
-                          onClick={() => setActiveTab("My Learning Journey")}
                         >
                           My learning journey
                         </Link>
                       </div>
-
+                      {/* className="text-sm font-medium transition-colors
+                      duration-300"> */}
                       <div className="flex items-center cursor-pointer space-x-3 hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:text-white transition-all duration-300 rounded-md p-2">
-                        <FaUserAlt className=" text-xl transition-colors duration-300" />
+                        <FaUserAlt className="text-xl transition-colors duration-300" />
                         <Link
                           to="/login-signup"
-                          className="text-lg font-medium  transition-colors duration-300"
-                          onClick={() => setActiveTab("Personal Details")}
+                          state={{ activeTab: "personal" }} // pass tab via state
+                          className="text-lg font-medium transition-colors duration-300"
                         >
                           Personal details
                         </Link>
                       </div>
-
                       <div className="flex items-center cursor-pointer space-x-3 hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:text-white transition-all duration-300 rounded-md p-2">
-                        <FaKey className=" text-xl  transition-colors duration-300" />
+                        <FaKey className="text-xl transition-colors duration-300" />
                         <Link
                           to="/login-signup"
-                          className="text-lg font-medium  transition-colors duration-300"
-                          onClick={() => setActiveTab("Change Password")}
+                          state={{ activeTab: "password" }} // pass tab via state
+                          className="text-lg font-medium transition-colors duration-300"
                         >
                           Change password
                         </Link>
@@ -350,7 +372,11 @@ const DesktopMenu = ({
               </NavLink>
               <NavLink
                 to="/login-signup"
+<<<<<<< HEAD
                  state={{ activeTab: "signup" }}
+=======
+                state={{ activeTab: "signup" }}
+>>>>>>> b5a8da09364cc726f4e394da8eb0c32802ac5400
                 type="button"
                 className="text-white group transition-transform duration-500 ease-out transform uppercase text-[12px] hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] font-bold text-sm px-10 py-3 border-btn border-white hover:border-[#ed3b15]"
               >

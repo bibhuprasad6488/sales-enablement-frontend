@@ -17,7 +17,7 @@ function LoginSignUp() {
                         <div className="text-white flex items-center justify-center container mx-auto px-4 pt-6 sm:px-4 sm:pt-16 ">
                             <h1 className="sm:text-2xl  md:text-4xl lg:text-5xl uppercase font-bold">The Sales Enablement Account</h1>
                         </div>
-                        <div className="text-white flex items-center justify-center container mx-auto px-4 pt-4 pb-10 sm:px-4 sm:pt-10 sm:pb-20">
+                        <div className="text-white flex items-center justify-center capitalize container mx-auto px-4 pt-4 pb-10 sm:px-4 sm:pt-10 sm:pb-20">
                             <Breadcrumb breadcrumbs={[{ label: 'Home', to: '/' }, { label: activeTab }]} />
                         </div>
                     </div>

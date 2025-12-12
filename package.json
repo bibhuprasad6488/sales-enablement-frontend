@@ -18,6 +18,8 @@
     "font-awesome": "^4.7.0",
     "framer-motion": "^11.18.2",
     "hero-slider": "^3.2.1",
+    "lucide-react": "^0.542.0",
+    "pusher-js": "^8.4.0",
     "react": "^18.3.1",
     "react-calendar": "^5.1.0",
     "react-dom": "^18.3.1",
@@ -37,6 +39,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
+    "@tailwindcss/typography": "^0.5.16",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",

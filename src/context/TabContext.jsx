@@ -29,7 +29,13 @@ export const TabProvider = ({ children }) => {
   }, [navigate]);
 
   return (
+<<<<<<< HEAD
     <TabContext.Provider value={{ activeTab, setActiveTab: handleSetActiveTab }}>
+=======
+    <TabContext.Provider
+      value={{ activeTab, setActiveTab: handleSetActiveTab }}
+    >
+>>>>>>> b5a8da09364cc726f4e394da8eb0c32802ac5400
       {children}
     </TabContext.Provider>
   );

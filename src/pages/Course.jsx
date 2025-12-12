@@ -24,7 +24,7 @@ function Course() {
           All{" "}
           <span className="bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text">
             the Sales Enablement Skills You
-          </span>
+          </span>                                 
           <br /> Need in One Place
         </h1>
         <hr className="py-2 lg:py-5" />

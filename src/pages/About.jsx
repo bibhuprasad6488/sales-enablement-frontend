@@ -74,9 +74,9 @@ function About() {
         <VisionMission missionData={mission_data} visionData={vision_data} valueData={values_data} error={error} />
         <WhyChoseUs whyChoseUs={why_choose_us} error={error} />
         <Achievement archivementData={data.archivement} error={error} />
-        <Expertise expertsData={experts} error={error} />
-        <Awards awardData={award_data} error={error} />
-        <Cards awardsData={awards} error={error} />
+        {/* <Expertise expertsData={experts} error={error} /> */}
+        {/* <Awards awardData={award_data} error={error} /> */}
+        {/* <Cards awardsData={awards} error={error} /> */}
       </div>
     </>
   );

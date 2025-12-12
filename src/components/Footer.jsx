@@ -16,6 +16,10 @@ import { useApi3 } from "../context/WebsiteDataContext";
 import { useApi2 } from "../context/CourseContextApi";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import logoFacebook from "../assets/logoFacebook.png";
+import logoInstagram from "../assets/logoInstagram.png";
+import logoLinkedIn from "../assets/logoLinkedIn.png";
+import logoTwitter from "../assets/logoTwitter.png";
 function Footer() {
   const { courseData } = useApi2();
 
@@ -47,18 +51,22 @@ function Footer() {
   // Map each link name to the real path in App.jsx
   const links = [
     { name: "Home", path: "/" },
-    { name: "About Us", path: "/about-us" },
+    { name: "Who We Are", path: "/who-we-are" },
+    // { name: "About Us", path: "/about-us" },
     { name: "Services", path: "/services" },
     { name: "Blogs", path: "/blogs" }, // Assuming "Blogs" means "Courses"
     { name: "Contact Us", path: "/contact-us" }, // Replace with correct path
-    { name: "Who We Are", path: "/who-we-are" },
   ];
 
   const socialMedia = [
-    { name: "Facebook", icon: Facebook, link: websiteData.facebook_link },
-    { name: "Instagram", icon: Instagram, link: websiteData.instagram_link },
-    { name: "Twitter", icon: Twitter, link: websiteData.twitter_link },
-    { name: "LinkedIn", icon: Linkedin, link: websiteData.linkedin_link },
+    { name: "Facebook", icon: logoFacebook, link: websiteData.facebook_link },
+    {
+      name: "Instagram",
+      icon: logoInstagram,
+      link: websiteData.instagram_link,
+    },
+    { name: "Twitter", icon: logoTwitter, link: websiteData.twitter_link },
+    { name: "LinkedIn", icon: logoLinkedIn, link: websiteData.linkedin_link },
   ];
   return (
     <footer className="bg-gradient-2 text-white">
@@ -223,7 +231,7 @@ function Footer() {
                   <img
                     src={item.icon}
                     alt={item.name}
-                    className="w-10 h-10 transition-all cursor-pointer duration-300 ease-in-out hover:shadow-[0px_0px_0px_2px_rgba(219,0,50,0.9),0px_0px_0px_2px_rgba(250,102,2,0.9)] "
+                    className="w-10 h-10 transition-all cursor-pointer duration-300 ease-in-out hover:scale-[1.05]"
                   />
                 </div>
               </a>

@@ -6,23 +6,22 @@ import RightArrow from "../../assets/arrow-right.png";
 import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 
-import axios from "../../api/axios"
+import axios from "../../api/axios";
 import {
   FaUser,
   FaEnvelope,
   FaBuilding,
   FaPhoneAlt,
   FaComment,
-
   FaLongArrowAltDown,
 } from "react-icons/fa";
 import SalesAssessmentModal from "./sections/SalesAssessmentModal";
 import { Helmet } from "react-helmet-async";
 
 const SalesForceEvaluation = () => {
-const {slug} =useParams();
-  const [data, setData] = useState({})
-  const [error, setError] = useState("")
+  const { slug } = useParams();
+  const [data, setData] = useState({});
+  const [error, setError] = useState("");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = () => {
@@ -64,48 +63,53 @@ const {slug} =useParams();
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`/sales-force-details/${slug}`)
-        setData(res.data?.data)
+        const res = await axios.get(`/sales-force-details/${slug}`);
+        setData(res.data?.data);
       } catch (error) {
-        setError("failed to fetch data")
+        setError("failed to fetch data");
       }
-    }
+    };
     fetchData();
-  }, [slug])
+  }, [slug]);
   const getYouTubeEmbedUrl = (url) => {
     if (!url) return "";
-    const videoIdMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:.*v=|.*\/|.*embed\/|.*v\/))([\w-]+)/);
-    return videoIdMatch ? `https://www.youtube.com/embed/${videoIdMatch[1]}` : "";
+    const videoIdMatch = url.match(
+      /(?:youtu\.be\/|youtube\.com\/(?:.*v=|.*\/|.*embed\/|.*v\/))([\w-]+)/
+    );
+    return videoIdMatch
+      ? `https://www.youtube.com/embed/${videoIdMatch[1]}`
+      : "";
   };
 
   const getYouTubeThumbnail = (url) => {
     if (!url) return "default-thumbnail.jpg";
-    const videoIdMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:.*v=|.*\/|.*embed\/|.*v\/))([\w-]+)/);
-    return videoIdMatch ? `https://img.youtube.com/vi/${videoIdMatch[1]}/maxresdefault.jpg` : "default-thumbnail.jpg";
+    const videoIdMatch = url.match(
+      /(?:youtu\.be\/|youtube\.com\/(?:.*v=|.*\/|.*embed\/|.*v\/))([\w-]+)/
+    );
+    return videoIdMatch
+      ? `https://img.youtube.com/vi/${videoIdMatch[1]}/maxresdefault.jpg`
+      : "default-thumbnail.jpg";
   };
-  const videoUrl = getYouTubeEmbedUrl(data?.tool_video_link);
+  const videoUrl = (data?.tool_video_link);
   const VideoThumb = getYouTubeThumbnail(data?.tool_video_link);
-
 
   return (
     <div>
- <Helmet>
+      <Helmet>
         <title>{data?.meta_title}</title>
         <meta name="description" content={data?.meta_description} />
         <meta name="keywords" content={data?.meta_keywords} />
-        <meta property="og:title" content={data?.og_title}/>
+        <meta property="og:title" content={data?.og_title} />
         <meta property="og:description" content={data?.og_description} />
         <meta property="og:image" content={data?.og_image} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={window.location.href} />
       </Helmet>
 
-
       <HeroSFE salesForceEvaluation={data} />
 
       <section className="py-0 xl:py-12 about-class container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-
           <motion.div
             className="text-center lg:text-left"
             initial="hidden"
@@ -133,7 +137,6 @@ const {slug} =useParams();
             </p>
 
             <div className="flex flex-col sm:flex-wrap md:flex-wrap lg:flex-row xl:flex-nowrap 2xl:flex-nowrap justify-between gap-4 mt-8">
-
               <Link
                 to={data?.btn_one_link}
                 type="button"
@@ -149,7 +152,6 @@ const {slug} =useParams();
                   />
                 </span>
               </Link>
-
 
               <Link
                 to={data?.btn_two_link}
@@ -192,12 +194,10 @@ const {slug} =useParams();
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div className="text-center md:text-left px-6">
-            <p className="text-lg  mb-4">
-              {data?.tool_work_description}
-            </p>
+            <p className="text-lg  mb-4">{data?.tool_work_description}</p>
 
             <div className="flex flex-col sm:flex-wrap md:flex-wrap lg:flex-row xl:flex-nowrap 2xl:flex-nowrap justify-between gap-4 mt-8">
-              <Link
+              {/* <Link
                 to={data?.tool_btn_one_link}
                 type="button"
                 className="text-white group text-nowrap transition-transform duration-500 ease-out transform uppercase bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:bg-gradient-to-bl focus:outline-none text-sm md:text-[13px] px-5 py-2.5 w-full md:px-6 md:py-3 md:w-auto lg:w-full xl:w-auto 2xl:w-auto flex items-center justify-center"
@@ -211,10 +211,10 @@ const {slug} =useParams();
                     className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"
                   />
                 </span>
-              </Link>
-              <button
-                onClick={toggleModal}
-                type="button"
+              </Link> */}
+              <a
+                href={data?.tool_btn_two_link}
+                target="_blank"
                 className="text-white group text-nowrap transition-transform duration-500 ease-out transform uppercase bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:bg-gradient-to-bl focus:outline-none text-sm md:text-[13px] px-5 py-2.5 w-full md:px-6 md:py-3 md:w-auto lg:w-full xl:w-auto 2xl:w-auto flex items-center justify-center"
               >
                 <span className="absolute inset-0 w-0 h-full bg-[#060b33] transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
@@ -226,13 +226,13 @@ const {slug} =useParams();
                     className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"
                   />
                 </span>
-              </button>
-              {isModalOpen && (
+              </a>
+              {/* {isModalOpen && (
                 <SalesAssessmentModal toggleModal={toggleModal} />
-              )}
+              )} */}
             </div>
           </div>
-          <div className="flex justify-end px-4">
+          <div className="flex justify-end px-4 mb-6">
             <div className="w-full max-w-[600px] h-[400px] md:h-[600px] relative">
               {!isPlaying ? (
                 <div
@@ -262,20 +262,18 @@ const {slug} =useParams();
                   </div>
                 </div>
               ) : (
-                <iframe
-                  className="w-full h-full rounded-lg shadow-xl"
+                <video
                   src={videoUrl}
-                  title="Sales Force Evaluation Tool Demo"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
+                  controls
+                  autoPlay={isPlaying} // conditional autoplay
+                  className="w-full h-full rounded-lg shadow-xl"
+                />
               )}
             </div>
           </div>
         </div>
       </section>
-      <section className="py-12 container px-4 mx-auto">
+      {/* <section className="py-12 container px-4 mx-auto">
         <div className="flex flex-col md:flex-row items-center justify-between">
           <div className="md:w-1/2 mb-8 md:mb-0">
             <h2 className="text-lg  md:text-xl lg:text-2xl xl:text-3xl font-bold text-center md:text-left mb-6">
@@ -284,7 +282,6 @@ const {slug} =useParams();
             <p className="text-center  md:text-left text-sm md:text-base lg:text-lg mb-6">
               {data?.potential_description}
             </p>
-
 
             <div className="flex flex-col sm:flex-wrap md:flex-wrap lg:flex-row xl:flex-nowrap 2xl:flex-nowrap justify-between gap-4 mt-8">
               <Link
@@ -315,7 +312,6 @@ const {slug} =useParams();
 
           <div className="md:w-2/5 w-full ">
             <form onSubmit={handleFormSubmit} className="space-y-4">
-
               <div className="flex items-center space-x-3 border border-gray-300  px-4 py-2">
                 <FaUser className="text-gray-500 text-xl" />
                 <input
@@ -325,7 +321,6 @@ const {slug} =useParams();
                   required
                 />
               </div>
-
 
               <div className="flex items-center space-x-3 border border-gray-300  px-4 py-2">
                 <FaEnvelope className="text-gray-500 text-xl" />
@@ -337,7 +332,6 @@ const {slug} =useParams();
                 />
               </div>
 
-
               <div className="flex items-center space-x-3 border border-gray-300  px-4 py-2">
                 <FaBuilding className="text-gray-500 text-xl" />
                 <input
@@ -346,7 +340,6 @@ const {slug} =useParams();
                   className="w-full px-4 py-2 border-none focus:outline-none "
                 />
               </div>
-
 
               <div className="flex items-center space-x-3 border border-gray-300  px-4 py-2">
                 <FaPhoneAlt className="text-gray-500 text-xl" />
@@ -358,7 +351,6 @@ const {slug} =useParams();
                 />
               </div>
 
-
               <div className="flex items-start space-x-3 border border-gray-300  px-4 py-2">
                 <FaComment className="text-gray-500 text-xl" />
                 <textarea
@@ -366,7 +358,6 @@ const {slug} =useParams();
                   className="w-full px-4 py-2 border-none focus:outline-none "
                 />
               </div>
-
 
               <button
                 to="take-the-sales-force-evaluation"
@@ -386,7 +377,7 @@ const {slug} =useParams();
             </form>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };

@@ -6,10 +6,24 @@ import Blog3 from "../assets/blog3.png";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaArrowRight } from "react-icons/fa";
+
+import axios from "../api/axios";
 function LatestBlogs() {
   const [inView, setInView] = useState(false);
   const elementRef = useRef(null);
 
+  const [BlogpageData, setBlogpageData] = useState([]);
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await axios.get(`/blog-lists`);
+        setBlogpageData(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchBlogs();
+  }, []);
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -36,14 +50,10 @@ function LatestBlogs() {
   return (
     <section className="container mx-auto px-4 py-12 case-study">
       <div className="text-center md:text-left mb-8">
-        <h5 className="text-[16px] md:text-[24px] font-bold bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text">
-          Latest News And Blogs
-        </h5>
         <div className="flex flex-col md:flex-row justify-between items-center md:items-start">
-          <h2 className="text-[18px] sm:text-[28px] md:text-[36px] font-bold  mt-7 mb-5">
-            Always Smart to Hear <br />
+          <h2 className="text-[18px] sm:text-[28px] md:text-[36px] font-bold">
             <span className="bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text">
-              News
+              Blog
             </span>
           </h2>
           <Link
@@ -77,27 +87,7 @@ function LatestBlogs() {
           ease: "easeInOut",
         }}
       >
-        {[
-          {
-            image: Blog1,
-            title: "5 Key Habits of Highly Effective Sales Leaders",
-            description:
-              "Discover the habits that separate top sales leaders from the rest and learn how to cultivate them in your own leadership style.",
-          },
-          {
-            image: Blog2,
-            title: "Top Sales Strategies for Startups",
-            description:
-              "Uncover the best practices for small businesses and startups to accelerate growth and secure customers in a competitive market.",
-          },
-          {
-            image: Blog3,
-            title:
-              "The Power of Sales Training: Why Continuous Learning is Essential",
-            description:
-              "Learn how investing in ongoing training can boost your team's effectiveness and lead to long-term success.",
-          },
-        ].map((blog, index) => (
+        {BlogpageData?.slice(0, 3).map((blog, index) => (
           <div
             key={index}
             className="border flex flex-col items-center justify-between"
@@ -106,19 +96,26 @@ function LatestBlogs() {
             }}
           >
             <img
-              src={blog.image}
+              src={blog.thumbnail}
               alt={blog.title}
-              className="w-full h-[233px] p-2 object-cover mb-4"
+              className="w-[100%] h-[233px] p-2 object-cover mb-4"
             />
-            <h3 className="text-lg sm:text-sm md:text-[17px] uppercase font-semibold mb-2 p-4 text-center">
-              {blog.title}
+            <h3
+              title={blog.title}
+              className="text-lg sm:text-sm md:text-[17px] uppercase font-semibold mb-2 p-4 text-center"
+            >
+              {blog.title?.length > 43
+                ? blog.title.substring(0, 43) + "..."
+                : blog.title}
             </h3>
             <p className="text-left mb-4 text-sm px-6 sm:text-base">
-              {blog.description}
+              {blog.short_desc?.length > 150
+                ? blog.short_desc.substring(0, 150) + "..."
+                : blog.short_desc}
             </p>
 
             <Link
-              to="blog-details/:id"
+              to={`/blog-details/${blog.slug}`}
               type="button"
               className="relative w-[86%] text-xs sm:text-sm  icon-hover mb-4 px-6 py-3 flex items-center justify-center font-medium  text-[#DB0032] border-2 border-transparent rounded-md transition-all duration-500 ease-out hover:text-white hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602]"
               style={{

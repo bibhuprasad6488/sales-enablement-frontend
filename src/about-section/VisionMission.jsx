@@ -55,7 +55,7 @@ const VisionMission = ({ missionData, visionData, valueData, error }) => {
             >
               {missionData.mission_description}
             </p>
-            <div className="flex flex-col sm:flex-wrap md:flex-wrap lg:flex-row xl:flex-nowrap 2xl:flex-nowrap justify-between gap-4">
+            {/* <div className="flex flex-col sm:flex-wrap md:flex-wrap lg:flex-row xl:flex-nowrap 2xl:flex-nowrap justify-between gap-4">
               <Link
                 to={missionData.btn_link}
                 type="button"
@@ -68,7 +68,7 @@ const VisionMission = ({ missionData, visionData, valueData, error }) => {
                   className="w-[24px] h-[24px]"
                 />
               </Link>
-            </div>
+            </div> */}
           </motion.div>
           <div className="flex overflow-hidden justify-center md:justify-center">
             <motion.div
@@ -151,7 +151,7 @@ const VisionMission = ({ missionData, visionData, valueData, error }) => {
             >
               {visionData.vision_description}
             </p>
-            <div className="flex flex-col sm:flex-wrap md:flex-wrap lg:flex-row xl:flex-nowrap 2xl:flex-nowrap justify-between gap-4">
+            {/* <div className="flex flex-col sm:flex-wrap md:flex-wrap lg:flex-row xl:flex-nowrap 2xl:flex-nowrap justify-between gap-4">
               <Link
                 to={visionData.btn_link}
                 type="button"
@@ -164,7 +164,7 @@ const VisionMission = ({ missionData, visionData, valueData, error }) => {
                   className="w-[24px] h-[24px]"
                 />
               </Link>
-            </div>
+            </div> */}
           </motion.div>
         </div>
       </section>
@@ -191,7 +191,7 @@ const VisionMission = ({ missionData, visionData, valueData, error }) => {
             >
               {valueData.values_description}
             </p>
-            <div className="flex flex-col sm:flex-wrap md:flex-wrap lg:flex-row xl:flex-nowrap 2xl:flex-nowrap justify-between gap-4">
+            {/* <div className="flex flex-col sm:flex-wrap md:flex-wrap lg:flex-row xl:flex-nowrap 2xl:flex-nowrap justify-between gap-4">
               <Link
                 to={valueData.btn_link}
                 type="button"
@@ -204,7 +204,7 @@ const VisionMission = ({ missionData, visionData, valueData, error }) => {
                   className="w-[24px] h-[24px]"
                 />
               </Link>
-            </div>
+            </div> */}
           </motion.div>
           <motion.div
             className="relative"
