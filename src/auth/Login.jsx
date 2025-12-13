@@ -71,42 +71,42 @@ function LogIn() {
     }
   };
 
- const handleChange = (e) => {
-   const { name, value } = e.target;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-   setLoginData({
-     ...loginData,
-     [name]: value,
-   });
+    setLoginData({
+      ...loginData,
+      [name]: value,
+    });
 
-   // clear error as user types
-   setErrors((prev) => {
-     const newErrors = { ...prev };
-     if (value && newErrors[name]) {
-       delete newErrors[name];
-     }
-     if (name === "email_id") {
-       const emailError = validateEmail(value);
-       if (!emailError) delete newErrors.email_id;
-       else newErrors.email_id = emailError;
-     }
-     return newErrors;
-   });
- };
+    // clear error as user types
+    setErrors((prev) => {
+      const newErrors = { ...prev };
+      if (value && newErrors[name]) {
+        delete newErrors[name];
+      }
+      if (name === "email_id") {
+        const emailError = validateEmail(value);
+        if (!emailError) delete newErrors.email_id;
+        else newErrors.email_id = emailError;
+      }
+      return newErrors;
+    });
+  };
 
   // ✅ Reusable Email Validation
- const validateEmail = (email) => {
-   if (!email || email.trim() === "") {
-     return "Email is required";
-   }
+  const validateEmail = (email) => {
+    if (!email || email.trim() === "") {
+      return "Email is required";
+    }
 
-   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-   if (!emailRegex.test(email)) {
-     return "Please enter a valid email address";
-   }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return "Please enter a valid email address";
+    }
 
-   return "";
- };
+    return "";
+  };
 
   useEffect(() => {
     const savedEmail = localStorage.getItem("email_id");
@@ -294,6 +294,7 @@ function LogIn() {
                       <span className="relative text-white group-hover:text-white flex items-center">
                         Login
                         <img
+                          loading="lazy"
                           src={RightArrow1}
                           alt="Arrow Icon"
                           className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"
@@ -370,6 +371,7 @@ function LogIn() {
                       <span className="relative text-white group-hover:text-white flex items-center">
                         Reset Password
                         <img
+                          loading="lazy"
                           src={RightArrow1}
                           alt="Arrow Icon"
                           className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"

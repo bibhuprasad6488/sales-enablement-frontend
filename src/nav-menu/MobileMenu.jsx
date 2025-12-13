@@ -20,7 +20,7 @@ const MobileMenu = ({ links, isMenuOpen, toggleMenu }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-center p-6 border-b">
-          <img src={Logo} alt="Logo" className="w-[150px]" />
+          <img loading="lazy" src={Logo} alt="Logo" className="w-[150px]" />
           <button onClick={toggleMenu} className="text-white text-3xl">
             &times;
           </button>

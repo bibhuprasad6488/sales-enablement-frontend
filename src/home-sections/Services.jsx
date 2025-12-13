@@ -227,6 +227,7 @@ function Services({ consultationData }) {
                           }
                         >
                           <img
+                            loading="lazy"
                             src={ServiceArrow}
                             alt="Service Arrow"
                             className="w-7 h-7"

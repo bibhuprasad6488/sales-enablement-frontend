@@ -41,13 +41,13 @@ const AwardSection = ({awardData, error}) => {
             data-aos-delay="200"
             data-aos-offset="0"
           >
-        {awardData.award_title}
+            {awardData.award_title}
           </h5>
           <p
             className="text-sm sm:text-[16px] md:text-[16px] lg:text-[16px] xl:text-[16px] leading-[32px] text-justify mt-2 mb-6"
             data-aos="fade-left"
           >
-        {awardData.award_description}
+            {awardData.award_description}
           </p>
         </motion.div>
         <div className="flex justify-center md:justify-center">
@@ -64,7 +64,8 @@ const AwardSection = ({awardData, error}) => {
             }}
           >
             <img
-              src=  {awardData.image}
+              src={awardData.image}
+              loading="lazy"
               alt="About"
               className="w-full sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] h-auto max-h-[40vh] sm:max-h-[300px] object-contain mx-auto"
               data-aos="fade-right"

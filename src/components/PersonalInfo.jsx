@@ -357,6 +357,7 @@ const FormWithProgress = () => {
                   <span className="absolute inset-0 w-0 h-full bg-[#060b33] transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
                   <span className="relative text-white group-hover:text-white flex items-center">
                     <img
+                      loading="lazy"
                       src={RightArrow1}
                       alt="Arrow Icon"
                       className="w-6 h-6 mr-2 transition-transform rotate-180 duration-300 ease-in-out"
@@ -375,6 +376,7 @@ const FormWithProgress = () => {
                   <span className="relative text-white group-hover:text-white flex items-center">
                     Next
                     <img
+                      loading="lazy"
                       src={RightArrow1}
                       alt="Arrow Icon"
                       className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"
@@ -390,6 +392,7 @@ const FormWithProgress = () => {
                   <span className="relative text-white group-hover:text-white flex items-center">
                     Submit
                     <img
+                      loading="lazy"
                       src={RightArrow1}
                       alt="Arrow Icon"
                       className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"

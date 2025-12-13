@@ -109,6 +109,7 @@ function ContactContent({ contactData }) {
             <div className="transform hover:scale-110 transition duration-300  rounded-full text-white">
               <a href={websiteData.linkedin_link}>
                 <img
+                  loading="lazy"
                   src={logoLinkedIn}
                   alt="Share on LinkedIn"
                   className=" object-contain h-10 w-10"
@@ -120,6 +121,7 @@ function ContactContent({ contactData }) {
               <a href={websiteData.twitter_link}>
                 {" "}
                 <img
+                  loading="lazy"
                   src={logoTwitter}
                   alt="Share on Twitter"
                   className=" object-contain h-10 w-10"
@@ -127,12 +129,11 @@ function ContactContent({ contactData }) {
               </a>
             </div>
 
-          
-
             <div className="transform hover:scale-110 transition duration-300 rounded-full text-white">
               <a href={websiteData.facebook_link}>
                 {" "}
                 <img
+                  loading="lazy"
                   src={logoFacebook}
                   alt="Share on Facebook"
                   className=" object-contain h-10 w-10"
@@ -144,6 +145,7 @@ function ContactContent({ contactData }) {
               <a href={websiteData.instagram_link}>
                 {" "}
                 <img
+                  loading="lazy"
                   src={logoInstagram}
                   alt="Share on Instagram"
                   className=" object-contain h-10 w-10"

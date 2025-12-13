@@ -96,6 +96,7 @@ function LatestBlogs() {
             }}
           >
             <img
+              loading="lazy"
               src={blog.thumbnail}
               alt={blog.title}
               className="w-[100%] h-[233px] p-2 object-cover mb-4"

@@ -32,13 +32,12 @@ const FooterSubscribe = () => {
         }
       );
 
-      if (response.data?.status==="success") {
-
+      if (response.data?.status === "success") {
         toast.success(response.data.message, {
           pauseOnHover: false,
           closeOnClick: true,
         });
-        setEmail("")
+        setEmail("");
       } else {
         toast.error(response.data.message, {
           pauseOnHover: false,
@@ -58,6 +57,7 @@ const FooterSubscribe = () => {
     <footer className="bg-gradient-2 text-white">
       <div className="flex flex-col md:flex-row container mx-auto justify-between items-center py-6 px-4 md:px-4">
         <img
+          loading="lazy"
           src={websiteData.logo}
           alt="Logo"
           className="w-[180px] md:w-[150px] lg:w-[200px] xl:w-[300px] h-auto mb-4 md:mb-0"
@@ -78,7 +78,12 @@ const FooterSubscribe = () => {
               className="w-full uppercase transition-transform hover:bg-gradient-to-r from-[#060B33] to-[#383F71] hover:text-white duration-500 ease-out transform sm:px-10 md:px-6 md:py-3 sm:w-full md:w-[200px] lg:w-[250px] xl:w-[300px] flex items-center border-2 border-white text-white px-4 py-2 justify-center gap-4 hover:text-white border-btn font-medium text-sm md:text-lg lg:text-2xl xl:text-2xl 2xl:text-2xl text-center dark:hover:text-white"
             >
               Subscribe
-              <img src={RightArrow1} alt="arrow" className="w-6 h-6 ml-2" />
+              <img
+                loading="lazy"
+                src={RightArrow1}
+                alt="arrow"
+                className="w-6 h-6 ml-2"
+              />
             </button>
           </div>
         </form>

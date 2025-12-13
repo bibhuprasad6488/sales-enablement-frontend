@@ -85,7 +85,6 @@ function HeroSection({ heroData }) {
     window.location.href = path;
   };
 
-
   return (
     <>
       <section>
@@ -163,7 +162,6 @@ function HeroSection({ heroData }) {
                   >
                     <button
                       type="button"
-
                       onClick={() =>
                         handleButtonClick(heroData[currentSlide].btn_one_link)
                       }
@@ -173,11 +171,13 @@ function HeroSection({ heroData }) {
                       <span className="relative text-white group-hover:text-transparent bg-clip-text bg-gradient-to-r from-[#DB0032] to-[#FA6602] flex items-center">
                         {heroData[currentSlide].btn_one_text}
                         <img
+                          loading="lazy"
                           src={RightArrow1}
                           alt="Arrow Icon"
                           className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out group-hover:hidden" // Hide on hover
                         />
                         <img
+                          loading="lazy"
                           src={RightArrow}
                           alt="Arrow Icon Hover"
                           className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out hidden group-hover:inline" // Show on hover
@@ -194,6 +194,7 @@ function HeroSection({ heroData }) {
                     >
                       {heroData[currentSlide].btn_two_text}
                       <img
+                        loading="lazy"
                         src={RightArrow}
                         alt="arrow"
                         className="w-6 h-6 ml-2"
@@ -214,6 +215,7 @@ function HeroSection({ heroData }) {
                 transition={{ duration: 1, ease: "easeOut" }}
               >
                 <img
+                  loading="lazy"
                   src={heroImage}
                   alt="Hero Section Illustration"
                   className="max-w-full h-auto object-contain lg:object-cover"

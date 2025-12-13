@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { FaCheck } from "react-icons/fa";
 import RightArrow from "../assets/arrow-right.png";
 
-
 const VisionMission = ({ missionData, visionData, valueData, error }) => {
   const leftVariants = {
     hidden: { opacity: 0, x: -100 },
@@ -55,20 +54,7 @@ const VisionMission = ({ missionData, visionData, valueData, error }) => {
             >
               {missionData.mission_description}
             </p>
-            {/* <div className="flex flex-col sm:flex-wrap md:flex-wrap lg:flex-row xl:flex-nowrap 2xl:flex-nowrap justify-between gap-4">
-              <Link
-                to={missionData.btn_link}
-                type="button"
-                className="text-[#000] transition-transform duration-500 ease-out transform flex md:px-10 lg:px-10 xl:px-6 text-nowrap md:py-3 md:w-auto lg:w-full xl:w-auto 2xl:w-auto uppercase gap-3 justify-center sm:justify-center md:justify-center lg:justify-center xl:justify-between 2xl:justify-between space-x-2 items-center font-bold text-sm px-4 py-2 hover:text-[#000] border-[#000] border-btn2"
-              >
-                {missionData.btn_text}
-                <img
-                  src={RightArrow}
-                  alt="Arrow"
-                  className="w-[24px] h-[24px]"
-                />
-              </Link>
-            </div> */}
+           
           </motion.div>
           <div className="flex overflow-hidden justify-center md:justify-center">
             <motion.div
@@ -86,6 +72,7 @@ const VisionMission = ({ missionData, visionData, valueData, error }) => {
               <div className="flex justify-center align-middle">
                 <div className="mission-bg">
                   <img
+                    loading="lazy"
                     src={missionData.mission_image}
                     alt="About"
                     className="sm:w-[345px] w-[268px] h-[268px] relative right-2 top-2  sm:h-[355px]  mx-auto"
@@ -110,6 +97,7 @@ const VisionMission = ({ missionData, visionData, valueData, error }) => {
               <div className="flex lg:justify-normal justify-center">
                 <div className="vission-bg">
                   <img
+                    loading="lazy"
                     src={visionData.vision_image_one}
                     alt=""
                     className="w-[143px] h-[151px] border-8  rounded-lg  relative top-0 right-0  z-20"
@@ -117,6 +105,7 @@ const VisionMission = ({ missionData, visionData, valueData, error }) => {
 
                   <div className="rounded-br-lg">
                     <img
+                      loading="lazy"
                       src={visionData.vision_image_two}
                       alt=""
                       className="w-[252.44px] h-[315.09px]  left-20 rounded-br-[114.5px] border-4  shadow-lg z-10 relative bottom-12"
@@ -151,20 +140,7 @@ const VisionMission = ({ missionData, visionData, valueData, error }) => {
             >
               {visionData.vision_description}
             </p>
-            {/* <div className="flex flex-col sm:flex-wrap md:flex-wrap lg:flex-row xl:flex-nowrap 2xl:flex-nowrap justify-between gap-4">
-              <Link
-                to={visionData.btn_link}
-                type="button"
-                className="text-[#000] transition-transform duration-500 ease-out transform flex md:px-10 lg:px-10 xl:px-6 text-nowrap md:py-3 md:w-auto lg:w-full xl:w-auto 2xl:w-auto uppercase gap-3 justify-center sm:justify-center md:justify-center lg:justify-center xl:justify-between 2xl:justify-between space-x-2 items-center font-bold text-sm px-4 py-2 hover:text-[#000] border-[#000] border-btn2"
-              >
-                {visionData.btn_text}
-                <img
-                  src={RightArrow}
-                  alt="Arrow"
-                  className="w-[24px] h-[24px]"
-                />
-              </Link>
-            </div> */}
+           
           </motion.div>
         </div>
       </section>
@@ -191,20 +167,7 @@ const VisionMission = ({ missionData, visionData, valueData, error }) => {
             >
               {valueData.values_description}
             </p>
-            {/* <div className="flex flex-col sm:flex-wrap md:flex-wrap lg:flex-row xl:flex-nowrap 2xl:flex-nowrap justify-between gap-4">
-              <Link
-                to={valueData.btn_link}
-                type="button"
-                className="text-[#000] transition-transform duration-500 ease-out transform flex md:px-10 lg:px-10 xl:px-6 text-nowrap md:py-3 md:w-auto lg:w-full xl:w-auto 2xl:w-auto uppercase gap-3 justify-center sm:justify-center md:justify-center lg:justify-center xl:justify-between 2xl:justify-between space-x-2 items-center font-bold text-sm px-4 py-2 hover:text-[#000] border-[#000] border-btn2"
-              >
-                {valueData.btn_text}
-                <img
-                  src={RightArrow}
-                  alt="Arrow"
-                  className="w-[24px] h-[24px]"
-                />
-              </Link>
-            </div> */}
+            
           </motion.div>
           <motion.div
             className="relative"
@@ -215,15 +178,18 @@ const VisionMission = ({ missionData, visionData, valueData, error }) => {
           >
             <div className="flex justify-center lg:justify-end">
               <div className="relative">
-
                 <img
+                  loading="lazy"
                   src={valueData.image}
                   alt="Vision"
                   className="w-[90%] md:w-[80%] z-2"
                 />
                 <div className="flex flex-col justify-center px-4 text-white w-48 h-48 sm:w-60 sm:h-60 top-[-140px] sm:top-[-180px] lg:right-12 right-0 relative z-4 bg-gradient-to-r from-[#DB0032] to-[#FA6602] rounded-lg">
                   {valueKeyPointsArray.map((value, index) => (
-                    <div key={index} className="flex items-center gap-3 sm:gap-5 mb-2 last:mb-0">
+                    <div
+                      key={index}
+                      className="flex items-center gap-3 sm:gap-5 mb-2 last:mb-0"
+                    >
                       <span className="bg-white w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center">
                         <FaCheck className="text-green-500" />
                       </span>

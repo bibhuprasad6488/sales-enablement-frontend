@@ -21,43 +21,43 @@ const BlogDetailSection = ({
   const currentUrl = window.location.href;
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
- const shareTo = (platform) => {
-   if (isMobile && navigator.share) {
-     navigator
-       .share({
-         title: "the-sales-enablement",
-         text: "Have a look at this website",
-         url: currentUrl,
-       })
-       .catch((err) => console.error("Error sharing:", err));
-     return;
-   }
-   let webUrl = "";
-   switch (platform) {
-     case "facebook":
-       webUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-         currentUrl
-       )}`;
-       break;
-     case "twitter":
-       webUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-         currentUrl
-       )}`;
-       break;
-     case "linkedin":
-       webUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-         currentUrl
-       )}`;
-       break;
-     case "instagram":
-       webUrl = `https://instagram.com`;
-       break;
-     default:
-       return;
-   }
+  const shareTo = (platform) => {
+    if (isMobile && navigator.share) {
+      navigator
+        .share({
+          title: "the-sales-enablement",
+          text: "Have a look at this website",
+          url: currentUrl,
+        })
+        .catch((err) => console.error("Error sharing:", err));
+      return;
+    }
+    let webUrl = "";
+    switch (platform) {
+      case "facebook":
+        webUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+          currentUrl
+        )}`;
+        break;
+      case "twitter":
+        webUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+          currentUrl
+        )}`;
+        break;
+      case "linkedin":
+        webUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+          currentUrl
+        )}`;
+        break;
+      case "instagram":
+        webUrl = `https://instagram.com`;
+        break;
+      default:
+        return;
+    }
 
-   window.open(webUrl, "_blank");
- };
+    window.open(webUrl, "_blank");
+  };
   if (!Allblogdata) return <div>Loading...</div>;
 
   const handlePlay = (videoId) => {
@@ -98,6 +98,7 @@ const BlogDetailSection = ({
                 className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
               >
                 <img
+                  loading="lazy"
                   src={logoFacebook}
                   alt="Share on Facebook"
                   className="w-full h-full object-contain"
@@ -108,6 +109,7 @@ const BlogDetailSection = ({
                 className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
               >
                 <img
+                  loading="lazy"
                   src={logoTwitter}
                   alt="Share on Twitter"
                   className="w-full h-full object-contain"
@@ -118,6 +120,7 @@ const BlogDetailSection = ({
                 className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
               >
                 <img
+                  loading="lazy"
                   src={logoLinkedIn}
                   alt="Share on LinkedIn"
                   className="w-full h-full object-contain"
@@ -128,6 +131,7 @@ const BlogDetailSection = ({
                 className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
               >
                 <img
+                  loading="lazy"
                   src={logoInstagram}
                   alt="Share on Instagram"
                   className="w-full h-full object-contain"
@@ -176,6 +180,7 @@ const BlogDetailSection = ({
                         className="w-full h-full rounded-lg shadow-xl aspect-video"
                         src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
                         title="YouTube Video"
+                        loading="lazy"
                         frameBorder="0"
                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -186,6 +191,7 @@ const BlogDetailSection = ({
                         onClick={() => handlePlay(videoId)}
                       >
                         <img
+                          loading="lazy"
                           src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
                           alt="Video Thumbnail"
                           className="w-full h-full object-cover"

@@ -98,6 +98,7 @@ function CaseStudies() {
                     Case study
                   </h3>
                   <img
+                    loading="lazy"
                     src={SampleLogo}
                     alt="Company Logo"
                     className="w-10 h-10"
@@ -108,6 +109,7 @@ function CaseStudies() {
                 </p>
                 <div className="flex items-end justify-end">
                   <img
+                    loading="lazy"
                     src={CaseRightArrow}
                     alt="Case Right Arrow"
                     className="mt-2 w-[24px] h-[24px]"

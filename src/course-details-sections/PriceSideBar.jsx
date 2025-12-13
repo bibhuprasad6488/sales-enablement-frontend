@@ -54,7 +54,7 @@ const PriceSideBar = ({ course }) => {
         )}`;
         break;
       case "instagram":
-        webUrl = `https://instagram.com`; 
+        webUrl = `https://instagram.com`;
         break;
       default:
         return;
@@ -302,6 +302,7 @@ const PriceSideBar = ({ course }) => {
                   className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
                 >
                   <img
+                    loading="lazy"
                     src={logoFacebook}
                     alt="Share on Facebook"
                     className="w-full h-full object-contain"
@@ -313,6 +314,7 @@ const PriceSideBar = ({ course }) => {
                   className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
                 >
                   <img
+                    loading="lazy"
                     src={logoTwitter}
                     alt="Share on Twitter"
                     className="w-full h-full object-contain"
@@ -324,6 +326,7 @@ const PriceSideBar = ({ course }) => {
                   className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
                 >
                   <img
+                    loading="lazy"
                     src={logoLinkedIn}
                     alt="Share on LinkedIn"
                     className="w-full h-full object-contain"
@@ -335,6 +338,7 @@ const PriceSideBar = ({ course }) => {
                   className="cursor-pointer flex items-center justify-center w-8 h-8 transition-transform duration-200 hover:scale-110"
                 >
                   <img
+                    loading="lazy"
                     src={logoInstagram}
                     alt="Share on Instagram"
                     className="w-full h-full object-contain"

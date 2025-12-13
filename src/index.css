@@ -118,6 +118,19 @@ body {
   width: 533px;
   height: 456px;
 }
+.banner {
+  background: linear-gradient(to right, #060b33 69%, #383f71 100%);
+}
+/* .banner-footer {
+  background: linear-gradient(to right, #060b33 0%, #383f71 100%) ;
+} */
+.footer-root {
+  background: linear-gradient(to right, #060b33 0%, #383f71 100%);
+  position: relative;
+  width: 100%;
+  min-height: 300px; /* VERY IMPORTANT */
+}
+
 .card {
   position: relative;
   width: 130px;
@@ -365,6 +378,7 @@ body {
   color: #ffffff;
   border: 2px solid #ffffff;
 }
+
 .slick-slide {
   padding: 2px 8px;
   box-sizing: border-box;

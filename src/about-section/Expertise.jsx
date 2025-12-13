@@ -102,15 +102,15 @@ const Expertise = ({expertsData}) => {
       <Slider ref={sliderRef} {...settings} className="px-4">
         {expertsData.map((expert, index) => (
           <motion.div
-          key={expert.id}
+            key={expert.id}
             className="bg-white shadow-lg rounded-lg overflow-hidden relative flex flex-col border-2 border-orange-500 hover:shadow-xl transition-shadow duration-300 min-h-[550px] lg:h-[550px] md:h-[500px] sm:h-[450px] mx-auto w-full sm:w-[85%] md:w-[75%] lg:w-[65%] max-w-[400px]"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.2 }}
           >
-
             <div className="h-1/2 border-b-2 border-orange-500">
               <img
+                loading="lazy"
                 src={expert.profile}
                 alt={expert.profile}
                 className="w-full h-full object-cover"
@@ -137,27 +137,29 @@ const Expertise = ({expertsData}) => {
                   className="bg-gradient-to-r from-[#DB0032] to-[#FA6602] p-3 rounded-full cursor-pointer flex items-center justify-center shadow-md hover:shadow-lg transition-shadow duration-300"
                   style={{ width: "50px", height: "50px" }}
                 >
-            <FaPlus className="text-white text-xl font-bold" />
-  
+                  <FaPlus className="text-white text-xl font-bold" />
                 </div>
 
                 <div className="absolute bottom-full right-0 mb-0.5 hidden group-hover:flex flex-col space-y-3 bg-gradient-to-r from-[#DB0032] to-[#FA6602] p-4 rounded-full">
-                <a href={expert.facebook_url}>  <FaFacebookF
-                    className="text-white cursor-pointer hover:text-gray-600 text-xl transition-colors duration-300"
-                    title="Facebook"
-                  />               </a>   
-                     <a href={expert.linkedin_url}>
-                      
-                     <FaLinkedinIn
-                    className="text-white cursor-pointer hover:text-gray-600 text-xl transition-colors duration-300"
-                    title="LinkedIn"
-                  />
-                      </a> 
-                      <a href={expert.twitter_url}>
-                  <FaTwitter
-                    className="text-white cursor-pointer hover:text-gray-600 text-xl transition-colors duration-300"
-                    title="Twitter"
-                  />     </a> 
+                  <a href={expert.facebook_url}>
+                    {" "}
+                    <FaFacebookF
+                      className="text-white cursor-pointer hover:text-gray-600 text-xl transition-colors duration-300"
+                      title="Facebook"
+                    />{" "}
+                  </a>
+                  <a href={expert.linkedin_url}>
+                    <FaLinkedinIn
+                      className="text-white cursor-pointer hover:text-gray-600 text-xl transition-colors duration-300"
+                      title="LinkedIn"
+                    />
+                  </a>
+                  <a href={expert.twitter_url}>
+                    <FaTwitter
+                      className="text-white cursor-pointer hover:text-gray-600 text-xl transition-colors duration-300"
+                      title="Twitter"
+                    />{" "}
+                  </a>
                 </div>
               </div>
             </div>

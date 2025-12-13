@@ -38,10 +38,13 @@ const Cards = ({ awardsData }) => {
           >
             <img
               src={card?.image}
+              loading="lazy"
               alt={`Logo ${index + 1}`}
               className="w-24 h-24 object-contain mb-4"
             />
-            <h5 className="text-xl font-bold text-center">{card.title} {""} ({card.date})</h5>
+            <h5 className="text-xl font-bold text-center">
+              {card.title} {""} ({card.date})
+            </h5>
             <p className="mt-2 text-center">{card.description}</p>
           </motion.div>
         ))}

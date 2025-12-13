@@ -42,6 +42,7 @@ function OurCourses() {
                       <div className="card p-2 shadow-lg flex flex-col items-center">
                         <div className="w-[112.19px] h-[112.19px] rounded-full bg-aliceblue flex items-center justify-center mb-4">
                           <img
+                            loading="lazy"
                             src={course.image}
                             alt={course.name}
                             className="w-full h-full object-cover rounded-full"
@@ -69,6 +70,7 @@ function OurCourses() {
                 <span className="relative text-white group-hover:text-white flex items-center">
                   {websiteData?.footer_btn}
                   <img
+                    loading="lazy"
                     src={RightArrow1}
                     alt="Arrow Icon"
                     className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"
@@ -78,6 +80,7 @@ function OurCourses() {
               <div className="relative">
                 <div className="flex justify-between items-center border-2 border-black p-1">
                   <img
+                    loading="lazy"
                     src={FilterImg}
                     alt="Filter Icon"
                     className="w-6 h-6 ml-2 cursor-pointer"
@@ -134,7 +137,12 @@ function OurCourses() {
                 className="text-[#000] transition-transform duration-500 ease-out transform  flex md:px-6 md:py-2 lg:py-2.5 xl:py-2.5 2xl:py-2.5 sm:w-[378px] md:w-[385px] justify-center  w-full xl:w-auto lg:w-[385px]  uppercase gap-3 sm:justify-center md:justify-center xl:justify-between lg:justify-center  space-x-2 items-center font-bold text-xs sm:text-sm px-4 py-2 hover:text-[#000]  border-[#000] border-btn2"
               >
                 Discover Our Courses
-                <img src={RightArrow} alt="Right Arrow" className="w-6 h-6" />
+                <img
+                  loading="lazy"
+                  src={RightArrow}
+                  alt="Right Arrow"
+                  className="w-6 h-6"
+                />
               </Link>
             </div>
           </div>

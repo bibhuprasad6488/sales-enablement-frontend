@@ -32,6 +32,7 @@ const ServiceContent = ({ serviceData }) => {
               >
                 <div className="relative flex-1" key={index}>
                   <img
+                    loading="lazy"
                     src={service.image}
                     alt={service.title}
                     className="w-full h-[233px] p-2 object-cover mb-4 transition-all duration-500 ease-in-out hover:grayscale-0 hover:opacity-90"

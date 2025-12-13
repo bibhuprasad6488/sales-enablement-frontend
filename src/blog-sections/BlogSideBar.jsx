@@ -92,6 +92,7 @@ const BlogSideBar = ({ setFilters }) => {
                   className="flex items-center text-sm text-gray-600"
                 >
                   <img
+                    loading="lazy"
                     src={post.thumbnail}
                     alt={post.title}
                     className="w-12 h-12 rounded-full mr-3 object-cover"

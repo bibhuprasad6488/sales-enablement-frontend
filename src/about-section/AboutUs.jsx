@@ -37,12 +37,12 @@ const AboutUs = ({ aboutData, error }) => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.4 }}
           variants={leftVariants}
-
         >
           <div className="px-4  sm:px-12">
             <div className="absolute left-28  top-[-10] sm:top-0  sm:left-44 z-[-10]">
               <img
                 src={Iso}
+                loading="lazy"
                 alt=""
                 className="w-[200px] h-[200px] sm:w-[480px] sm:h-[480px]"
               />
@@ -52,6 +52,7 @@ const AboutUs = ({ aboutData, error }) => {
               <div className="flex flex-col gap-4 sm:gap-8">
                 <div>
                   <img
+                    loading="lazy"
                     src={aboutData.first_image}
                     alt=""
                     className="w-[150px] h-[200px] sm:w-[237px] sm:h-[300px]"
@@ -59,13 +60,11 @@ const AboutUs = ({ aboutData, error }) => {
                 </div>
                 <div>
                   <img
+                    loading="lazy"
                     src={aboutData.second_image}
                     alt=""
                     className="w-[170px] h-[175px] sm:w-[237px] sm:h-[218px]"
                   />
-                  
-   
-        
                 </div>
               </div>
 
@@ -84,6 +83,7 @@ const AboutUs = ({ aboutData, error }) => {
 
                 <div>
                   <img
+                    loading="lazy"
                     src={aboutData.third_image}
                     alt=""
                     className="w-[180px] h-[280px] sm:w-[281px] sm:h-[415px]"
@@ -94,6 +94,7 @@ const AboutUs = ({ aboutData, error }) => {
 
             <div className="relative bottom-8 sm:bottom-10 z-[-10] right-4 sm:right-8">
               <img
+                loading="lazy"
                 src={Dot}
                 alt=""
                 className="w-[50px] h-[60px] sm:w-[75.71px] sm:h-[85.38px]"
@@ -120,7 +121,6 @@ const AboutUs = ({ aboutData, error }) => {
             data-aos-delay="200"
             data-aos-offset="200"
           >
-
             {aboutData.intro_sub_title}
           </h5>
 
@@ -130,13 +130,10 @@ const AboutUs = ({ aboutData, error }) => {
             data-aos-delay="200"
             data-aos-offset="200"
           >
-
             <span
               className="about-intro-title"
               dangerouslySetInnerHTML={{ __html: aboutData.intro_title }}
             />
-
-
           </h2>
 
           <p
@@ -155,15 +152,14 @@ const AboutUs = ({ aboutData, error }) => {
             >
               <span className="absolute inset-0 w-0 h-full   bg-[#060b33] transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
               <span className="relative text-white group-hover:text-white flex items-center">
-              {aboutData.btn_one_text}
+                {aboutData.btn_one_text}
                 <img
+                  loading="lazy"
                   src={RightArrow1}
                   alt="Arrow Icon"
                   className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"
                 />
               </span>
-           
-     
             </Link>
 
             <Link
@@ -171,8 +167,13 @@ const AboutUs = ({ aboutData, error }) => {
               type="button"
               className="text-[#000] transition-transform duration-500 ease-out transform  flex md:px-10 lg:px-10 xl:px-6 text-nowrap md:py-3  md:w-auto lg:w-full xl:w-auto 2xl:w-auto  uppercase gap-3 justify-center sm:justify-center md:justify-center lg:justify-center xl:justify-between 2xl:justify-between space-x-2 items-center font-bold text-sm px-4 py-2 hover:text-[#000]  border-[#000] border-btn2"
             >
-         {aboutData.btn_two_text}
-              <img src={RightArrow} alt="Arrow" className="w-[24px] h-[24px]" />
+              {aboutData.btn_two_text}
+              <img
+                loading="lazy"
+                src={RightArrow}
+                alt="Arrow"
+                className="w-[24px] h-[24px]"
+              />
             </Link>
           </div>
         </motion.div>

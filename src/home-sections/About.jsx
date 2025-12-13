@@ -37,11 +37,13 @@ function About({ aboutPageData }) {
           <div className="flex justify-center align-middle">
             <div className="about-home-bg ">
               <img
+                loading="lazy"
                 src={aboutPageData.first_image}
                 alt=""
                 className="w-[150.38px]  h-[150.38px] sm:w-[234.3px]  sm:h-[230.35px] md:w-[234.3px]  md:h-[230.35px] lg:w-[200px]  lg:h-[200px] xl:w-[234.3px]  xl:h-[230.35px] 2xl:w-[234.3px]  2xl:h-[230.35px] relative top-[-2rem] sm:top-[-4rem] z-20"
               />
               <img
+                loading="lazy"
                 src={aboutPageData.second_image}
                 alt=""
                 className="w-[255px] h-[234px] sm:w-[444.01px] sm:h-[402.44px] md:w-[444.01px] md:h-[402.44px] lg:w-[329px] lg:h-[335px] xl:w-[444.01px] xl:h-[402.44px] 2xl:w-[444.01px] 2xl:h-[402.44px] z-10 rounded-lg relative left-[3rem] top-[-6rem] sm:left-16 sm:top-[-10rem]"
@@ -122,6 +124,7 @@ function About({ aboutPageData }) {
               <span className="relative z-10 text-white group-hover:text-white flex items-center">
                 {aboutPageData.btn_one_text}
                 <img
+                  loading="lazy"
                   src={RightArrow1}
                   alt="Arrow Icon"
                   className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out "
@@ -135,7 +138,12 @@ function About({ aboutPageData }) {
               className="text-[#000] transition-transform duration-500 ease-out transform  flex md:px-10 lg:px-10 xl:px-6 text-nowrap md:py-3  md:w-auto lg:w-full xl:w-auto 2xl:w-auto  uppercase gap-3 justify-center sm:justify-center md:justify-center lg:justify-center xl:justify-between 2xl:justify-between space-x-2 items-center font-bold text-xs sm:text-sm px-4 py-2 hover:text-[#000]  border-[#000] border-btn2"
             >
               {aboutPageData.btn_two_text}
-              <img src={RightArrow} alt="Arrow" className="w-[24px] h-[24px]" />
+              <img
+                loading="lazy"
+                src={RightArrow}
+                alt="Arrow"
+                className="w-[24px] h-[24px]"
+              />
             </Link>
           </div>
         </motion.div>

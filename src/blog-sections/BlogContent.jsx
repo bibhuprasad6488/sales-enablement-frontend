@@ -73,13 +73,17 @@ function LatestBlogs({ filters }) {
                     src={blog.thumbnail}
                     alt={blog.title}
                     className="w-[100%] h-[233px] p-2 object-fit mb-4"
+                    loading="lazy"
                   />
                   <div className="absolute bottom-6 right-2 bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white text-xs font-semibold py-1 px-3 rounded-tl-[8px]">
                     <p className="text-base">{blog.created}</p>
                   </div>
                 </div>
 
-                <h3 title={blog.title} className="text-lg sm:text-sm md:text-[17px] uppercase font-semibold mb-2 p-4 text-center flex-grow">
+                <h3
+                  title={blog.title}
+                  className="text-lg sm:text-sm md:text-[17px] uppercase font-semibold mb-2 p-4 text-center flex-grow"
+                >
                   {/* {blog.title} */}
                   {blog.title?.length > 40
                     ? blog.title.substring(0, 40) + "..."
@@ -125,10 +129,11 @@ function LatestBlogs({ filters }) {
               <button
                 key={page}
                 onClick={() => handlePageChange(page)}
-                className={`h-8 w-8 flex justify-center items-center mx-1 rounded-md ${currentPage === page
-                  ? "bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white"
-                  : "bg-gray-200 text-gray-700"
-                  }`}
+                className={`h-8 w-8 flex justify-center items-center mx-1 rounded-md ${
+                  currentPage === page
+                    ? "bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-white"
+                    : "bg-gray-200 text-gray-700"
+                }`}
               >
                 {page}
               </button>

@@ -5,7 +5,7 @@ import LeftArrow from "../assets/testi-left-arr.png";
 import Play from "../assets/play.png";
 import Pause from "../assets/pause.png";
 import { motion } from "framer-motion";
-function Testimonials({testimonialsData}) {
+function Testimonials({ testimonialsData }) {
   if (!testimonialsData) return <p></p>;
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -54,6 +54,7 @@ function Testimonials({testimonialsData}) {
             }`}
           >
             <img
+              loading="lazy"
               src={QuoteLeft}
               alt="Quote Icon"
               className="w-12 h-12 inline-block"
@@ -63,6 +64,7 @@ function Testimonials({testimonialsData}) {
             </p>
             <div className="flex flex-col items-center sm:flex-row mt-8">
               <img
+                loading="lazy"
                 src={testimonialsData[currentIndex].profile_img}
                 alt="Testimonial"
                 className="w-24 h-24 mb-4 sm:mb-0"
@@ -82,10 +84,10 @@ function Testimonials({testimonialsData}) {
 
       <div className="flex justify-center items-center mt-4 px-4">
         <div className="flex justify-between items-center w-full max-w-3xl">
-
           <div className="flex justify-between items-center w-auto">
             <button onClick={prevTestimonial} className="hover:scale-110">
               <img
+                loading="lazy"
                 src={LeftArrow}
                 alt="Previous Testimonial"
                 className="w-[30px] h-[30px]"
@@ -93,6 +95,7 @@ function Testimonials({testimonialsData}) {
             </button>
             <button onClick={nextTestimonial} className="p-2 hover:scale-110">
               <img
+                loading="lazy"
                 src={RightArrow}
                 alt="Next Testimonial"
                 className="w-[30px] h-[30px]"
@@ -115,7 +118,7 @@ function Testimonials({testimonialsData}) {
                     opacity: index === currentIndex ? 1 : 0.6,
                   }}
                   transition={{
-                    duration: 0.3, 
+                    duration: 0.3,
                     ease: "easeInOut",
                   }}
                 />
@@ -126,6 +129,7 @@ function Testimonials({testimonialsData}) {
           <div>
             <button onClick={togglePlayPause} className="ml-4 hover:scale-110">
               <img
+                loading="lazy"
                 src={isPlaying ? Pause : Play}
                 alt="Play/Pause Button"
                 className="w-[30px] h-[30px]"

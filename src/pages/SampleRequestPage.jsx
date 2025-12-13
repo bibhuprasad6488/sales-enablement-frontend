@@ -195,6 +195,7 @@ const SampleRequestPage = () => {
                     <span className="relative text-white group-hover:text-white flex items-center">
                       Schedule a Consultation
                       <img
+                        loading="lazy"
                         src={RightArrow1}
                         alt="Arrow Icon"
                         className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"
@@ -207,8 +208,7 @@ const SampleRequestPage = () => {
           </div>
         </div>
       </div>
-      <FooterSubscribe/>
-
+      <FooterSubscribe />
     </>
   );
 };

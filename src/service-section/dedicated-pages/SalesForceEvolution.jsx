@@ -90,7 +90,7 @@ const SalesForceEvaluation = () => {
       ? `https://img.youtube.com/vi/${videoIdMatch[1]}/maxresdefault.jpg`
       : "default-thumbnail.jpg";
   };
-  const videoUrl = (data?.tool_video_link);
+  const videoUrl = data?.tool_video_link;
   const VideoThumb = getYouTubeThumbnail(data?.tool_video_link);
 
   return (
@@ -146,6 +146,7 @@ const SalesForceEvaluation = () => {
                 <span className="relative text-white group-hover:text-white flex items-center">
                   {data?.btn_one_text}
                   <img
+                    loading="lazy"
                     src={RightArrow1}
                     alt="Arrow Icon"
                     className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"
@@ -160,6 +161,7 @@ const SalesForceEvaluation = () => {
               >
                 {data?.btn_two_text}
                 <img
+                  loading="lazy"
                   src={RightArrow}
                   alt="Arrow"
                   className="w-[24px] h-[24px]"
@@ -176,6 +178,7 @@ const SalesForceEvaluation = () => {
               variants={leftVariants}
             >
               <img
+                loading="lazy"
                 src={data?.image}
                 alt={data?.title}
                 className="w-full max-w-md lg:max-w-full"
@@ -197,21 +200,6 @@ const SalesForceEvaluation = () => {
             <p className="text-lg  mb-4">{data?.tool_work_description}</p>
 
             <div className="flex flex-col sm:flex-wrap md:flex-wrap lg:flex-row xl:flex-nowrap 2xl:flex-nowrap justify-between gap-4 mt-8">
-              {/* <Link
-                to={data?.tool_btn_one_link}
-                type="button"
-                className="text-white group text-nowrap transition-transform duration-500 ease-out transform uppercase bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:bg-gradient-to-bl focus:outline-none text-sm md:text-[13px] px-5 py-2.5 w-full md:px-6 md:py-3 md:w-auto lg:w-full xl:w-auto 2xl:w-auto flex items-center justify-center"
-              >
-                <span className="absolute inset-0 w-0 h-full bg-[#060b33] transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
-                <span className="relative text-white group-hover:text-white flex items-center">
-                  {data?.tool_btn_one_text}
-                  <img
-                    src={RightArrow1}
-                    alt="Arrow Icon"
-                    className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"
-                  />
-                </span>
-              </Link> */}
               <a
                 href={data?.tool_btn_two_link}
                 target="_blank"
@@ -221,6 +209,7 @@ const SalesForceEvaluation = () => {
                 <span className="relative text-white group-hover:text-white flex items-center">
                   {data?.tool_btn_two_text}
                   <img
+                    loading="lazy"
                     src={RightArrow1}
                     alt="Arrow Icon"
                     className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"
@@ -264,6 +253,7 @@ const SalesForceEvaluation = () => {
               ) : (
                 <video
                   src={videoUrl}
+                  loading="lazy"
                   controls
                   autoPlay={isPlaying} // conditional autoplay
                   className="w-full h-full rounded-lg shadow-xl"
@@ -273,111 +263,6 @@ const SalesForceEvaluation = () => {
           </div>
         </div>
       </section>
-      {/* <section className="py-12 container px-4 mx-auto">
-        <div className="flex flex-col md:flex-row items-center justify-between">
-          <div className="md:w-1/2 mb-8 md:mb-0">
-            <h2 className="text-lg  md:text-xl lg:text-2xl xl:text-3xl font-bold text-center md:text-left mb-6">
-              {data?.potential_title}
-            </h2>
-            <p className="text-center  md:text-left text-sm md:text-base lg:text-lg mb-6">
-              {data?.potential_description}
-            </p>
-
-            <div className="flex flex-col sm:flex-wrap md:flex-wrap lg:flex-row xl:flex-nowrap 2xl:flex-nowrap justify-between gap-4 mt-8">
-              <Link
-                to={data?.potential_btn_one_link}
-                type="button"
-                className="text-white group text-nowrap transition-transform duration-500 ease-out transform uppercase bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:bg-gradient-to-bl focus:outline-none text-sm md:text-[13px] px-5 py-2.5 w-full md:px-6 md:py-3 md:w-auto lg:w-full xl:w-auto 2xl:w-auto flex items-center justify-center"
-              >
-                <span className="absolute inset-0 w-0 h-full bg-[#060b33] transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
-                <span className="relative text-white group-hover:text-white flex items-center">
-                  {data?.potential_btn_one_text}
-                  <img
-                    src={RightArrow1}
-                    alt="Arrow Icon"
-                    className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"
-                  />
-                </span>
-              </Link>
-              <Link
-                to={data?.potential_btn_two_link}
-                type="button"
-                className="text-[#000] transition-transform duration-500 ease-out transform flex md:px-10 lg:px-10 xl:px-6 text-nowrap md:py-3 md:w-auto lg:w-full xl:w-auto 2xl:w-auto uppercase gap-3 justify-center sm:justify-center md:justify-center lg:justify-center xl:justify-between 2xl:justify-between space-x-2 items-center font-bold text-sm px-4 py-2 hover:text-[#000] border-[#000] border-btn2"
-              >
-                {data?.potential_btn_two_text}
-                <FaLongArrowAltDown className="ml-2" />
-              </Link>
-            </div>
-          </div>
-
-          <div className="md:w-2/5 w-full ">
-            <form onSubmit={handleFormSubmit} className="space-y-4">
-              <div className="flex items-center space-x-3 border border-gray-300  px-4 py-2">
-                <FaUser className="text-gray-500 text-xl" />
-                <input
-                  type="text"
-                  placeholder="Full Name"
-                  className="w-full px-4 py-2 border-none focus:outline-none "
-                  required
-                />
-              </div>
-
-              <div className="flex items-center space-x-3 border border-gray-300  px-4 py-2">
-                <FaEnvelope className="text-gray-500 text-xl" />
-                <input
-                  type="email"
-                  placeholder="Email Address"
-                  className="w-full px-4 py-2 border-none focus:outline-none "
-                  required
-                />
-              </div>
-
-              <div className="flex items-center space-x-3 border border-gray-300  px-4 py-2">
-                <FaBuilding className="text-gray-500 text-xl" />
-                <input
-                  type="text"
-                  placeholder="Company Name"
-                  className="w-full px-4 py-2 border-none focus:outline-none "
-                />
-              </div>
-
-              <div className="flex items-center space-x-3 border border-gray-300  px-4 py-2">
-                <FaPhoneAlt className="text-gray-500 text-xl" />
-                <input
-                  type="tel"
-                  placeholder="Phone Number"
-                  className="w-full px-4 py-2 border-none focus:outline-none "
-                  required
-                />
-              </div>
-
-              <div className="flex items-start space-x-3 border border-gray-300  px-4 py-2">
-                <FaComment className="text-gray-500 text-xl" />
-                <textarea
-                  placeholder="Additional Comments or Questions"
-                  className="w-full px-4 py-2 border-none focus:outline-none "
-                />
-              </div>
-
-              <button
-                to="take-the-sales-force-evaluation"
-                type="button"
-                className="text-white w-full group text-nowrap transition-transform duration-500 ease-out transform uppercase bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:bg-gradient-to-bl focus:outline-none text-sm md:text-[13px] px-5 py-2.5   flex items-center justify-center"
-              >
-                <span className="absolute inset-0 w-0 h-full bg-[#060b33] transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-gradient-to-tr group-hover:from-[#060b33] group-hover:to-[#383f71]"></span>
-                <span className="relative text-white group-hover:text-white flex items-center">
-                  Schedule a Free Consultation
-                  <img
-                    src={RightArrow1}
-                    alt="Arrow Icon"
-                    className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"
-                  />
-                </span>
-              </button>
-            </form>
-          </div>
-        </div>
-      </section> */}
     </div>
   );
 };

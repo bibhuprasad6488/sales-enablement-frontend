@@ -1,9 +1,4 @@
-.banner {
-  background: linear-gradient(to right, #060b33 69%, #383f71 100%);
-}
-.banner-footer {
-  background: linear-gradient(to right, #060b33 0%, #383f71 100%);
-}
+
 .bg-cover {
   background-size: cover;
   background-position: center;

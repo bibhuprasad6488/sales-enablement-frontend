@@ -277,6 +277,7 @@ const DesktopMenu = ({
             )}
             {window.location.pathname === link.route && (
               <img
+                loading="lazy"
                 src={HoverLine}
                 alt="HoverLine"
                 className="absolute left-0 right-0 mx-auto -bottom-2 w-full"
@@ -491,6 +492,7 @@ const DesktopMenu = ({
                       <span className="relative text-white group-hover:text-white flex items-center">
                         Login
                         <img
+                          loading="lazy"
                           src={RightArrow1}
                           alt="Arrow Icon"
                           className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"
@@ -566,6 +568,7 @@ const DesktopMenu = ({
                       <span className="relative text-white group-hover:text-white flex items-center">
                         Reset Password
                         <img
+                          loading="lazy"
                           src={RightArrow1}
                           alt="Arrow Icon"
                           className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"

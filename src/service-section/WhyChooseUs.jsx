@@ -42,11 +42,13 @@ const WhyChooseUs = () => {
             <div className="flex justify-center items-center ">
               <div className="services-bg relative">
                 <img
+                  loading="lazy"
                   src={Students}
                   alt=""
                   className="w-[150.38px] h-[150.38px] sm:w-[212px] sm:h-[205px] md:w-[234.3px] md:h-[240px]  lg:w-[200px] lg:h-[220px] xl:w-[270px] xl:h-[250px] 2xl:w-[290px] 2xl:h-[262px] absolute sm:top-[-5rem] top-[-2rem] right-16 md:top-[-5rem] lg:top-[-4rem] xl:top-[-6rem]  2xl:top-[-6rem] sm:right-0 md:right-0 lg:right-0 xl:right-6 2xl:right-0 z-20"
                 />
                 <img
+                  loading="lazy"
                   src={SalesLeaders}
                   alt=""
                   className="w-[290px] h-[320px] sm:w-[290px] sm:h-[294px] md:w-[360px] md:h-[420px] lg:w-[336px] lg:h-[402px] xl:w-[424px] xl:h-[480px] 2xl:w-[424px] 2xl:h-[480px] z-10 rounded-lg relative left-[6rem] top-20 sm:left-20 md:left-36 lg:left-20 xl:left-20 2xl:left-20"
@@ -160,6 +162,7 @@ const WhyChooseUs = () => {
 
             <div className="flex items-center">
               <img
+                loading="lazy"
                 src={Person2}
                 alt="Sales Trainer"
                 className="w-16 h-16 mr-4 rounded-full object-cover"

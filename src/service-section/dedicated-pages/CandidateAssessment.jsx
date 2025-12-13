@@ -11,23 +11,22 @@ import {
   FaSlidersH,
   FaLightbulb,
 } from "react-icons/fa";
-import axios from "../../api/axios"
+import axios from "../../api/axios";
 const CandidateAssessment = () => {
   const { slug } = useParams();
-  const [data, setData] = useState({})
-  const [error, setError] = useState("")
+  const [data, setData] = useState({});
+  const [error, setError] = useState("");
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`/sales-candidate-details/${slug}`)
-        setData(res.data.data)
+        const res = await axios.get(`/sales-candidate-details/${slug}`);
+        setData(res.data.data);
       } catch (error) {
-        setError("failed to fetch data")
+        setError("failed to fetch data");
       }
-    }
+    };
     fetchData();
-  }, [slug])
-
+  }, [slug]);
 
   const leftVariants = {
     hidden: { opacity: 0, x: -100 },
@@ -56,7 +55,7 @@ const CandidateAssessment = () => {
         <title>{data.meta_title}</title>
         <meta name="description" content={data.meta_description} />
         <meta name="keywords" content={data.meta_keywords} />
-        <meta property="og:title" content={data.og_title}/>
+        <meta property="og:title" content={data.og_title} />
         <meta property="og:description" content={data.og_description} />
         <meta property="og:image" content={data.og_image} />
         <meta property="og:type" content="website" />
@@ -75,10 +74,12 @@ const CandidateAssessment = () => {
           >
             <div className="w-full flex items-center justify-center">
               <img
+                loading="lazy"
                 src={data.image}
                 alt="Candidates Assessment"
                 className="w-full max-w-[480px] h-1/3 sm:max-w-full object-contain"
-              />  </div>
+              />{" "}
+            </div>
           </motion.div>
 
           <motion.div
@@ -123,33 +124,34 @@ const CandidateAssessment = () => {
           </h2>
           <p className="text-center  text-sm md:text-base lg:text-lg mt-2">
             {data.benefit_sub_title}
-
           </p>
           <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
-            {Object.entries(data?.benefit_features || {}).map(([icon, feature], index) => (
-              <div
-                key={index}
-                className="bg-gradient-to-r from-[#DB0032] to-[#FA6602] shadow-md p-6 rounded-lg hover:scale-105 transform transition-all duration-300"
-              >
-                <div className="flex items-center space-x-4 mb-4">
-                  <div className="text-white text-3xl">
-                    <span dangerouslySetInnerHTML={{ __html: icon }}></span>
+            {Object.entries(data?.benefit_features || {}).map(
+              ([icon, feature], index) => (
+                <div
+                  key={index}
+                  className="bg-gradient-to-r from-[#DB0032] to-[#FA6602] shadow-md p-6 rounded-lg hover:scale-105 transform transition-all duration-300"
+                >
+                  <div className="flex items-center space-x-4 mb-4">
+                    <div className="text-white text-3xl">
+                      <span dangerouslySetInnerHTML={{ __html: icon }}></span>
+                    </div>
+                    <h3 className="text-white text-sm xl:text-sm 2xl:text-lg font-bold">
+                      {feature.title}
+                    </h3>
                   </div>
-                  <h3 className="text-white text-sm xl:text-sm 2xl:text-lg font-bold">
-                    {feature.title}
-                  </h3>
+                  <p className="text-white text-sm xl:text-sm 2xl:text:sm font-light mt-2">
+                    {feature.key_note}
+                  </p>
                 </div>
-                <p className="text-white text-sm xl:text-sm 2xl:text:sm font-light mt-2">{feature.key_note}</p>
-              </div>
-            ))}
+              )
+            )}
           </div>
         </div>
       </section>
       <section className="py-12 banner overflow-hidden">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-
-
             <motion.div
               className="relative overflow-hidden flex justify-center"
               initial="hidden"
@@ -158,12 +160,12 @@ const CandidateAssessment = () => {
               variants={leftVariants}
             >
               <img
+                loading="lazy"
                 src={data.sca_image}
                 alt={data.sca_title}
                 className="w-full max-w-md sm:max-w-lg lg:max-w-xl xl:max-w-2xl object-contain"
               />
             </motion.div>
-
 
             <motion.div
               className="text-center md:text-left"
@@ -188,10 +190,11 @@ const CandidateAssessment = () => {
                 data-aos-offset="200"
               >
                 <div className="text-white text-3xl">
-                  <span dangerouslySetInnerHTML={{ __html: data.sca_title }}></span>
+                  <span
+                    dangerouslySetInnerHTML={{ __html: data.sca_title }}
+                  ></span>
                 </div>
               </h2>
-
 
               <div className="flex flex-col sm:flex-row gap-4 mt-8 items-center justify-center lg:justify-start">
                 <Link
@@ -202,6 +205,7 @@ const CandidateAssessment = () => {
                   <span className="relative flex items-center text-white group-hover:text-[#DB0032]">
                     {data.sca_btn_text}
                     <img
+                      loading="lazy"
                       src={RightArrow1}
                       alt="Arrow Icon"
                       className="w-5 h-5 ml-2 transition-transform duration-300 ease-in-out"
@@ -214,7 +218,6 @@ const CandidateAssessment = () => {
         </div>
       </section>
 
-
       <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-6">
           <h2 className="text-lg  md:text-xl lg:text-2xl xl:text-3xl font-bold text-center mb-6">
@@ -225,26 +228,27 @@ const CandidateAssessment = () => {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {Object.entries(data?.cau_features ?? {}).map(([icon, feature], index) => (
-              <div
-                key={index}
-                className="bg-gradient-to-r from-[#DB0032] to-[#FA6602] shadow-lg p-6 rounded-lg border-t-4 border-[#DB0032] hover:scale-105 transform transition-all duration-300"
-              >
-
-                <div className="text-4xl text-white mb-4">
-                  <div className="text-white text-3xl">
-                    <span dangerouslySetInnerHTML={{ __html: icon }}></span>
+            {Object.entries(data?.cau_features ?? {}).map(
+              ([icon, feature], index) => (
+                <div
+                  key={index}
+                  className="bg-gradient-to-r from-[#DB0032] to-[#FA6602] shadow-lg p-6 rounded-lg border-t-4 border-[#DB0032] hover:scale-105 transform transition-all duration-300"
+                >
+                  <div className="text-4xl text-white mb-4">
+                    <div className="text-white text-3xl">
+                      <span dangerouslySetInnerHTML={{ __html: icon }}></span>
+                    </div>
                   </div>
+                  <h3 className="text-lg font-bold mb-2 text-white">
+                    {feature.title}
+                  </h3>
+                  <p className="text-white text-sm xl:text-sm 2xl:text-sm font-light mt-2">
+                    {feature.cau_note}
+                  </p>
                 </div>
-                <h3 className="text-lg font-bold mb-2 text-white">{feature.title}</h3>
-                <p className="text-white text-sm xl:text-sm 2xl:text-sm font-light mt-2">
-                  {feature.cau_note}
-                </p>
-              </div>
-            ))}
+              )
+            )}
           </div>
-
-
         </div>
       </section>
     </>

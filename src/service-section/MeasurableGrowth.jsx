@@ -117,6 +117,7 @@ const MeasurableGrowth = ({missionData}) => {
               <div className="flex justify-center align-middle">
                 <div className="mission-bg">
                   <img
+                    loading="lazy"
                     src={salesGrowth}
                     alt="About"
                     className="sm:w-[345px] w-[268px] h-[268px] relative right-2 top-2  sm:h-[355px]  mx-auto"

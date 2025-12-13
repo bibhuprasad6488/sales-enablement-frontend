@@ -42,6 +42,7 @@ const Achievement = ({ archivementData, error }) => {
           initial="hidden"
           animate="visible"
           variants={rightVariants}
+          loading="lazy"
         />
       </div>
 
@@ -58,13 +59,12 @@ const Achievement = ({ archivementData, error }) => {
           </h5>
 
           <h2 className="text-[18px] sm:text-[24px] md:text-[28px] font-bold uppercase mt-7 mb-7">
-
-
             <span
               className="about-intro-title"
-              dangerouslySetInnerHTML={{ __html: archivementData.archivement_title }}
+              dangerouslySetInnerHTML={{
+                __html: archivementData.archivement_title,
+              }}
             />
-
           </h2>
 
           <p className="text-sm sm:text-[16px] md:text-[16px] lg:text-[16px] xl:text-[16px] leading-[32px] text-justify mb-8">
@@ -73,29 +73,34 @@ const Achievement = ({ archivementData, error }) => {
           <div className="flex justify-start">
             <div className="bg-gradient-to-r from-[#db0032] to-[#fa6602] text-white py-4 px-6 rounded text-center transition-all duration-300 hover:bg-gradient-to-l hover:text-gray-200 w-full sm:w-auto">
               <div className="flex flex-wrap justify-center items-center space-x-3 sm:space-x-4">
-                <span className="text-xl sm:text-2xl md:text-3xl font-bold">2.4K+</span>
+                <span className="text-xl sm:text-2xl md:text-3xl font-bold">
+                  2.4K+
+                </span>
                 <span className="text-sm sm:text-base md:text-lg font-medium leading-tight text-center">
                   Successful <br className="hidden sm:block" /> Students
                 </span>
               </div>
             </div>
           </div>
-
         </motion.div>
         <div className="flex justify-center md:justify-end">
           <div className="flex flex-col justify-start space-y-4">
-    
-
-              {achievementPointsArray.map((point, index) => (
-                <div
-                  key={index}
-                  className="flex items-center bg-[#fff] border  border-gray-200 p-4  rounded space-x-3 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg hover:border-[#db0032]"
-                ><div className="bg-gradient-to-r from-[#db0032] to-[#fa6602] p-2 rounded-full">
-                    {iconMap[point] || <FiTrendingUp className="text-white text-2xl" />}
-                  </div>
-                  <span className="text-[#000] text-center font-medium">{point}</span>
+            {achievementPointsArray.map((point, index) => (
+              <div
+                key={index}
+                className="flex items-center bg-[#fff] border  border-gray-200 p-4  rounded space-x-3 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg hover:border-[#db0032]"
+              >
+                <div className="bg-gradient-to-r from-[#db0032] to-[#fa6602] p-2 rounded-full">
+                  {iconMap[point] || (
+                    <FiTrendingUp className="text-white text-2xl" />
+                  )}
                 </div>
-              ))}</div>
+                <span className="text-[#000] text-center font-medium">
+                  {point}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

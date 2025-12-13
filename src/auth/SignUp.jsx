@@ -443,6 +443,7 @@ function SignUp() {
                   <span className="relative text-white group-hover:text-white flex items-center">
                     {loading ? "Registering..." : "Sign Up"}
                     <img
+                      loading="lazy"
                       src={RightArrow1}
                       alt="Arrow Icon"
                       className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"

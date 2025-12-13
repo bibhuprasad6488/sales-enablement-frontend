@@ -7,22 +7,26 @@ const ScheduleConsultation = () => {
   return (
     <div id="consultation" className="container mx-auto px-4 ">
       <div className="py-12 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-
-
         <div className="text-center md:text-left px-4 lg:px-8">
           <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-white">
             <FaRegCalendarCheck className="inline-block text-bg-gradient-to-r from-[#DB0032] to-[#FA6602]" />{" "}
             Schedule a Consultation
           </h2>
           <p className="mt-4 text-sm text-left font-light sm:font-normal lg:text-lg text-white">
-            Take the first step toward making informed decisions with expert guidance in a personalized consultation.
+            Take the first step toward making informed decisions with expert
+            guidance in a personalized consultation.
           </p>
           <div className="mt-4 lg:mt-8 text-left font-light sm:font-normal text-white text-sm  lg:text-lg">
             <p className="mb-4">
-              Your business deserves the best advice, and our team is here to provide it. Whether you're looking for guidance on a specific challenge or strategic insights, our consultants are ready to help.
+              Your business deserves the best advice, and our team is here to
+              provide it. Whether you're looking for guidance on a specific
+              challenge or strategic insights, our consultants are ready to
+              help.
             </p>
             <p className="mb-8">
-              With tailored advice designed specifically for your needs, we bring real value to your business. Let’s work together to elevate your success.
+              With tailored advice designed specifically for your needs, we
+              bring real value to your business. Let’s work together to elevate
+              your success.
             </p>
           </div>
 
@@ -34,11 +38,13 @@ const ScheduleConsultation = () => {
             <span className="relative text-white group-hover:text-transparent bg-clip-text bg-gradient-to-r from-[#DB0032] to-[#FA6602] flex items-center">
               Get Started
               <img
+                loading="lazy"
                 src={RightArrow1}
                 alt="Arrow Icon"
                 className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out group-hover:hidden" // Hide on hover
               />
               <img
+                loading="lazy"
                 src={RightArrow}
                 alt="Arrow Icon Hover"
                 className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out hidden group-hover:inline" // Show on hover
