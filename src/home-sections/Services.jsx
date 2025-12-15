@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import RightArrow from "../assets/arrow-right.png";
-import ServiceArrow from "../assets/service-arrow.png";
+import RightArrow from "../assets/arrow-right.webp";
+import ServiceArrow from "../assets/service-arrow.webp";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Link, useNavigate } from "react-router-dom";

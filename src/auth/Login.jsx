@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { FaLock, FaEnvelope, FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import RightArrow1 from "../assets/arrow-right1.png";
+import RightArrow1 from "../assets/arrow-right1.webp";
 import axios from "../api/axios";
 import { toast, ToastContainer } from "react-toastify";
 import { AuthContext } from "../context/AuthContext";

@@ -1,6 +1,6 @@
 import React from "react";
-import CaseRightArrow from "../assets/caser-arrow-right.png";
-import SampleLogo from "../assets/logo.png";
+import CaseRightArrow from "../assets/caser-arrow-right.webp";
+import SampleLogo from "../assets/logo.webp";
 import { motion } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import axios from "../api/axios";

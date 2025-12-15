@@ -74,7 +74,7 @@ body {
 }
 
 .mission-bg {
-  background-image: url("./assets/our-mission-bg.png");
+  background-image: url("./assets/our-mission-bg.webp");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -89,7 +89,7 @@ body {
 }
 
 .vission-bg {
-  background-image: url("./assets/new/vissionbg.png");
+  background-image: url("./assets/new/vissionbg.webp");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -97,7 +97,7 @@ body {
   height: 464px;
 }
 .about-home-bg {
-  background-image: url("./assets/new/whowearebg.png");
+  background-image: url("./assets/new/whowearebg.webp");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -106,7 +106,7 @@ body {
 }
 
 .services-bg {
-  background-image: url("./assets/new/services-bg.png");
+  background-image: url("./assets/new/services-bg.webp");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -354,7 +354,7 @@ body {
   background-color: #fff;
 }
 .course-bg {
-  background-image: url("./assets/bg-image.png");
+  background-image: url("./assets/bg-image.webp");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -388,7 +388,7 @@ body {
   overflow-x: hidden;
 }
 .consultation-bg {
-  background-image: url("./assets/consultation.jpg");
+  background-image: url("./assets/consultation.webp");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

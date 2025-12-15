@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { AiOutlineGlobal } from "react-icons/ai";
 import { FaTrophy } from "react-icons/fa";
 import { FiTrendingUp } from "react-icons/fi";
-import Background from "../assets/AchieveBg.png";
+import Background from "../assets/AchieveBg.webp";
 
 
 const Achievement = ({ archivementData, error }) => {

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import QuoteLeft from "../assets/QuotLeft.png";
-import RightArrow from "../assets/testi-right-arr.png";
-import LeftArrow from "../assets/testi-left-arr.png";
-import Play from "../assets/play.png";
-import Pause from "../assets/pause.png";
+import QuoteLeft from "../assets/QuotLeft.webp";
+import RightArrow from "../assets/testi-right-arr.webp";
+import LeftArrow from "../assets/testi-left-arr.webp";
+import Play from "../assets/play.webp";
+import Pause from "../assets/pause.webp";
 import { motion } from "framer-motion";
 function Testimonials({ testimonialsData }) {
   if (!testimonialsData) return <p></p>;

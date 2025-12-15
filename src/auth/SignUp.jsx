@@ -11,7 +11,7 @@ import {
 import { Oval } from "react-loader-spinner";
 import { TbNewSection } from "react-icons/tb";
 import { Link, useNavigate } from "react-router-dom";
-import RightArrow1 from "../assets/arrow-right1.png";
+import RightArrow1 from "../assets/arrow-right1.webp";
 import axios from "../api/axios";
 import { toast, ToastContainer } from "react-toastify";
 import { useTab } from "../context/TabContext";

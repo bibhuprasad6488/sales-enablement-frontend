@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
-import Logo from "../assets/logo.png";
+import Logo from "../assets/logo.webp";
 import { AuthContext } from "../context/AuthContext";
 import { useTab } from "../context/TabContext";
 import { FaBook, FaUser, FaUserAlt, FaKey, FaSignOutAlt } from "react-icons/fa";

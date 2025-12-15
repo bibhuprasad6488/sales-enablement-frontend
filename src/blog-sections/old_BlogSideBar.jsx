@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
-import Blog1 from "../assets/blog1.png";
-import Blog2 from "../assets/blog2.png";
-import Blog3 from "../assets/blog3.png";
-import Blog4 from "../assets/blog-4.png";
+import Blog1 from "../assets/blog1.webp";
+import Blog2 from "../assets/blog2.webp";
+import Blog3 from "../assets/blog3.webp";
+import Blog4 from "../assets/blog-4.webp";
 
 const BlogSideBar = ({ setFilters }) => {
   const location = useLocation(); // to detect current page

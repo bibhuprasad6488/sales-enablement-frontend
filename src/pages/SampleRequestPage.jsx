@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import RightArrow1 from "../assets/arrow-right1.png";
+import RightArrow1 from "../assets/arrow-right1.webp";
 import HeroSRP from "../srp-section/HeroSRP";
 import FooterSubscribe from "../home-sections/FooterSubscribe";
 

@@ -1,10 +1,10 @@
 import React from "react";
-import RightArrow1 from "../assets/arrow-right1.png";
-import RightArrow from "../assets/arrow-right.png";
+import RightArrow1 from "../assets/arrow-right1.webp";
+import RightArrow from "../assets/arrow-right.webp";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import Dot from "../assets/dotted.png";
-import Iso from "../assets/Isolation_Mode.png";
+import Dot from "../assets/dotted.webp";
+import Iso from "../assets/Isolation_Mode.webp";
 
 const AboutUs = ({ aboutData, error }) => {
   const leftVariants = {

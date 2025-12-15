@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import RightArrow from "../assets/arrow-right.png";
-import Blog1 from "../assets/blog1.png";
-import Blog2 from "../assets/blog2.png";
-import Blog3 from "../assets/blog3.png";
+import RightArrow from "../assets/arrow-right.webp";
+import Blog1 from "../assets/blog1.webp";
+import Blog2 from "../assets/blog2.webp";
+import Blog3 from "../assets/blog3.webp";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaArrowRight } from "react-icons/fa";

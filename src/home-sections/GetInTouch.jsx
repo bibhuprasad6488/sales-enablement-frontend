@@ -8,10 +8,10 @@ import {
   FaPaperPlane,
 } from "react-icons/fa";
 import { MdOutlineDescription, MdOutlineSupportAgent } from "react-icons/md";
-import GetInTouchImg from "../assets/getintouch.png";
-import RightArrow from "../assets/arrow-right.png";
-import RightArrow1 from "../assets/arrow-right1.png";
-import PhoneIncome from "../assets/phone-incoming.png";
+import GetInTouchImg from "../assets/getintouch.webp";
+import RightArrow from "../assets/arrow-right.webp";
+import RightArrow1 from "../assets/arrow-right1.webp";
+import PhoneIncome from "../assets/phone-incoming.webp";
 import { motion } from "framer-motion";
 import ReCAPTCHA from "react-google-recaptcha";
 import axios from "../api/axios";

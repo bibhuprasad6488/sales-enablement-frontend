@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { FiChevronDown } from "react-icons/fi";
-import HoverLine from "../assets/hover-line.png";
+import HoverLine from "../assets/hover-line.webp";
 import {
   FaLock,
   FaEnvelope,
@@ -14,7 +14,7 @@ import {
   FaUserAlt,
   FaKey,
 } from "react-icons/fa";
-import RightArrow1 from "../assets/arrow-right1.png";
+import RightArrow1 from "../assets/arrow-right1.webp";
 import { toast } from "react-toastify";
 import { AuthContext } from "../context/AuthContext";
 import axios from "../api/axios";

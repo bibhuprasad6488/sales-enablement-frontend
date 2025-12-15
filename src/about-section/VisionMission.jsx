@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { FaCheck } from "react-icons/fa";
-import RightArrow from "../assets/arrow-right.png";
+import RightArrow from "../assets/arrow-right.webp";
 
 const VisionMission = ({ missionData, visionData, valueData, error }) => {
   const leftVariants = {

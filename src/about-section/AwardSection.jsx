@@ -1,5 +1,5 @@
 import React from "react";
-import Awards from "../assets/Awards.png";
+import Awards from "../assets/Awards.webp";
 import { motion } from "framer-motion";
 
 

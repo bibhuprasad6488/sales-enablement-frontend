@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import BenefitsSection from "./sections/BenefitsSection";
 import HeroSFE from "./sections/HeroSFE";
-import RightArrow1 from "../../assets/arrow-right1.png";
-import RightArrow from "../../assets/arrow-right.png";
+import RightArrow1 from "../../assets/arrow-right1.webp";
+import RightArrow from "../../assets/arrow-right.webp";
 import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -82,13 +82,13 @@ const SalesForceEvaluation = () => {
   };
 
   const getYouTubeThumbnail = (url) => {
-    if (!url) return "default-thumbnail.jpg";
+    if (!url) return "default-thumbnail.webp";
     const videoIdMatch = url.match(
       /(?:youtu\.be\/|youtube\.com\/(?:.*v=|.*\/|.*embed\/|.*v\/))([\w-]+)/
     );
     return videoIdMatch
       ? `https://img.youtube.com/vi/${videoIdMatch[1]}/maxresdefault.jpg`
-      : "default-thumbnail.jpg";
+      : "default-thumbnail.webp";
   };
   const videoUrl = data?.tool_video_link;
   const VideoThumb = getYouTubeThumbnail(data?.tool_video_link);

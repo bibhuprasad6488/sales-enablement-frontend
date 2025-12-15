@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import RightArrow1 from "../assets/arrow-right1.png";
+import RightArrow1 from "../assets/arrow-right1.webp";
 import { useApi3 } from "../context/WebsiteDataContext";
 import { toast } from "react-toastify";
 import axios from "axios";

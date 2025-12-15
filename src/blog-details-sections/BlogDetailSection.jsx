@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { FaShareAlt } from "react-icons/fa";
 import CommentPost from "./CommentPost";
 import CommentSection from "./CommentSection";
-import logoFacebook from "../assets/logoFacebook.png";
-import logoInstagram from "../assets/logoInstagram.png";
-import logoLinkedIn from "../assets/logoLinkedIn.png";
-import logoTwitter from "../assets/logoTwitter.png";
+import logoFacebook from "../assets/logoFacebook.webp";
+import logoInstagram from "../assets/logoInstagram.webp";
+import logoLinkedIn from "../assets/logoLinkedIn.webp";
+import logoTwitter from "../assets/logoTwitter.webp";
 import { ToastContainer } from "react-toastify";
 
 const BlogDetailSection = ({

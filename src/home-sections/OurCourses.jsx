@@ -1,6 +1,6 @@
-import RightArrow1 from "../assets/arrow-right1.png";
-import RightArrow from "../assets/arrow-right.png";
-import FilterImg from "../assets/filter.png";
+import RightArrow1 from "../assets/arrow-right1.webp";
+import RightArrow from "../assets/arrow-right.webp";
+import FilterImg from "../assets/filter.webp";
 import { Link, useNavigate } from "react-router-dom";
 import { useApi2 } from "../context/CourseContextApi";
 import { useState } from "react";

@@ -1,11 +1,11 @@
 import React from "react";
-import RightArrow1 from "../assets/arrow-right1.png";
-import Person2 from "../assets/person2.png";
+import RightArrow1 from "../assets/arrow-right1.webp";
+import Person2 from "../assets/person2.webp";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import Tick from "../assets/Tick.png";
-import Students from "../assets/new/students.png";
-import SalesLeaders from "../assets/new/sales-leaders.png";
+import Tick from "../assets/Tick.webp";
+import Students from "../assets/new/students.webp";
+import SalesLeaders from "../assets/new/sales-leaders.webp";
 import { FaCheck } from "react-icons/fa";
 const WhyChooseUs = () => {
   const leftVariants = {

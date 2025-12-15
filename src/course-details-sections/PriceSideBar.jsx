@@ -16,10 +16,10 @@ import { IoCall } from "react-icons/io5";
 import CallToDiscussForm from "../components/CallToDiscussForm";
 import { useNavigate } from "react-router-dom";
 import { useApi3 } from "../context/WebsiteDataContext";
-import logoFacebook from "../assets/logoFacebook.png";
-import logoInstagram from "../assets/logoInstagram.png";
-import logoLinkedIn from "../assets/logoLinkedIn.png";
-import logoTwitter from "../assets/logoTwitter.png";
+import logoFacebook from "../assets/logoFacebook.webp";
+import logoInstagram from "../assets/logoInstagram.webp";
+import logoLinkedIn from "../assets/logoLinkedIn.webp";
+import logoTwitter from "../assets/logoTwitter.webp";
 const PriceSideBar = ({ course }) => {
   const { websiteData } = useApi3();
   const currentUrl = window.location.href;

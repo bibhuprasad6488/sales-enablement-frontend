@@ -6,7 +6,7 @@ import {
   FaChalkboardTeacher,
   FaRegCalendarCheck,
 } from "react-icons/fa";
-import RightArrow1 from "../assets/arrow-right1.png";
+import RightArrow1 from "../assets/arrow-right1.webp";
 import { Button } from "@headlessui/react";
 import { MdOutlineDescription } from "react-icons/md";
 import { toast } from "react-toastify";

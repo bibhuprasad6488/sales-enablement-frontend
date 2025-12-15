@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import heroImage from "../assets/Logo-banner.png";
+import heroImage from "../assets/Logo-banner.webp";
 import Navbar from "../components/Navbar";
-import RightArrow from "../assets/arrow-right.png";
-import RightArrow1 from "../assets/arrow-right1.png";
+import RightArrow from "../assets/arrow-right.webp";
+import RightArrow1 from "../assets/arrow-right1.webp";
 import { useInView } from "react-intersection-observer";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
@@ -96,12 +96,12 @@ function HeroSection({ heroData }) {
               style={{
                 backgroundImage: `url(${heroData[currentSlide].image})`,
               }}
-              initial={{ opacity: 0 }}
+              initial={{ opacity: 0.2 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{
-                duration: 1.5,
-                ease: "easeInOut",
+                duration: 0.6,
+                ease: "easeOut",
               }}
             />
           </AnimatePresence>
@@ -117,7 +117,7 @@ function HeroSection({ heroData }) {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{
-                    duration: 1.5,
+                    duration: 0.7,
                     ease: "easeInOut",
                   }}
                 >
@@ -128,7 +128,7 @@ function HeroSection({ heroData }) {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{
-                      duration: 1.5,
+                      duration: 0.7,
                       ease: "easeInOut",
                     }}
                   >
@@ -142,7 +142,7 @@ function HeroSection({ heroData }) {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{
-                      duration: 1.5,
+                      duration: 0.7,
                       ease: "easeInOut",
                     }}
                   >
@@ -156,7 +156,7 @@ function HeroSection({ heroData }) {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{
-                      duration: 1.5,
+                      duration: 0.7,
                       ease: "easeInOut",
                     }}
                   >

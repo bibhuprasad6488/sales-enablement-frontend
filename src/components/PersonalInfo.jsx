@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import RightArrow1 from "../assets/arrow-right1.png";
+import RightArrow1 from "../assets/arrow-right1.webp";
 import { toast, ToastContainer } from "react-toastify";
 
 const FormWithProgress = () => {

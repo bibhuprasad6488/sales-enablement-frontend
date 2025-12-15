@@ -1,8 +1,8 @@
 import React from "react";
 import { FaRegCalendarCheck } from "react-icons/fa";
 import ScheduleForm from "./ScheduleForm";
-import RightArrow1 from "../assets/arrow-right1.png";
-import RightArrow from "../assets/arrow-right.png";
+import RightArrow1 from "../assets/arrow-right1.webp";
+import RightArrow from "../assets/arrow-right.webp";
 const ScheduleConsultation = () => {
   return (
     <div id="consultation" className="container mx-auto px-4 ">

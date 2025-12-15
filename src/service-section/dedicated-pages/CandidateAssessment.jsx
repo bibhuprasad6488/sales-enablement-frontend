@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import RightArrow1 from "../../assets/arrow-right1.png";
+import RightArrow1 from "../../assets/arrow-right1.webp";
 import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import HeroCandidate from "./sections/HeroCandidate";
