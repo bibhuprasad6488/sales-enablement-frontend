@@ -24,7 +24,7 @@ const ServiceDetailSection = ({ serviceDetails }) => {
         <SelectedComponent serviceDetails={serviceDetails} />
       ) : (
         <div className="text-center py-10 w-full lg:w-3/4">
-          <h2 className="text-2xl font-bold text-red-600">Data Not Found</h2>
+          <h2 className="text-[18px] font-bold text-red-600">Data Not Found</h2>
           <p className="text-gray-600 mt-2">
             The service you are looking for does not exist.
           </p>

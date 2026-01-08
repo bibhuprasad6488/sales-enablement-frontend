@@ -47,11 +47,11 @@ function CaseStudies() {
     <section className="case-study py-12 container mx-auto px-4">
       <div className="text-center md:text-left mb-auto">
         <div className="w-full mb-8">
-          <h5 className="text-[16px] sm:text-[24px] md:text-[24px] font-bold bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text">
+          <h5 className="text-[22px] sm:text-[24px] md:text-[24px] font-bold bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text">
             Our Case Studies
           </h5>
 
-          <h2 className="text-[18px] md:text-[36px] sm:text-[28px] font-bold mt-2 mb-2 sm:mt-4 sm:mb-4 md:mt-7 md:mb-7 lg:mt-7 lg:mb-7 xl:mt-7 xl:mb-7 2xl:mt-7 2xl:mb-7 w-full lg:w-full xl:w-[700px]">
+          <h2 className="text-[20px] md:text-[36px] sm:text-[28px] font-bold mt-2 mb-2 sm:mt-4 sm:mb-4 md:mt-7 md:mb-7 lg:mt-7 lg:mb-7 xl:mt-7 xl:mb-7 2xl:mt-7 2xl:mb-7 w-full lg:w-full xl:w-[700px]">
             Driving Success with Proven <br />
             <span className="bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text">
               Strategies

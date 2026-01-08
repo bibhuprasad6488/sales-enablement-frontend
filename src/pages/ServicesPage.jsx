@@ -27,7 +27,7 @@ function ServicesPage() {
        
       <HeroServices />
       <div className="container mx-auto px-4 py-12  ">
-        <h1 className="text-lg sm:text-2xl lg:text-4xl font-bold uppercase sm:leading-[38px] lg:leading-[48px] mb-3 lg:mb-5">
+        <h1 className="text-[18px] sm:text-2xl lg:text-4xl font-bold uppercase sm:leading-[38px] lg:leading-[48px] mb-3 lg:mb-5">
           All{" "}
           <span className="bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text">
             the Services You

@@ -20,7 +20,7 @@ function Course() {
     <div>
       <HeroCourse />
       <div className="container mx-auto px-4 py-12">
-        <h1 className="text-sm leading-2 sm:text-2xl lg:text-4xl font-bold uppercase sm:leading-[48px] mb-3 lg:mb-5">
+        <h1 className="text-[18px] leading-2 sm:text-2xl lg:text-4xl font-bold uppercase sm:leading-[48px] mb-3 lg:mb-5">
           All{" "}
           <span className="bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text">
             the Sales Enablement Skills You

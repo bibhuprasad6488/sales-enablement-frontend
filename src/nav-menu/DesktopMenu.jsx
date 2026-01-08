@@ -174,37 +174,51 @@ const DesktopMenu = ({
   if (!courses) return <p></p>;
   return (
     <>
-      <ul className="hidden lg:flex xl:space-x-12 2xl:space-x-14 lg:space-x-3 bold-text1 uppercase mt-4 lg:mt-0">
+      <ul className="hidden lg:flex xl:space-x-10 2xl:space-x-14 lg:space-x-3 bold-text1 uppercase mt-4 lg:mt-0">
         {links.map((link, index) => (
-          <li key={index} className="relative">
+          <li key={index} className="relative font-normal">
             {["Courses", "Services"].includes(link.name) ? (
               <div
-                className="relative group hover:font-bold"
+                className="relative  group hover:font-bold"
                 onMouseEnter={() => handleMouseEnter(link.name.toLowerCase())}
                 onMouseLeave={handleMouseLeave}
               >
                 <button
-                  className="sm:text-xs lg:text-sm xl:text-base uppercase flex items-center gap-1  space-x-2
-      group-hover:text-transparent  group-hover:bg-clip-text group-hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] 
-      transition-colors duration-300 ease-in-out
-      active:text-white active:bg-gradient-to-r  active:from-[#060b33] active:to-[#383f71]"
+                  className="sm:text-xs lg:text-sm xl:text-base uppercase flex items-center   space-x-2
+      group-hover:text-transparent  group-hover:bg-clip-text group-hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] transition-colors duration-300 ease-in-out active:text-white active:bg-gradient-to-r  active:from-[#060b33] active:to-[#383f71] "
                 >
                   <span>{link.name}</span>
                   <FiChevronDown className="transition-transform w-6 h-6 duration-200 group-hover:text-[#DB0032] text-inherit" />
                 </button>
 
                 {dropdownOpen === link.name.toLowerCase() && (
-                  <ul className="absolute left-1/2 transform -translate-x-1/2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:w-[750px] xl:w-[950px] bg-white text-gray-700 rounded-lg shadow-lg z-20 p-4">
+                  <ul
+                    className="
+    absolute left-1/2 -translate-x-1/2
+    grid
+    [grid-template-columns:repeat(auto-fit,minmax(260px,max-content))]
+    gap-4
+    bg-white text-gray-700 rounded-lg shadow-lg z-20 p-5
+    max-w-[80vw]
+  "
+                  >
                     {(link.name === "Courses" ? courses : services).map(
                       (item, idx) => (
                         <li
-                          key={idx}
-                          className="flex icon-hover items-center space-x-3 p-4 group bg-white hover:text-white shadow-md text-sm rounded-lg cursor-pointer hover:bg-gradient-to-r hover:from-[#DB0032] hover:to-[#FA6602]"
+                          className="
+    flex items-center space-x-3 p-3
+    bg-white rounded-lg cursor-pointer
+    shadow-sm hover:shadow-md
+    hover:text-white
+    hover:bg-gradient-to-r hover:from-[#DB0032] hover:to-[#FA6602]
+    max-w-[300px]
+    w-full
+  "
                         >
                           <div>
                             <span
                               dangerouslySetInnerHTML={{ __html: item.icon }}
-                              className="inline-flex items-center justify-center text-xl icon-hover1 text-white font-bold transition duration-200 ease-in-out bg-gradient-to-r from-[#DB0032] to-[#FA6602] w-10 h-10 rounded-full"
+                              className="inline-flex items-center justify-center text-sm icon-hover1 text-white font-bold transition duration-200 ease-in-out bg-gradient-to-r from-[#DB0032] to-[#FA6602] w-10 h-10 rounded-full"
                             ></span>
                           </div>
                           <NavLink
@@ -223,7 +237,7 @@ const DesktopMenu = ({
                                 : "sales-candidate-details"
                             }
                             className={({ isActive }) =>
-                              `block font-bold ${
+                              `block font-bold text-[13px] ${
                                 isActive
                                   ? "text-transparent bg-clip-text bg-gradient-to-r from-[#DB0032] to-[#FA6602] icon-hover2 transition duration-200 ease-in-out"
                                   : " "
@@ -239,7 +253,7 @@ const DesktopMenu = ({
                       {link.name === "Courses" ? (
                         <Link
                           to="/courses"
-                          className="text-white group flex justify-center items-center transition-all duration-300 ease-out transform uppercase text-[14px] bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:bg-gradient-to-bl rounded-lg shadow-lg font-bold text-sm px-8 py-3 cursor-pointer "
+                          className="text-white group flex justify-center items-center transition-all duration-300 ease-out transform uppercase text-[14px] bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:bg-gradient-to-bl rounded-lg shadow-lg font-bold text-m px-8 py-3 cursor-pointer "
                         >
                           <span className="absolute inset-0 w-0 h-full bg-white transition-all duration-300 ease-in-out group-hover:w-full"></span>
                           <span className="relative text-white group-hover:text-transparent bg-clip-text bg-gradient-to-r from-[#DB0032] to-[#FA6602]">

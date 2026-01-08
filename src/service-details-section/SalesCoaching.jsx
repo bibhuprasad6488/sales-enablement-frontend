@@ -8,11 +8,11 @@ const navigate = useNavigate()
   return (
     <section className="w-full lg:w-3/4">
       {/* Title */}
-      <div className="text-center mb-12">
-        <h2 className="text-4xl font-extrabold text-gray-900">
+      <div className="text-center mb-8">
+        <h2 className="text-[25px] font-extrabold text-gray-900">
           {serviceDetails.title}
         </h2>
-        <div className="mt-3 mx-auto h-1 w-32 bg-gradient-to-r from-red-500 to-pink-600 rounded"></div>
+        <div className="mt-2 mx-auto h-1 w-32 bg-gradient-to-r from-red-500 to-pink-600 rounded"></div>
       </div>
 
       {/* Intro */}

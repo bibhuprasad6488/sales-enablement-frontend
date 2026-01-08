@@ -5,7 +5,7 @@ const BenefitsSection = ({ salesForceEvaluation }) => {
   return (
     <section className="py-16 px-6 banner">
 
-      <h2 className="text-lg  md:text-xl lg:text-2xl xl:text-3xl font-bold text-center mb-10 text-white relative z-10">
+      <h2 className="text-[20px]  md:text-xl lg:text-2xl xl:text-3xl font-bold text-center mb-10 text-white relative z-10">
         {salesForceEvaluation.ev_tool_title}
       </h2>
 

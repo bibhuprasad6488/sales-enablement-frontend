@@ -43,7 +43,7 @@ const AboutUs = ({ aboutData, error }) => {
               <img
                 src={Iso}
                 loading="lazy"
-                alt=""
+                alt="Isolation_Mode"
                 className="w-[200px] h-[200px] sm:w-[480px] sm:h-[480px]"
               />
             </div>
@@ -54,7 +54,7 @@ const AboutUs = ({ aboutData, error }) => {
                   <img
                     loading="lazy"
                     src={aboutData.first_image}
-                    alt=""
+                    alt="first_image"
                     className="w-[150px] h-[200px] sm:w-[237px] sm:h-[300px]"
                   />
                 </div>
@@ -62,7 +62,7 @@ const AboutUs = ({ aboutData, error }) => {
                   <img
                     loading="lazy"
                     src={aboutData.second_image}
-                    alt=""
+                    alt="second_image"
                     className="w-[170px] h-[175px] sm:w-[237px] sm:h-[218px]"
                   />
                 </div>
@@ -85,7 +85,7 @@ const AboutUs = ({ aboutData, error }) => {
                   <img
                     loading="lazy"
                     src={aboutData.third_image}
-                    alt=""
+                    alt="third_image"
                     className="w-[180px] h-[280px] sm:w-[281px] sm:h-[415px]"
                   />
                 </div>
@@ -96,7 +96,7 @@ const AboutUs = ({ aboutData, error }) => {
               <img
                 loading="lazy"
                 src={Dot}
-                alt=""
+                alt="Isolation_Mode"
                 className="w-[50px] h-[60px] sm:w-[75.71px] sm:h-[85.38px]"
               />
             </div>

@@ -436,10 +436,15 @@ const BookCoarseBilling = () => {
                     >
                       <option value="">-- Please Select --</option>
                       {[
-                        "Western Cape",
+                        "Eastern Cape",
                         "Free State",
+                        "Gauteng",
+                        "KwaZulu-Natal",
                         "Limpopo",
-                        "Northerb Cape",
+                        "Mpumalanga",
+                        "Northern Cape",
+                        "North West",
+                        "Western Cape",
                       ].map((opt, i) => (
                         <option key={i} value={opt}>
                           {opt}

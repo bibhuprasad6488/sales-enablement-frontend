@@ -9,12 +9,12 @@ const ServiceContent = ({ serviceData }) => {
     <>
       <section className=" py-10">
         <div className=" container">
-          <h2 className="text-sm sm:text-base lg:text-lg uppercase bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text font-bold mb-2 sm:mb-4 lg:mb-6">
+          <h2 className="text-[20px] sm:text-base lg:text-lg uppercase bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text font-bold mb-2 sm:mb-4 lg:mb-6">
             Consulting & Services
           </h2>
 
           <div>
-            <h1 className="text-sm sm:text-2xl lg:text-3xl font-bold uppercase lg:leading-[48px] mb-5">
+            <h1 className="text-[18px] sm:text-2xl lg:text-3xl font-bold uppercase lg:leading-[48px] mb-5">
               Professional Sales Enablement <br />
               <span className="bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text">
                 Services Can Drive Success

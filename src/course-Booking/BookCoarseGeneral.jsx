@@ -70,20 +70,29 @@ const BookCoarseGeneral = () => {
     "Other",
   ].map(capitalizeFirst);
 
-  const funOrg = [
-    "adminstration",
-    "board and director developement",
-    "chief executive officer",
-    "competitiviness",
-    "Economics",
-    "executive",
-    "finance",
-    "group HR director",
-    "group talent manager",
-    "human resources",
-    "information technology",
-  ].map(capitalizeFirst);
+  // const funOrg = [
+  //   "adminstration",
+  //   "board and director developement",
+  //   "chief executive officer",
+  //   "competitiviness",
+  //   "Economics",
+  //   "executive",
+  //   "finance",
+  //   "group HR director",
+  //   "group talent manager",
+  //   "human resources",
+  //   "information technology",
+  // ].map(capitalizeFirst);
 
+  const funOrg = [
+    "Board and Director Development",
+    "Chief Executive Officer",
+    "Group HR Director",
+    "Group Talent Manager",
+    "Human Resources",
+    "Information Technology",
+    "Other",
+  ];
   const levlOrg = [
     "Executive",
     "general",
@@ -95,18 +104,37 @@ const BookCoarseGeneral = () => {
     "senior management",
   ].map(capitalizeFirst);
 
-  const industry = [
-    "accounting",
-    "Namking",
-    "Brockers",
-    "Building constructions",
-    "chemicals oil and plastics",
-    "consulting firms",
-  ].map(capitalizeFirst);
+  // const industry = [
+  //   "accounting",
+  //   "Namking",
+  //   "Brockers",
+  //   "Building constructions",
+  //   "chemicals oil and plastics",
+  //   "consulting firms",
+  // ].map(capitalizeFirst);
 
-  const genderOptions = ["male", "female", "unknown", "intersex"].map(
-    capitalizeFirst
-  );
+  const industry = [
+    "Agriculture & Environment",
+    "Mining, Energy & Utilities",
+    "Manufacturing & Industrial",
+    "Construction & Real Estate",
+    "Retail, Wholesale & E-commerce",
+    "Transportation & Logistics",
+    "Information Technology & Telecommunications",
+    "Financial Services",
+    "Professional & Business Services",
+    "Healthcare & Life Sciences",
+    "Education & Training",
+    "Media, Marketing & Creative ",
+    "Hospitality, Tourism & Leisure",
+    "Government & Public Sector",
+    "Non-Profit & Social Enterprises",
+    "Security & Risk Services",
+    "Personal & Lifestyle Services",
+    "Startups & Emerging Businesses",
+    "Other / Not Listed",
+  ];
+  const genderOptions = ["Male", "Female", "Prefer not say"];
 
   const populationgrp = ["black", "coloured", "indian", "white", "others"].map(
     capitalizeFirst
@@ -528,7 +556,7 @@ const BookCoarseGeneral = () => {
                 >
                   <option value="">-- Please Select --</option>
                   {funOrg.map((opt, i) => (
-                    <option key={i} value={opt} className="capitalize">
+                    <option key={i} value={opt} >
                       {opt}
                     </option>
                   ))}

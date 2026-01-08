@@ -61,10 +61,10 @@ function Services({ consultationData }) {
           viewport={{ once: true, amount: 0.5 }}
           variants={leftVariants}
         >
-          <h5 className="text-[16px] md:text-[24px] sm:text-[24px] uppercase font-bold bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text">
+          <h5 className="text-[22px] md:text-[24px] sm:text-[24px] uppercase font-bold bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text">
             {consultationData.sub_title}
           </h5>
-          <h2 className="text-[18px] sm:text-[24px] md:text-[28px] font-bold uppercase mt-7 mb-7">
+          <h2 className="text-[20px] sm:text-[24px] md:text-[28px] font-bold uppercase mt-7 mb-7">
             <span
               className="about-intro-title"
               dangerouslySetInnerHTML={{ __html: consultationData.title }}

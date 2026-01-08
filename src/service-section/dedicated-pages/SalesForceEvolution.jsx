@@ -118,7 +118,7 @@ const SalesForceEvaluation = () => {
             variants={rightVariants}
           >
             <h2
-              className="text-[18px] sm:text-[24px] md:text-[28px] font-bold uppercase mt-7 mb-7"
+              className="text-[20px] sm:text-[24px] md:text-[28px] font-bold uppercase mt-7 mb-7"
               data-aos="fade-left"
               data-aos-delay="200"
               data-aos-offset="200"
@@ -192,7 +192,7 @@ const SalesForceEvaluation = () => {
         <BenefitsSection salesForceEvaluation={data} />
       </div>
       <section className="container mx-auto px-4">
-        <h2 className="text-lg  md:text-xl lg:text-2xl xl:text-3xl font-semibold text-center mb-8 text-gray-800">
+        <h2 className="text-[20px]  md:text-xl lg:text-2xl xl:text-3xl font-semibold text-center mb-8 text-gray-800">
           {data?.tool_work_title}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">

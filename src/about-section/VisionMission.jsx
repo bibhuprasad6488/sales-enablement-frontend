@@ -54,7 +54,6 @@ const VisionMission = ({ missionData, visionData, valueData, error }) => {
             >
               {missionData.mission_description}
             </p>
-           
           </motion.div>
           <div className="flex overflow-hidden justify-center md:justify-center">
             <motion.div
@@ -99,7 +98,7 @@ const VisionMission = ({ missionData, visionData, valueData, error }) => {
                   <img
                     loading="lazy"
                     src={visionData.vision_image_one}
-                    alt=""
+                    alt="vision_image_one"
                     className="w-[143px] h-[151px] border-8  rounded-lg  relative top-0 right-0  z-20"
                   />
 
@@ -107,7 +106,7 @@ const VisionMission = ({ missionData, visionData, valueData, error }) => {
                     <img
                       loading="lazy"
                       src={visionData.vision_image_two}
-                      alt=""
+                      alt="vision_image_two"
                       className="w-[252.44px] h-[315.09px]  left-20 rounded-br-[114.5px] border-4  shadow-lg z-10 relative bottom-12"
                     />
                   </div>
@@ -140,7 +139,6 @@ const VisionMission = ({ missionData, visionData, valueData, error }) => {
             >
               {visionData.vision_description}
             </p>
-           
           </motion.div>
         </div>
       </section>
@@ -167,7 +165,6 @@ const VisionMission = ({ missionData, visionData, valueData, error }) => {
             >
               {valueData.values_description}
             </p>
-            
           </motion.div>
           <motion.div
             className="relative"

@@ -51,7 +51,7 @@ function LatestBlogs() {
     <section className="container mx-auto px-4 py-12 case-study">
       <div className="text-center md:text-left mb-8">
         <div className="flex flex-col md:flex-row justify-between items-center md:items-start">
-          <h2 className="text-[18px] sm:text-[28px] md:text-[36px] font-bold">
+          <h2 className="text-[22px] sm:text-[28px] md:text-[36px] font-bold">
             <span className="bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text">
               Blog
             </span>

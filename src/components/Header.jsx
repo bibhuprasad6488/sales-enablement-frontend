@@ -42,7 +42,33 @@ const Header = () => {
     <>
       <header className="banner text-white bg-gray-900 sticky top-0 z-40">
         <div className="flex flex-col  sm:flex-col sm:gap-4  md:flex-col lg:flex-row xl:flex-nowrap justify-center  sm:justify-start lg:justify-between items-center container mx-auto px-4 py-3 text-sm">
-          <div className="flex flex-col items-center  sm:flex-row sm:space-x-4 mb-3 sm:mb-0">
+          <div
+            className="flex flex-row items-start space-x-4
+                sm:flex-row sm:items-center sm:space-x-4
+                mb-3 sm:mb-0"
+          >
+            <span className="flex items-center space-x-2 group cursor-pointer">
+              <img
+                loading="lazy"
+                src={Phone}
+                alt="Phone"
+                className="w-[20px] h-[20px] sm:w-[26px] sm:h-[26px]"
+              />
+              <span className="text-xs sm:text-sm">{websiteData.phone}</span>
+            </span>
+
+            <span className="flex items-center space-x-2 group cursor-pointer">
+              <img
+                loading="lazy"
+                src={Mail}
+                alt="Mail"
+                className="w-[20px] h-[20px] sm:w-[26px] sm:h-[26px]"
+              />
+              <span className="text-xs sm:text-sm">{websiteData.email}</span>
+            </span>
+          </div>
+
+          {/* <div className="flex flex-col items-center  sm:flex-row sm:space-x-4 mb-3 sm:mb-0">
             <span className="flex items-center space-x-2 mb-2 group sm:mb-0 cursor-pointer">
               <img
                 loading="lazy"
@@ -65,9 +91,8 @@ const Header = () => {
                 {websiteData.email}
               </span>
             </span>
-          </div>
-
-          <div className="flex space-x-6 sm:space-x-8 mb-3 sm:mb-0">
+          </div> */}
+          <div className="hidden sm:flex space-x-6 sm:space-x-8 mb-3 sm:mb-0">
             <a
               href={websiteData.facebook_link}
               aria-label="Facebook"
@@ -123,7 +148,12 @@ const Header = () => {
               type="button"
               target="_blank"
               href={websiteData.footer_btn_link}
-              className="text-white h-10 transition-all duration-500 ease-in-out transform bg-transparent hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:text-white sm:h-10 md:h-12 lg:h-12 xl:h-14 flex items-center uppercase space-x-2 border-btn border-white font-bold text-xs lg:text-sm sm:text-xs px-3 py-2 md:px-6 sm:px-4 sm:py-2"
+              className="text-white h-8 sm:h-10 md:h-12 lg:h-12 xl:h-14
+transition-all duration-500 ease-in-out transform bg-transparent
+hover:bg-gradient-to-r from-[#DB0032] to-[#FA6602] hover:text-white
+flex items-center uppercase space-x-2 border-btn border-white
+font-bold text-[11px] sm:text-xs lg:text-sm
+px-2 py-1 sm:px-4 sm:py-2 md:px-6"
             >
               <span>{websiteData.footer_btn}</span>
               <img

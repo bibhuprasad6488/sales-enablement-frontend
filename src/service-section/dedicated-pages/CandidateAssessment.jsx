@@ -90,7 +90,7 @@ const CandidateAssessment = () => {
             variants={rightVariants}
           >
             <h5
-              className="text-[16px] sm:text-[24px] md:text-[22px] uppercase font-bold bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text"
+              className="text-[18px] sm:text-[24px] md:text-[22px] uppercase font-bold bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text"
               data-aos="fade-left"
               data-aos-delay="200"
               data-aos-offset="200"
@@ -99,7 +99,7 @@ const CandidateAssessment = () => {
             </h5>
 
             <h2
-              className="text-[18px] sm:text-[24px] md:text-[28px] font-bold uppercase mt-7 mb-7"
+              className="text-[20px] sm:text-[24px] md:text-[28px] font-bold uppercase mt-7 mb-7"
               data-aos="fade-left"
               data-aos-delay="200"
               data-aos-offset="200"
@@ -119,7 +119,7 @@ const CandidateAssessment = () => {
           </motion.div>
         </div>
         <div className="py-12 px-6">
-          <h2 className="text-lg  md:text-xl lg:text-2xl xl:text-3xl font-semibold text-center">
+          <h2 className="text-[25px]  md:text-xl lg:text-2xl xl:text-3xl font-semibold text-center">
             {data.benifit_title}
           </h2>
           <p className="text-center  text-sm md:text-base lg:text-lg mt-2">
@@ -175,7 +175,7 @@ const CandidateAssessment = () => {
               variants={rightVariants}
             >
               <h5
-                className="text-lg sm:text-xl md:text-2xl uppercase font-bold bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text"
+                className="text-[18px] sm:text-xl md:text-2xl uppercase font-bold bg-gradient-to-r from-[#DB0032] to-[#FA6602] text-transparent bg-clip-text"
                 data-aos="fade-left"
                 data-aos-delay="200"
                 data-aos-offset="200"
@@ -184,12 +184,12 @@ const CandidateAssessment = () => {
               </h5>
 
               <h2
-                className="text-lg sm:text-2xl md:text-3xl text-white font-bold uppercase mt-6 mb-6"
+                className="text-[18px] sm:text-2xl md:text-3xl text-white font-bold uppercase mt-6 mb-6"
                 data-aos="fade-left"
                 data-aos-delay="200"
                 data-aos-offset="200"
               >
-                <div className="text-white text-3xl">
+                <div className="text-white text-[22px">
                   <span
                     dangerouslySetInnerHTML={{ __html: data.sca_title }}
                   ></span>

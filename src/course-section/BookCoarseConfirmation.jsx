@@ -94,7 +94,7 @@ const BookingConfirmation = () => {
               <span className="font-medium">Course Name:</span> {courseName}
             </p>
             <p className="text-gray-700">
-              <span className="font-medium">Amount Payable:</span> $
+              <span className="font-medium">Amount Payable:</span> R 
               {course?.fees || "0"}
             </p>
             <p className="text-gray-700">

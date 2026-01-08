@@ -8,7 +8,7 @@ const ScheduleConsultation = () => {
     <div id="consultation" className="container mx-auto px-4 ">
       <div className="py-12 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         <div className="text-center md:text-left px-4 lg:px-8">
-          <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-white">
+          <h2 className="text-[20px] md:text-2xl lg:text-3xl font-semibold text-white">
             <FaRegCalendarCheck className="inline-block text-bg-gradient-to-r from-[#DB0032] to-[#FA6602]" />{" "}
             Schedule a Consultation
           </h2>
