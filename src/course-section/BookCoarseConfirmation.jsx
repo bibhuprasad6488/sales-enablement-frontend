@@ -94,7 +94,7 @@ const BookingConfirmation = () => {
               <span className="font-medium">Course Name:</span> {courseName}
             </p>
             <p className="text-gray-700">
-              <span className="font-medium">Amount Payable:</span> R 
+              <span className="font-medium">Amount Payable:</span> R
               {course?.fees || "0"}
             </p>
             <p className="text-gray-700">
@@ -134,9 +134,11 @@ const BookingConfirmation = () => {
                 {websiteData.account_name}
               </li>
               <li>
-                <span className="font-medium">Reference:</span> Use your{" "}
+                <span className="font-medium">Reference:</span>
+                {/* Use your{" "}
                 <span className="italic">ID number</span> or{" "}
-                <span className="italic">invoice number</span>
+                <span className="italic">invoice number</span> */}
+                <span className="italic">{bookingData?.ref_no}</span>
               </li>
             </ul>
           </div>

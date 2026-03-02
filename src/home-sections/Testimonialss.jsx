@@ -57,6 +57,7 @@ function Testimonials({ testimonialsData }) {
               loading="lazy"
               src={QuoteLeft}
               alt="Quote Icon"
+              title="The enablement"
               className="w-12 h-12 inline-block"
             />
             <p className="mt-5 text-black text-sm md:text-xl text-justify sm:text-base">
@@ -67,6 +68,7 @@ function Testimonials({ testimonialsData }) {
                 loading="lazy"
                 src={testimonialsData[currentIndex].profile_img}
                 alt="Testimonial"
+                title="The enablement"
                 className="w-24 h-24 mb-4 sm:mb-0"
               />
               <div className="sm:ml-4 text-center sm:text-left">
@@ -90,6 +92,7 @@ function Testimonials({ testimonialsData }) {
                 loading="lazy"
                 src={LeftArrow}
                 alt="Previous Testimonial"
+                title="The enablement"
                 className="w-[30px] h-[30px]"
               />
             </button>
@@ -98,6 +101,7 @@ function Testimonials({ testimonialsData }) {
                 loading="lazy"
                 src={RightArrow}
                 alt="Next Testimonial"
+                title="The enablement"
                 className="w-[30px] h-[30px]"
               />
             </button>
@@ -132,6 +136,7 @@ function Testimonials({ testimonialsData }) {
                 loading="lazy"
                 src={isPlaying ? Pause : Play}
                 alt="Play/Pause Button"
+                title="The enablement"
                 className="w-[30px] h-[30px]"
               />
             </button>

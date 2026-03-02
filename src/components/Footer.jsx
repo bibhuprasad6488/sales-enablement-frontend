@@ -106,6 +106,7 @@ function Footer() {
                   loading="lazy"
                   src={RightArrow1}
                   alt="arrow"
+                  title="The enablement"
                   className="w-6 h-6 ml-2"
                 />
               </a>
@@ -150,6 +151,7 @@ function Footer() {
                   loading="lazy"
                   src={FooterLine}
                   alt="Line"
+                  title="The enablement"
                   className="w-[110px] mb-4"
                 />
                 {Array.isArray(courseData)
@@ -162,6 +164,7 @@ function Footer() {
                           loading="lazy"
                           src={ArrowAdd}
                           alt="arrow"
+                          title="The enablement"
                           className="w-6 h-6 mr-2"
                         />
 
@@ -181,6 +184,7 @@ function Footer() {
                   loading="lazy"
                   src={FooterLine}
                   alt="Line"
+                  title="The sales enablement"
                   className="w-[110px] mb-4"
                 />
 
@@ -194,6 +198,7 @@ function Footer() {
                       loading="lazy"
                       src={ArrowAdd}
                       alt="arrow"
+                      title="The sales enablement"
                       className="w-6 h-6 mr-2"
                     />
                     <p>{link.name}</p>
@@ -209,6 +214,7 @@ function Footer() {
                   loading="lazy"
                   src={FooterLine}
                   alt="Line"
+                  title="The enablement"
                   className="w-[110px] mb-4"
                 />
 
@@ -217,6 +223,7 @@ function Footer() {
                     loading="lazy"
                     src={Location}
                     alt="location"
+                    title="The enablement"
                     className="w-6 h-6 mb-2"
                   />
                   <a
@@ -233,6 +240,7 @@ function Footer() {
                     loading="lazy"
                     src={Phone}
                     alt="phone"
+                    title="The sales enablement"
                     className="w-6 h-6 mb-2"
                   />
                   <a href="tel:+0103351182" className="flex items-center">
@@ -245,6 +253,7 @@ function Footer() {
                     loading="lazy"
                     src={Mail}
                     alt="mail"
+                    title="The sales enablement"
                     className="w-6 h-6 mb-2"
                   />
                   <a
@@ -279,6 +288,7 @@ function Footer() {
                     loading="lazy"
                     src={item.icon}
                     alt={item.name}
+                    title="The enablement"
                     className="w-10 h-10 transition-all cursor-pointer duration-300 ease-in-out hover:scale-[1.05]"
                   />
                 </div>

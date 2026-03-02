@@ -207,15 +207,15 @@ const FormWithProgress = () => {
                       s.completed
                         ? "text-white border-blue-950 bg-[#383F71]"
                         : s.optional
-                        ? "text-gray-500"
-                        : "text-red-600"
+                          ? "text-gray-500"
+                          : "text-red-600"
                     }`}
                   >
                     {s.completed
                       ? "Completed"
                       : s.optional
-                      ? "Optional"
-                      : "In Progress"}
+                        ? "Optional"
+                        : "In Progress"}
                   </span>
                 </div>
               </div>
@@ -360,6 +360,7 @@ const FormWithProgress = () => {
                       loading="lazy"
                       src={RightArrow1}
                       alt="Arrow Icon"
+                      title="The sales enablement"
                       className="w-6 h-6 mr-2 transition-transform rotate-180 duration-300 ease-in-out"
                     />
                     Prev
@@ -379,6 +380,7 @@ const FormWithProgress = () => {
                       loading="lazy"
                       src={RightArrow1}
                       alt="Arrow Icon"
+                      title="The enablement"
                       className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"
                     />
                   </span>
@@ -395,6 +397,7 @@ const FormWithProgress = () => {
                       loading="lazy"
                       src={RightArrow1}
                       alt="Arrow Icon"
+                      title="The enablement"
                       className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"
                     />
                   </span>

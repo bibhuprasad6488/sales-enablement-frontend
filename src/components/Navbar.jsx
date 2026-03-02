@@ -42,6 +42,7 @@ function Navbar() {
                 loading="lazy"
                 src={websiteData.logo}
                 alt="Logo"
+                title="The sales enablement"
                 className="w-[170px] h-auto"
               />
             </a>

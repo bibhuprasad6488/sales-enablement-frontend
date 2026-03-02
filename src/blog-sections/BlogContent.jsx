@@ -72,6 +72,7 @@ function LatestBlogs({ filters }) {
                   <img
                     src={blog.thumbnail}
                     alt={blog.title}
+                    title="Blog-The enablement"
                     className="w-[100%] h-[233px] p-2 object-fit mb-4"
                     loading="lazy"
                   />

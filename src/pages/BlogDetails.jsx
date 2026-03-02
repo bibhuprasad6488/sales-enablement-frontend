@@ -44,22 +44,22 @@ function BlogDetails() {
     searchTerm: "",
   });
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <Oval
-          height={60}
-          width={60}
-          color="#DB0032"
-          secondaryColor="#FA6602"
-          strokeWidth={4}
-          strokeWidthSecondary={4}
-          visible={true}
-          ariaLabel="loading"
-        />
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="flex items-center justify-center h-screen">
+  //       <Oval
+  //         height={60}
+  //         width={60}
+  //         color="#DB0032"
+  //         secondaryColor="#FA6602"
+  //         strokeWidth={4}
+  //         strokeWidthSecondary={4}
+  //         visible={true}
+  //         ariaLabel="loading"
+  //       />
+  //     </div>
+  //   );
+  // }
 
   if (!BlogdetailsData || !BlogdetailsData.blog_details) {
     return (

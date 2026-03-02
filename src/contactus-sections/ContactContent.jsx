@@ -112,6 +112,7 @@ function ContactContent({ contactData }) {
                   loading="lazy"
                   src={logoLinkedIn}
                   alt="Share on LinkedIn"
+                  title="The enablement"
                   className=" object-contain h-10 w-10"
                 />
               </a>
@@ -124,6 +125,7 @@ function ContactContent({ contactData }) {
                   loading="lazy"
                   src={logoTwitter}
                   alt="Share on Twitter"
+                  title="The sales enablement"
                   className=" object-contain h-10 w-10"
                 />
               </a>
@@ -136,6 +138,7 @@ function ContactContent({ contactData }) {
                   loading="lazy"
                   src={logoFacebook}
                   alt="Share on Facebook"
+                  title="The sales enablement"
                   className=" object-contain h-10 w-10"
                 />
               </a>
@@ -148,6 +151,7 @@ function ContactContent({ contactData }) {
                   loading="lazy"
                   src={logoInstagram}
                   alt="Share on Instagram"
+                  title="The sales enablement"
                   className=" object-contain h-10 w-10"
                 />
               </a>

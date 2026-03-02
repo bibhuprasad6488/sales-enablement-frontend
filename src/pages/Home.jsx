@@ -54,47 +54,72 @@ function Home() {
         <meta property="og:type" content="website" />
         <meta property="og:url" content={window.location.href} />
       </Helmet>
-      {isLoading || websiteLoading ? (
-        <div
-          style={{
-            background: "linear-gradient(to right, #DB0032, #FA6602)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100vh",
-          }}
-        >
-          <div className="flex flex-wrap">
-            <Bars
-              height="80"
-              width="80"
-              color="#FFFFFF"
-              ariaLabel="bars-loading"
-              visible={true}
-            />
-          </div>
+      <div
+        className={`transition-opacity duration-1000 ${
+          showContent ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        <div className="flex flex-col space-y-16">
+          <HeroSection heroData={page_banners} />
+          <OurCourses />
+          <About aboutPageData={page_data} />
+          <Services consultationData={consultation} />
+          <GetInTouch />
+          <CaseStudies />
+          {/* <Testimonials testimonialsData={testimonials} /> */}
+          <LatestBlogs />
+          <FooterSubscribe />
         </div>
-      ) : (
-        <div
-          className={`transition-opacity duration-1000 ${
-            showContent ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <div className="flex flex-col space-y-16">
-            <HeroSection heroData={page_banners} />
-            <OurCourses />
-            <About aboutPageData={page_data} />
-            <Services consultationData={consultation} />
-            <GetInTouch />
-            <CaseStudies />
-            {/* <Testimonials testimonialsData={testimonials} /> */}
-            <LatestBlogs />
-            <FooterSubscribe />
-          </div>
-        </div>
-      )}
+      </div>
     </>
   );
 }
 
 export default Home;
+
+
+
+
+
+
+//  {
+//    isLoading || websiteLoading ? (
+//      <div
+//        style={{
+//          background: "linear-gradient(to right, #DB0032, #FA6602)",
+//          display: "flex",
+//          justifyContent: "center",
+//          alignItems: "center",
+//          height: "100vh",
+//        }}
+//      >
+//        <div className="flex flex-wrap">
+//          <Bars
+//            height="80"
+//            width="80"
+//            color="#FFFFFF"
+//            ariaLabel="bars-loading"
+//            visible={true}
+//          />
+//        </div>
+//      </div>
+//    ) : (
+//      <div
+//        className={`transition-opacity duration-1000 ${
+//          showContent ? "opacity-100" : "opacity-0"
+//        }`}
+//      >
+//        <div className="flex flex-col space-y-16">
+//          <HeroSection heroData={page_banners} />
+//          <OurCourses />
+//          <About aboutPageData={page_data} />
+//          <Services consultationData={consultation} />
+//          <GetInTouch />
+//          <CaseStudies />
+//          {/* <Testimonials testimonialsData={testimonials} /> */}
+//          <LatestBlogs />
+//          <FooterSubscribe />
+//        </div>
+//      </div>
+//    );
+//  }

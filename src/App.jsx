@@ -61,7 +61,7 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter >
       {/* {isLoading ? (
         <div
           style={{
@@ -93,27 +93,27 @@ function App() {
         <Header />
         {/* ✅ Suspense wraps all routes so lazy components can show a fallback while loading */}
         <Suspense
-          fallback={
-            <div
-              style={{
-                background: "linear-gradient(to right, #DB0032, #FA6602)",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100vh",
-              }}
-            >
-              <div className="flex flex-wrap">
-                <Bars
-                  height="80"
-                  width="80"
-                  color="#FFFFFF"
-                  ariaLabel="bars-loading"
-                  visible={true}
-                />
-              </div>
-            </div>
-          }
+          // fallback={
+          //   <div
+          //     style={{
+          //       background: "linear-gradient(to right, #DB0032, #FA6602)",
+          //       display: "flex",
+          //       justifyContent: "center",
+          //       alignItems: "center",
+          //       height: "100vh",
+          //     }}
+          //   >
+          //     <div className="flex flex-wrap">
+          //       <Bars
+          //         height="80"
+          //         width="80"
+          //         color="#FFFFFF"
+          //         ariaLabel="bars-loading"
+          //         visible={true}
+          //       />
+          //     </div>
+          //   </div>
+          // }
         >
           <Routes>
             <Route path="/" element={<Home />} />

@@ -95,6 +95,7 @@ const BlogSideBar = ({ setFilters }) => {
                     loading="lazy"
                     src={post.thumbnail}
                     alt={post.title}
+                    title="Blog-The enablement"
                     className="w-12 h-12 rounded-full mr-3 object-cover"
                   />
                   <div>

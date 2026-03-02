@@ -40,12 +40,14 @@ function About({ aboutPageData }) {
                 loading="lazy"
                 src={aboutPageData.first_image}
                 alt="first_image"
+                title="About-The enablement"
                 className="w-[150.38px]  h-[150.38px] sm:w-[234.3px]  sm:h-[230.35px] md:w-[234.3px]  md:h-[230.35px] lg:w-[200px]  lg:h-[200px] xl:w-[234.3px]  xl:h-[230.35px] 2xl:w-[234.3px]  2xl:h-[230.35px] relative top-[-2rem] sm:top-[-4rem] z-20"
               />
               <img
                 loading="lazy"
                 src={aboutPageData.second_image}
                 alt="second_image"
+                title="About-The enablement"
                 className="w-[255px] h-[234px] sm:w-[444.01px] sm:h-[402.44px] md:w-[444.01px] md:h-[402.44px] lg:w-[329px] lg:h-[335px] xl:w-[444.01px] xl:h-[402.44px] 2xl:w-[444.01px] 2xl:h-[402.44px] z-10 rounded-lg relative left-[3rem] top-[-6rem] sm:left-16 sm:top-[-10rem]"
               />
             </div>
@@ -110,7 +112,7 @@ function About({ aboutPageData }) {
                     </div>
                   </div>
                 </div>
-              )
+              ),
             )}
           </div>
           <div className="flex flex-col sm:flex-wrap md:flex-wrap   lg:flex-row xl:flex-nowrap 2xl:flex-nowrap justify-between gap-4 mt-8">
@@ -127,6 +129,7 @@ function About({ aboutPageData }) {
                   loading="lazy"
                   src={RightArrow1}
                   alt="Arrow Icon"
+                  title="About-The enablement"
                   className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out "
                 />
               </span>
@@ -142,6 +145,7 @@ function About({ aboutPageData }) {
                 loading="lazy"
                 src={RightArrow}
                 alt="Arrow"
+                title="About-The enablement"
                 className="w-[24px] h-[24px]"
               />
             </Link>

@@ -74,6 +74,7 @@ const VisionMission = ({ missionData, visionData, valueData, error }) => {
                     loading="lazy"
                     src={missionData.mission_image}
                     alt="About"
+                    title="About-The enablement"
                     className="sm:w-[345px] w-[268px] h-[268px] relative right-2 top-2  sm:h-[355px]  mx-auto"
                     data-aos="fade-right"
                   />
@@ -99,6 +100,7 @@ const VisionMission = ({ missionData, visionData, valueData, error }) => {
                     loading="lazy"
                     src={visionData.vision_image_one}
                     alt="vision_image_one"
+                    title="vision-The sales enablement"
                     className="w-[143px] h-[151px] border-8  rounded-lg  relative top-0 right-0  z-20"
                   />
 
@@ -107,6 +109,7 @@ const VisionMission = ({ missionData, visionData, valueData, error }) => {
                       loading="lazy"
                       src={visionData.vision_image_two}
                       alt="vision_image_two"
+                      title="The enablement"
                       className="w-[252.44px] h-[315.09px]  left-20 rounded-br-[114.5px] border-4  shadow-lg z-10 relative bottom-12"
                     />
                   </div>
@@ -179,6 +182,7 @@ const VisionMission = ({ missionData, visionData, valueData, error }) => {
                   loading="lazy"
                   src={valueData.image}
                   alt="Vision"
+                  title="The sales enablement"
                   className="w-[90%] md:w-[80%] z-2"
                 />
                 <div className="flex flex-col justify-center px-4 text-white w-48 h-48 sm:w-60 sm:h-60 top-[-140px] sm:top-[-180px] lg:right-12 right-0 relative z-4 bg-gradient-to-r from-[#DB0032] to-[#FA6602] rounded-lg">

@@ -113,6 +113,7 @@ const Expertise = ({expertsData}) => {
                 loading="lazy"
                 src={expert.profile}
                 alt={expert.profile}
+                title="The sales enablement"
                 className="w-full h-full object-cover"
               />
             </div>

@@ -41,12 +41,14 @@ const ScheduleConsultation = () => {
                 loading="lazy"
                 src={RightArrow1}
                 alt="Arrow Icon"
+                title="The sales enablement"
                 className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out group-hover:hidden" // Hide on hover
               />
               <img
                 loading="lazy"
                 src={RightArrow}
                 alt="Arrow Icon Hover"
+                title="The sales enablement"
                 className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out hidden group-hover:inline" // Show on hover
               />
             </span>

@@ -38,6 +38,7 @@ const Achievement = ({ archivementData, error }) => {
         <motion.img
           src={Background}
           alt="Background"
+          title="The enablement"
           className="w-[60%] h-auto object-contain md:w-[50%] lg:w-[50%]"
           initial="hidden"
           animate="visible"

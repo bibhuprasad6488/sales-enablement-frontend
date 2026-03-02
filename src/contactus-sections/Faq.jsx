@@ -86,6 +86,7 @@ function Faq({ faqData }) {
           loading="lazy"
           src={faqData.image}
           alt="FAQ Illustration"
+          title="FAQ-The enablement"
           className="xl:w-[380px] xl:h-[400px] lg:w-[320px] lg:h-[350px] md:w-[360px] md:h-[350px] sm:w-[340px] sm:h-[320px] w-[250px] h-[220px] 2xl:w-[430px] 2xl:h-[500px] 
                 relative z-10"
         />

@@ -40,6 +40,7 @@ const Cards = ({ awardsData }) => {
               src={card?.image}
               loading="lazy"
               alt={`Logo ${index + 1}`}
+              title="The sales enablement"
               className="w-24 h-24 object-contain mb-4"
             />
             <h5 className="text-xl font-bold text-center">

@@ -119,6 +119,7 @@ const BlogSideBar = ({ setFilters }) => {
                   loading="lazy"
                   src={post.image}
                   alt={post.title}
+                  title="The sales enablement"
                   className="w-12 h-12 rounded-full mr-3 object-cover"
                 />
                 <div>

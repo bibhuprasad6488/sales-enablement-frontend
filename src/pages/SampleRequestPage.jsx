@@ -198,6 +198,7 @@ const SampleRequestPage = () => {
                         loading="lazy"
                         src={RightArrow1}
                         alt="Arrow Icon"
+                        title="The enablement"
                         className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"
                       />
                     </span>

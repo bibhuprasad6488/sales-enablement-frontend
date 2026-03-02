@@ -226,10 +226,10 @@ const DesktopMenu = ({
                               link.name === "Courses"
                                 ? `/courses-details/${item.slug}`
                                 : item.indp === "1"
-                                ? `/service/sales-force-details/${item.slug}`
-                                : item.indp === "2"
-                                ? `/service/sales-candidate-details/${item.slug}`
-                                : `/service/${item.slug}`
+                                  ? `/service/sales-force-details/${item.slug}`
+                                  : item.indp === "2"
+                                    ? `/service/sales-candidate-details/${item.slug}`
+                                    : `/service/${item.slug}`
                             }
                             id={
                               item.indp === "1"
@@ -247,7 +247,7 @@ const DesktopMenu = ({
                             {link.name === "Courses" ? item.name : item.title}
                           </NavLink>
                         </li>
-                      )
+                      ),
                     )}
                     <div className="flex justify-start mt-4">
                       {link.name === "Courses" ? (
@@ -293,6 +293,7 @@ const DesktopMenu = ({
               <img
                 loading="lazy"
                 src={HoverLine}
+                title="The sales enablement"
                 alt="HoverLine"
                 className="absolute left-0 right-0 mx-auto -bottom-2 w-full"
               />
@@ -509,6 +510,7 @@ const DesktopMenu = ({
                           loading="lazy"
                           src={RightArrow1}
                           alt="Arrow Icon"
+                          title="The sales enablement"
                           className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"
                         />
                       </span>
@@ -585,6 +587,7 @@ const DesktopMenu = ({
                           loading="lazy"
                           src={RightArrow1}
                           alt="Arrow Icon"
+                          title="The sales enablement"
                           className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"
                         />
                       </span>

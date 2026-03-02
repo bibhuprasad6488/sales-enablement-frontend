@@ -125,6 +125,8 @@ const SalesAssessmentModal = ({ toggleModal }) => {
                 <img
                   src={RightArrow1}
                   alt="Arrow Icon"
+                  title="The sales enablement"
+                  loading="lazy"
                   className="w-6 h-6 ml-2 transition-transform duration-300"
                 />
               </span>

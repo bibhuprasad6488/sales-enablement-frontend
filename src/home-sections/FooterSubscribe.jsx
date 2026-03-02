@@ -60,6 +60,7 @@ const FooterSubscribe = () => {
           loading="lazy"
           src={websiteData.logo}
           alt="Logo"
+          title="The sales enablement"
           className="w-[180px] md:w-[150px] lg:w-[200px] xl:w-[300px] h-auto mb-4 md:mb-0"
         />
 
@@ -82,6 +83,7 @@ const FooterSubscribe = () => {
                 loading="lazy"
                 src={RightArrow1}
                 alt="arrow"
+                title="The sales enablement"
                 className="w-6 h-6 ml-2"
               />
             </button>

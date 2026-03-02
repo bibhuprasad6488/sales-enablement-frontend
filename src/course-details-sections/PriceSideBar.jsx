@@ -305,6 +305,7 @@ const PriceSideBar = ({ course }) => {
                     loading="lazy"
                     src={logoFacebook}
                     alt="Share on Facebook"
+                    title="The enablement"
                     className="w-full h-full object-contain"
                   />
                 </a>
@@ -317,6 +318,7 @@ const PriceSideBar = ({ course }) => {
                     loading="lazy"
                     src={logoTwitter}
                     alt="Share on Twitter"
+                    title="The enablement"
                     className="w-full h-full object-contain"
                   />
                 </a>
@@ -329,6 +331,7 @@ const PriceSideBar = ({ course }) => {
                     loading="lazy"
                     src={logoLinkedIn}
                     alt="Share on LinkedIn"
+                    title="The enablement"
                     className="w-full h-full object-contain"
                   />
                 </a>
@@ -341,6 +344,7 @@ const PriceSideBar = ({ course }) => {
                     loading="lazy"
                     src={logoInstagram}
                     alt="Share on Instagram"
+                    title="The enablement"
                     className="w-full h-full object-contain"
                   />
                 </a>

@@ -52,6 +52,7 @@ const Header = () => {
                 loading="lazy"
                 src={Phone}
                 alt="Phone"
+                title="Phone-The enablement"
                 className="w-[20px] h-[20px] sm:w-[26px] sm:h-[26px]"
               />
               <span className="text-xs sm:text-sm">{websiteData.phone}</span>
@@ -62,6 +63,7 @@ const Header = () => {
                 loading="lazy"
                 src={Mail}
                 alt="Mail"
+                title="Mail-The enablement"
                 className="w-[20px] h-[20px] sm:w-[26px] sm:h-[26px]"
               />
               <span className="text-xs sm:text-sm">{websiteData.email}</span>
@@ -102,6 +104,7 @@ const Header = () => {
                 loading="lazy"
                 src={logoFacebook}
                 alt="Facebook"
+                title="Facebook-The enablement"
                 className="w-10 h-10 transition-all cursor-pointer duration-300 ease-in-out hover:scale-[1.1]"
               />
             </a>
@@ -114,6 +117,7 @@ const Header = () => {
                 loading="lazy"
                 src={logoInstagram}
                 alt="Instagram"
+                title="Instagram-The enablement"
                 className="w-10 h-10 transition-all cursor-pointer duration-300 ease-in-out hover:scale-[1.1]"
               />
             </a>
@@ -126,6 +130,7 @@ const Header = () => {
                 loading="lazy"
                 src={logoTwitter}
                 alt="Twitter"
+                title="Twitter-The enablement"
                 className="w-10 h-10 transition-all cursor-pointer duration-300 ease-in-out hover:scale-[1.1]"
               />
             </a>
@@ -138,6 +143,7 @@ const Header = () => {
                 loading="lazy"
                 src={logoLinkedIn}
                 alt="LinkedIn"
+                title="LinkedIn-The enablement"
                 className="w-10 h-10 transition-all cursor-pointer duration-300 ease-in-out hover:scale-[1.1]"
               />
             </a>
@@ -160,6 +166,7 @@ px-2 py-1 sm:px-4 sm:py-2 md:px-6"
                 loading="lazy"
                 src={RightArrow1}
                 alt="Arrow"
+                title="The sales enablement"
                 className="w-[16px] sm:w-[20px] h-[16px] sm:h-[20px] transition-transform duration-500 ease-in-out hover:translate-x-1"
               />
             </a>

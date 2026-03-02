@@ -9,7 +9,9 @@ const NotFound = () => {
         <img
           loading="lazy"
           src={ErrorImg}
+
           alt="Cartoon 404 Animation"
+          title="Not found-The sales enablement"
           className="w-full"
         />
       </div>

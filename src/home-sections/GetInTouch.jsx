@@ -102,6 +102,7 @@ function GetInTouch() {
                 loading="lazy"
                 src={PhoneIncome}
                 alt="Phone Icon"
+                title="The sales enablement"
                 className="w-9 h-9 inline-block ml-2"
               />
             </h3>
@@ -113,7 +114,6 @@ function GetInTouch() {
               We Are Here To Help!
             </h5>
 
-           
             <form
               className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2"
               onSubmit={handleSubmit}
@@ -244,6 +244,7 @@ function GetInTouch() {
               loading="lazy"
               src={GetInTouchImg}
               alt="Get In Touch"
+              title="The sales enablement"
               className="w-full max-w-xl mx-auto h-full object-cover"
             />
           </motion.div>

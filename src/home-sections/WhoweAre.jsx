@@ -4,7 +4,8 @@ import Breadcrumb from "../components/Breadcrumb";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import axios from "../api/axios";
-import { Bars } from "react-loader-spinner"; 
+import { Helmet } from "react-helmet-async";
+import { Bars } from "react-loader-spinner";
 import {
   FaCheckCircle,
   FaChevronLeft,
@@ -145,25 +146,38 @@ const WhoweAre = () => {
   //     </div>
   //   );
   // }
-  if (isLoading) {
-      return (
-        <div
-          style={{
-            background: "linear-gradient(to right, #DB0032, #FA6602)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100vh",
-          }}
-        >
-          <div className="flex flex-wrap">
-            <Bars height="80" width="80" color="#FFFFFF" ariaLabel="bars-loading" visible={true} />
-          </div>
-        </div>
-      );
-    }
+  // if (isLoading) {
+  //     return (
+  //       <div
+  //         style={{
+  //           background: "linear-gradient(to right, #DB0032, #FA6602)",
+  //           display: "flex",
+  //           justifyContent: "center",
+  //           alignItems: "center",
+  //           height: "100vh",
+  //         }}
+  //       >
+  //         <div className="flex flex-wrap">
+  //           <Bars height="80" width="80" color="#FFFFFF" ariaLabel="bars-loading" visible={true} />
+  //         </div>
+  //       </div>
+  //     );
+  //   }
+
+  console.log("meta all things ", whoweAre);
+
   return (
     <>
+      <Helmet>
+        <title>{whoweAre?.meta_title}</title>
+        <meta name="description" content={whoweAre?.meta_description} />
+        <meta name="keywords" content={whoweAre?.meta_keywords} />
+        <meta property="og:title" content={whoweAre?.og_title} />
+        <meta property="og:description" content={whoweAre?.og_description} />
+        <meta property="og:image" content={whoweAre?.og_image} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={window.location.href} />
+      </Helmet>
       {/* Header Section */}
       <section>
         <div className="relative w-full h-full course-bg">
@@ -344,7 +358,7 @@ const WhoweAre = () => {
               <button
                 onClick={() =>
                   setCurrentFact((prev) =>
-                    prev === 0 ? funFacts.length - 1 : prev - 1
+                    prev === 0 ? funFacts.length - 1 : prev - 1,
                   )
                 }
                 className="absolute left-0 text-2xl sm:text-5xl font-bold text-[#DB0032] hover:text-[#FA6602] z-10"
@@ -372,7 +386,7 @@ const WhoweAre = () => {
               <button
                 onClick={() =>
                   setCurrentFact((prev) =>
-                    prev === funFacts.length - 1 ? 0 : prev + 1
+                    prev === funFacts.length - 1 ? 0 : prev + 1,
                   )
                 }
                 className="absolute right-0 text-2xl sm:text-5xl font-bold text-[#DB0032] hover:text-[#FA6602] z-10"

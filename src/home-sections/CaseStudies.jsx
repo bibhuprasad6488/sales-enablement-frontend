@@ -101,6 +101,7 @@ function CaseStudies() {
                     loading="lazy"
                     src={SampleLogo}
                     alt="Company Logo"
+                    title="The sales enablement"
                     className="w-10 h-10"
                   />
                 </div>
@@ -112,6 +113,7 @@ function CaseStudies() {
                     loading="lazy"
                     src={CaseRightArrow}
                     alt="Case Right Arrow"
+                    title="The sales enablement"
                     className="mt-2 w-[24px] h-[24px]"
                   />
                 </div>

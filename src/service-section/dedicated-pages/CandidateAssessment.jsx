@@ -77,6 +77,7 @@ const CandidateAssessment = () => {
                 loading="lazy"
                 src={data.image}
                 alt="Candidates Assessment"
+                title="The sales enablement"
                 className="w-full max-w-[480px] h-1/3 sm:max-w-full object-contain"
               />{" "}
             </div>
@@ -144,7 +145,7 @@ const CandidateAssessment = () => {
                     {feature.key_note}
                   </p>
                 </div>
-              )
+              ),
             )}
           </div>
         </div>
@@ -161,6 +162,7 @@ const CandidateAssessment = () => {
             >
               <img
                 loading="lazy"
+                title="The sales enablement"
                 src={data.sca_image}
                 alt={data.sca_title}
                 className="w-full max-w-md sm:max-w-lg lg:max-w-xl xl:max-w-2xl object-contain"
@@ -208,6 +210,7 @@ const CandidateAssessment = () => {
                       loading="lazy"
                       src={RightArrow1}
                       alt="Arrow Icon"
+                      title="The enablement"
                       className="w-5 h-5 ml-2 transition-transform duration-300 ease-in-out"
                     />
                   </span>
@@ -246,7 +249,7 @@ const CandidateAssessment = () => {
                     {feature.cau_note}
                   </p>
                 </div>
-              )
+              ),
             )}
           </div>
         </div>

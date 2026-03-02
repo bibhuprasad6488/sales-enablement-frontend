@@ -101,6 +101,7 @@ const BlogDetailSection = ({
                   loading="lazy"
                   src={logoFacebook}
                   alt="Share on Facebook"
+                  title="Blog-The enablement"
                   className="w-full h-full object-contain"
                 />
               </a>
@@ -112,6 +113,7 @@ const BlogDetailSection = ({
                   loading="lazy"
                   src={logoTwitter}
                   alt="Share on Twitter"
+                  title="Blog-The enablement"
                   className="w-full h-full object-contain"
                 />
               </a>
@@ -123,6 +125,7 @@ const BlogDetailSection = ({
                   loading="lazy"
                   src={logoLinkedIn}
                   alt="Share on LinkedIn"
+                  title="Blog-The enablement"
                   className="w-full h-full object-contain"
                 />
               </a>
@@ -134,6 +137,7 @@ const BlogDetailSection = ({
                   loading="lazy"
                   src={logoInstagram}
                   alt="Share on Instagram"
+                  title="Blog-The enablement"
                   className="w-full h-full object-contain"
                 />
               </a>
@@ -194,6 +198,7 @@ const BlogDetailSection = ({
                           loading="lazy"
                           src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
                           alt="Video Thumbnail"
+                          title="Blog-The enablement"
                           className="w-full h-full object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>

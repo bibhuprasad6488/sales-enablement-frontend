@@ -11,6 +11,7 @@ const BookCoarseGeneral = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const courses = location.state?.course;
+  console.log("pricesss 2", courses);
   const courseName = courses?.name || "";
   const courseId = courses?.id || "";
   const user = localStorage.getItem("user_data");
@@ -23,8 +24,8 @@ const BookCoarseGeneral = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [formData, setFormData] = useState({
     title: usertitle,
-    surname: "",
-    firstname: "",
+    surname: userData.last_name || "",
+    firstname: userData.first_name || "",
     preferName: "",
     email: userData.email || "",
     diet: "",
@@ -37,6 +38,8 @@ const BookCoarseGeneral = () => {
     gender: "",
     population: "",
     passport: "",
+    passportNumber: "",
+    ID_Number: "",
     finding: "",
     account: "",
     country: "",
@@ -137,7 +140,7 @@ const BookCoarseGeneral = () => {
   const genderOptions = ["Male", "Female", "Prefer not say"];
 
   const populationgrp = ["black", "coloured", "indian", "white", "others"].map(
-    capitalizeFirst
+    capitalizeFirst,
   );
 
   const socialMedia = [
@@ -150,7 +153,7 @@ const BookCoarseGeneral = () => {
   ].map(capitalizeFirst);
 
   const vision = ["Hearing", "Vision", "Mobility", "Other"].map(
-    capitalizeFirst
+    capitalizeFirst,
   );
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -191,8 +194,11 @@ const BookCoarseGeneral = () => {
     // Add international mobile if not South Africa
     if (formData.nationality && formData.nationality !== "South Africa") {
       requiredFields.push("internationalMobilePhone");
+      requiredFields.push("passportNumber");
     }
-
+    if (formData.nationality && formData.nationality === "South Africa") {
+      requiredFields.push("ID_Number");
+    }
     // Add nature if disabled is yes
     if (formData.physicallyDisabled === "yes") {
       requiredFields.push("nature");
@@ -291,13 +297,17 @@ const BookCoarseGeneral = () => {
 
     if (formData.nationality && formData.nationality !== "South Africa") {
       requiredFields.push("internationalMobilePhone");
+      requiredFields.push("passportNumber");
+    }
+    if (formData.nationality && formData.nationality === "South Africa") {
+      requiredFields.push("ID_Number");
     }
     if (formData.physicallyDisabled === "yes") {
       requiredFields.push("nature");
     }
 
     const allFilled = requiredFields.every(
-      (field) => formData[field] && formData[field].toString().trim() !== ""
+      (field) => formData[field] && formData[field].toString().trim() !== "",
     );
 
     const emailValid = formData.email && /\S+@\S+\.\S+/.test(formData.email);
@@ -325,10 +335,11 @@ const BookCoarseGeneral = () => {
                 General
               </p>
               <span
-                className={`mt-1 px-3 py-1 rounded-full  text-xs font-medium  ${sectionComplete === "Missing Information"
+                className={`mt-1 px-3 py-1 rounded-full  text-xs font-medium  ${
+                  sectionComplete === "Missing Information"
                     ? "bg-yellow-400 text-white"
                     : "bg-green-100 text-green-700"
-                  } `}
+                } `}
               >
                 {sectionComplete}
               </span>
@@ -371,7 +382,7 @@ const BookCoarseGeneral = () => {
                   value={capitalizeFirst(formData.title)}
                   onChange={handleChange}
                   required
-                  className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
+                  className="w-full text-sm p-2 pl-4 border rounded-lg bg-slate-100 text-gray-400"
                 >
                   <option value="">-- Please Select --</option>
                   {optionTitle.map((opt, i) => (
@@ -387,26 +398,6 @@ const BookCoarseGeneral = () => {
               </div>
 
               <div className="grid gap-1.5">
-                <label htmlFor="surname">
-                  Surname{" "}
-                  <span className="text-gray-400 text-sm">
-                    (as per your ID)
-                  </span>
-                </label>
-                <input
-                  id="surname"
-                  name="surname"
-                  value={formData.surname || userData.last_name}
-                  onChange={handleChange}
-                  type="text"
-                  className="w-full p-2 border border-gray-300 rounded-lg bg-slate-100"
-                />
-                {errors.surname && (
-                  <p className="text-red-500 text-xs mt-1">{errors.surname}</p>
-                )}
-              </div>
-
-              <div className="grid gap-1.5">
                 <label htmlFor="firstname">
                   First name{" "}
                   <span className="text-gray-400 text-sm">
@@ -416,15 +407,34 @@ const BookCoarseGeneral = () => {
                 <input
                   id="firstname"
                   name="firstname"
-                  value={formData.firstname || userData.first_name}
+                  value={formData.firstname}
                   onChange={handleChange}
                   type="text"
-                  className="w-full p-2 border border-gray-300 rounded-lg bg-slate-100"
+                  className="w-full text-sm p-2 border text-gray-400 border-gray-300 rounded-lg bg-slate-100"
                 />
                 {errors.firstname && (
                   <p className="text-red-500 text-xs mt-1">
                     {errors.firstname}
                   </p>
+                )}
+              </div>
+              <div className="grid gap-1.5">
+                <label htmlFor="surname">
+                  Surname{" "}
+                  <span className="text-gray-400 text-sm">
+                    (as per your ID)
+                  </span>
+                </label>
+                <input
+                  id="surname"
+                  name="surname"
+                  value={formData.surname}
+                  onChange={handleChange}
+                  type="text"
+                  className="w-full text-sm text-gray-400 p-2 border border-gray-300 rounded-lg bg-slate-100"
+                />
+                {errors.surname && (
+                  <p className="text-red-500 text-xs mt-1">{errors.surname}</p>
                 )}
               </div>
 
@@ -436,7 +446,7 @@ const BookCoarseGeneral = () => {
                   value={formData.preferName}
                   onChange={handleChange}
                   type="text"
-                  className="w-full p-2 border border-gray-300 rounded-lg bg-slate-100"
+                  className="w-full text-sm  p-2 border border-gray-300 rounded-lg bg-slate-100"
                 />
                 {errors.preferName && (
                   <p className="text-red-500 text-xs mt-1">
@@ -461,7 +471,8 @@ const BookCoarseGeneral = () => {
                   type="email"
                   value={userData.email}
                   required
-                  className="w-full p-2 border border-gray-300 rounded-lg bg-slate-100"
+                  disabled
+                  className="w-full text-sm text-gray-400 p-2 border border-gray-300 rounded-lg bg-slate-100"
                 />
                 {errors.email && (
                   <p className="text-red-500 text-xs mt-1">{errors.email}</p>
@@ -488,7 +499,7 @@ const BookCoarseGeneral = () => {
                   }}
                   type="text"
                   required
-                  className="w-full px-2 border rounded-lg text-gray-600 bg-slate-100"
+                  className="w-full text-sm px-2 border rounded-lg text-gray-600 bg-slate-100"
                   autoComplete="off"
                   placeholder="Start typing..."
                 />
@@ -498,7 +509,11 @@ const BookCoarseGeneral = () => {
                   searchValue && (
                     <div
                       className="absolute z-50 w-full bg-white border rounded-md mt-1 max-h-60 overflow-auto shadow-lg"
-                      style={{ top: "92px", maxHeight: "300px", overflowY: "auto" }}
+                      style={{
+                        top: "92px",
+                        maxHeight: "300px",
+                        overflowY: "auto",
+                      }}
                     >
                       {companyOptions.length > 0 ? (
                         <>
@@ -511,7 +526,7 @@ const BookCoarseGeneral = () => {
                               className="px-3 py-2 hover:bg-gray-200 cursor-pointer"
                               onClick={() => {
                                 setSearchValue(
-                                  capitalizeFirst(comp.company_name)
+                                  capitalizeFirst(comp.company_name),
                                 );
                                 setFormData((prev) => ({
                                   ...prev,
@@ -552,11 +567,11 @@ const BookCoarseGeneral = () => {
                   value={formData.organisation}
                   onChange={handleChange}
                   required
-                  className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
+                  className="w-full text-sm p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
                 >
                   <option value="">-- Please Select --</option>
                   {funOrg.map((opt, i) => (
-                    <option key={i} value={opt} >
+                    <option key={i} value={opt}>
                       {opt}
                     </option>
                   ))}
@@ -577,7 +592,7 @@ const BookCoarseGeneral = () => {
                   value={formData.levelOrg}
                   onChange={handleChange}
                   required
-                  className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
+                  className="w-full text-sm p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
                 >
                   <option value="">-- Please Select --</option>
                   {levlOrg.map((opt, i) => (
@@ -600,7 +615,7 @@ const BookCoarseGeneral = () => {
                   value={formData.sector}
                   onChange={handleChange}
                   required
-                  className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
+                  className="w-full text-sm p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
                 >
                   <option value="">-- Please Select --</option>
                   {industry.map((opt, i) => (
@@ -623,7 +638,7 @@ const BookCoarseGeneral = () => {
                   value={formData.nationality}
                   onChange={handleChange}
                   required
-                  className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
+                  className="w-full text-sm p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
                 >
                   <option value="">-- Please Select --</option>
                   {nationality.map((opt, i) => (
@@ -638,7 +653,44 @@ const BookCoarseGeneral = () => {
                   </p>
                 )}
               </div>
-
+              {formData.nationality &&
+                formData.nationality !== "South Africa" && (
+                  <div className="grid gap-1.5">
+                    <label htmlFor="passportNumber">Passport Number</label>
+                    <input
+                      id="passportNumber"
+                      name="passportNumber"
+                      value={formData.passportNumber}
+                      onChange={handleChange}
+                      type="text"
+                      className="w-full text-sm p-2 border border-gray-300 rounded-lg bg-slate-100"
+                    />
+                    {errors.passportNumber && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.passportNumber}
+                      </p>
+                    )}
+                  </div>
+                )}
+              {formData.nationality &&
+                formData.nationality === "South Africa" && (
+                  <div className="grid gap-1.5">
+                    <label htmlFor="ID_Number"> ID Number</label>
+                    <input
+                      id="ID_Number"
+                      name="ID_Number"
+                      value={formData.ID_Number}
+                      onChange={handleChange}
+                      type="text"
+                      className="w-full text-sm p-2 border border-gray-300 rounded-lg bg-slate-100"
+                    />
+                    {errors.ID_Number && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.ID_Number}
+                      </p>
+                    )}
+                  </div>
+                )}
               {/* Job Title Field */}
               <div className="grid gap-1.5">
                 <label htmlFor="job">Position / job title</label>
@@ -649,7 +701,7 @@ const BookCoarseGeneral = () => {
                   type="text"
                   value={formData.job}
                   required
-                  className="w-full p-2 border rounded-lg text-gray-600 bg-slate-100"
+                  className="w-full text-sm p-2 border rounded-lg text-gray-600  bg-slate-100"
                 />
                 {errors.job && (
                   <p className="text-red-500 text-xs mt-1">{errors.job}</p>
@@ -665,7 +717,7 @@ const BookCoarseGeneral = () => {
                   value={formData.gender}
                   onChange={handleChange}
                   required
-                  className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
+                  className="w-full text-sm p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
                 >
                   <option value="">-- Please Select --</option>
                   {genderOptions.map((opt, i) => (
@@ -688,7 +740,7 @@ const BookCoarseGeneral = () => {
                   value={formData.population}
                   onChange={handleChange}
                   required
-                  className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
+                  className="w-full text-sm p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
                 >
                   <option value="">-- Please Select --</option>
                   {populationgrp.map((opt, i) => (
@@ -716,7 +768,7 @@ const BookCoarseGeneral = () => {
                   type="text"
                   value={formData.passport}
                   required
-                  className="w-full p-2 border rounded-lg text-gray-600 bg-slate-100"
+                  className="w-full text-sm p-2 border rounded-lg text-gray-600 bg-slate-100"
                 />
                 {errors.passport && (
                   <p className="text-red-500 text-xs mt-1">{errors.passport}</p>
@@ -732,7 +784,7 @@ const BookCoarseGeneral = () => {
                   value={formData.finding}
                   onChange={handleChange}
                   required
-                  className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
+                  className="w-full text-sm p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
                 >
                   <option value="">-- Please Select --</option>
                   {socialMedia.map((opt, i) => (
@@ -760,6 +812,7 @@ const BookCoarseGeneral = () => {
                         value="yes"
                         checked={formData.physicallyDisabled === "yes"}
                         onChange={handleChange}
+                        className="text-sm"
                       />
                       Yes
                     </label>
@@ -770,6 +823,7 @@ const BookCoarseGeneral = () => {
                         value="no"
                         checked={formData.physicallyDisabled === "no"}
                         onChange={handleChange}
+                        className="text-sm"
                       />
                       No
                     </label>
@@ -792,7 +846,7 @@ const BookCoarseGeneral = () => {
                       name="nature"
                       value={formData.nature}
                       onChange={handleChange}
-                      className="w-full p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
+                      className="w-full text-sm p-2 pl-4 border rounded-lg bg-slate-100 text-gray-600"
                     >
                       <option value="">-- Please Select --</option>
                       {vision.map((opt, i) => (
@@ -823,7 +877,7 @@ const BookCoarseGeneral = () => {
                       value={formData.internationalMobilePhone}
                       onChange={handleChange}
                       type="text"
-                      className="w-full p-2 border border-gray-300 rounded-lg bg-slate-100"
+                      className="w-full text-sm p-2 border border-gray-300 rounded-lg bg-slate-100"
                     />
                     {errors.internationalMobilePhone && (
                       <p className="text-red-500 text-xs mt-1">

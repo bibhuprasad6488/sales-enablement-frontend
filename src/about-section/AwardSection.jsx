@@ -67,6 +67,7 @@ const AwardSection = ({awardData, error}) => {
               src={awardData.image}
               loading="lazy"
               alt="About"
+              title="About-The enablement"
               className="w-full sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] h-auto max-h-[40vh] sm:max-h-[300px] object-contain mx-auto"
               data-aos="fade-right"
             />

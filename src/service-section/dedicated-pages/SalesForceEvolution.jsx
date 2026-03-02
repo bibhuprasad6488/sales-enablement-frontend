@@ -149,6 +149,7 @@ const SalesForceEvaluation = () => {
                     loading="lazy"
                     src={RightArrow1}
                     alt="Arrow Icon"
+                    title="The sales enablement"
                     className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"
                   />
                 </span>
@@ -164,6 +165,7 @@ const SalesForceEvaluation = () => {
                   loading="lazy"
                   src={RightArrow}
                   alt="Arrow"
+                  title="The sales enablement"
                   className="w-[24px] h-[24px]"
                 />
               </Link>
@@ -181,6 +183,7 @@ const SalesForceEvaluation = () => {
                 loading="lazy"
                 src={data?.image}
                 alt={data?.title}
+                title="The sales enablement"
                 className="w-full max-w-md lg:max-w-full"
               />
             </motion.div>
@@ -212,6 +215,7 @@ const SalesForceEvaluation = () => {
                     loading="lazy"
                     src={RightArrow1}
                     alt="Arrow Icon"
+                    title="The sales enablement"
                     className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"
                   />
                 </span>

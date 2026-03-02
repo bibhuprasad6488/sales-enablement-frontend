@@ -9,6 +9,8 @@ const BookCoarseBilling = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const courses = location.state?.course;
+  console.log("pricesss 1", courses);
+  
   const courseName = courses?.name || "";
 
   const [formData, setFormData] = useState(() => {
@@ -216,7 +218,7 @@ const BookCoarseBilling = () => {
                   name="account"
                   value={formData.account}
                   onChange={handleChange}
-                  className={`w-full p-2 pl-4 border rounded-lg ${
+                  className={`w-full  text-sm p-2 pl-4 border rounded-lg ${
                     errors.account ? "border-red-500 bg-red-50" : "bg-slate-100"
                   } text-gray-600`}
                 >
@@ -238,7 +240,7 @@ const BookCoarseBilling = () => {
                   onChange={handleChange}
                   name="country"
                   value={formData.country}
-                  className={`w-full p-2 pl-4 border rounded-lg ${
+                  className={`w-full text-sm p-2 pl-4 border rounded-lg ${
                     errors.country ? "border-red-500 bg-red-50" : "bg-slate-100"
                   } text-gray-600`}
                 >
@@ -262,7 +264,7 @@ const BookCoarseBilling = () => {
                       name="organisationBilling"
                       value={formData.organisationBilling}
                       onChange={handleChange}
-                      className={`w-full p-2 pl-4 border rounded-lg ${
+                      className={`w-full text-sm p-2 pl-4 border rounded-lg ${
                         errors.organisationBilling
                           ? "border-red-500 bg-red-50"
                           : "bg-slate-100"
@@ -289,7 +291,7 @@ const BookCoarseBilling = () => {
                       type="text"
                       name="division"
                       value={userData.division}
-                      className="w-full p-2 border rounded-lg text-gray-600 bg-slate-100"
+                      className="w-full text-sm p-2 border rounded-lg text-gray-600 bg-slate-100"
                     />
                   </div>
 
@@ -305,7 +307,7 @@ const BookCoarseBilling = () => {
                           value="yes"
                           checked={formData.division_on_the_invoice === "yes"}
                           onChange={handleChange}
-                          className="text-[#DB0032] focus:ring-[#DB0032]"
+                          className="text-[#DB0032] text-sm focus:ring-[#DB0032]"
                         />
                         Yes
                       </label>
@@ -316,7 +318,7 @@ const BookCoarseBilling = () => {
                           value="no"
                           checked={formData.division_on_the_invoice === "no"}
                           onChange={handleChange}
-                          className="text-[#DB0032] focus:ring-[#DB0032]"
+                          className="text-[#DB0032] text-sm focus:ring-[#DB0032]"
                         />
                         No
                       </label>
@@ -335,7 +337,7 @@ const BookCoarseBilling = () => {
                       onChange={handleChange}
                       name="vatNumber"
                       value={formData.vatNumber}
-                      className="w-full p-2 border rounded-lg text-gray-600 bg-slate-100"
+                      className="w-full text-sm p-2 border rounded-lg text-gray-600 bg-slate-100"
                     />
                   </div>
                 </>
@@ -348,7 +350,7 @@ const BookCoarseBilling = () => {
                   onChange={handleChange}
                   name="postalAd_1"
                   value={formData.postalAd_1}
-                  className={`w-full p-2 border rounded-lg ${
+                  className={`w-full text-sm p-2 border rounded-lg ${
                     errors.postalAd_1
                       ? "border-red-500 bg-red-50"
                       : "bg-slate-100"
@@ -371,7 +373,7 @@ const BookCoarseBilling = () => {
                   onChange={handleChange}
                   name="postalAd_2"
                   value={formData.postalAd_2}
-                  className={`w-full p-2 border rounded-lg ${
+                  className={`w-full text-sm p-2 border rounded-lg ${
                     errors.postalAd_2
                       ? "border-red-500 bg-red-50"
                       : "bg-slate-100"
@@ -391,7 +393,7 @@ const BookCoarseBilling = () => {
                   onChange={handleChange}
                   name="city"
                   value={formData.city}
-                  className={`w-full p-2 border rounded-lg ${
+                  className={`w-full text-sm p-2 border rounded-lg ${
                     errors.city ? "border-red-500 bg-red-50" : "bg-slate-100"
                   } text-gray-600`}
                 />
@@ -407,7 +409,7 @@ const BookCoarseBilling = () => {
                   onChange={handleChange}
                   name="sendingEmail"
                   value={formData.sendingEmail}
-                  className={`w-full p-2 border rounded-lg ${
+                  className={`w-full text-sm p-2 border rounded-lg ${
                     errors.sendingEmail
                       ? "border-red-500 bg-red-50"
                       : "bg-slate-100"
@@ -428,7 +430,7 @@ const BookCoarseBilling = () => {
                       name="billing_province"
                       value={formData.billing_province}
                       onChange={handleChange}
-                      className={`w-full p-2 pl-4 border rounded-lg ${
+                      className={`w-full text-sm p-2 pl-4 border rounded-lg ${
                         errors.billing_province
                           ? "border-red-500 bg-red-50"
                           : "bg-slate-100"
@@ -465,7 +467,7 @@ const BookCoarseBilling = () => {
                       name="billing_postalcode"
                       value={formData.billing_postalcode}
                       onChange={handleChange}
-                      className={`w-full p-2 border rounded-lg ${
+                      className={`w-full text-sm p-2 border rounded-lg ${
                         errors.billing_postalcode
                           ? "border-red-500 bg-red-50"
                           : "bg-slate-100"
@@ -488,7 +490,7 @@ const BookCoarseBilling = () => {
                     name="zip_code"
                     value={formData.zip_code}
                     onChange={handleChange}
-                    className={`w-full p-2 border rounded-lg ${
+                    className={`w-full text-sm p-2 border rounded-lg ${
                       errors.zip_code
                         ? "border-red-500 bg-red-50"
                         : "bg-slate-100"
@@ -507,7 +509,7 @@ const BookCoarseBilling = () => {
               <button
                 type="button"
                 onClick={prevStep}
-                className="px-6 py-2 rounded-lg bg-gray-300 hover:bg-gray-400 transition"
+                className="px-6  py-2 rounded-lg bg-gray-300 hover:bg-gray-400 transition"
               >
                 Back
               </button>

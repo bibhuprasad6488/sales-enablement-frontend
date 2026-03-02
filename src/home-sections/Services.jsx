@@ -81,7 +81,13 @@ function Services({ consultationData }) {
             className="text-[#000] transition-transform duration-500 ease-out transform  h-12 w-full justify-center  flex space-x-5 gap-6 uppercase items-center font-bold text-xs sm:text-sm md:px-20 lg:px-20 sm:w-full xl:w-auto 2xl:w-auto  md:w-auto xl:px-20   md:py-6 sm:px-16 py-4 hover:text-[#000] border border-[#000] sm:justify-center md:justify-between border-btn2"
           >
             {consultationData.btn_text}
-            <img src={RightArrow} alt="Right Arrow" className="w-6 h-6" />
+            <img
+              src={RightArrow}
+              alt="Right Arrow"
+              loading="lazy"
+              title="Service-The sales enablement"
+              className="w-6 h-6"
+            />
           </button>
         </motion.div>
 
@@ -142,8 +148,8 @@ function Services({ consultationData }) {
                           card.indp === "1"
                             ? `/service/sales-force-details/${card.slug}`
                             : card.indp === "2"
-                            ? `/service/sales-candidate-details/${card.slug}`
-                            : `/service/${card.slug}`
+                              ? `/service/sales-candidate-details/${card.slug}`
+                              : `/service/${card.slug}`
                         }
                       >
                         <h3 className="text-[14px] uppercase font-bold flex justify-center items-center">
@@ -168,8 +174,8 @@ function Services({ consultationData }) {
                               card.indp === "1"
                                 ? `/service/sales-force-details/${card.slug}`
                                 : card.indp === "2"
-                                ? `/service/sales-candidate-details/${card.slug}`
-                                : `/service/${card.slug}`
+                                  ? `/service/sales-candidate-details/${card.slug}`
+                                  : `/service/${card.slug}`
                             }
                           >
                             {clickedCard === index ? (
@@ -222,14 +228,15 @@ function Services({ consultationData }) {
                             card.indp === "1"
                               ? `/service/sales-force-details/${card.slug}`
                               : card.indp === "2"
-                              ? `/service/sales-candidate-details/${card.slug}`
-                              : `/service/${card.slug}`
+                                ? `/service/sales-candidate-details/${card.slug}`
+                                : `/service/${card.slug}`
                           }
                         >
                           <img
                             loading="lazy"
                             src={ServiceArrow}
                             alt="Service Arrow"
+                            title="Service-The sales enablement"
                             className="w-7 h-7"
                           />
                         </Link>

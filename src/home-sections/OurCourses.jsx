@@ -45,6 +45,7 @@ function OurCourses() {
                             loading="lazy"
                             src={course.image}
                             alt={course.name}
+                            title="Course-The enablement"
                             className="w-full h-full object-cover rounded-full"
                           />
                         </div>
@@ -73,6 +74,7 @@ function OurCourses() {
                     loading="lazy"
                     src={RightArrow1}
                     alt="Arrow Icon"
+                    title="Course-The enablement"
                     className="w-6 h-6 ml-2 transition-transform duration-300 ease-in-out"
                   />
                 </span>
@@ -83,6 +85,7 @@ function OurCourses() {
                     loading="lazy"
                     src={FilterImg}
                     alt="Filter Icon"
+                    title="Course-The enablement"
                     className="w-6 h-6 ml-2 cursor-pointer"
                     onClick={() => setDropdownOpen(!isDropdownOpen)}
                   />
@@ -141,6 +144,7 @@ function OurCourses() {
                   loading="lazy"
                   src={RightArrow}
                   alt="Right Arrow"
+                  title="Course-The enablement"
                   className="w-6 h-6"
                 />
               </Link>

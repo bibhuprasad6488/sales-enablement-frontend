@@ -120,6 +120,7 @@ const MeasurableGrowth = ({missionData}) => {
                     loading="lazy"
                     src={salesGrowth}
                     alt="About"
+                    title="The sales enablement"
                     className="sm:w-[345px] w-[268px] h-[268px] relative right-2 top-2  sm:h-[355px]  mx-auto"
                     data-aos="fade-right"
                   />

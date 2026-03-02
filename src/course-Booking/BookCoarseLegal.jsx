@@ -10,6 +10,8 @@ const BookCoarseLegal = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const courses = location.state?.course;
+  console.log("price", courses);
+
   const courseId = courses?.id || "";
   const courseCost = courses?.fees || "";
   const courseName = courses?.name || "";
@@ -138,9 +140,10 @@ const BookCoarseLegal = () => {
         billing_vat_number: formData.vatNumber,
         division_in_invoice: formData.division_on_the_invoice,
         email_for_invoice: formData.sendingEmail,
+        id_number: formData.ID_Number,
+        passport_number: formData.passportNumber,
         accept_legal: formData.terms === "yes",
       };
-
 
       const response = await axios.post("store-course-booking", payload, {
         headers: {
@@ -209,7 +212,6 @@ const BookCoarseLegal = () => {
         </div>
       </section> */}
 
-   
       <section className="w-full  flex justify-center relative py-3">
         <div className="w-full md:w-[95%] px-5 md:px-10 shadow-lg rounded-xl bg-white py-5   sticky top-0">
           {/* Progress indicator */}

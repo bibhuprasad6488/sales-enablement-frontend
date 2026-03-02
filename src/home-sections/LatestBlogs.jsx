@@ -62,7 +62,13 @@ function LatestBlogs() {
             className="text-[#000] transition-transform duration-500 ease-out transform flex  md:px-6 md:py-3 w-full sm:w-auto md:w-auto  uppercase gap-3 justify-between space-x-2 items-center font-bold text-xs sm:text-sm  px-4 py-2 hover:text-[#000]  border-[#000] border-btn2"
           >
             Discover Latest Blogs
-            <img src={RightArrow} alt="arrow" className="w-6 h-6 ml-2" />
+            <img
+              src={RightArrow}
+              alt="arrow"
+              loading="lazy"
+              title="The sales enablement"
+              className="w-6 h-6 ml-2"
+            />
           </Link>
         </div>
         <p className="text-sm sm:text-lg text-left md:text-xl xl:w-[70%] md:w-full lg:w-full md:leading-[35px] leading-[35px] mt-4">
@@ -99,6 +105,7 @@ function LatestBlogs() {
               loading="lazy"
               src={blog.thumbnail}
               alt={blog.title}
+              title="The sales enablement"
               className="w-[100%] h-[233px] p-2 object-cover mb-4"
             />
             <h3
