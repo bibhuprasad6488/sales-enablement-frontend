@@ -95,6 +95,7 @@ function BlogDetails() {
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={window.location.href} />
+        <link rel="canonical" href={window.location.href} />
       </Helmet>
 
       <BlogDetailsHero titles={BlogdetailsData.blog_details?.title} />

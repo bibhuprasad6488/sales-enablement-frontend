@@ -36,7 +36,7 @@ function ServiceDetails() {
   return (
     <>
       <Helmet>
-      <title>{data?.meta_title || ""} | {websiteData?.title || ""}</title>
+        <title>{data?.meta_title || ""} </title>
 
         <meta name="description" content={data?.meta_description} />
         <meta name="keywords" content={data?.meta_keywords} />
@@ -45,10 +45,10 @@ function ServiceDetails() {
         <meta property="og:image" content={data?.og_image} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={window.location.href} />
+        <link rel="canonical" href={window.location.href} />
       </Helmet>
 
-
-      <HeroServiceDetails serviceDetails={data} loading={loading}/>
+      <HeroServiceDetails serviceDetails={data} loading={loading} />
 
       <div className="container mx-auto px-4 py-12 ">
         <div className="flex flex-col sm:flex-col md:flex-col lg:flex-row gap-10">
@@ -56,7 +56,6 @@ function ServiceDetails() {
           <ServiceDetailSideBar />
         </div>
       </div>
-      
     </>
   );
 }

@@ -52,9 +52,7 @@ function ContactUsPage() {
   return (
     <div>
       <Helmet>
-        <title>
-          {contact_data?.meta_title || " "} | {websiteData?.title || " "}
-        </title>
+        <title>{contact_data?.meta_title || " "}</title>
         <meta name="description" content={contact_data.meta_description} />
         <meta name="keywords" content={contact_data.meta_keywords} />
         <meta property="og:title" content={contact_data.og_title} />
@@ -62,6 +60,7 @@ function ContactUsPage() {
         <meta property="og:image" content={contact_data.og_image} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={window.location.href} />
+        <link rel="canonical" href={window.location.href} />
       </Helmet>
       <HeroContact />
 

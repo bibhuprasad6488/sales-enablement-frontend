@@ -177,6 +177,7 @@ const WhoweAre = () => {
         <meta property="og:image" content={whoweAre?.og_image} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={window.location.href} />
+        <link rel="canonical" href={window.location.href} />
       </Helmet>
       {/* Header Section */}
       <section>

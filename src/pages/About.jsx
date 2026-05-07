@@ -59,7 +59,7 @@ function About() {
   return (
     <>
       <Helmet>
-        <title>{about_data.meta_title} | {websiteData.title}</title>
+        <title>{about_data.meta_title} </title>
         <meta name="description" content={about_data.meta_description} />
         <meta name="keywords" content={about_data.meta_keywords} />
         <meta property="og:title" content={about_data.og_title} />
@@ -67,11 +67,17 @@ function About() {
         <meta property="og:image" content={about_data.og_image} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={window.location.href} />
+        <link rel="canonical" href={window.location.href} />
       </Helmet>
       <div className="flex flex-col space-y-16 transition-opacity duration-1000 opacity-100">
         <HeroAbout />
         <AboutUs aboutData={about_data} error={error} />
-        <VisionMission missionData={mission_data} visionData={vision_data} valueData={values_data} error={error} />
+        <VisionMission
+          missionData={mission_data}
+          visionData={vision_data}
+          valueData={values_data}
+          error={error}
+        />
         <WhyChoseUs whyChoseUs={why_choose_us} error={error} />
         <Achievement archivementData={data.archivement} error={error} />
         {/* <Expertise expertsData={experts} error={error} /> */}
