@@ -60,6 +60,7 @@ const CandidateAssessment = () => {
         <meta property="og:image" content={data.og_image} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={window.location.href} />
+        <link rel="canonical" href={window.location.href} />
       </Helmet>
       <HeroCandidate salesCandidate={data} />
 

@@ -74,7 +74,7 @@ const SalesForceEvaluation = () => {
   const getYouTubeEmbedUrl = (url) => {
     if (!url) return "";
     const videoIdMatch = url.match(
-      /(?:youtu\.be\/|youtube\.com\/(?:.*v=|.*\/|.*embed\/|.*v\/))([\w-]+)/
+      /(?:youtu\.be\/|youtube\.com\/(?:.*v=|.*\/|.*embed\/|.*v\/))([\w-]+)/,
     );
     return videoIdMatch
       ? `https://www.youtube.com/embed/${videoIdMatch[1]}`
@@ -84,7 +84,7 @@ const SalesForceEvaluation = () => {
   const getYouTubeThumbnail = (url) => {
     if (!url) return "default-thumbnail.webp";
     const videoIdMatch = url.match(
-      /(?:youtu\.be\/|youtube\.com\/(?:.*v=|.*\/|.*embed\/|.*v\/))([\w-]+)/
+      /(?:youtu\.be\/|youtube\.com\/(?:.*v=|.*\/|.*embed\/|.*v\/))([\w-]+)/,
     );
     return videoIdMatch
       ? `https://img.youtube.com/vi/${videoIdMatch[1]}/maxresdefault.jpg`
@@ -104,6 +104,7 @@ const SalesForceEvaluation = () => {
         <meta property="og:image" content={data?.og_image} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={window.location.href} />
+        <link rel="canonical" href={window.location.href} />
       </Helmet>
 
       <HeroSFE salesForceEvaluation={data} />

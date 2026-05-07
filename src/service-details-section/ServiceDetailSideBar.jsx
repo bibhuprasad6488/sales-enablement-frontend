@@ -58,9 +58,9 @@ const ServiceDetailSideBar = () => {
   };
   return (
     <aside className="w-full h-full lg:w-1/6 xl:w-1/3 2xl:w-1/5 bg-gray-100 p-6 shadow-lg md:block sticky top-20">
-      <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+      <h1 className="text-2xl font-semibold text-gray-800 mb-6">
         Our Services
-      </h2>
+      </h1>
 
       {/* Services List */}
       <div className="space-y-4 mb-8 grid gap-1">

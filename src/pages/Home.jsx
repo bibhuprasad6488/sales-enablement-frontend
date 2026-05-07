@@ -45,14 +45,15 @@ function Home() {
   return (
     <>
       <Helmet>
-        <title>{websiteData?.meta_title}</title>
-        <meta name="description" content={websiteData?.meta_description} />
-        <meta name="keywords" content={websiteData?.meta_keywords} />
-        <meta property="og:title" content={websiteData?.og_title} />
-        <meta property="og:description" content={websiteData?.og_description} />
-        <meta property="og:image" content={websiteData?.og_image} />
+        <title>{page_data?.meta_title}</title>
+        <meta name="description" content={page_data?.meta_description} />
+        <meta name="keywords" content={page_data?.meta_keywords} />
+        <meta property="og:title" content={page_data?.og_title} />
+        <meta property="og:description" content={page_data?.og_description} />
+        <meta property="og:image" content={page_data?.og_image} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={window.location.href} />
+        <link rel="canonical" href={window.location.href} />
       </Helmet>
       <div
         className={`transition-opacity duration-1000 ${

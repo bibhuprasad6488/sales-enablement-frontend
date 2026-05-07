@@ -35,9 +35,7 @@ const CourseDetailSection = ({ courseData }) => {
   return (
     <>
       <Helmet>
-        <title>
-          {courseData?.meta_title || ""} | {websiteData?.title || ""}
-        </title>
+        <title>{courseData?.meta_title || ""}</title>
 
         <meta name="description" content={courseData.meta_description} />
         <meta name="keywords" content={courseData.meta_keywords} />
@@ -46,6 +44,7 @@ const CourseDetailSection = ({ courseData }) => {
         <meta property="og:image" content={courseData.og_image} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={window.location.href} />
+        <link rel="canonical" href={window.location.href} />
       </Helmet>
 
       <section className=" w-full mx-auto py-6 px-3">

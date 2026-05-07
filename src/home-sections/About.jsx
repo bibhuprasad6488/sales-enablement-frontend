@@ -68,7 +68,7 @@ function About({ aboutPageData }) {
           >
             {aboutPageData.sub_title}
           </h5>
-          <h2
+          <h1
             className="text-[20px] sm:text-[24px] md:text-[28px] font-bold uppercase mt-7 mb-7"
             data-aos="fade-left"
             data-aos-delay="200"
@@ -78,7 +78,7 @@ function About({ aboutPageData }) {
               className="about-intro-title"
               dangerouslySetInnerHTML={{ __html: aboutPageData.title }}
             />
-          </h2>
+          </h1>
 
           <p
             className="text-sm sm:text-[16px] md:text-[16px] lg:text-[16px] xl:text-[16px]  leading-[32px] text-justify mb-8"
